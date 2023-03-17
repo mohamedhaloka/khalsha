@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/features/fill_service_details/presentation/steps/fill_data_step_view.dart';
+import 'package:khalsha/features/fill_service_details/presentation/steps/fill_data/fill_data_step_view.dart';
 import 'package:khalsha/features/fill_service_details/presentation/steps/order_send_successfully_step_view.dart';
 import 'package:khalsha/features/service_intro/presentation/get/controllers/controller.dart';
 
@@ -18,7 +18,7 @@ class FillServiceDetailsController extends GetxController {
   List<ItemModel> pages = const <ItemModel>[
     ItemModel(
       text: 'تعبئة الطلب',
-      child: FillDataView(),
+      child: FillDataStepView(),
     ),
     ItemModel(
       text: 'خدمات إضافية',

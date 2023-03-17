@@ -82,6 +82,7 @@ class _SetNumberCountState extends State<SetNumberCount> {
                       ),
                       CustomButton(
                         onTap: () {
+                          if (count == 0) return;
                           count--;
                           setState(() {});
                         },

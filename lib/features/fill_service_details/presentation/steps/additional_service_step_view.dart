@@ -13,9 +13,7 @@ class AdditionalServiceStepView
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
+    return ListView(
       children: [
         SvgPicture.asset(
           'assets/images/fill_service_steps/additional_service.svg',
@@ -37,7 +35,7 @@ class AdditionalServiceStepView
           number: controller.customsClauseList.length.obs,
           bottomSheetTitle: 'إضافة بند جمركي',
           height: Get.height / 2,
-          builder: (int number) => '$number يوم',
+          builder: (int number) => '$number بند',
           body: CustomsClause(
             customsClause: controller.customsClauseList,
             onAdd: controller.addNewClause,

@@ -15,6 +15,7 @@ class AdditionalServiceItemWithHolder extends StatelessWidget {
     required this.bottomSheetTitle,
     this.height,
     this.builder,
+    this.onTap,
     required this.number,
     required this.body,
   }) : super(key: key);
@@ -24,6 +25,7 @@ class AdditionalServiceItemWithHolder extends StatelessWidget {
   final Widget body;
   final double? height;
   final String Function(int number)? builder;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -34,11 +36,13 @@ class AdditionalServiceItemWithHolder extends StatelessWidget {
           Expanded(
             child: Row(
               children: [
-                Text(
-                  title ?? '',
-                  style: Get.textTheme.bodyMedium!.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: ColorManager.greyColor,
+                Expanded(
+                  child: Text(
+                    title ?? '',
+                    style: Get.textTheme.bodyMedium!.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: ColorManager.greyColor,
+                    ),
                   ),
                 ),
                 Padding(
@@ -57,14 +61,22 @@ class AdditionalServiceItemWithHolder extends StatelessWidget {
                 () => CustomButton(
                   height: inputHeight,
                   width: inputHeight + 50,
-                  onTap: () => Get.bottomSheet(
-                    HeadLineBottomSheet(
-                      height: height,
-                      body: body,
-                      bottomSheetTitle: bottomSheetTitle,
-                    ),
-                    isScrollControlled: true,
-                  ),
+                  onTap: () {
+
+                    if(onTap != null) {
+                      onTap!();
+                      return;
+                    }
+
+                    Get.bottomSheet(
+                      HeadLineBottomSheet(
+                        height: height,
+                        body: body,
+                        bottomSheetTitle: bottomSheetTitle,
+                      ),
+                      isScrollControlled: true,
+                    );
+                  },
                   radius: radius,
                   contentColor:
                       number.value == 0 ? ColorManager.greyColor : Colors.white,

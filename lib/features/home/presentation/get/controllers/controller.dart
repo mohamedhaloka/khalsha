@@ -9,22 +9,16 @@ class HomeController extends GetxController {
   void onInit() {
     services = const [
       ItemModel(
-        id: 0,
-        image: 'customs-clearance',
-        text: 'التخليص الجمركي',
-        arguments: ServiceType.customsClearance,
-      ),
-      ItemModel(
         id: 1,
         image: 'land-shipping',
         text: 'الشحن البري',
         arguments: ServiceType.landShipping,
       ),
       ItemModel(
-        id: 2,
-        image: 'stores',
-        text: 'المخازن',
-        arguments: ServiceType.stores,
+        id: 0,
+        image: 'customs-clearance',
+        text: 'التخليص الجمركي',
+        arguments: ServiceType.customsClearance,
       ),
       ItemModel(
         id: 3,
@@ -33,16 +27,22 @@ class HomeController extends GetxController {
         arguments: ServiceType.marineShipping,
       ),
       ItemModel(
-        id: 4,
-        image: 'air-freight',
-        text: 'الشحن الجوي',
-        arguments: ServiceType.airFreight,
+        id: 2,
+        image: 'stores',
+        text: 'المخازن',
+        arguments: ServiceType.stores,
       ),
       ItemModel(
         id: 5,
         image: 'laboratory-and-standards',
         text: 'المختبرات و المقاييس',
         arguments: ServiceType.laboratoryAndStandards,
+      ),
+      ItemModel(
+        id: 4,
+        image: 'air-freight',
+        text: 'الشحن الجوي',
+        arguments: ServiceType.airFreight,
       ),
     ];
     super.onInit();
