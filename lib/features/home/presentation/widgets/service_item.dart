@@ -15,8 +15,10 @@ class ServiceItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () =>
-          Get.toNamed(Routes.serviceIntro, arguments: service.arguments),
+      onTap: () => Get.toNamed(
+        Routes.serviceIntro,
+        arguments: service.arguments,
+      ),
       child: ClipRRect(
         borderRadius: const BorderRadius.all(Radius.circular(20)),
         child: Container(

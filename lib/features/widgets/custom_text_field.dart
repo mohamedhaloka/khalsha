@@ -14,11 +14,12 @@ class CustomTextField extends StatelessWidget {
       this.controller,
       this.enabled,
       this.title,
+      this.fontWeight,
       this.suffixImg,
       this.textAlign,
       this.onChanged,
-      this.prefixIcon,
       this.height,
+      this.prefixIcon,
       this.contentPadding,
       this.padding,
       this.maxLength,
@@ -50,12 +51,13 @@ class CustomTextField extends StatelessWidget {
       this.contentColor,
       this.title,
       this.inputBorder,
+      this.height,
       this.onTap,
       this.activeBorderColor,
       this.fontSize,
-      this.height,
       this.onChanged,
       this.maxLength,
+      this.fontWeight,
       this.onSubmitted,
       this.padding,
       this.keyboardType,
@@ -75,6 +77,7 @@ class CustomTextField extends StatelessWidget {
   final int? maxLines, maxLength;
   final Color? fillColor, contentColor, activeBorderColor;
   final double? radius, fontSize, height;
+  final FontWeight? fontWeight;
   final TextEditingController? controller;
   final bool? enabled;
   final Widget? suffixIcon, prefixIcon;
@@ -103,85 +106,93 @@ class CustomTextField extends StatelessWidget {
           onTap: onTap,
           child: Padding(
             padding: padding ?? const EdgeInsets.fromLTRB(0, 2, 0, 12),
-            child: Obx(() => TextField(
-                  scrollPadding: const EdgeInsets.only(bottom: 30, top: 40),
-                  controller: controller,
-                  cursorColor: ColorManager.primaryColor,
-                  obscureText: (passSecure ?? false.obs).value,
-                  maxLines: maxLines,
-                  maxLength: inputsMaxLength[inputType] ?? maxLength,
-                  textInputAction: textInputAction ??
-                      (maxLines == 1
-                          ? TextInputAction.next
-                          : TextInputAction.newline),
-                  style: TextStyle(color: contentColor, fontSize: fontSize),
-                  keyboardType: keyboardType,
-                  inputFormatters: keyboardType == TextInputType.number
-                      ? [FilteringTextInputFormatter.digitsOnly]
-                      : maxLength != null || inputType != null
-                          ? [
-                              LengthLimitingTextInputFormatter(
-                                inputsMaxLength[inputType] ?? maxLength,
-                              )
-                            ]
-                          : [],
-                  textAlign: textAlign ?? TextAlign.start,
-                  onSubmitted: onSubmitted,
-                  onChanged: onChanged,
-                  decoration: InputDecoration(
-                      enabled: onTap == null ? enabled ?? true : false,
-                      border: inputBorder ?? border(borderSide),
-                      enabledBorder: inputBorder ?? border(borderSide),
-                      focusedBorder: inputBorder ??
-                          border(BorderSide(
-                              color: activeBorderColor ??
-                                  ColorManager.primaryColor)),
-                      errorBorder: inputBorder ??
-                          border(BorderSide(
-                              color: activeBorderColor ??
-                                  ColorManager.errorColor)),
-                      disabledBorder: inputBorder ??
-                          border(BorderSide(
-                              color: activeBorderColor ??
-                                  ColorManager.primaryColor)),
-                      filled: true,
-                      fillColor: fillColor ?? Colors.transparent,
-                      prefixIcon: prefixImg != null
-                          ? Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: SvgPicture.asset(
-                                  'assets/images/icons/$prefixImg.svg',
-                                  color: contentColor),
-                            )
-                          : prefixIcon,
-                      suffixIcon: suffixImg != null
-                          ? Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: SvgPicture.asset(
-                                'assets/images/icons/$suffixImg.svg',
-                                color: contentColor,
-                              ),
-                            )
-                          : inputType == Input.password
-                              ? IconButton(
-                                  onPressed: () =>
-                                      passSecure!(!passSecure!.value),
-                                  color: ColorManager.primaryColor,
-                                  icon: SvgPicture.asset(
-                                    'assets/images/icons/${passSecure!.value ? 'hide-password' : 'hide-password'}.svg',
-                                  ),
-                                )
-                              : suffixIcon,
-                      hintText: (hint ?? 'ادخل $title').tr,
-                      counterText: '',
-                      contentPadding: contentPadding ??
-                          const EdgeInsets.symmetric(
-                              horizontal: 12, vertical: 14),
-                      hintStyle: Get.textTheme.subtitle2!.copyWith(
-                        color: contentColor ?? ColorManager.greyColor,
+            child: SizedBox(
+              height: height,
+              child: Obx(() => TextField(
+                    scrollPadding: const EdgeInsets.only(bottom: 30, top: 40),
+                    controller: controller,
+                    cursorColor: ColorManager.primaryColor,
+                    obscureText: (passSecure ?? false.obs).value,
+                    maxLines: maxLines,
+                    maxLength: inputsMaxLength[inputType] ?? maxLength,
+                    textInputAction: textInputAction ??
+                        (maxLines == 1
+                            ? TextInputAction.next
+                            : TextInputAction.newline),
+                    style: TextStyle(
+                        color: contentColor,
                         fontSize: fontSize,
-                      )),
-                )),
+                        fontWeight: fontWeight),
+                    keyboardType: keyboardType,
+                    inputFormatters: keyboardType == TextInputType.number
+                        ? [FilteringTextInputFormatter.digitsOnly]
+                        : maxLength != null || inputType != null
+                            ? [
+                                LengthLimitingTextInputFormatter(
+                                  inputsMaxLength[inputType] ?? maxLength,
+                                )
+                              ]
+                            : [],
+                    textAlign: textAlign ?? TextAlign.start,
+                    onSubmitted: onSubmitted,
+                    onChanged: onChanged,
+                    decoration: InputDecoration(
+                        enabled: onTap == null ? enabled ?? true : false,
+                        border: inputBorder ?? border(borderSide),
+                        enabledBorder: inputBorder ?? border(borderSide),
+                        focusedBorder: inputBorder ??
+                            border(BorderSide(
+                                color: activeBorderColor ??
+                                    ColorManager.primaryColor)),
+                        errorBorder: inputBorder ??
+                            border(BorderSide(
+                                color: activeBorderColor ??
+                                    ColorManager.errorColor)),
+                        disabledBorder: inputBorder ??
+                            border(BorderSide(
+                                color: activeBorderColor ??
+                                    ColorManager.primaryColor)),
+                        filled: true,
+                        fillColor: fillColor ?? Colors.transparent,
+                        prefixIcon: prefixImg != null
+                            ? Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: SvgPicture.asset(
+                                    'assets/images/icons/$prefixImg.svg',
+                                    color: contentColor),
+                              )
+                            : prefixIcon,
+                        suffixIcon: suffixImg != null
+                            ? Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: SvgPicture.asset(
+                                  'assets/images/icons/$suffixImg.svg',
+                                  color: contentColor,
+                                ),
+                              )
+                            : inputType == Input.password
+                                ? IconButton(
+                                    onPressed: () =>
+                                        passSecure!(!passSecure!.value),
+                                    color: ColorManager.primaryColor,
+                                    icon: SvgPicture.asset(
+                                      'assets/images/icons/${passSecure!.value ? 'hide-password' : 'hide-password'}.svg',
+                                    ),
+                                  )
+                                : suffixIcon,
+                        hintText: hint,
+                        counterText: '',
+                        contentPadding: contentPadding ??
+                            const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 14,
+                            ),
+                        hintStyle: Get.textTheme.subtitle2!.copyWith(
+                            color: contentColor ?? ColorManager.greyColor,
+                            fontSize: fontSize,
+                            fontWeight: fontWeight)),
+                  )),
+            ),
           ),
         ),
       ],

@@ -15,6 +15,7 @@ abstract class Routes {
   static const contactUS = _Paths.contactUS;
   static const blog = _Paths.blog;
   static const postDetails = _Paths.postDetails;
+  static const fillServiceDetails = _Paths.fillServiceDetails;
 }
 
 abstract class _Paths {
@@ -31,4 +32,5 @@ abstract class _Paths {
   static const contactUS = '/contact_us';
   static const blog = '/blog';
   static const postDetails = '/post_details';
+  static const fillServiceDetails = '/fill_service_details';
 }

@@ -5,6 +5,7 @@ import 'package:khalsha/features/common_questions/presentation/get/binding/bindi
 import 'package:khalsha/features/common_questions/presentation/view.dart';
 import 'package:khalsha/features/contact_us/presentation/get/binding/binding.dart';
 import 'package:khalsha/features/contact_us/presentation/view.dart';
+import 'package:khalsha/features/fill_service_details/presentation/fill_service_details_view.dart';
 import 'package:khalsha/features/intro/presentation/get/binding/binding.dart';
 import 'package:khalsha/features/intro/presentation/view.dart';
 import 'package:khalsha/features/login/presentation/get/bindings/binding.dart';
@@ -25,6 +26,7 @@ import 'package:khalsha/features/share_app/presentation/get/binding/binding.dart
 import 'package:khalsha/features/share_app/presentation/view.dart';
 import 'package:khalsha/features/sources/presentation/get/binding/binding.dart';
 
+import '../../features/fill_service_details/presentation/get/bindings/fill_service_details_binding.dart';
 import '../../features/sources/presentation/view.dart';
 
 part 'app_pages.dart';
@@ -99,6 +101,11 @@ class AppPages {
       name: _Paths.postDetails,
       page: () => const PostDetailsView(),
       binding: PostDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.fillServiceDetails,
+      page: () => const FillServiceDetailsView(),
+      binding: FillServiceDetailsBinding(),
     ),
   ];
 }

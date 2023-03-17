@@ -12,8 +12,7 @@ class BackIconButton extends StatelessWidget {
     return CustomButton(
       width: 38,
       height: 38,
-      radius: 8,
-      backgroundColor: Colors.white,
+      radius: 10,
       onTap: onTap ?? Get.back,
       imgName: 'arrow-left',
     );

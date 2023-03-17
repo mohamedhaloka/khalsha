@@ -9,14 +9,16 @@ class CustomAppBar extends StatelessWidget implements PreferredSize {
     Key? key,
     this.onTap,
     this.title,
+    this.backgroundColor,
   }) : super(key: key);
   final void Function()? onTap;
   final String? title;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.transparent,
+      backgroundColor: backgroundColor ?? Colors.transparent,
       leadingWidth: 0,
       title: Text(
         title ?? '',

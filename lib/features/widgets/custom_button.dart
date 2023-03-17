@@ -46,10 +46,12 @@ class CustomButton extends StatelessWidget {
         () => ElevatedButton(
           onPressed: (loading ?? false.obs).value ? null : onTap,
           style: ElevatedButton.styleFrom(
+            padding: EdgeInsets.zero,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(radius ?? 12)),
             ),
-            backgroundColor: backgroundColor ?? Colors.transparent,
+            backgroundColor: backgroundColor ?? Colors.white,
+            foregroundColor: ColorManager.primaryColor,
             side: const BorderSide(
               color: ColorManager.greyColor,
               width: .5,
@@ -75,7 +77,9 @@ class CustomButton extends StatelessWidget {
                       ],
                     )
                   : imgName != null
-                      ? SvgPicture.asset('assets/images/icons/$imgName.svg')
+                      ? SvgPicture.asset(
+                          'assets/images/icons/$imgName.svg',
+                        )
                       : Text(
                           (text ?? '').tr,
                           style: Get.textTheme.bodyText2!.copyWith(
