@@ -12,11 +12,25 @@ class _Stores extends GetView<FillDataController> {
           items: controller.shippingFieldOptions,
           selectedItem: controller.selectedShippingField,
         ),
-        const TextFieldInputWithHolder(
+        ChooseItemWithHolder(
           title: 'نوع التخزين',
+          selectedItem: controller.selectedShippingPlace,
+          bottomSheetTitle: 'نوع التخزين',
+          height: Get.height / 2,
+          body: MultiItemsList(
+            items: testItemsList,
+            selectedItem: controller.selectedShippingPlace,
+          ),
         ),
-        const TextFieldInputWithHolder(
+        ChooseItemWithHolder(
           title: 'نوع الصنف',
+          selectedItem: controller.selectedShippingPlace,
+          bottomSheetTitle: 'نوع الصنف',
+          height: Get.height / 2,
+          body: MultiItemsList(
+            items: testItemsList,
+            selectedItem: controller.selectedShippingPlace,
+          ),
         ),
         ToggleItemWithHolder(
           title: 'نوع الشحنة',
@@ -34,7 +48,7 @@ class _Stores extends GetView<FillDataController> {
           bottomSheetTitle: 'اختر منفذ الشحنة',
           height: Get.height / 2,
           body: MultiItemsList(
-            items: controller.shippingPlacesOptions,
+            items: testItemsList,
             selectedItem: controller.selectedShippingPlace,
           ),
         ),

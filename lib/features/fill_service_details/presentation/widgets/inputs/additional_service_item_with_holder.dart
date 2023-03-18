@@ -14,17 +14,15 @@ class AdditionalServiceItemWithHolder extends StatelessWidget {
     this.title,
     required this.bottomSheetTitle,
     this.height,
-    this.builder,
     this.onTap,
-    required this.number,
+    required this.item,
     required this.body,
   }) : super(key: key);
   final String? title;
   final String bottomSheetTitle;
-  final RxInt number;
+  final Rx<Object> item;
   final Widget body;
   final double? height;
-  final String Function(int number)? builder;
   final void Function()? onTap;
 
   @override
@@ -57,33 +55,27 @@ class AdditionalServiceItemWithHolder extends StatelessWidget {
           ),
           Row(
             children: [
-              Obx(
-                () => CustomButton(
-                  height: inputHeight,
-                  width: inputHeight + 50,
-                  onTap: () {
+              CustomButton(
+                height: inputHeight,
+                width: inputHeight + 50,
+                onTap: () {
+                  if (onTap != null) {
+                    onTap!();
+                    return;
+                  }
 
-                    if(onTap != null) {
-                      onTap!();
-                      return;
-                    }
-
-                    Get.bottomSheet(
-                      HeadLineBottomSheet(
-                        height: height,
-                        body: body,
-                        bottomSheetTitle: bottomSheetTitle,
-                      ),
-                      isScrollControlled: true,
-                    );
-                  },
-                  radius: radius,
-                  contentColor:
-                      number.value == 0 ? ColorManager.greyColor : Colors.white,
-                  backgroundColor:
-                      number.value == 0 ? null : ColorManager.primaryColor,
-                  text: number.value == 0 ? 'إضافة' : builder!(number.value),
-                ),
+                  Get.bottomSheet(
+                    HeadLineBottomSheet(
+                      height: height,
+                      body: body,
+                      bottomSheetTitle: bottomSheetTitle,
+                    ),
+                    isScrollControlled: true,
+                  );
+                },
+                radius: radius,
+                contentColor: ColorManager.greyColor,
+                text: 'إضافة',
               ),
               const SizedBox(width: 6),
               CustomButton(

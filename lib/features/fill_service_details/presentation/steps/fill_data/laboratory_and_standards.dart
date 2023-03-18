@@ -9,20 +9,18 @@ class _LaboratoryAndStandards extends GetView<FillDataController> {
       children: [
         AdditionalServiceItemWithHolder(
           title: 'متوفر لدي المورد Factory aduit report',
-          number: 0.obs,
+          item: 0.obs,
           bottomSheetTitle: 'خدمة التخزين',
           height: Get.height / 3,
           onTap: () {},
-          builder: (int number) => '$number يوم',
           body: const Text('lll'),
         ),
         AdditionalServiceItemWithHolder(
           title: 'متوفر لدي المورد Test report',
-          number: 0.obs,
+          item: 0.obs,
           bottomSheetTitle: 'خدمة التخزين',
           height: Get.height / 3,
           onTap: () {},
-          builder: (int number) => '$number يوم',
           body: const Text('lll'),
         ),
         const TextFieldInputWithHolder(

@@ -3,8 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 import '../get/controllers/confirm_order_step_controller.dart';
-import '../widgets/inputs/multi_text_field_input_with_holder.dart';
 import '../widgets/inputs/text_field_input_with_holder.dart';
+import '../widgets/inputs/twice_text_field_input_with_holder.dart';
 
 class ConfirmOrderStepView extends GetView<ConfirmOrderStepController> {
   const ConfirmOrderStepView({Key? key}) : super(key: key);
@@ -20,7 +20,7 @@ class ConfirmOrderStepView extends GetView<ConfirmOrderStepController> {
         const TextFieldInputWithHolder(
           hint: 'اسم الشحن المسئول',
         ),
-        const MultiTextFieldInputWithHolder(
+        const TwiceTextFieldInputWithHolder(
           firstInputHint: 'رقم الجوال',
           secondInputHint: '33+',
           firstInputFlex: 5,

@@ -13,9 +13,11 @@ class TextFieldInputWithHolder extends StatelessWidget {
     this.hint,
     this.title,
     this.controller,
+    this.padding,
   }) : super(key: key);
   final String? title, hint;
   final TextEditingController? controller;
+  final EdgeInsets? padding;
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +56,7 @@ class TextFieldInputWithHolder extends StatelessWidget {
           ),
         ],
       ),
+      padding: padding,
     );
   }
 }

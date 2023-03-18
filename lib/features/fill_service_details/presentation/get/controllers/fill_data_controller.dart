@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:khalsha/core/models/item_model.dart';
+import 'package:khalsha/features/fill_service_details/domain/entities/package_model.dart';
 import 'package:khalsha/features/fill_service_details/presentation/get/controllers/fill_service_details_controller.dart';
 import 'package:khalsha/features/service_intro/presentation/get/controllers/controller.dart';
 
@@ -33,48 +34,6 @@ class FillDataController extends GetxController {
   ];
 
   Rx<ItemModel> selectedShippingPlace = ItemModel.empty().obs;
-  List<ItemModel> shippingPlacesOptions = const <ItemModel>[
-    ItemModel(
-      text: 'ميناء 1',
-      id: 0,
-    ),
-    ItemModel(
-      text: 'ميناء 2',
-      id: 1,
-    ),
-    ItemModel(
-      text: 'ميناء 3',
-      id: 2,
-    ),
-    ItemModel(
-      text: 'ميناء 4',
-      id: 3,
-    ),
-    ItemModel(
-      text: 'ميناء 5',
-      id: 4,
-    ),
-    ItemModel(
-      text: 'ميناء 6',
-      id: 5,
-    ),
-    ItemModel(
-      text: 'ميناء 7',
-      id: 6,
-    ),
-    ItemModel(
-      text: 'ميناء 8',
-      id: 7,
-    ),
-    ItemModel(
-      text: 'ميناء 9',
-      id: 8,
-    ),
-    ItemModel(
-      text: 'ميناء 10',
-      id: 9,
-    ),
-  ];
 
   RxInt selectedShipType = 0.obs;
   List<ItemModel> shipTypeOptions = const <ItemModel>[
@@ -87,4 +46,53 @@ class FillDataController extends GetxController {
       id: 1,
     )
   ];
+
+  RxList<PackageModel> packages = <PackageModel>[
+    PackageModel.newItem(),
+  ].obs;
+
+  void addNewPackageItem() => packages.add(PackageModel.newItem());
 }
+
+List<ItemModel> testItemsList = const <ItemModel>[
+  ItemModel(
+    text: '1',
+    id: 0,
+  ),
+  ItemModel(
+    text: '2',
+    id: 1,
+  ),
+  ItemModel(
+    text: '3',
+    id: 2,
+  ),
+  ItemModel(
+    text: '4',
+    id: 3,
+  ),
+  ItemModel(
+    text: '5',
+    id: 4,
+  ),
+  ItemModel(
+    text: '6',
+    id: 5,
+  ),
+  ItemModel(
+    text: '7',
+    id: 6,
+  ),
+  ItemModel(
+    text: '8',
+    id: 7,
+  ),
+  ItemModel(
+    text: '9',
+    id: 8,
+  ),
+  ItemModel(
+    text: '10',
+    id: 9,
+  ),
+];

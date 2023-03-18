@@ -18,7 +18,7 @@ class _LandShipping extends GetView<FillDataController> {
           bottomSheetTitle: 'نوع الشاحنة',
           height: Get.height / 2,
           body: MultiItemsList(
-            items: controller.shippingPlacesOptions,
+            items: testItemsList,
             selectedItem: controller.selectedShippingPlace,
           ),
         ),
@@ -28,7 +28,7 @@ class _LandShipping extends GetView<FillDataController> {
           bottomSheetTitle: 'نوع الشحنة',
           height: Get.height / 2,
           body: MultiItemsList(
-            items: controller.shippingPlacesOptions,
+            items: testItemsList,
             selectedItem: controller.selectedShippingPlace,
           ),
         ),
@@ -38,7 +38,7 @@ class _LandShipping extends GetView<FillDataController> {
           bottomSheetTitle: 'شحن دولي',
           height: Get.height / 2,
           body: MultiItemsList(
-            items: controller.shippingPlacesOptions,
+            items: testItemsList,
             selectedItem: controller.selectedShippingPlace,
           ),
         ),

@@ -51,8 +51,7 @@ class AttachFilesStepView extends StatelessWidget {
           height: 200,
           title: 'أضف الملفات',
           bottomSheetTitle: 'أضف الملفات',
-          number: 0.obs,
-          builder: (int number) => '$number ملف',
+          item: 0.obs,
           body: const Text('Attach Files'),
         )
       ],

@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:khalsha/core/models/item_model.dart';
 import 'package:khalsha/core/themes/colors_manager.dart';
+import 'package:khalsha/features/fill_service_details/presentation/bottom_sheet_content/add_shipping_size.dart';
 import 'package:khalsha/features/fill_service_details/presentation/get/controllers/fill_data_controller.dart';
 import 'package:khalsha/features/fill_service_details/presentation/widgets/inputs/attach_file_with_holder.dart';
 import 'package:khalsha/features/fill_service_details/presentation/widgets/inputs/choose_item_with_holder.dart';
-import 'package:khalsha/features/fill_service_details/presentation/widgets/inputs/multi_text_field_input_with_holder.dart';
 import 'package:khalsha/features/fill_service_details/presentation/widgets/inputs/text_field_input_with_holder.dart';
 import 'package:khalsha/features/fill_service_details/presentation/widgets/inputs/toggle_item_with_holder.dart';
+import 'package:khalsha/features/fill_service_details/presentation/widgets/inputs/twice_text_field_input_with_holder.dart';
 
 import '../../../../service_intro/presentation/get/controllers/controller.dart';
 import '../../bottom_sheet_content/choose_shipping_place.dart';

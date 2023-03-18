@@ -5,7 +5,7 @@ import 'package:khalsha/features/fill_service_details/presentation/steps/order_s
 import 'package:khalsha/features/service_intro/presentation/get/controllers/controller.dart';
 
 import '../../../../../core/models/item_model.dart';
-import '../../steps/additional_service_step_view.dart';
+import '../../steps/additional_service/additional_service_step_view.dart';
 import '../../steps/attach_files_step_view.dart';
 import '../../steps/confirm_order_step_view.dart';
 
@@ -15,30 +15,50 @@ class FillServiceDetailsController extends GetxController {
   PageController stepsPageController = PageController();
 
   RxInt currentStep = 0.obs;
-  List<ItemModel> pages = const <ItemModel>[
-    ItemModel(
+  List<ItemModel> pages = <ItemModel>[
+    const ItemModel(
       text: 'تعبئة الطلب',
       child: FillDataStepView(),
     ),
-    ItemModel(
+    const ItemModel(
       text: 'خدمات إضافية',
       child: AdditionalServiceStepView(),
     ),
-    ItemModel(
-      text: 'إرفاق ملفات',
-      child: AttachFilesStepView(),
-    ),
-    ItemModel(
+    const ItemModel(
       text: 'تأكيد الطلب',
       child: ConfirmOrderStepView(),
     ),
-    ItemModel(
+    const ItemModel(
       text: 'إرسال الطلب',
       child: OrderSendSuccessfullyStepView(),
     ),
   ];
 
   String get pageTitle => pages[currentStep.value].text;
+
+  @override
+  void onReady() {
+    _addAdditionalPage();
+    super.onReady();
+  }
+
+  void _addAdditionalPage() {
+    ItemModel? page;
+    switch (serviceType) {
+      case ServiceType.customsClearance:
+        page = const ItemModel(
+          text: 'إرفاق ملفات',
+          child: AttachFilesStepView(),
+        );
+        break;
+      case ServiceType.landShipping:
+        break;
+      default:
+        break;
+    }
+    if (page == null) return;
+    pages.insert(2, page);
+  }
 
   void goNext() {
     if (currentStep.value == pages.length - 1) {

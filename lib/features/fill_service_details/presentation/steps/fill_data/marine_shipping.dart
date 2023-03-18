@@ -38,13 +38,13 @@ class _MarineShipping extends GetView<FillDataController> {
           selectedItem: const ItemModel(text: '').obs,
           body: const SetShippingDetails(),
         ),
-        const MultiTextFieldInputWithHolder(
+        const TwiceTextFieldInputWithHolder(
           title: 'قيمة الشحنة',
           firstInputHint: '2000',
           firstInputFlex: 2,
           secondInputHint: 'ر.س',
         ),
-        AttachFileWithHolder(
+        const AttachFileWithHolder(
           title: 'صورة للشحنة',
         ),
         const TextFieldInputWithHolder(

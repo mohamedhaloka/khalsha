@@ -23,7 +23,7 @@ class _CustomsClearance extends GetView<FillDataController> {
           bottomSheetTitle: 'اختر منفذ الشحنة',
           height: Get.height / 2,
           body: MultiItemsList(
-            items: controller.shippingPlacesOptions,
+            items: testItemsList,
             selectedItem: controller.selectedShippingPlace,
           ),
         ),
@@ -33,7 +33,7 @@ class _CustomsClearance extends GetView<FillDataController> {
         const TextFieldInputWithHolder(
           hint: 'وصف البضاعة',
         ),
-        const MultiTextFieldInputWithHolder(
+        const TwiceTextFieldInputWithHolder(
           title: 'الإجمالي',
           firstInputHint: '2000',
           firstInputFlex: 2,

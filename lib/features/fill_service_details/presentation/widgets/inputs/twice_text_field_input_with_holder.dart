@@ -7,8 +7,8 @@ import '../../../../widgets/custom_text_field.dart';
 import '../../inputs_style.dart';
 import 'input_holder_box.dart';
 
-class MultiTextFieldInputWithHolder extends StatelessWidget {
-  const MultiTextFieldInputWithHolder({
+class TwiceTextFieldInputWithHolder extends StatelessWidget {
+  const TwiceTextFieldInputWithHolder({
     Key? key,
     this.title,
     this.firstInputHint,
