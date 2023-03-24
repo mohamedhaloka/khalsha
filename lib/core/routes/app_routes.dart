@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:khalsha/features/account_settings/presentation/view.dart';
 import 'package:khalsha/features/bill_details/presentation/get/binding/binding.dart';
 import 'package:khalsha/features/bill_details/presentation/view.dart';
 import 'package:khalsha/features/blog/presentation/get/binding/binding.dart';
@@ -8,6 +9,7 @@ import 'package:khalsha/features/common_questions/presentation/view.dart';
 import 'package:khalsha/features/contact_us/presentation/get/binding/binding.dart';
 import 'package:khalsha/features/contact_us/presentation/view.dart';
 import 'package:khalsha/features/fill_service_details/presentation/fill_service_details_view.dart';
+import 'package:khalsha/features/how_to_use/presentation/view.dart';
 import 'package:khalsha/features/intro/presentation/get/binding/binding.dart';
 import 'package:khalsha/features/intro/presentation/view.dart';
 import 'package:khalsha/features/login/presentation/get/bindings/binding.dart';
@@ -31,7 +33,9 @@ import 'package:khalsha/features/share_app/presentation/get/binding/binding.dart
 import 'package:khalsha/features/share_app/presentation/view.dart';
 import 'package:khalsha/features/sources/presentation/get/binding/binding.dart';
 
+import '../../features/account_settings/presentation/get/binding/binding.dart';
 import '../../features/fill_service_details/presentation/get/bindings/fill_service_details_binding.dart';
+import '../../features/how_to_use/presentation/get/binding/binding.dart';
 import '../../features/order_details/presentation/get/binding/binding.dart';
 import '../../features/sources/presentation/view.dart';
 
@@ -127,6 +131,16 @@ class AppPages {
       name: _Paths.billDetails,
       page: () => const BillDetailsView(),
       binding: BillDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.accountSettings,
+      page: () => const AccountSettingsView(),
+      binding: AccountSettingsBinding(),
+    ),
+    GetPage(
+      name: _Paths.howToUse,
+      page: () => const HowToUseView(),
+      binding: HowToUseBinding(),
     ),
   ];
 }

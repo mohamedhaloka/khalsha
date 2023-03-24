@@ -91,10 +91,12 @@ class NavigationMenuController extends GetxController {
       ItemModel(
         image: 'how-to-use',
         text: 'طريقة الإستخدام',
+        route: Routes.howToUse,
       ),
       ItemModel(
         image: 'setting',
-        text: 'الإعدادات',
+        text: 'إعدادات الحساب',
+        route: Routes.accountSettings,
       ),
     ];
     super.onInit();

@@ -13,9 +13,13 @@ class ChooseFile extends StatelessWidget {
     required this.title,
     required this.hint,
     required this.file,
+    this.titleStyle,
+    this.helper,
   }) : super(key: key);
+  final String? helper;
   final String title, hint;
   final Rx<File> file;
+  final TextStyle? titleStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +28,7 @@ class ChooseFile extends StatelessWidget {
       children: [
         Text(
           title.tr,
-          style: Get.textTheme.subtitle2,
+          style: titleStyle ?? Get.textTheme.subtitle2,
         ),
         InkWell(
           onTap: chooseFile,
@@ -34,8 +38,7 @@ class ChooseFile extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 12),
             decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(10)),
-                border:
-                    Border.all(width: .5, color: ColorManager.lightGreyColor)),
+                border: Border.all(width: .5, color: ColorManager.greyColor)),
             child: Row(
               children: [
                 Expanded(
@@ -54,6 +57,15 @@ class ChooseFile extends StatelessWidget {
                   'assets/images/icons/upload-file.svg',
                 )
               ],
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(right: 12),
+          child: Text(
+            helper ?? '',
+            style: Get.textTheme.labelMedium!.copyWith(
+              color: ColorManager.greyColor,
             ),
           ),
         ),

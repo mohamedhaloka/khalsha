@@ -7,8 +7,8 @@ class OrderDetailsController extends GetxController {
   RxInt currentTab = 0.obs;
   PageController pageViewController = PageController();
 
-  RxInt currentStatus = 0.obs;
-  PageController statusSliderController = PageController();
+  RxInt currentStatus = 1.obs;
+  PageController statusSliderController = PageController(initialPage: 1);
 
   List<ItemModel> orderData = const <ItemModel>[
     ItemModel(text: 'عنوان الطلب', description: 'نقل أخشاب'),

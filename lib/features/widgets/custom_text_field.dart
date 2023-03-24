@@ -14,6 +14,7 @@ class CustomTextField extends StatelessWidget {
       this.controller,
       this.enabled,
       this.title,
+      this.helper,
       this.fontWeight,
       this.width,
       this.suffixImg,
@@ -24,6 +25,7 @@ class CustomTextField extends StatelessWidget {
       this.contentPadding,
       this.padding,
       this.maxLength,
+      this.titleStyle,
       this.passSecure,
       this.onSubmitted,
       this.keyboardType,
@@ -59,6 +61,7 @@ class CustomTextField extends StatelessWidget {
       this.onChanged,
       this.maxLength,
       this.fontWeight,
+      this.helper,
       this.onSubmitted,
       this.padding,
       this.keyboardType,
@@ -67,6 +70,7 @@ class CustomTextField extends StatelessWidget {
       this.inputType,
       this.width,
       this.contentPadding,
+      this.titleStyle,
       this.passSecure,
       this.radius = 22,
       this.maxLines = 1,
@@ -74,7 +78,7 @@ class CustomTextField extends StatelessWidget {
       this.borderSide =
           const BorderSide(color: ColorManager.secondaryColor, width: 1)});
 
-  final String? prefixImg, suffixImg, title, hint;
+  final String? prefixImg, suffixImg, title, hint, helper;
   final BorderSide? borderSide;
   final int? maxLines, maxLength;
   final Color? fillColor, contentColor, activeBorderColor;
@@ -91,6 +95,7 @@ class CustomTextField extends StatelessWidget {
   final RxBool? passSecure;
   final EdgeInsets? padding, contentPadding;
   final TextAlign? textAlign;
+  final TextStyle? titleStyle;
   final void Function(String)? onSubmitted, onChanged;
 
   @override
@@ -101,7 +106,7 @@ class CustomTextField extends StatelessWidget {
         if (title != null) ...[
           Text(
             (title ?? '').tr,
-            style: Get.textTheme.subtitle2!.copyWith(),
+            style: titleStyle ?? Get.textTheme.subtitle2,
           ),
         ],
         InkWell(
@@ -183,6 +188,7 @@ class CustomTextField extends StatelessWidget {
                                     ),
                                   )
                                 : suffixIcon,
+                        helperText: helper,
                         hintText: hint,
                         counterText: '',
                         contentPadding: contentPadding ??

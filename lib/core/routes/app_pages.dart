@@ -19,6 +19,8 @@ abstract class Routes {
   static const orderDetails = _Paths.orderDetails;
   static const settlementDetails = _Paths.settlementDetails;
   static const billDetails = _Paths.billDetails;
+  static const accountSettings = _Paths.accountSettings;
+  static const howToUse = _Paths.howToUse;
 }
 
 abstract class _Paths {
@@ -39,4 +41,6 @@ abstract class _Paths {
   static const orderDetails = '/order_details';
   static const settlementDetails = '/settlement_details';
   static const billDetails = '/bill_details';
+  static const accountSettings = '/account_settings';
+  static const howToUse = '/how_to_use';
 }
