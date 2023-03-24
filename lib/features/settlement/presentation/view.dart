@@ -14,8 +14,10 @@ class SettlementView extends GetView<SettlementController> {
       padding: const EdgeInsets.all(20),
       children: [
         Table(
-          border:
-              TableBorder.all(color: ColorManager.lightGreyColor, width: 1.5),
+          border: TableBorder.all(
+            color: ColorManager.lightGreyColor,
+            width: 1.5,
+          ),
           children: [
             TableRow(
                 children: ['رقم الفاتورة', 'إجمالي الفاتورة', 'الحالة', '']

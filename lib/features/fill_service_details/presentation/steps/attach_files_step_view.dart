@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/features/fill_service_details/presentation/widgets/inputs/additional_service_item_with_holder.dart';
+import 'package:khalsha/features/fill_service_details/presentation/widgets/inputs/service_item_with_holder.dart';
 
 import '../../../../core/themes/colors_manager.dart';
 
@@ -47,12 +47,11 @@ class AttachFilesStepView extends StatelessWidget {
                 .toList(),
           ),
         ),
-        AdditionalServiceItemWithHolder(
+        const ServiceItemWithHolder(
           height: 200,
           title: 'أضف الملفات',
           bottomSheetTitle: 'أضف الملفات',
-          item: 0.obs,
-          body: const Text('Attach Files'),
+          body: Text('Attach Files'),
         )
       ],
     );

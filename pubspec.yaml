@@ -103,6 +103,8 @@ flutter:
     - assets/images/dummy/
     - assets/images/menu/
     - assets/images/fill_service_steps/
+    - assets/images/order_details/
+    - assets/images/order_details/status/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

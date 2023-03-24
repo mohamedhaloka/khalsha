@@ -16,6 +16,9 @@ abstract class Routes {
   static const blog = _Paths.blog;
   static const postDetails = _Paths.postDetails;
   static const fillServiceDetails = _Paths.fillServiceDetails;
+  static const orderDetails = _Paths.orderDetails;
+  static const settlementDetails = _Paths.settlementDetails;
+  static const billDetails = _Paths.billDetails;
 }
 
 abstract class _Paths {
@@ -33,4 +36,7 @@ abstract class _Paths {
   static const blog = '/blog';
   static const postDetails = '/post_details';
   static const fillServiceDetails = '/fill_service_details';
+  static const orderDetails = '/order_details';
+  static const settlementDetails = '/settlement_details';
+  static const billDetails = '/bill_details';
 }

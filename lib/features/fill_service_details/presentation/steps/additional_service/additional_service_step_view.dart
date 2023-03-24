@@ -1,15 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:khalsha/core/themes/colors_manager.dart';
 import 'package:khalsha/features/fill_service_details/presentation/bottom_sheet_content/set_number_count.dart';
 import 'package:khalsha/features/fill_service_details/presentation/get/controllers/additional_service_step_controller.dart';
-import 'package:khalsha/features/fill_service_details/presentation/widgets/inputs/additional_service_item_with_holder.dart';
+import 'package:khalsha/features/fill_service_details/presentation/widgets/inputs/checker_with_holder.dart';
+import 'package:khalsha/features/fill_service_details/presentation/widgets/inputs/service_item_with_holder.dart';
 
 import '../../../../service_intro/presentation/get/controllers/controller.dart';
+import '../../../../widgets/headline_bottom_sheet.dart';
+import '../../bottom_sheet_content/add_notes_sheet.dart';
+import '../../bottom_sheet_content/choose_certificates.dart';
 import '../../bottom_sheet_content/customs_clause.dart';
+import '../../bottom_sheet_content/order_temperature.dart';
+import '../../bottom_sheet_content/storage_service.dart';
+import '../../widgets/inputs/yes_or_no_with_holder.dart';
 
+part 'air_freight.dart';
 part 'customs_clearance.dart';
+part 'laboratory_and_standards.dart';
 part 'land_shipping.dart';
+part 'marine_shipping.dart';
+part 'stores.dart';
 
 class AdditionalServiceStepView
     extends GetView<AdditionalServiceStepController> {
@@ -40,13 +52,13 @@ class _Body extends GetView<AdditionalServiceStepController> {
       case ServiceType.landShipping:
         return const _LandShipping();
       case ServiceType.stores:
-        return Text('lll');
+        return const _Stores();
       case ServiceType.marineShipping:
-        return Text('lll');
+        return const _MarineShipping();
       case ServiceType.airFreight:
-        return Text('lll');
+        return const _AirFreight();
       case ServiceType.laboratoryAndStandards:
-        return Text('lll');
+        return const _LaboratoryAndStandards();
     }
   }
 }

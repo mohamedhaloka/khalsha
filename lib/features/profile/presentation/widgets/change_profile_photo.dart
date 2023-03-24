@@ -31,7 +31,7 @@ class ChangeProfilePhoto extends StatelessWidget {
                     radius: 65,
                   ),
                 ),
-                Text('تغيير الصورة الشخصية')
+                const Text('تغيير الصورة الشخصية')
               ],
             ),
           )

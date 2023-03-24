@@ -49,7 +49,7 @@ class TextFieldInputWithHolder extends StatelessWidget {
               radius: radius,
               textAlign: TextAlign.center,
               contentPadding: contentPadding,
-              borderSide: inputBorderSize,
+              borderSide: inputBorderSide,
               contentColor: contentColor,
               fontWeight: FontWeight.bold,
             ),

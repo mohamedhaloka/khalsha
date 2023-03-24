@@ -8,19 +8,17 @@ import 'package:khalsha/features/widgets/headline_bottom_sheet.dart';
 import '../../inputs_style.dart';
 import 'input_holder_box.dart';
 
-class AdditionalServiceItemWithHolder extends StatelessWidget {
-  const AdditionalServiceItemWithHolder({
+class ServiceItemWithHolder extends StatelessWidget {
+  const ServiceItemWithHolder({
     Key? key,
     this.title,
     required this.bottomSheetTitle,
     this.height,
     this.onTap,
-    required this.item,
     required this.body,
   }) : super(key: key);
   final String? title;
   final String bottomSheetTitle;
-  final Rx<Object> item;
   final Widget body;
   final double? height;
   final void Function()? onTap;
@@ -82,6 +80,7 @@ class AdditionalServiceItemWithHolder extends StatelessWidget {
                 height: inputHeight,
                 width: inputHeight,
                 radius: radius,
+                backgroundColor: contentColor,
                 onTap: () {},
                 imgName: 'delete',
               ),

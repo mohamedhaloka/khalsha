@@ -7,9 +7,8 @@ class _CustomsClearance extends GetView<AdditionalServiceStepController> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        AdditionalServiceItemWithHolder(
+        ServiceItemWithHolder(
           title: 'هل تريد التخزين',
-          item: controller.numberOfStorage,
           bottomSheetTitle: 'خدمة التخزين',
           height: Get.height / 3,
           body: SetNumberCount(
@@ -17,9 +16,8 @@ class _CustomsClearance extends GetView<AdditionalServiceStepController> {
             title: 'عدد أيام التخزين',
           ),
         ),
-        AdditionalServiceItemWithHolder(
+        ServiceItemWithHolder(
           title: 'هل يوجد بند جمركي',
-          item: controller.customsClauseList.length.obs,
           bottomSheetTitle: 'إضافة بند جمركي',
           height: Get.height / 2,
           body: CustomsClause(

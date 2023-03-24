@@ -14,6 +14,7 @@ class CustomButton extends StatelessWidget {
       this.imgName,
       this.radius,
       this.height,
+      this.borderColor,
       this.contentColor,
       this.backgroundColor})
       : super(key: key);
@@ -27,13 +28,14 @@ class CustomButton extends StatelessWidget {
       this.imgName,
       this.radius,
       this.height,
+      this.borderColor,
       this.contentColor = Colors.white,
       this.backgroundColor = ColorManager.primaryColor})
       : super(key: key);
   final void Function()? onTap;
   final String? text;
   final String? imgName;
-  final Color? backgroundColor, contentColor;
+  final Color? backgroundColor, contentColor, borderColor;
   final RxBool? loading;
   final double? width, height, radius;
 
@@ -50,10 +52,10 @@ class CustomButton extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(radius ?? 12)),
             ),
-            backgroundColor: backgroundColor ?? Colors.white,
+            backgroundColor: backgroundColor ?? Colors.transparent,
             foregroundColor: ColorManager.primaryColor,
-            side: const BorderSide(
-              color: ColorManager.greyColor,
+            side: BorderSide(
+              color: borderColor ?? ColorManager.greyColor,
               width: .5,
             ),
             elevation: 0.0,
@@ -79,6 +81,7 @@ class CustomButton extends StatelessWidget {
                   : imgName != null
                       ? SvgPicture.asset(
                           'assets/images/icons/$imgName.svg',
+                          color: contentColor,
                         )
                       : Text(
                           (text ?? '').tr,

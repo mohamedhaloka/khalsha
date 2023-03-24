@@ -3,8 +3,13 @@ import 'package:get/get.dart';
 import 'package:khalsha/core/themes/colors_manager.dart';
 
 class TextUnderline extends StatelessWidget {
-  const TextUnderline(this.text, {Key? key}) : super(key: key);
+  const TextUnderline(
+    this.text, {
+    Key? key,
+    this.contentColor,
+  }) : super(key: key);
   final String text;
+  final Color? contentColor;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +19,7 @@ class TextUnderline extends StatelessWidget {
           text,
           textAlign: TextAlign.center,
           style: Get.textTheme.headline6!.copyWith(
-            color: ColorManager.secondaryColor,
+            color: contentColor ?? ColorManager.secondaryColor,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -22,7 +27,7 @@ class TextUnderline extends StatelessWidget {
           width: 120,
           height: 2,
           margin: const EdgeInsets.only(top: 6),
-          color: ColorManager.secondaryColor,
+          color: contentColor ?? ColorManager.secondaryColor,
         )
       ],
     );

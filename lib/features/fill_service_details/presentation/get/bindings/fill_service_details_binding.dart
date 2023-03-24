@@ -3,6 +3,7 @@ import 'package:khalsha/features/fill_service_details/presentation/get/controlle
 import 'package:khalsha/features/fill_service_details/presentation/get/controllers/fill_service_details_controller.dart';
 
 import '../controllers/additional_service_step_controller.dart';
+import '../controllers/pick_locations_step_controller.dart';
 
 class FillServiceDetailsBinding extends Bindings {
   @override
@@ -16,6 +17,9 @@ class FillServiceDetailsBinding extends Bindings {
     );
     Get.lazyPut<AdditionalServiceStepController>(
       () => AdditionalServiceStepController(),
+    );
+    Get.lazyPut<PickLocationsStepController>(
+      () => PickLocationsStepController(),
     );
   }
 }

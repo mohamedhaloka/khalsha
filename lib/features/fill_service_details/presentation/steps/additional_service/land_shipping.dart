@@ -7,29 +7,20 @@ class _LandShipping extends GetView<AdditionalServiceStepController> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        AdditionalServiceItemWithHolder(
+        ServiceItemWithHolder(
           title: 'خدمة الفك و التركيب',
-          item: controller.numberOfStorage,
           bottomSheetTitle: 'خدمة التخزين',
-          height: Get.height / 3,
-          body: SetNumberCount(
-            number: controller.numberOfStorage,
-            title: 'عدد أيام التخزين',
-          ),
+          height: Get.height / 1.5,
+          body: const StorageService(),
         ),
-        AdditionalServiceItemWithHolder(
+        ServiceItemWithHolder(
           title: 'درجة حرارة الشحنة',
-          item: controller.numberOfStorage,
           bottomSheetTitle: 'درجة الحرارة',
-          height: Get.height / 3,
-          body: SetNumberCount(
-            number: controller.numberOfStorage,
-            title: 'عدد أيام التخزين',
-          ),
+          height: Get.height / 2,
+          body: const OrderTemperature(),
         ),
-        AdditionalServiceItemWithHolder(
+        ServiceItemWithHolder(
           title: 'هل تحتاج عمال تحميل',
-          item: controller.numberOfStorage,
           bottomSheetTitle: 'عمال تحميل',
           height: Get.height / 3,
           body: SetNumberCount(
@@ -37,9 +28,8 @@ class _LandShipping extends GetView<AdditionalServiceStepController> {
             title: 'عدد العمال',
           ),
         ),
-        AdditionalServiceItemWithHolder(
+        ServiceItemWithHolder(
           title: 'هل تحتاج عمال تنزيل',
-          item: controller.numberOfStorage,
           bottomSheetTitle: 'عمال تنزيل',
           height: Get.height / 3,
           body: SetNumberCount(
@@ -47,15 +37,18 @@ class _LandShipping extends GetView<AdditionalServiceStepController> {
             title: 'عدد العمال',
           ),
         ),
-        AdditionalServiceItemWithHolder(
+        ServiceItemWithHolder(
           title: 'هل تريد التخزين',
-          item: controller.numberOfStorage,
           bottomSheetTitle: 'خدمة التخزين',
-          height: Get.height / 3,
+          height: Get.height / 2,
           body: SetNumberCount(
             number: controller.numberOfStorage,
             title: 'عدد أيام التخزين',
           ),
+        ),
+        YesOrNoWithHolder(
+          active: true.obs,
+          title: 'هل توجد مواد قابلة للإشتعال',
         ),
       ],
     );

@@ -15,6 +15,7 @@ class CustomTextField extends StatelessWidget {
       this.enabled,
       this.title,
       this.fontWeight,
+      this.width,
       this.suffixImg,
       this.textAlign,
       this.onChanged,
@@ -64,6 +65,7 @@ class CustomTextField extends StatelessWidget {
       this.textAlign,
       this.textInputAction,
       this.inputType,
+      this.width,
       this.contentPadding,
       this.passSecure,
       this.radius = 22,
@@ -76,7 +78,7 @@ class CustomTextField extends StatelessWidget {
   final BorderSide? borderSide;
   final int? maxLines, maxLength;
   final Color? fillColor, contentColor, activeBorderColor;
-  final double? radius, fontSize, height;
+  final double? radius, fontSize, height, width;
   final FontWeight? fontWeight;
   final TextEditingController? controller;
   final bool? enabled;
@@ -108,6 +110,7 @@ class CustomTextField extends StatelessWidget {
             padding: padding ?? const EdgeInsets.fromLTRB(0, 2, 0, 12),
             child: SizedBox(
               height: height,
+              width: width,
               child: Obx(() => TextField(
                     scrollPadding: const EdgeInsets.only(bottom: 30, top: 40),
                     controller: controller,

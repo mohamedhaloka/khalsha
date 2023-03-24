@@ -5,7 +5,8 @@ import '../../core/themes/colors_manager.dart';
 
 class CustomDropDown extends StatelessWidget {
   const CustomDropDown(
-      {required this.hintTittle,
+      {this.hint,
+      this.title,
       required this.dropVal,
       required this.source,
       this.hintColor,
@@ -21,7 +22,7 @@ class CustomDropDown extends StatelessWidget {
       : super(key: key);
 
   final double? height;
-  final String hintTittle;
+  final String? title, hint;
   final RxString dropVal;
   final RxList source;
   final ValueChanged<int>? onTap;
@@ -33,43 +34,56 @@ class CustomDropDown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTapUpper,
-      child: Container(
-        height: height ?? 50,
-        padding: const EdgeInsets.symmetric(horizontal: 8),
-        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 2),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(radius ?? 30),
-          border: border ?? Border.all(color: ColorManager.lightGreyColor),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (title != null) ...[
+          Text(
+            (title ?? '').tr,
+            style: Get.textTheme.subtitle2!.copyWith(),
+          ),
+        ],
+        InkWell(
+          onTap: onTapUpper,
+          child: Container(
+            height: height ?? 50,
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 2),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(radius ?? 30),
+              border: border ?? Border.all(color: ColorManager.lightGreyColor),
+            ),
+            child: Obx(() => DropdownButtonHideUnderline(
+                  child: DropdownButton(
+                    value: dropVal.value == '' ? null : dropVal.value,
+                    hint: Text((hint ?? '').tr,
+                        style: Get.textTheme.caption!.copyWith(
+                            color: hintColor ?? Colors.black,
+                            fontSize: fontSize)),
+                    icon: Icon(
+                      Icons.keyboard_arrow_down,
+                      color: iconColor ?? Colors.black,
+                    ),
+                    style:
+                        Get.textTheme.subtitle1!.copyWith(fontSize: fontSize),
+                    onChanged: (value) {
+                      dropVal(value.toString());
+                      if (onTap != null) {
+                        onTap!.call(int.tryParse(value.toString()) ?? 0);
+                      }
+                    },
+                    isExpanded: isExpanded ?? false,
+                    items: source
+                        .map((e) => DropdownMenuItem(
+                              value: e.toString(),
+                              child: Text(e),
+                            ))
+                        .toList(),
+                  ),
+                )),
+          ),
         ),
-        child: Obx(() => DropdownButtonHideUnderline(
-              child: DropdownButton(
-                value: dropVal.value == '' ? null : dropVal.value,
-                hint: Text(hintTittle.tr,
-                    style: Get.textTheme.caption!.copyWith(
-                        color: hintColor ?? Colors.black, fontSize: fontSize)),
-                icon: Icon(
-                  Icons.keyboard_arrow_down,
-                  color: iconColor ?? Colors.black,
-                ),
-                style: Get.textTheme.subtitle1!.copyWith(fontSize: fontSize),
-                onChanged: (value) {
-                  dropVal(value.toString());
-                  if (onTap != null) {
-                    onTap!.call(int.tryParse(value.toString()) ?? 0);
-                  }
-                },
-                isExpanded: isExpanded ?? false,
-                items: source
-                    .map((e) => DropdownMenuItem(
-                          value: e.toString(),
-                          child: Text(e),
-                        ))
-                    .toList(),
-              ),
-            )),
-      ),
+      ],
     );
   }
 }

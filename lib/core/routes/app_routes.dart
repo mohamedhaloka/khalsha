@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:khalsha/features/bill_details/presentation/get/binding/binding.dart';
+import 'package:khalsha/features/bill_details/presentation/view.dart';
 import 'package:khalsha/features/blog/presentation/get/binding/binding.dart';
 import 'package:khalsha/features/blog/presentation/view.dart';
 import 'package:khalsha/features/common_questions/presentation/get/binding/binding.dart';
@@ -14,6 +16,7 @@ import 'package:khalsha/features/navigation_menu/presentation/get/binding/bindin
 import 'package:khalsha/features/navigation_menu/presentation/view.dart';
 import 'package:khalsha/features/on_boarding/presentation/get/bindings/binding.dart';
 import 'package:khalsha/features/on_boarding/presentation/view.dart';
+import 'package:khalsha/features/order_details/presentation/view.dart';
 import 'package:khalsha/features/otp/presentation/get/binding/binding.dart';
 import 'package:khalsha/features/otp/presentation/view.dart';
 import 'package:khalsha/features/post_details/presentation/get/binding/binding.dart';
@@ -22,11 +25,14 @@ import 'package:khalsha/features/register/presentation/get/bindings/binding.dart
 import 'package:khalsha/features/register/presentation/view.dart';
 import 'package:khalsha/features/service_intro/presentation/get/binding/binding.dart';
 import 'package:khalsha/features/service_intro/presentation/view.dart';
+import 'package:khalsha/features/settlement_details/presentation/get/binding/binding.dart';
+import 'package:khalsha/features/settlement_details/presentation/view.dart';
 import 'package:khalsha/features/share_app/presentation/get/binding/binding.dart';
 import 'package:khalsha/features/share_app/presentation/view.dart';
 import 'package:khalsha/features/sources/presentation/get/binding/binding.dart';
 
 import '../../features/fill_service_details/presentation/get/bindings/fill_service_details_binding.dart';
+import '../../features/order_details/presentation/get/binding/binding.dart';
 import '../../features/sources/presentation/view.dart';
 
 part 'app_pages.dart';
@@ -106,6 +112,21 @@ class AppPages {
       name: _Paths.fillServiceDetails,
       page: () => const FillServiceDetailsView(),
       binding: FillServiceDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.orderDetails,
+      page: () => const OrderDetailsView(),
+      binding: OrderDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.settlementDetails,
+      page: () => const SettlementDetailsView(),
+      binding: SettlementDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.billDetails,
+      page: () => const BillDetailsView(),
+      binding: BillDetailsBinding(),
     ),
   ];
 }

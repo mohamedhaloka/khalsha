@@ -48,7 +48,7 @@ class DropDownInputWithHolder extends StatelessWidget {
             child: CustomDropDown(
               radius: radius,
               height: inputHeight,
-              hintTittle: hint ?? 'إختر',
+              hint: hint ?? 'إختر',
               dropVal: ''.obs,
               isExpanded: true,
               source: source,

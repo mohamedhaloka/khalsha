@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:khalsha/core/routes/app_routes.dart';
 import 'package:khalsha/core/themes/colors_manager.dart';
 
 class SettlementItem extends StatelessWidget {
@@ -10,20 +11,23 @@ class SettlementItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 35,
-      color: isOdd ? Colors.grey[100] : Colors.grey[200],
-      child: Row(
-        children: [
-          _detail('كود #100'),
-          _detail('2000 ريال'),
-          _detail(isOdd ? 'انتظار' : 'تمت'),
-          _detail(
-            'تسوية',
-            textColor: isOdd ? ColorManager.darkTobyColor : Colors.grey,
-            fontWeight: FontWeight.bold,
-          ),
-        ],
+    return InkWell(
+      onTap: () => Get.toNamed(Routes.settlementDetails),
+      child: Container(
+        height: 35,
+        color: isOdd ? Colors.grey[100] : Colors.grey[200],
+        child: Row(
+          children: [
+            _detail('كود #100'),
+            _detail('2000 ريال'),
+            _detail(isOdd ? 'انتظار' : 'تمت'),
+            _detail(
+              'تسوية',
+              textColor: isOdd ? ColorManager.darkTobyColor : Colors.grey,
+              fontWeight: FontWeight.bold,
+            ),
+          ],
+        ),
       ),
     );
   }

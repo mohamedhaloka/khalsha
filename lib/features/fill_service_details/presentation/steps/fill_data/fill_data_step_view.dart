@@ -14,7 +14,7 @@ import '../../../../service_intro/presentation/get/controllers/controller.dart';
 import '../../bottom_sheet_content/choose_shipping_place.dart';
 import '../../bottom_sheet_content/multi_items_list.dart';
 import '../../bottom_sheet_content/set_shipping_details.dart';
-import '../../widgets/inputs/additional_service_item_with_holder.dart';
+import '../../widgets/inputs/service_item_with_holder.dart';
 
 part 'air_freight.dart';
 part 'customs_clearance.dart';

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:khalsha/features/fill_service_details/presentation/steps/fill_data/fill_data_step_view.dart';
 import 'package:khalsha/features/fill_service_details/presentation/steps/order_send_successfully_step_view.dart';
+import 'package:khalsha/features/fill_service_details/presentation/steps/pick_locations_step_view.dart';
 import 'package:khalsha/features/service_intro/presentation/get/controllers/controller.dart';
 
 import '../../../../../core/models/item_model.dart';
@@ -52,6 +53,10 @@ class FillServiceDetailsController extends GetxController {
         );
         break;
       case ServiceType.landShipping:
+        page = const ItemModel(
+          text: 'تحديد الموقع و التوقيت',
+          child: PickLocationsStepView(),
+        );
         break;
       default:
         break;

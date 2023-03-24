@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/themes/colors_manager.dart';
 
-const inputBorderSize = BorderSide(
+const inputBorderSide = BorderSide(
   color: ColorManager.lightGreyColor,
 );
 

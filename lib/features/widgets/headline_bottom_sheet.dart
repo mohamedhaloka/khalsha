@@ -36,7 +36,7 @@ class HeadLineBottomSheet extends StatelessWidget {
                   Center(
                     child: Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
+                        horizontal: 25,
                         vertical: 8,
                       ),
                       margin: const EdgeInsets.only(bottom: 10),
