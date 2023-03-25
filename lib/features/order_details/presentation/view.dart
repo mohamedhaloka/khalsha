@@ -2,17 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:khalsha/core/models/item_model.dart';
+import 'package:khalsha/core/routes/app_routes.dart';
 import 'package:khalsha/core/themes/colors_manager.dart';
 import 'package:khalsha/features/order_details/presentation/get/controllers/controller.dart';
 import 'package:khalsha/features/order_details/presentation/widgets/order_tab_header.dart';
 import 'package:khalsha/features/widgets/custom_button.dart';
+import 'package:khalsha/main.dart';
 
 import '../../widgets/bill.dart';
 import '../../widgets/custom_app_bar.dart';
 import '../../widgets/stylish_text.dart';
+import '../../widgets/table_items.dart';
 
 part 'tabs/bill_data.dart';
 part 'tabs/order_data.dart';
+part 'tabs/pricing_offers.dart';
 part 'tabs/status_data.dart';
 
 class OrderDetailsView extends GetView<OrderDetailsController> {
@@ -27,19 +31,25 @@ class OrderDetailsView extends GetView<OrderDetailsController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            const _DetailsTabs(),
+            if (Get.previousRoute != Routes.orders) ...[
+              const _DetailsTabs(),
+            ],
             Expanded(
               child: PageView(
                 controller: controller.pageViewController,
                 physics: const NeverScrollableScrollPhysics(),
                 onPageChanged: (int index) => controller.currentTab(index),
-                children: const [
-                  _OrderDataTab(),
-                  _BillDataTab(),
-                  _StatusData(),
+                children: [
+                  const _OrderDataTab(),
+                  if (provider) ...[
+                    const _BillDataTab(),
+                  ] else ...[
+                    const _PricingOffersTab(),
+                  ],
+                  const _StatusData(),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

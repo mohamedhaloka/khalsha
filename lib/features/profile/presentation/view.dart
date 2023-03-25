@@ -26,21 +26,25 @@ class ProfileView extends GetView<ProfileController> {
                 title: 'الإسم',
                 contentPadding: _contentPadding,
                 borderSide: _borderColor,
+                enabled: false,
               ),
               CustomTextField(
                 title: 'البريد الإلكتروني',
                 contentPadding: _contentPadding,
                 borderSide: _borderColor,
+                enabled: false,
               ),
               CustomTextField(
                 title: 'رقم الهاتف',
                 contentPadding: _contentPadding,
                 borderSide: _borderColor,
+                enabled: false,
               ),
               CustomTextField(
                 title: 'السجل التجاري',
                 contentPadding: _contentPadding,
                 borderSide: _borderColor,
+                enabled: false,
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 60),

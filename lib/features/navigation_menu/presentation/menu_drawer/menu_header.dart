@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:khalsha/core/themes/colors_manager.dart';
+import 'package:khalsha/main.dart';
 
 class MenuHeader extends StatelessWidget {
   const MenuHeader({Key? key}) : super(key: key);
@@ -33,7 +34,7 @@ class MenuHeader extends StatelessWidget {
             ),
           ),
           Text(
-            'مستورد',
+            provider ? 'مقدم خدمة' : 'مستورد',
             style: Get.textTheme.subtitle2!.copyWith(
               color: Colors.white,
             ),

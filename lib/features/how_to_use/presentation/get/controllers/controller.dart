@@ -7,7 +7,7 @@ class HowToUseController extends GetxController {
   List<OnBoardingItemModel> slides = <OnBoardingItemModel>[];
 
   PageController pageController = PageController();
-  int currentPage = 0;
+  RxInt currentPage = 0.obs;
 
   @override
   void onInit() {
@@ -52,14 +52,19 @@ class HowToUseController extends GetxController {
     super.onInit();
   }
 
+  String get btnText {
+    if (currentPage.value == slides.length - 1) return 'الرئيسية';
+    return 'التالي';
+  }
+
   void goNext() {
-    if (currentPage == slides.length - 1) {
+    if (currentPage.value == slides.length - 1) {
       Get.back();
       return;
     }
     currentPage++;
     pageController.animateToPage(
-      currentPage,
+      currentPage.value,
       duration: const Duration(milliseconds: 500),
       curve: Curves.easeInOut,
     );

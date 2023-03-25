@@ -33,6 +33,30 @@ class FillDataController extends GetxController {
     )
   ];
 
+  RxInt selectedMarineOrderSize = 0.obs;
+  List<ItemModel> marineOrderSizeOptions = const <ItemModel>[
+    ItemModel(
+      text: 'حاوية',
+      id: 0,
+    ),
+    ItemModel(
+      text: 'بضاعة مجمعة',
+      id: 1,
+    )
+  ];
+
+  RxInt selectedStoresOrderSize = 0.obs;
+  List<ItemModel> storesOrderSizeOptions = const <ItemModel>[
+    ItemModel(
+      text: 'طبلية',
+      id: 0,
+    ),
+    ItemModel(
+      text: 'مخزن كامل',
+      id: 1,
+    )
+  ];
+
   Rx<ItemModel> selectedShippingPlace = ItemModel.empty().obs;
 
   RxInt selectedShipType = 0.obs;

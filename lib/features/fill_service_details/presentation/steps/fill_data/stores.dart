@@ -33,14 +33,9 @@ class _Stores extends GetView<FillDataController> {
           ),
         ),
         ToggleItemWithHolder(
-          title: 'نوع الشحنة',
-          items: controller.shippingTypeOptions,
-          selectedItem: controller.selectedShippingType,
-        ),
-        ToggleItemWithHolder(
           title: 'حجم الشحنة',
-          items: controller.shippingFieldOptions,
-          selectedItem: controller.selectedShippingField,
+          items: controller.storesOrderSizeOptions,
+          selectedItem: controller.selectedStoresOrderSize,
         ),
         ChooseItemWithHolder(
           title: 'المدينة/الدولة',

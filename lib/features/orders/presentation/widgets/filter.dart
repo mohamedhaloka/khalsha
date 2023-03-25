@@ -3,7 +3,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:khalsha/core/themes/colors_manager.dart';
 
 class Filter extends StatelessWidget {
-  const Filter({Key? key}) : super(key: key);
+  const Filter({
+    Key? key,
+    this.margin,
+  }) : super(key: key);
+  final EdgeInsets? margin;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +17,7 @@ class Filter extends StatelessWidget {
         onTap: () {},
         child: Container(
           width: 95,
-          margin: const EdgeInsets.only(bottom: 20),
+          margin: margin ?? const EdgeInsets.only(bottom: 20),
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
           decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(20)),

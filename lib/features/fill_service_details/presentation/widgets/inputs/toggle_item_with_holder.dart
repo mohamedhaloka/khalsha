@@ -87,7 +87,7 @@ class _Item extends StatelessWidget {
               child: Text(
                 item.text,
                 textAlign: TextAlign.center,
-                style: Get.textTheme.bodyLarge!.copyWith(
+                style: Get.textTheme.bodySmall!.copyWith(
                   color: isSelected ? Colors.white : null,
                 ),
               ),

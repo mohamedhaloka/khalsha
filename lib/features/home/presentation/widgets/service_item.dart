@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:khalsha/core/models/item_model.dart';
 import 'package:khalsha/core/routes/app_routes.dart';
+import 'package:khalsha/main.dart';
 
 import '../../../../core/themes/colors_manager.dart';
 
@@ -15,10 +16,17 @@ class ServiceItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Get.toNamed(
-        Routes.serviceIntro,
-        arguments: service.arguments,
-      ),
+      onTap: () {
+        if (provider) {
+          Get.toNamed(Routes.orders);
+          return;
+        }
+
+        Get.toNamed(
+          Routes.serviceIntro,
+          arguments: service.arguments,
+        );
+      },
       child: ClipRRect(
         borderRadius: const BorderRadius.all(Radius.circular(20)),
         child: Container(

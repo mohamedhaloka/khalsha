@@ -24,6 +24,18 @@ class _OrderDataTab extends GetView<OrderDetailsController> {
           text: 'خدمات إضافية',
           details: controller.extraServices,
         ),
+        if (Get.previousRoute == Routes.orders) ...[
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+            child: CustomButton(
+              width: Get.width,
+              height: 36,
+              radius: 10,
+              onTap: () {},
+              text: 'إنشاء عرض سعر',
+            ),
+          )
+        ],
       ],
     );
   }

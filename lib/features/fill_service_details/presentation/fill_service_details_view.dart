@@ -21,13 +21,14 @@ class FillServiceDetailsView extends GetView<FillServiceDetailsController> {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(20.0),
-              child: PageView.builder(
-                controller: controller.stepsPageController,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (_, int index) => controller.pages[index].child!,
-                onPageChanged: (int index) => controller.currentStep(index),
-                itemCount: controller.pages.length,
-              ),
+              child: Obx(() => PageView.builder(
+                    controller: controller.stepsPageController,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (_, int index) =>
+                        controller.pages[index].child!,
+                    onPageChanged: (int index) => controller.currentStep(index),
+                    itemCount: controller.pages.length,
+                  )),
             ),
           ),
           Padding(

@@ -80,7 +80,7 @@ class ServiceItemWithHolder extends StatelessWidget {
                 height: inputHeight,
                 width: inputHeight,
                 radius: radius,
-                backgroundColor: contentColor,
+                contentColor: contentColor,
                 onTap: () {},
                 imgName: 'delete',
               ),

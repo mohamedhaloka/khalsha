@@ -28,8 +28,8 @@ class _MarineShipping extends GetView<FillDataController> {
         ),
         ToggleItemWithHolder(
           title: 'حجم الشحنة',
-          items: controller.shippingTypeOptions,
-          selectedItem: controller.selectedShippingType,
+          items: controller.marineOrderSizeOptions,
+          selectedItem: controller.selectedMarineOrderSize,
         ),
         ChooseItemWithHolder(
           title: 'بيانات الشحنة',

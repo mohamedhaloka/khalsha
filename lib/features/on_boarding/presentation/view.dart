@@ -30,15 +30,15 @@ class OnBoardingView extends GetView<OnBoardingController> {
                 itemBuilder: (_, int index) => _OnBoardingItemView(
                   controller.slides[index],
                 ),
-                onPageChanged: (int index) => controller.currentPage = index,
+                onPageChanged: (int index) => controller.currentPage(index),
                 itemCount: controller.slides.length,
               ),
             ),
-            CustomButton(
-              width: screenSize.width,
-              onTap: controller.goNext,
-              text: 'التالي',
-            )
+            Obx(() => CustomButton(
+                  width: screenSize.width,
+                  onTap: controller.goNext,
+                  text: controller.btnText,
+                ))
           ],
         ),
       ),

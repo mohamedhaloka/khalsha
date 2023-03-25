@@ -40,7 +40,7 @@ class _LandShipping extends GetView<AdditionalServiceStepController> {
         ServiceItemWithHolder(
           title: 'هل تريد التخزين',
           bottomSheetTitle: 'خدمة التخزين',
-          height: Get.height / 2,
+          height: Get.height / 3,
           body: SetNumberCount(
             number: controller.numberOfStorage,
             title: 'عدد أيام التخزين',

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:khalsha/core/routes/app_routes.dart';
 import 'package:khalsha/features/fill_service_details/presentation/steps/fill_data/fill_data_step_view.dart';
 import 'package:khalsha/features/fill_service_details/presentation/steps/order_send_successfully_step_view.dart';
 import 'package:khalsha/features/fill_service_details/presentation/steps/pick_locations_step_view.dart';
@@ -16,7 +17,7 @@ class FillServiceDetailsController extends GetxController {
   PageController stepsPageController = PageController();
 
   RxInt currentStep = 0.obs;
-  List<ItemModel> pages = <ItemModel>[
+  RxList<ItemModel> pages = <ItemModel>[
     const ItemModel(
       text: 'تعبئة الطلب',
       child: FillDataStepView(),
@@ -33,7 +34,7 @@ class FillServiceDetailsController extends GetxController {
       text: 'إرسال الطلب',
       child: OrderSendSuccessfullyStepView(),
     ),
-  ];
+  ].obs;
 
   String get pageTitle => pages[currentStep.value].text;
 
@@ -67,6 +68,7 @@ class FillServiceDetailsController extends GetxController {
 
   void goNext() {
     if (currentStep.value == pages.length - 1) {
+      Get.offAllNamed(Routes.navigationMenu);
       return;
     }
     _nextPage();

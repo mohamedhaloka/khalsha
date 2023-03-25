@@ -5,6 +5,7 @@ import 'package:khalsha/core/themes/colors_manager.dart';
 import 'package:khalsha/features/widgets/choose_file.dart';
 import 'package:khalsha/features/widgets/custom_rich_text.dart';
 import 'package:khalsha/features/widgets/custom_text_field.dart';
+import 'package:khalsha/main.dart';
 
 import '../../../core/models/item_model.dart';
 import '../../widgets/custom_button.dart';
@@ -53,7 +54,10 @@ class RegisterView extends GetView<RegisterController> {
             padding: const EdgeInsets.fromLTRB(0, 35, 0, 35),
             child: CustomButton.fillBlue(
               width: Get.width,
-              onTap: () => Get.toNamed(Routes.otp),
+              onTap: () {
+                provider = true;
+                Get.toNamed(Routes.otp);
+              },
               text: 'تسجيل',
             ),
           ),

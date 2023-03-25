@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:khalsha/core/themes/colors_manager.dart';
 import 'package:khalsha/features/home/presentation/get/controllers/controller.dart';
+import 'package:khalsha/main.dart';
 
 class HomeHeader extends GetView<HomeController> {
   const HomeHeader({Key? key}) : super(key: key);
@@ -14,7 +16,7 @@ class HomeHeader extends GetView<HomeController> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            'جميع الخدمات اللوجيستية',
+            provider ? 'تقدم بخدماتك المتنوعة' : 'جميع الخدمات اللوجيستية',
             style: Get.textTheme.headline5!.copyWith(
               fontWeight: FontWeight.bold,
               color: ColorManager.primaryColor,
@@ -46,6 +48,7 @@ class HomeHeader extends GetView<HomeController> {
               ),
             ],
           ),
+          SvgPicture.asset('assets/images/icons/title-header2.svg')
         ],
       ),
     );

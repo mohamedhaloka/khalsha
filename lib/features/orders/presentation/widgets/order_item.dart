@@ -36,7 +36,11 @@ class OrderItem extends StatelessWidget {
                 children: [
                   _detail('نقل أغذية'),
                   _detail('من جدة'),
-                  _detail('${order.text} ريال'),
+                  if (Get.currentRoute == Routes.orders) ...[
+                    _detail('الميناء الجاف'),
+                  ] else ...[
+                    _detail('${order.text} ريال'),
+                  ],
                 ],
               ),
             ),
@@ -48,7 +52,11 @@ class OrderItem extends StatelessWidget {
                 children: [
                   _detail('مواد غذائية'),
                   _detail('من الرياض'),
-                  _Status(order.id ?? 0)
+                  if (Get.currentRoute == Routes.orders) ...[
+                    _detail('2300 ريال'),
+                  ] else ...[
+                    _Status(order.id ?? 0)
+                  ],
                 ],
               ),
             ),

@@ -9,8 +9,8 @@ class _AirFreight extends GetView<FillDataController> {
       children: [
         ToggleItemWithHolder(
           title: 'مجال الشحنة',
-          items: controller.shippingFieldOptions,
-          selectedItem: controller.selectedShippingField,
+          items: controller.shippingTypeOptions,
+          selectedItem: controller.selectedShippingType,
         ),
         ChooseItemWithHolder(
           title: 'الشحن من',
@@ -46,7 +46,7 @@ class _AirFreight extends GetView<FillDataController> {
         ChooseItemWithHolder(
           title: 'جاهزية الشحنة',
           selectedItem: controller.selectedShippingPlace,
-          bottomSheetTitle: 'نوع الشحنة',
+          bottomSheetTitle: 'جاهزية الشحنة',
           height: Get.height / 2,
           body: MultiItemsList(
             items: testItemsList,

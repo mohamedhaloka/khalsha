@@ -19,6 +19,7 @@ import 'package:khalsha/features/navigation_menu/presentation/view.dart';
 import 'package:khalsha/features/on_boarding/presentation/get/bindings/binding.dart';
 import 'package:khalsha/features/on_boarding/presentation/view.dart';
 import 'package:khalsha/features/order_details/presentation/view.dart';
+import 'package:khalsha/features/orders/presentation/view.dart';
 import 'package:khalsha/features/otp/presentation/get/binding/binding.dart';
 import 'package:khalsha/features/otp/presentation/view.dart';
 import 'package:khalsha/features/post_details/presentation/get/binding/binding.dart';
@@ -37,6 +38,7 @@ import '../../features/account_settings/presentation/get/binding/binding.dart';
 import '../../features/fill_service_details/presentation/get/bindings/fill_service_details_binding.dart';
 import '../../features/how_to_use/presentation/get/binding/binding.dart';
 import '../../features/order_details/presentation/get/binding/binding.dart';
+import '../../features/orders/presentation/get/binding/binding.dart';
 import '../../features/sources/presentation/view.dart';
 
 part 'app_pages.dart';
@@ -141,6 +143,11 @@ class AppPages {
       name: _Paths.howToUse,
       page: () => const HowToUseView(),
       binding: HowToUseBinding(),
+    ),
+    GetPage(
+      name: _Paths.orders,
+      page: () => const OrdersView(),
+      binding: OrdersBinding(),
     ),
   ];
 }

@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:khalsha/core/routes/app_routes.dart';
 import 'package:khalsha/features/home/presentation/view.dart';
+import 'package:khalsha/features/my_bills/presentation/view.dart';
 import 'package:khalsha/features/on_boarding/presentation/get/controllers/controller.dart';
 import 'package:khalsha/features/orders/presentation/view.dart';
 import 'package:khalsha/features/profile/presentation/view.dart';
-import 'package:khalsha/features/settlement/presentation/view.dart';
+import 'package:khalsha/main.dart';
 
 import '../../../../../core/models/item_model.dart';
 import '../../../../notifications/presentation/view.dart';
+import '../../../../settlement/presentation/view.dart';
 
 class NavigationMenuController extends GetxController {
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
@@ -23,38 +25,52 @@ class NavigationMenuController extends GetxController {
 
   @override
   void onInit() {
-    pages = const [
-      ItemModel(
+    pages = [
+      const ItemModel(
         id: 0,
         image: 'profile',
         text: 'حسابي',
         child: ProfileView(),
       ),
-      ItemModel(
+      const ItemModel(
         id: 1,
         image: 'orders',
         text: 'عروضي',
-        child: OrdersView(),
+        child: OrdersBody(),
       ),
-      ItemModel(
+      const ItemModel(
         id: 2,
         image: 'home',
         text: 'الرئيسية',
         child: HomeView(),
       ),
-      ItemModel(
+      const ItemModel(
         id: 3,
         image: 'notification',
         text: 'الإشعارات',
         child: NotificationsView(),
       ),
-      ItemModel(
-        id: 4,
-        image: 'settlement',
-        text: 'التسوية',
-        child: SettlementView(),
-      ),
     ];
+
+    if (provider) {
+      pages.add(
+        const ItemModel(
+          id: 4,
+          image: 'settlement',
+          text: 'التسوية',
+          child: SettlementView(),
+        ),
+      );
+    } else {
+      pages.add(
+        const ItemModel(
+          id: 4,
+          image: 'my-bills',
+          text: 'فواتير',
+          child: MyBillsView(),
+        ),
+      );
+    }
 
     menu = const [
       ItemModel(

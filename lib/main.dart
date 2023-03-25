@@ -5,6 +5,8 @@ import 'core/routes/app_routes.dart';
 import 'core/themes/theme_manager.dart';
 import 'core/translation/app_translation.dart';
 
+bool provider = false;
+
 void main() {
   runApp(const MyApp());
 }

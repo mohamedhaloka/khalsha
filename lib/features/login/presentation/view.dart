@@ -4,6 +4,7 @@ import 'package:khalsha/core/themes/colors_manager.dart';
 import 'package:khalsha/features/login/presentation/get/controllers/controller.dart';
 import 'package:khalsha/features/widgets/custom_rich_text.dart';
 import 'package:khalsha/features/widgets/custom_text_field.dart';
+import 'package:khalsha/main.dart';
 
 import '../../../core/routes/app_routes.dart';
 import '../../widgets/custom_button.dart';
@@ -42,7 +43,10 @@ class LoginView extends GetView<LoginController> {
             padding: const EdgeInsets.fromLTRB(0, 35, 0, 35),
             child: CustomButton.fillBlue(
               width: Get.width,
-              onTap: () => Get.toNamed(Routes.otp),
+              onTap: () {
+                provider = false;
+                Get.toNamed(Routes.otp);
+              },
               text: 'الدخول',
             ),
           ),
