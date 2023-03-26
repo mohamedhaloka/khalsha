@@ -72,49 +72,73 @@ class NavigationMenuController extends GetxController {
       );
     }
 
-    menu = const [
-      ItemModel(
+    menu = [
+      const ItemModel(
         image: 'about',
         text: 'عن خلصها',
         route: Routes.onBoarding,
         arguments: IntroType.aboutApp,
       ),
-      ItemModel(
-        image: 'blog',
-        text: 'المدونة',
-        route: Routes.blog,
-      ),
-      ItemModel(
-        image: 'resources',
-        text: 'المصادر',
-        route: Routes.sources,
-      ),
-      ItemModel(
+      const ItemModel(
         image: 'common_questions',
         text: 'الأسئلة الشائعة',
         route: Routes.commonQuestions,
       ),
-      ItemModel(
+      const ItemModel(
         image: 'technical-support',
         text: 'الدعم للعملاء',
         route: Routes.contactUS,
       ),
-      ItemModel(
+      const ItemModel(
         image: 'share',
         text: 'شارك خلصها',
         route: Routes.shareApp,
       ),
-      ItemModel(
+      const ItemModel(
         image: 'how-to-use',
         text: 'طريقة الإستخدام',
         route: Routes.howToUse,
       ),
-      ItemModel(
+      const ItemModel(
         image: 'setting',
         text: 'إعدادات الحساب',
         route: Routes.accountSettings,
       ),
     ];
+
+    if (provider) {
+      menu.insertAll(
+        1,
+        const [
+          ItemModel(
+            image: 'blog',
+            text: 'الإحصائيات',
+            route: Routes.statistics,
+          ),
+          ItemModel(
+            image: 'resources',
+            text: 'الطلبات الجديدة',
+            route: Routes.newOrders,
+          ),
+        ],
+      );
+    } else {
+      menu.insertAll(
+        1,
+        const [
+          ItemModel(
+            image: 'blog',
+            text: 'المدونة',
+            route: Routes.blog,
+          ),
+          ItemModel(
+            image: 'resources',
+            text: 'المصادر',
+            route: Routes.sources,
+          ),
+        ],
+      );
+    }
     super.onInit();
   }
 

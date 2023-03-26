@@ -22,6 +22,8 @@ abstract class Routes {
   static const accountSettings = _Paths.accountSettings;
   static const howToUse = _Paths.howToUse;
   static const orders = _Paths.orders;
+  static const newOrders = _Paths.newOrders;
+  static const statistics = _Paths.statistics;
 }
 
 abstract class _Paths {
@@ -45,4 +47,6 @@ abstract class _Paths {
   static const accountSettings = '/account_settings';
   static const howToUse = '/how_to_use';
   static const orders = '/orders';
+  static const newOrders = '/new_orders';
+  static const statistics = '/statistics';
 }

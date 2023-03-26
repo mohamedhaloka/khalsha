@@ -6,7 +6,9 @@ class Filter extends StatelessWidget {
   const Filter({
     Key? key,
     this.margin,
+    this.onTap,
   }) : super(key: key);
+  final void Function()? onTap;
   final EdgeInsets? margin;
 
   @override
@@ -14,23 +16,14 @@ class Filter extends StatelessWidget {
     return Align(
       alignment: Alignment.centerLeft,
       child: InkWell(
-        onTap: () {},
+        onTap: onTap,
         child: Container(
-          width: 95,
           margin: margin ?? const EdgeInsets.only(bottom: 20),
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
           decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(20)),
               border: Border.all(color: ColorManager.greyColor)),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text('شحن بري'),
-              const SizedBox(width: 4),
-              SvgPicture.asset('assets/images/icons/filter.svg'),
-            ],
-          ),
+          child: SvgPicture.asset('assets/images/icons/filter.svg'),
         ),
       ),
     );

@@ -50,6 +50,8 @@ dependencies:
   cupertino_tabbar: ^2.0.0
   # for choose files
   file_picker: ^5.2.5
+  # for statistics chart
+  fl_chart: ^0.61.0
 
 dev_dependencies:
   flutter_test:

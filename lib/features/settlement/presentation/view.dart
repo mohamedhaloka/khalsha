@@ -17,6 +17,7 @@ class SettlementView extends GetView<SettlementController> {
         TableItems(
           onItemTapped: () => Get.toNamed(Routes.settlementDetails),
           itemsHeader: const ['رقم الفاتورة', 'إجمالي الفاتورة', 'الحالة', ''],
+          itemsBody: const ['كود #200', '2000 ريال', 'إنتظار', 'تسوية'],
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),

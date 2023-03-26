@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/core/routes/app_routes.dart';
 
 import '../../core/themes/colors_manager.dart';
 
@@ -8,11 +7,12 @@ class TableItems extends StatelessWidget {
   const TableItems({
     Key? key,
     required this.itemsHeader,
+    required this.itemsBody,
     required this.onItemTapped,
     this.onNextTapped,
     this.onBackTapped,
   }) : super(key: key);
-  final List<String> itemsHeader;
+  final List<String> itemsHeader, itemsBody;
   final void Function() onItemTapped;
   final void Function()? onNextTapped, onBackTapped;
 
@@ -49,8 +49,9 @@ class TableItems extends StatelessWidget {
           itemBuilder: (_, int index) => _TableItem(
             index,
             onItemTapped: onItemTapped,
+            itemsBody: itemsBody,
           ),
-          itemCount: 20,
+          itemCount: 5,
         ),
         if (onBackTapped != null && onNextTapped != null) ...[
           const Divider(
@@ -95,9 +96,12 @@ class _TableItem extends StatelessWidget {
   const _TableItem(
     this.index, {
     Key? key,
+    required this.itemsBody,
     required this.onItemTapped,
   }) : super(key: key);
   final int index;
+  final List<String> itemsBody;
+
   final void Function() onItemTapped;
 
   bool get isOdd => index.isOdd;
@@ -110,20 +114,17 @@ class _TableItem extends StatelessWidget {
         height: 35,
         color: isOdd ? Colors.grey[100] : Colors.grey[200],
         child: Row(
-          children: [
-            _detail('كود #100'),
-            _detail('2000 ريال'),
-            _detail(isOdd ? 'انتظار' : 'تمت'),
-            _detail(
-              Get.currentRoute == Routes.orderDetails ? 'عرض' : 'تسوية',
-              textColor: Get.currentRoute == Routes.orderDetails
-                  ? ColorManager.darkTobyColor
-                  : isOdd
-                      ? ColorManager.darkTobyColor
-                      : Colors.grey,
-              fontWeight: FontWeight.bold,
-            ),
-          ],
+          children: itemsBody
+              .map(
+                (e) => _detail(
+                  e,
+                  fontWeight:
+                      itemsBody.last == e ? FontWeight.bold : FontWeight.normal,
+                  textColor:
+                      itemsBody.last == e ? ColorManager.secondaryColor : null,
+                ),
+              )
+              .toList(),
         ),
       ),
     );

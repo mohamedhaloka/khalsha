@@ -16,6 +16,7 @@ import 'package:khalsha/features/login/presentation/get/bindings/binding.dart';
 import 'package:khalsha/features/login/presentation/view.dart';
 import 'package:khalsha/features/navigation_menu/presentation/get/binding/binding.dart';
 import 'package:khalsha/features/navigation_menu/presentation/view.dart';
+import 'package:khalsha/features/new_orders/presentation/view.dart';
 import 'package:khalsha/features/on_boarding/presentation/get/bindings/binding.dart';
 import 'package:khalsha/features/on_boarding/presentation/view.dart';
 import 'package:khalsha/features/order_details/presentation/view.dart';
@@ -33,10 +34,13 @@ import 'package:khalsha/features/settlement_details/presentation/view.dart';
 import 'package:khalsha/features/share_app/presentation/get/binding/binding.dart';
 import 'package:khalsha/features/share_app/presentation/view.dart';
 import 'package:khalsha/features/sources/presentation/get/binding/binding.dart';
+import 'package:khalsha/features/statistics/presentation/get/binding/binding.dart';
+import 'package:khalsha/features/statistics/presentation/view.dart';
 
 import '../../features/account_settings/presentation/get/binding/binding.dart';
 import '../../features/fill_service_details/presentation/get/bindings/fill_service_details_binding.dart';
 import '../../features/how_to_use/presentation/get/binding/binding.dart';
+import '../../features/new_orders/presentation/get/binding/binding.dart';
 import '../../features/order_details/presentation/get/binding/binding.dart';
 import '../../features/orders/presentation/get/binding/binding.dart';
 import '../../features/sources/presentation/view.dart';
@@ -148,6 +152,16 @@ class AppPages {
       name: _Paths.orders,
       page: () => const OrdersView(),
       binding: OrdersBinding(),
+    ),
+    GetPage(
+      name: _Paths.newOrders,
+      page: () => const NewOrdersView(),
+      binding: NewOrdersBinding(),
+    ),
+    GetPage(
+      name: _Paths.statistics,
+      page: () => const StatisticsView(),
+      binding: StatisticsBinding(),
     ),
   ];
 }
