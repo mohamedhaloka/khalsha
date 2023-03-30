@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:khalsha/core/models/item_model.dart';
+import 'package:khalsha/core/routes/app_routes.dart';
 
 class ServiceIntroController extends GetxController {
   ServiceType serviceType = Get.arguments;
@@ -22,6 +23,23 @@ class ServiceIntroController extends GetxController {
       text: 'أكثر من 1000 عميل يثق بنا',
     ),
   ];
+
+  String get routeNamed {
+    switch (serviceType) {
+      case ServiceType.customsClearance:
+        return Routes.customsClearanceService;
+      case ServiceType.landShipping:
+        return Routes.landShipping;
+      case ServiceType.stores:
+        return Routes.stores;
+      case ServiceType.marineShipping:
+        return Routes.marineShipping;
+      case ServiceType.airFreight:
+        return Routes.airFreight;
+      case ServiceType.laboratoryAndStandards:
+        return Routes.laboratoryAndStandardsService;
+    }
+  }
 }
 
 enum ServiceType {

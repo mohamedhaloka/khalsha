@@ -15,7 +15,13 @@ abstract class Routes {
   static const contactUS = _Paths.contactUS;
   static const blog = _Paths.blog;
   static const postDetails = _Paths.postDetails;
-  static const fillServiceDetails = _Paths.fillServiceDetails;
+  static const customsClearanceService = _Paths.customsClearanceService;
+  static const laboratoryAndStandardsService =
+      _Paths.laboratoryAndStandardsService;
+  static const airFreight = _Paths.airFreight;
+  static const landShipping = _Paths.landShipping;
+  static const marineShipping = _Paths.marineShipping;
+  static const stores = _Paths.stores;
   static const orderDetails = _Paths.orderDetails;
   static const settlementDetails = _Paths.settlementDetails;
   static const billDetails = _Paths.billDetails;
@@ -40,7 +46,13 @@ abstract class _Paths {
   static const contactUS = '/contact_us';
   static const blog = '/blog';
   static const postDetails = '/post_details';
-  static const fillServiceDetails = '/fill_service_details';
+  static const customsClearanceService = '/customs_clearance_service';
+  static const laboratoryAndStandardsService =
+      '/laboratory_and_standards_service';
+  static const airFreight = '/air_freight';
+  static const landShipping = '/land_shipping';
+  static const marineShipping = '/marine_shipping';
+  static const stores = '/stores';
   static const orderDetails = '/order_details';
   static const settlementDetails = '/settlement_details';
   static const billDetails = '/bill_details';

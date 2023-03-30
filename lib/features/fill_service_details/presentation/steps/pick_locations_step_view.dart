@@ -4,10 +4,9 @@ import 'package:get/get.dart';
 import 'package:khalsha/features/fill_service_details/presentation/bottom_sheet_content/add_location_sheet.dart';
 
 import '../bottom_sheet_content/choose_date_time_sheet.dart';
-import '../get/controllers/pick_locations_step_controller.dart';
 import '../widgets/inputs/service_item_with_holder.dart';
 
-class PickLocationsStepView extends GetView<PickLocationsStepController> {
+class PickLocationsStepView extends GetView {
   const PickLocationsStepView({Key? key}) : super(key: key);
 
   @override

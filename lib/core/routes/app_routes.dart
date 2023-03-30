@@ -8,7 +8,13 @@ import 'package:khalsha/features/common_questions/presentation/get/binding/bindi
 import 'package:khalsha/features/common_questions/presentation/view.dart';
 import 'package:khalsha/features/contact_us/presentation/get/binding/binding.dart';
 import 'package:khalsha/features/contact_us/presentation/view.dart';
-import 'package:khalsha/features/fill_service_details/presentation/fill_service_details_view.dart';
+import 'package:khalsha/features/fill_service_details/presentation/views/air_freight_service/get/bindings/binding.dart';
+import 'package:khalsha/features/fill_service_details/presentation/views/air_freight_service/view.dart';
+import 'package:khalsha/features/fill_service_details/presentation/views/laboratory_and_standards_service/get/bindings/binding.dart';
+import 'package:khalsha/features/fill_service_details/presentation/views/laboratory_and_standards_service/view.dart';
+import 'package:khalsha/features/fill_service_details/presentation/views/land_shipping/get/bindings/binding.dart';
+import 'package:khalsha/features/fill_service_details/presentation/views/land_shipping/view.dart';
+import 'package:khalsha/features/fill_service_details/presentation/views/marine_shipping/view.dart';
 import 'package:khalsha/features/how_to_use/presentation/view.dart';
 import 'package:khalsha/features/intro/presentation/get/binding/binding.dart';
 import 'package:khalsha/features/intro/presentation/view.dart';
@@ -38,7 +44,11 @@ import 'package:khalsha/features/statistics/presentation/get/binding/binding.dar
 import 'package:khalsha/features/statistics/presentation/view.dart';
 
 import '../../features/account_settings/presentation/get/binding/binding.dart';
-import '../../features/fill_service_details/presentation/get/bindings/fill_service_details_binding.dart';
+import '../../features/fill_service_details/presentation/views/customs_clearance_service/get/bindings/binding.dart';
+import '../../features/fill_service_details/presentation/views/customs_clearance_service/view.dart';
+import '../../features/fill_service_details/presentation/views/marine_shipping/get/bindings/binding.dart';
+import '../../features/fill_service_details/presentation/views/stores/get/bindings/binding.dart';
+import '../../features/fill_service_details/presentation/views/stores/view.dart';
 import '../../features/how_to_use/presentation/get/binding/binding.dart';
 import '../../features/new_orders/presentation/get/binding/binding.dart';
 import '../../features/order_details/presentation/get/binding/binding.dart';
@@ -119,11 +129,6 @@ class AppPages {
       binding: PostDetailsBinding(),
     ),
     GetPage(
-      name: _Paths.fillServiceDetails,
-      page: () => const FillServiceDetailsView(),
-      binding: FillServiceDetailsBinding(),
-    ),
-    GetPage(
       name: _Paths.orderDetails,
       page: () => const OrderDetailsView(),
       binding: OrderDetailsBinding(),
@@ -162,6 +167,36 @@ class AppPages {
       name: _Paths.statistics,
       page: () => const StatisticsView(),
       binding: StatisticsBinding(),
+    ),
+    GetPage(
+      name: _Paths.customsClearanceService,
+      page: () => const AddEditCustomsClearanceServiceView(),
+      binding: AddEditCustomsClearanceServiceBinding(),
+    ),
+    GetPage(
+      name: _Paths.laboratoryAndStandardsService,
+      page: () => const AddEditLaboratoryAndStandardsServiceView(),
+      binding: AddEditLaboratoryAndStandardsServiceBinding(),
+    ),
+    GetPage(
+      name: _Paths.airFreight,
+      page: () => const AddEditAirFreightServiceView(),
+      binding: AddEditAirFreightServiceBinding(),
+    ),
+    GetPage(
+      name: _Paths.marineShipping,
+      page: () => const AddEditMarineShippingServiceView(),
+      binding: AddEditMarineShippingServiceBinding(),
+    ),
+    GetPage(
+      name: _Paths.landShipping,
+      page: () => const AddEditLandShippingServiceView(),
+      binding: AddEditLandShippingBinding(),
+    ),
+    GetPage(
+      name: _Paths.stores,
+      page: () => const AddEditStoresServiceView(),
+      binding: AddEditStoresServiceBinding(),
     ),
   ];
 }
