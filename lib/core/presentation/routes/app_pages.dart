@@ -30,6 +30,8 @@ abstract class Routes {
   static const orders = _Paths.orders;
   static const newOrders = _Paths.newOrders;
   static const statistics = _Paths.statistics;
+  static const forgetPassword = _Paths.forgetPassword;
+  static const resetPassword = _Paths.resetPassword;
 }
 
 abstract class _Paths {
@@ -61,4 +63,6 @@ abstract class _Paths {
   static const orders = '/orders';
   static const newOrders = '/new_orders';
   static const statistics = '/statistics';
+  static const forgetPassword = '/forget_password';
+  static const resetPassword = '/reset_password';
 }

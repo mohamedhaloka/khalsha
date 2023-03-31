@@ -4,7 +4,6 @@ import 'package:khalsha/features/otp/presentation/widgets/otp_field.dart';
 import 'package:khalsha/features/otp/presentation/widgets/resend_otp.dart';
 import 'package:khalsha/features/widgets/custom_button.dart';
 
-import '../../../core/presentation/routes/app_routes.dart';
 import '../../../core/presentation/themes/colors_manager.dart';
 import '../../widgets/custom_app_bar.dart';
 import 'get/controllers/controller.dart';
@@ -25,14 +24,15 @@ class OTPView extends GetView<OTPController> {
                 color: ColorManager.primaryColor, fontWeight: FontWeight.bold),
           ),
           Text(
-            'تم إرسال الكود إلى  01141558798 02+',
+            'تم إرسال الكود إلى  ${controller.userData['user']['mobile']}',
             style: Get.textTheme.subtitle1!.copyWith(
               color: ColorManager.greyColor,
             ),
           ),
           const OTPFields(),
           CustomButton.fillBlue(
-            onTap: () => Get.offAllNamed(Routes.navigationMenu),
+            loading: controller.loading,
+            onTap: controller.checkCode,
             text: 'تأكيد',
           ),
           const ResendOTP()

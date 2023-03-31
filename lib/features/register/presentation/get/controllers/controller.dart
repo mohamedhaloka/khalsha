@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:khalsha/features/otp/domain/entites/enums/verify_type.dart';
 import 'package:khalsha/features/register/domain/use_cases/register_use_case.dart';
 
 import '../../../../../core/data/local_storage/user_local.dart';
@@ -10,6 +11,7 @@ import '../../../../../core/data/models/user_data_model.dart';
 import '../../../../../core/domain/error/failures.dart';
 import '../../../../../core/presentation/routes/app_routes.dart';
 import '../../../../../core/utils.dart';
+import '../../../../otp/presentation/get/controllers/controller.dart';
 
 class RegisterController extends GetxController {
   final RegisterUseCase _registerUseCase;
@@ -75,7 +77,10 @@ class RegisterController extends GetxController {
         UserDataLocal.instance.setToken(userData.accessToken ?? '');
         Get.toNamed(
           Routes.otp,
-          arguments: userData.toJson(),
+          arguments: {
+            kUserData: userData.toJson(),
+            kVerifyType: VerifyType.mobile,
+          },
         );
       },
     );

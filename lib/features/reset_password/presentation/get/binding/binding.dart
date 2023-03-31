@@ -3,11 +3,10 @@ import 'package:khalsha/injection_container.dart';
 
 import '../controllers/controller.dart';
 
-class OTPBinding extends Bindings {
+class ResetPasswordBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<OTPController>(() => OTPController(
-          InjectionContainer.sl(),
+    Get.lazyPut<ResetPasswordController>(() => ResetPasswordController(
           InjectionContainer.sl(),
         ));
   }

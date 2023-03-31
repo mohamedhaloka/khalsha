@@ -39,7 +39,9 @@ class LoginView extends GetView<LoginController> {
             passSecure: controller.passSecure,
           ),
           const SizedBox(height: 10),
-          const Text('نسيت كلمة المرور'),
+          InkWell(
+              onTap: () => Get.toNamed(Routes.forgetPassword),
+              child: const Text('نسيت كلمة المرور')),
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 35, 0, 35),
             child: CustomButton.fillBlue(

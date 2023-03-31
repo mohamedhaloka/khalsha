@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/main.dart';
+import 'package:khalsha/core/data/local_storage/user_local.dart';
 
 import '../../../../core/presentation/themes/colors_manager.dart';
 
@@ -25,17 +24,19 @@ class MenuHeader extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          SvgPicture.asset('assets/images/menu/user-circle.svg'),
+          Image.network('assets/images/menu/user-circle.svg'),
           const SizedBox(height: 14),
           Text(
-            'عبد الحميد مصطفي',
+            UserDataLocal.instance.clientName,
             style: Get.textTheme.subtitle1!.copyWith(
               color: Colors.white,
               fontWeight: FontWeight.w700,
             ),
           ),
           Text(
-            provider ? 'مقدم خدمة' : 'مستورد',
+            UserDataLocal.instance.isImporterExporter
+                ? 'مستورد/مصدر'
+                : 'مقدم خدمة',
             style: Get.textTheme.subtitle2!.copyWith(
               color: Colors.white,
             ),

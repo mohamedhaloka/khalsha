@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:khalsha/injection_container.dart';
 
 import 'core/data/local_storage/user_local.dart';
@@ -48,6 +49,8 @@ class MyApp extends StatelessWidget {
 }
 
 Future<void> _initData() async {
+  await GetStorage.init();
+
   await UserDataLocal.instance.init();
 
   Get.lazyPut<HttpService>(() => HttpService(Dio()));

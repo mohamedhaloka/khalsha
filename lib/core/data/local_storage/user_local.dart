@@ -1,4 +1,5 @@
-import 'package:flutter/foundation.dart';
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -35,9 +36,7 @@ class UserDataLocal
     Map<String, dynamic>? userData = storage.read('userData');
 
     if (userData != null) {
-      if (kDebugMode) {
-        print(userData);
-      }
+      log(userData.toString(), name: 'USER DATA');
       data.value = UserData.fromJson(userData);
       return data;
     }

@@ -27,7 +27,7 @@ class OTPFields extends GetView<OTPController> {
         child: PinCodeTextField(
           controller: controller.code,
           appContext: context,
-          length: 4,
+          length: 6,
           obscureText: false,
           autoFocus: true,
           animationType: AnimationType.fade,

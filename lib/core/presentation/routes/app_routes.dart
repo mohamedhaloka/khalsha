@@ -15,6 +15,7 @@ import 'package:khalsha/features/fill_service_details/presentation/services/labo
 import 'package:khalsha/features/fill_service_details/presentation/services/land_shipping/get/bindings/binding.dart';
 import 'package:khalsha/features/fill_service_details/presentation/services/land_shipping/view.dart';
 import 'package:khalsha/features/fill_service_details/presentation/services/marine_shipping/view.dart';
+import 'package:khalsha/features/forget_password/presentation/view.dart';
 import 'package:khalsha/features/how_to_use/presentation/view.dart';
 import 'package:khalsha/features/intro/presentation/get/binding/binding.dart';
 import 'package:khalsha/features/intro/presentation/view.dart';
@@ -49,10 +50,13 @@ import '../../../features/fill_service_details/presentation/services/customs_cle
 import '../../../features/fill_service_details/presentation/services/marine_shipping/get/bindings/binding.dart';
 import '../../../features/fill_service_details/presentation/services/stores/get/bindings/binding.dart';
 import '../../../features/fill_service_details/presentation/services/stores/view.dart';
+import '../../../features/forget_password/presentation/get/binding/binding.dart';
 import '../../../features/how_to_use/presentation/get/binding/binding.dart';
 import '../../../features/new_orders/presentation/get/binding/binding.dart';
 import '../../../features/order_details/presentation/get/binding/binding.dart';
 import '../../../features/orders/presentation/get/binding/binding.dart';
+import '../../../features/reset_password/presentation/get/binding/binding.dart';
+import '../../../features/reset_password/presentation/view.dart';
 import '../../../features/sources/presentation/view.dart';
 
 part 'app_pages.dart';
@@ -197,6 +201,16 @@ class AppPages {
       name: _Paths.stores,
       page: () => const AddEditStoresServiceView(),
       binding: AddEditStoresServiceBinding(),
+    ),
+    GetPage(
+      name: _Paths.forgetPassword,
+      page: () => const ForgetPasswordView(),
+      binding: ForgetPasswordBinding(),
+    ),
+    GetPage(
+      name: _Paths.resetPassword,
+      page: () => const ResetPasswordView(),
+      binding: ResetPasswordBinding(),
     ),
   ];
 }
