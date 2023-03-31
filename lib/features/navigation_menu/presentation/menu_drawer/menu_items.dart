@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/core/models/item_model.dart';
-import 'package:khalsha/core/themes/colors_manager.dart';
 import 'package:khalsha/features/navigation_menu/presentation/get/controllers/controller.dart';
+
+import '../../../../core/data/models/item_model.dart';
+import '../../../../core/presentation/themes/colors_manager.dart';
 
 class MenuItems extends GetView<NavigationMenuController> {
   const MenuItems({Key? key}) : super(key: key);

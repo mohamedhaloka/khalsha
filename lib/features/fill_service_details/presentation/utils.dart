@@ -1,4 +1,4 @@
-import '../../../core/models/item_model.dart';
+import '../../../core/data/models/item_model.dart';
 
 List<ItemModel> shippingFieldOptions = const <ItemModel>[
   ItemModel(

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import '../../../../../core/themes/colors_manager.dart';
+import '../../../../../core/presentation/themes/colors_manager.dart';
 import '../../../../widgets/custom_text_field.dart';
 import '../../inputs_style.dart';
 import 'input_holder_box.dart';

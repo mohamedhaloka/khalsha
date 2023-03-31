@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/core/routes/app_routes.dart';
-import 'package:khalsha/core/themes/colors_manager.dart';
 import 'package:khalsha/features/intro/presentation/get/controllers/controller.dart';
 
+import '../../../core/presentation/routes/app_routes.dart';
+import '../../../core/presentation/themes/colors_manager.dart';
 import '../../widgets/custom_app_bar.dart';
 import '../../widgets/custom_button.dart';
 

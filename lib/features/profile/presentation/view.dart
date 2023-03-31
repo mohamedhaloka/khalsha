@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/core/themes/colors_manager.dart';
 import 'package:khalsha/features/profile/presentation/widgets/change_profile_photo.dart';
 import 'package:khalsha/features/widgets/custom_button.dart';
 
+import '../../../core/presentation/themes/colors_manager.dart';
 import '../../widgets/custom_text_field.dart';
 import 'get/controllers/controller.dart';
 

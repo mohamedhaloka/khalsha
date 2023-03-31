@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/core/routes/app_routes.dart';
 
+import '../../../../../core/presentation/routes/app_routes.dart';
 import '../../../data/models/on_boarding_item_model.dart';
 
 class OnBoardingController extends GetxController {

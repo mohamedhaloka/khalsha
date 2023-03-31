@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import '../../core/themes/colors_manager.dart';
+import '../../core/presentation/themes/colors_manager.dart';
 
 class Bill extends StatelessWidget {
   const Bill({Key? key}) : super(key: key);

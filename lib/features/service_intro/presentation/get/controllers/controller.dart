@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
-import 'package:khalsha/core/models/item_model.dart';
-import 'package:khalsha/core/routes/app_routes.dart';
+
+import '../../../../../core/data/models/item_model.dart';
+import '../../../../../core/presentation/routes/app_routes.dart';
 
 class ServiceIntroController extends GetxController {
   ServiceType serviceType = Get.arguments;

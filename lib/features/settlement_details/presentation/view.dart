@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/core/routes/app_routes.dart';
 import 'package:khalsha/features/fill_service_details/presentation/inputs_style.dart';
 import 'package:khalsha/features/widgets/custom_button.dart';
 import 'package:khalsha/features/widgets/custom_drop_down.dart';
 import 'package:khalsha/features/widgets/custom_text_field.dart';
 
-import '../../../core/themes/colors_manager.dart';
+import '../../../core/presentation/routes/app_routes.dart';
+import '../../../core/presentation/themes/colors_manager.dart';
 import '../../widgets/custom_app_bar.dart';
 import 'get/controllers/controller.dart';
 

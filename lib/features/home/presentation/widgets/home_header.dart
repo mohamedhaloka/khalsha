@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/core/themes/colors_manager.dart';
 import 'package:khalsha/features/home/presentation/get/controllers/controller.dart';
 import 'package:khalsha/main.dart';
+
+import '../../../../core/presentation/themes/colors_manager.dart';
 
 class HomeHeader extends GetView<HomeController> {
   const HomeHeader({Key? key}) : super(key: key);

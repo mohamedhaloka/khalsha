@@ -1,8 +1,8 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/core/themes/colors_manager.dart';
 
+import '../../../../core/presentation/themes/colors_manager.dart';
 import '../../../fill_service_details/presentation/inputs_style.dart';
 
 class ChartStatistics extends StatelessWidget {

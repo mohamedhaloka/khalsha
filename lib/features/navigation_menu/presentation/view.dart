@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/core/themes/colors_manager.dart';
 import 'package:khalsha/features/navigation_menu/presentation/widgets/root_app_bar.dart';
 
+import '../../../core/presentation/themes/colors_manager.dart';
 import 'get/controllers/controller.dart';
 import 'menu_drawer/view.dart';
 

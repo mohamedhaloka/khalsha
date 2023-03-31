@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/core/models/item_model.dart';
-import 'package:khalsha/core/routes/app_routes.dart';
 import 'package:khalsha/main.dart';
 
-import '../../../../core/themes/colors_manager.dart';
+import '../../../../core/data/models/item_model.dart';
+import '../../../../core/presentation/routes/app_routes.dart';
+import '../../../../core/presentation/themes/colors_manager.dart';
 
 class ServiceItem extends StatelessWidget {
   const ServiceItem(

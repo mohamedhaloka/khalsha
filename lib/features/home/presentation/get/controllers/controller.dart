@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
-import 'package:khalsha/core/models/item_model.dart';
 import 'package:khalsha/features/service_intro/presentation/get/controllers/controller.dart';
+
+import '../../../../../core/data/models/item_model.dart';
 
 class HomeController extends GetxController {
   List<ItemModel> services = <ItemModel>[];

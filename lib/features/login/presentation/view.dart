@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/core/themes/colors_manager.dart';
 import 'package:khalsha/features/login/presentation/get/controllers/controller.dart';
 import 'package:khalsha/features/widgets/custom_rich_text.dart';
 import 'package:khalsha/features/widgets/custom_text_field.dart';
-import 'package:khalsha/main.dart';
 
-import '../../../core/routes/app_routes.dart';
+import '../../../core/presentation/routes/app_routes.dart';
+import '../../../core/presentation/themes/colors_manager.dart';
 import '../../widgets/custom_button.dart';
 
 class LoginView extends GetView<LoginController> {
@@ -30,11 +29,13 @@ class LoginView extends GetView<LoginController> {
           ),
           CustomTextField(
             title: 'البريد الإلكتروني',
+            controller: controller.account,
           ),
           const SizedBox(height: 10),
           CustomTextField(
             title: 'كلمة المرور',
             inputType: Input.password,
+            controller: controller.password,
             passSecure: controller.passSecure,
           ),
           const SizedBox(height: 10),
@@ -43,10 +44,8 @@ class LoginView extends GetView<LoginController> {
             padding: const EdgeInsets.fromLTRB(0, 35, 0, 35),
             child: CustomButton.fillBlue(
               width: Get.width,
-              onTap: () {
-                provider = false;
-                Get.toNamed(Routes.otp);
-              },
+              loading: controller.loading,
+              onTap: controller.login,
               text: 'الدخول',
             ),
           ),

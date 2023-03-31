@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/core/themes/colors_manager.dart';
 import 'package:khalsha/features/widgets/custom_button.dart';
 import 'package:khalsha/features/widgets/headline_bottom_sheet.dart';
 
+import '../../../../../core/presentation/themes/colors_manager.dart';
 import '../../inputs_style.dart';
 import 'input_holder_box.dart';
 

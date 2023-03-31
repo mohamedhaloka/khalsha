@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/core/themes/colors_manager.dart';
 import 'package:khalsha/features/widgets/table_items.dart';
 
-import '../../../core/routes/app_routes.dart';
+import '../../../core/presentation/routes/app_routes.dart';
+import '../../../core/presentation/themes/colors_manager.dart';
 import 'get/controllers/controller.dart';
 
 class SettlementView extends GetView<SettlementController> {

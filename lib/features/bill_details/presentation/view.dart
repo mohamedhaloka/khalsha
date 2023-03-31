@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:khalsha/features/widgets/bill.dart';
 
-import '../../../core/routes/app_routes.dart';
+import '../../../core/presentation/routes/app_routes.dart';
 import '../../widgets/custom_app_bar.dart';
 import '../../widgets/custom_button.dart';
 import 'get/controllers/controller.dart';

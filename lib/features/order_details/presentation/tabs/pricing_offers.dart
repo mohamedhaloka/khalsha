@@ -17,7 +17,7 @@ class _PricingOffersTab extends GetView<OrderDetailsController> {
           child: TableItems(
             onItemTapped: () {},
             itemsHeader: const ['المستخدم', 'إجمالي الفاتورة', 'الحالة', ''],
-            itemsBody: ['كود #100', '2000 ريال', 'إنتظار', 'عرض'],
+            itemsBody: const ['كود #100', '2000 ريال', 'إنتظار', 'عرض'],
             onBackTapped: () {},
             onNextTapped: () {},
           ),

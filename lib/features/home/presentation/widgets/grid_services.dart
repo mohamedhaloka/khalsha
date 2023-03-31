@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:khalsha/features/home/presentation/get/controllers/controller.dart';
 import 'package:khalsha/features/home/presentation/widgets/service_item.dart';
 
-import '../../../../core/utils/grid_delegate_fixed_height.dart';
+import '../../../../core/presentation/utils/grid_delegate_fixed_height.dart';
 
 class GridServices extends GetView<HomeController> {
   const GridServices({Key? key}) : super(key: key);

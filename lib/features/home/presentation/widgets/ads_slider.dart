@@ -2,7 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/core/themes/colors_manager.dart';
+
+import '../../../../core/presentation/themes/colors_manager.dart';
 
 class AdsSlider extends StatefulWidget {
   const AdsSlider(this.photos, {Key? key}) : super(key: key);

@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:khalsha/features/fill_service_details/presentation/inputs_style.dart';
 
-import '../../../../../core/themes/colors_manager.dart';
+import '../../../../../core/presentation/themes/colors_manager.dart';
 import 'input_holder_box.dart';
 
 class AttachFileWithHolder extends StatelessWidget {

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/core/routes/app_routes.dart';
-import 'package:khalsha/core/themes/colors_manager.dart';
 import 'package:khalsha/features/widgets/choose_file.dart';
 import 'package:khalsha/features/widgets/custom_rich_text.dart';
 import 'package:khalsha/features/widgets/custom_text_field.dart';
-import 'package:khalsha/main.dart';
 
-import '../../../core/models/item_model.dart';
+import '../../../core/data/models/item_model.dart';
+import '../../../core/presentation/routes/app_routes.dart';
+import '../../../core/presentation/themes/colors_manager.dart';
 import '../../widgets/custom_button.dart';
 import 'get/controllers/controller.dart';
 
@@ -36,14 +35,28 @@ class RegisterView extends GetView<RegisterController> {
           ),
           CustomTextField(
             title: 'الإسم',
+            controller: controller.name,
           ),
           CustomTextField(
             title: 'البريد الإلكتروني',
+            controller: controller.email,
           ),
           CustomTextField(
             title: 'كلمة السر',
             inputType: Input.password,
             passSecure: controller.passSecure,
+            controller: controller.password,
+          ),
+          CustomTextField(
+            title: 'تأكيد كلمة السر',
+            inputType: Input.password,
+            passSecure: controller.passConfirmationSecure,
+            controller: controller.passwordConfirmation,
+          ),
+          CustomTextField(
+            title: 'رقم الهاتف',
+            inputType: Input.phone,
+            controller: controller.phone,
           ),
           ChooseFile(
             title: 'السجل التجاري',
@@ -54,10 +67,8 @@ class RegisterView extends GetView<RegisterController> {
             padding: const EdgeInsets.fromLTRB(0, 35, 0, 35),
             child: CustomButton.fillBlue(
               width: Get.width,
-              onTap: () {
-                provider = true;
-                Get.toNamed(Routes.otp);
-              },
+              loading: controller.loading,
+              onTap: controller.register,
               text: 'تسجيل',
             ),
           ),

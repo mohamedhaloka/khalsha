@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/core/models/item_model.dart';
-import 'package:khalsha/core/routes/app_routes.dart';
-import 'package:khalsha/core/themes/colors_manager.dart';
+
+import '../../../../core/data/models/item_model.dart';
+import '../../../../core/presentation/routes/app_routes.dart';
+import '../../../../core/presentation/themes/colors_manager.dart';
 
 class OrderItem extends StatelessWidget {
   const OrderItem(this.order, {Key? key}) : super(key: key);

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/themes/colors_manager.dart';
+import '../../../core/presentation/themes/colors_manager.dart';
 
 const inputBorderSide = BorderSide(
   color: ColorManager.lightGreyColor,

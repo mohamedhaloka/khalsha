@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/core/routes/app_routes.dart';
-import 'package:khalsha/core/themes/colors_manager.dart';
 import 'package:khalsha/features/otp/presentation/widgets/otp_field.dart';
 import 'package:khalsha/features/otp/presentation/widgets/resend_otp.dart';
 import 'package:khalsha/features/widgets/custom_button.dart';
 
+import '../../../core/presentation/routes/app_routes.dart';
+import '../../../core/presentation/themes/colors_manager.dart';
 import '../../widgets/custom_app_bar.dart';
 import 'get/controllers/controller.dart';
 

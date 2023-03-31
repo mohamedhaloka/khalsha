@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/core/themes/colors_manager.dart';
+
+import '../../../../core/presentation/themes/colors_manager.dart';
 
 class ChangeProfilePhoto extends StatelessWidget {
   const ChangeProfilePhoto({Key? key}) : super(key: key);

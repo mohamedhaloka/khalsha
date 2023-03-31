@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/core/themes/colors_manager.dart';
 import 'package:khalsha/features/fill_service_details/domain/entities/package_model.dart';
 
-import '../../../../core/models/item_model.dart';
+import '../../../../core/data/models/item_model.dart';
+import '../../../../core/presentation/themes/colors_manager.dart';
 import '../../../widgets/custom_button.dart';
 import '../inputs_style.dart';
 import '../widgets/inputs/text_field_input_with_holder.dart';

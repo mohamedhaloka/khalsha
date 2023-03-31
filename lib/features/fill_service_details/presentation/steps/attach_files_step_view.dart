@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:khalsha/features/fill_service_details/presentation/widgets/inputs/service_item_with_holder.dart';
 
-import '../../../../core/themes/colors_manager.dart';
+import '../../../../core/presentation/themes/colors_manager.dart';
 
 class AttachFilesStepView extends StatelessWidget {
   const AttachFilesStepView({Key? key}) : super(key: key);

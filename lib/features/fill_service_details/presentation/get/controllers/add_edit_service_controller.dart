@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/core/routes/app_routes.dart';
+
+import '../../../../../core/presentation/routes/app_routes.dart';
 
 class AddEditServiceController extends GetxController {
   PageController stepsPageController = PageController();

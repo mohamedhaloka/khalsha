@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:khalsha/features/widgets/table_items.dart';
 
-import '../../../../core/models/item_model.dart';
-import '../../../../core/themes/colors_manager.dart';
+import '../../../../core/data/models/item_model.dart';
+import '../../../../core/presentation/themes/colors_manager.dart';
 
 class DataSummary extends StatelessWidget {
   const DataSummary({

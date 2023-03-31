@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/core/routes/app_routes.dart';
 import 'package:khalsha/features/home/presentation/view.dart';
 import 'package:khalsha/features/my_bills/presentation/view.dart';
 import 'package:khalsha/features/on_boarding/presentation/get/controllers/controller.dart';
@@ -8,7 +7,8 @@ import 'package:khalsha/features/orders/presentation/view.dart';
 import 'package:khalsha/features/profile/presentation/view.dart';
 import 'package:khalsha/main.dart';
 
-import '../../../../../core/models/item_model.dart';
+import '../../../../../core/data/models/item_model.dart';
+import '../../../../../core/presentation/routes/app_routes.dart';
 import '../../../../notifications/presentation/view.dart';
 import '../../../../settlement/presentation/view.dart';
 

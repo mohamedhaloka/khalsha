@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../core/themes/colors_manager.dart';
+import '../../core/presentation/themes/colors_manager.dart';
 
 class CustomDropDown extends StatelessWidget {
   const CustomDropDown(

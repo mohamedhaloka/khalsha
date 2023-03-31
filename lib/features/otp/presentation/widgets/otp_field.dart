@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-import '../../../../core/themes/colors_manager.dart';
+import '../../../../core/presentation/themes/colors_manager.dart';
 import '../get/controllers/controller.dart';
 
 class OTPFields extends GetView<OTPController> {

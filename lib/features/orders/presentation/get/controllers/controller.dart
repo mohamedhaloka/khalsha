@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import '../../../../../core/models/item_model.dart';
+import '../../../../../core/data/models/item_model.dart';
 
 class OrdersController extends GetxController {
   List<ItemModel> orders = <ItemModel>[];

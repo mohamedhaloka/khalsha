@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../core/themes/colors_manager.dart';
+import '../../../core/presentation/themes/colors_manager.dart';
 import '../../widgets/back_icon.dart';
 import '../../widgets/sliver_body.dart';
 import 'get/controllers/controller.dart';

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-import '../../core/themes/colors_manager.dart';
+import '../../core/presentation/themes/colors_manager.dart';
 
 class ChooseFile extends StatelessWidget {
   const ChooseFile({

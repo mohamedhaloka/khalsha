@@ -1,7 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/core/themes/colors_manager.dart';
+
+import '../../core/presentation/themes/colors_manager.dart';
 
 class CustomRichText extends StatelessWidget {
   const CustomRichText(
@@ -36,8 +37,9 @@ class CustomRichText extends StatelessWidget {
                 recognizer: TapGestureRecognizer()..onTap = onTap,
                 style: subTextStyle ??
                     Get.textTheme.bodyText2!.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: ColorManager.secondaryColor,)),
+                      fontWeight: FontWeight.bold,
+                      color: ColorManager.secondaryColor,
+                    )),
           ],
         ),
       ),

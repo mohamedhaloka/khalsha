@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/core/themes/colors_manager.dart';
 import 'package:khalsha/features/fill_service_details/presentation/widgets/inputs/text_field_input_with_holder.dart';
+
+import '../../../../core/presentation/themes/colors_manager.dart';
 
 class FillDataStepView extends StatelessWidget {
   const FillDataStepView({

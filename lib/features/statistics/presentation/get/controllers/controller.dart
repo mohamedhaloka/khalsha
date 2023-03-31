@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
-import 'package:khalsha/core/models/item_model.dart';
+
+import '../../../../../core/data/models/item_model.dart';
 
 class StatisticsController extends GetxController {
   RxList<int> selectedServicesFilter = <int>[].obs;

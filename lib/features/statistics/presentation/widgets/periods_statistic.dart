@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/core/themes/colors_manager.dart';
 import 'package:khalsha/features/fill_service_details/presentation/inputs_style.dart';
 import 'package:khalsha/features/statistics/presentation/get/controllers/controller.dart';
+
+import '../../../../core/presentation/themes/colors_manager.dart';
 
 class PeriodsStatistic extends GetView<StatisticsController> {
   const PeriodsStatistic({Key? key}) : super(key: key);
@@ -40,7 +41,7 @@ class PeriodsStatistic extends GetView<StatisticsController> {
             height: 60,
             width: 1,
             color: ColorManager.lightGreyColor,
-            margin: EdgeInsets.only(right: 5, left: 20),
+            margin: const EdgeInsets.only(right: 5, left: 20),
           ),
           Expanded(
               child: Column(

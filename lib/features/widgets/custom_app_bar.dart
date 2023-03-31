@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/core/themes/colors_manager.dart';
 
+import '../../core/presentation/themes/colors_manager.dart';
 import 'back_icon.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSize {

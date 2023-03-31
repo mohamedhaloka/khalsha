@@ -4,7 +4,7 @@ import 'package:khalsha/features/fill_service_details/presentation/inputs_style.
 import 'package:khalsha/features/widgets/custom_button.dart';
 import 'package:khalsha/features/widgets/custom_text_field.dart';
 
-import '../../../../../core/themes/colors_manager.dart';
+import '../../../../../core/presentation/themes/colors_manager.dart';
 import '../../../../widgets/headline_bottom_sheet.dart';
 import 'input_holder_box.dart';
 

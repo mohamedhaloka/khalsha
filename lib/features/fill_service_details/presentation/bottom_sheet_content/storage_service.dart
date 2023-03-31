@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../core/models/item_model.dart';
-import '../../../../core/themes/colors_manager.dart';
+import '../../../../core/data/models/item_model.dart';
+import '../../../../core/presentation/themes/colors_manager.dart';
 import '../../../widgets/custom_button.dart';
 import '../inputs_style.dart';
 import '../widgets/inputs/text_field_input_with_holder.dart';

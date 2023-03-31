@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/core/themes/colors_manager.dart';
 import 'package:khalsha/features/fill_service_details/presentation/inputs_style.dart';
 import 'package:khalsha/features/widgets/custom_button.dart';
 
-import '../../core/models/item_model.dart';
+import '../../core/data/models/item_model.dart';
+import '../../core/presentation/themes/colors_manager.dart';
 
 class ServicesFiltrationSheet extends StatefulWidget {
   const ServicesFiltrationSheet(
