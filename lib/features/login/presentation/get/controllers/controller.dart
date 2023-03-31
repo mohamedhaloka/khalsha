@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:khalsha/core/utils.dart';
 import 'package:khalsha/features/login/domain/use_cases/login_use_case.dart';
 
@@ -23,6 +26,8 @@ class LoginController extends GetxController {
   TextEditingController account = TextEditingController(),
       password = TextEditingController();
 
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+
   Future<void> login() async {
     if (_anyInputIsEmpty) {
       showAlertMessage('جميع الحقول مطلوبة');
@@ -45,4 +50,17 @@ class LoginController extends GetxController {
   }
 
   bool get _anyInputIsEmpty => account.text.isEmpty || password.text.isEmpty;
+
+  Future<void> googleSignIn() async {
+    try {
+      final googleSignInAccount = await _googleSignIn.signIn();
+      GoogleSignInAuthentication? googleSignInAuthentication =
+          await googleSignInAccount?.authentication;
+      log(googleSignInAuthentication!.accessToken.toString(),
+          name: 'ACCESS TOKEN');
+      log(googleSignInAuthentication.idToken.toString(), name: 'ID TOKEN');
+    } catch (error) {
+      log(error.toString(), name: 'GOOGLE SIGN IN ERROR');
+    }
+  }
 }

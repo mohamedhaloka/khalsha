@@ -56,6 +56,10 @@ dependencies:
   rflutter_alert: ^2.0.4
   # for show animated toast messages
   fluttertoast: ^8.1.2
+  # for firebase services
+  firebase_core: ^2.9.0
+  google_sign_in: ^6.0.2
+  flutter_login_facebook: ^1.7.0
 
 dev_dependencies:
   flutter_test:

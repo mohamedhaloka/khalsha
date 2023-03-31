@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:khalsha/firebase_options.dart';
 import 'package:khalsha/injection_container.dart';
 
 import 'core/data/local_storage/user_local.dart';
@@ -23,7 +25,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Khalsha',
+      title: 'Khalsha | خلصها',
       debugShowCheckedModeBanner: false,
       theme: ThemeManager.theme,
       getPages: AppPages.routes,
@@ -49,6 +51,8 @@ class MyApp extends StatelessWidget {
 }
 
 Future<void> _initData() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await GetStorage.init();
 
   await UserDataLocal.instance.init();

@@ -70,7 +70,7 @@ class LoginView extends GetView<LoginController> {
                           padding: const EdgeInsets.symmetric(horizontal: 6),
                           child: CustomButton(
                             height: 50,
-                            onTap: () {},
+                            onTap: controller.googleSignIn,
                             text: e.text,
                             imgName: e.image,
                           ),
