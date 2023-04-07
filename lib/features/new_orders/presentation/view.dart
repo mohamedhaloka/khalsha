@@ -4,10 +4,8 @@ import 'package:khalsha/features/orders/presentation/widgets/filter.dart';
 import 'package:khalsha/features/widgets/headline_bottom_sheet.dart';
 import 'package:khalsha/features/widgets/services_filtration_sheet.dart';
 
-import '../../../core/presentation/routes/app_routes.dart';
 import '../../../core/presentation/themes/colors_manager.dart';
 import '../../widgets/custom_app_bar.dart';
-import '../../widgets/table_items.dart';
 import 'get/controllers/controller.dart';
 
 class NewOrdersView extends GetView<NewOrdersController> {
@@ -28,17 +26,18 @@ class NewOrdersView extends GetView<NewOrdersController> {
                 bottomSheetTitle: 'فلترة الطلبات',
                 body: ServicesFiltrationSheet(
                   'طلبات خدمة',
-                  selectedServices: controller.selectedServicesFilter,
+                  selectedService: controller.selectedService,
+                  onDoneTapped: () {},
                 ),
                 height: Get.height / 2.2,
               ),
             ),
           ),
-          TableItems(
-            onItemTapped: () => Get.toNamed(Routes.settlementDetails),
-            itemsHeader: const ['عنوان الطلب', 'بواسطة', ''],
-            itemsBody: const ['نقل أخشاب', 'شركة الرياض', 'عرض الطلب'],
-          ),
+          // TableItems(
+          //   onItemTapped: () => Get.toNamed(Routes.settlementDetails),
+          //   itemsHeader: const ['عنوان الطلب', 'بواسطة', ''],
+          //   itemsBody: const ['نقل أخشاب', 'شركة الرياض', 'عرض الطلب'],
+          // ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
             child: Text(

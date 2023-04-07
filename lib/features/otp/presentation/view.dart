@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:khalsha/features/otp/domain/entites/enums/verify_type.dart';
 import 'package:khalsha/features/otp/presentation/widgets/otp_field.dart';
 import 'package:khalsha/features/otp/presentation/widgets/resend_otp.dart';
 import 'package:khalsha/features/widgets/custom_button.dart';
@@ -11,6 +12,20 @@ import 'get/controllers/controller.dart';
 class OTPView extends GetView<OTPController> {
   const OTPView({Key? key}) : super(key: key);
 
+  String get _account {
+    if (controller.verifyType == VerifyType.email) {
+      return controller.userData['user']['email'];
+    }
+    return controller.userData['user']['mobile'];
+  }
+
+  String get _accountStr {
+    if (controller.verifyType == VerifyType.email) {
+      return 'بريدك الإلكتــروني';
+    }
+    return 'هاتفــك';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,12 +34,12 @@ class OTPView extends GetView<OTPController> {
         padding: const EdgeInsets.fromLTRB(20, 40, 20, 50),
         children: [
           Text(
-            'من فضلك\nتفحــص رســائل هاتفــك',
+            'من فضلك\nتفحــص رســائل $_accountStr',
             style: Get.textTheme.headline6!.copyWith(
                 color: ColorManager.primaryColor, fontWeight: FontWeight.bold),
           ),
           Text(
-            'تم إرسال الكود إلى  ${controller.userData['user']['mobile']}',
+            'تم إرسال الكود إلى  $_account',
             style: Get.textTheme.subtitle1!.copyWith(
               color: ColorManager.greyColor,
             ),

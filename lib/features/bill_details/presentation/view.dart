@@ -13,8 +13,8 @@ class BillDetailsView extends GetView<BillDetailsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(
-        title: 'فاتورة الطلب رقم #3',
+      appBar: CustomAppBar(
+        title: 'فاتورة الطلب رقم #${controller.settlementModel.id}',
       ),
       bottomNavigationBar: SizedBox(
         height: Get.previousRoute == Routes.settlementDetails ? 150 : 80,

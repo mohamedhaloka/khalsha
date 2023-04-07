@@ -7,7 +7,7 @@ abstract class Routes {
   static const login = _Paths.login;
   static const register = _Paths.register;
   static const otp = _Paths.otp;
-  static const navigationMenu = _Paths.navigationMenu;
+  static const root = _Paths.root;
   static const serviceIntro = _Paths.serviceIntro;
   static const commonQuestions = _Paths.commonQuestions;
   static const shareApp = _Paths.shareApp;
@@ -40,7 +40,7 @@ abstract class _Paths {
   static const login = '/login';
   static const register = '/register';
   static const otp = '/otp';
-  static const navigationMenu = '/navigation_menu';
+  static const root = '/root';
   static const serviceIntro = '/service_intro';
   static const commonQuestions = '/common_questions';
   static const shareApp = '/share_app';

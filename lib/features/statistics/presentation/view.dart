@@ -28,7 +28,8 @@ class StatisticsView extends GetView<StatisticsController> {
                 bottomSheetTitle: 'فلترة الإحصائيات',
                 body: ServicesFiltrationSheet(
                   'إحصائيات خدمة',
-                  selectedServices: controller.selectedServicesFilter,
+                  selectedService: controller.selectedService,
+                  onDoneTapped: () {},
                 ),
                 height: Get.height / 2.2,
               ),

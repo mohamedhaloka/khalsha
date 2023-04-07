@@ -8,21 +8,12 @@ import 'package:khalsha/features/common_questions/presentation/get/binding/bindi
 import 'package:khalsha/features/common_questions/presentation/view.dart';
 import 'package:khalsha/features/contact_us/presentation/get/binding/binding.dart';
 import 'package:khalsha/features/contact_us/presentation/view.dart';
-import 'package:khalsha/features/fill_service_details/presentation/services/air_freight_service/get/bindings/binding.dart';
-import 'package:khalsha/features/fill_service_details/presentation/services/air_freight_service/view.dart';
-import 'package:khalsha/features/fill_service_details/presentation/services/laboratory_and_standards_service/get/bindings/binding.dart';
-import 'package:khalsha/features/fill_service_details/presentation/services/laboratory_and_standards_service/view.dart';
-import 'package:khalsha/features/fill_service_details/presentation/services/land_shipping/get/bindings/binding.dart';
-import 'package:khalsha/features/fill_service_details/presentation/services/land_shipping/view.dart';
-import 'package:khalsha/features/fill_service_details/presentation/services/marine_shipping/view.dart';
 import 'package:khalsha/features/forget_password/presentation/view.dart';
 import 'package:khalsha/features/how_to_use/presentation/view.dart';
 import 'package:khalsha/features/intro/presentation/get/binding/binding.dart';
 import 'package:khalsha/features/intro/presentation/view.dart';
 import 'package:khalsha/features/login/presentation/get/bindings/binding.dart';
 import 'package:khalsha/features/login/presentation/view.dart';
-import 'package:khalsha/features/navigation_menu/presentation/get/binding/binding.dart';
-import 'package:khalsha/features/navigation_menu/presentation/view.dart';
 import 'package:khalsha/features/new_orders/presentation/view.dart';
 import 'package:khalsha/features/on_boarding/presentation/get/bindings/binding.dart';
 import 'package:khalsha/features/on_boarding/presentation/view.dart';
@@ -34,6 +25,8 @@ import 'package:khalsha/features/post_details/presentation/get/binding/binding.d
 import 'package:khalsha/features/post_details/presentation/view.dart';
 import 'package:khalsha/features/register/presentation/get/bindings/binding.dart';
 import 'package:khalsha/features/register/presentation/view.dart';
+import 'package:khalsha/features/root/presentation/get/binding/binding.dart';
+import 'package:khalsha/features/root/presentation/view.dart';
 import 'package:khalsha/features/service_intro/presentation/get/binding/binding.dart';
 import 'package:khalsha/features/service_intro/presentation/view.dart';
 import 'package:khalsha/features/settlement_details/presentation/get/binding/binding.dart';
@@ -45,19 +38,26 @@ import 'package:khalsha/features/statistics/presentation/get/binding/binding.dar
 import 'package:khalsha/features/statistics/presentation/view.dart';
 
 import '../../../features/account_settings/presentation/get/binding/binding.dart';
-import '../../../features/fill_service_details/presentation/services/customs_clearance_service/get/bindings/binding.dart';
-import '../../../features/fill_service_details/presentation/services/customs_clearance_service/view.dart';
-import '../../../features/fill_service_details/presentation/services/marine_shipping/get/bindings/binding.dart';
-import '../../../features/fill_service_details/presentation/services/stores/get/bindings/binding.dart';
-import '../../../features/fill_service_details/presentation/services/stores/view.dart';
+import '../../../features/air_freight_service/get/bindings/binding.dart';
+import '../../../features/air_freight_service/view.dart';
+import '../../../features/customs_clearance_service/view/get/bindings/binding.dart';
+import '../../../features/customs_clearance_service/view/view.dart';
 import '../../../features/forget_password/presentation/get/binding/binding.dart';
 import '../../../features/how_to_use/presentation/get/binding/binding.dart';
+import '../../../features/laboratory_and_standards_service/get/bindings/binding.dart';
+import '../../../features/laboratory_and_standards_service/view.dart';
+import '../../../features/land_shipping/get/bindings/binding.dart';
+import '../../../features/land_shipping/view.dart';
+import '../../../features/marine_shipping/get/bindings/binding.dart';
+import '../../../features/marine_shipping/view.dart';
 import '../../../features/new_orders/presentation/get/binding/binding.dart';
 import '../../../features/order_details/presentation/get/binding/binding.dart';
 import '../../../features/orders/presentation/get/binding/binding.dart';
 import '../../../features/reset_password/presentation/get/binding/binding.dart';
 import '../../../features/reset_password/presentation/view.dart';
 import '../../../features/sources/presentation/view.dart';
+import '../../../features/stores/get/bindings/binding.dart';
+import '../../../features/stores/view.dart';
 
 part 'app_pages.dart';
 
@@ -93,9 +93,9 @@ class AppPages {
       binding: OTPBinding(),
     ),
     GetPage(
-      name: _Paths.navigationMenu,
-      page: () => const NavigationMenuView(),
-      binding: NavigationMenuBinding(),
+      name: _Paths.root,
+      page: () => const RootView(),
+      binding: RootBinding(),
     ),
     GetPage(
       name: _Paths.serviceIntro,

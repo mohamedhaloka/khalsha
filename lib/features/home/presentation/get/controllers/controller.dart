@@ -11,37 +11,37 @@ class HomeController extends GetxController {
     services = const [
       ItemModel(
         id: 1,
-        image: 'land-shipping',
+        image: 'landshippings',
         text: 'الشحن البري',
         arguments: ServiceType.landShipping,
       ),
       ItemModel(
         id: 0,
-        image: 'customs-clearance',
+        image: 'customsclearance',
         text: 'التخليص الجمركي',
         arguments: ServiceType.customsClearance,
       ),
       ItemModel(
         id: 3,
-        image: 'marine-shipping',
+        image: 'seashippings',
         text: 'الشحن البحري',
         arguments: ServiceType.marineShipping,
       ),
       ItemModel(
         id: 2,
-        image: 'stores',
+        image: 'warehouses',
         text: 'المخازن',
         arguments: ServiceType.stores,
       ),
       ItemModel(
         id: 5,
-        image: 'laboratory-and-standards',
+        image: 'laboratories',
         text: 'المختبرات و المقاييس',
         arguments: ServiceType.laboratoryAndStandards,
       ),
       ItemModel(
         id: 4,
-        image: 'air-freight',
+        image: 'airshippings',
         text: 'الشحن الجوي',
         arguments: ServiceType.airFreight,
       ),

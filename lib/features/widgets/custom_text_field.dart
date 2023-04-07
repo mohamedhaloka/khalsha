@@ -183,7 +183,7 @@ class CustomTextField extends StatelessWidget {
                                         passSecure!(!passSecure!.value),
                                     color: ColorManager.primaryColor,
                                     icon: SvgPicture.asset(
-                                      'assets/images/icons/${passSecure!.value ? 'hide-password' : 'hide-password'}.svg',
+                                      'assets/images/icons/${passSecure!.value ? 'hide-password' : 'show-password'}.svg',
                                     ),
                                   )
                                 : suffixIcon,
@@ -209,7 +209,6 @@ class CustomTextField extends StatelessWidget {
 
   final Map<Input, int> inputsMaxLength = {
     Input.text: 30,
-    Input.password: 10,
     Input.phone: 12,
     Input.notes: 200,
   };

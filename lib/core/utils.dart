@@ -6,7 +6,7 @@ import 'package:khalsha/core/presentation/themes/colors_manager.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 import '../main.dart';
-import 'data/local_storage/user_local.dart';
+import 'data/source/local/user_local.dart';
 
 const apiKey = 'AIzaSyALkq2eRP2FmAiEioUx4UACuo1pogRFMxk';
 

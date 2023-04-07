@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/features/widgets/table_items.dart';
 
 import '../../../../core/data/models/item_model.dart';
 import '../../../../core/presentation/themes/colors_manager.dart';
@@ -79,11 +78,11 @@ class DataSummary extends StatelessWidget {
             ),
           ),
         ),
-        TableItems(
-          itemsHeader: const ['الطلب', 'بواسطة', 'تاريخ الإضافة'],
-          itemsBody: const ['نقل أخشاب', 'شركة الرياض', '12/12/2022'],
-          onItemTapped: () {},
-        )
+        // TableItems(
+        //   itemsHeader: const ['الطلب', 'بواسطة', 'تاريخ الإضافة'],
+        //   itemsBody: const ['نقل أخشاب', 'شركة الرياض', '12/12/2022'],
+        //   onItemTapped: () {},
+        // )
       ],
     );
   }

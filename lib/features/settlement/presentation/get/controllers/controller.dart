@@ -1,20 +1,29 @@
 import 'package:get/get.dart';
+import 'package:khalsha/core/domain/use_cases/use_case.dart';
+import 'package:khalsha/features/settlement/data/models/settlement.dart';
+import 'package:khalsha/features/settlement/domain/use_cases/get_settlements_use_case.dart';
 
-import '../../../../../core/data/models/item_model.dart';
+import '../../../../../core/utils.dart';
 
 class SettlementController extends GetxController {
-  List<ItemModel> orders = <ItemModel>[];
+  final GetSettlementsUseCase _getSettlementsUseCase;
+  SettlementController(this._getSettlementsUseCase);
 
+  List<SettlementModel> settlements = <SettlementModel>[];
+
+  RxBool loading = false.obs;
   @override
   void onInit() {
-    orders = const [
-      ItemModel(id: 0, text: '2800'),
-      ItemModel(id: 1, text: '2100'),
-      ItemModel(id: 2, text: '2000'),
-      ItemModel(id: 3, text: '1500'),
-      ItemModel(id: 4, text: '4000'),
-      ItemModel(id: 5, text: '100'),
-    ];
+    _getSettlements();
     super.onInit();
+  }
+
+  Future<void> _getSettlements() async {
+    final params = Params(loading: loading);
+    final result = await _getSettlementsUseCase.execute(params);
+    result.fold(
+      (failure) => showAlertMessage(failure.statusMessage),
+      (data) => settlements.addAll(data),
+    );
   }
 }

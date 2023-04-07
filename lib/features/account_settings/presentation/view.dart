@@ -28,20 +28,24 @@ class AccountSettingsView extends GetView<AccountSettingsController> {
           CustomTextField(
             title: 'الإسم بالكامل',
             titleStyle: _titleStyle,
+            controller: controller.name,
           ),
           CustomTextField(
             title: 'رقم الجوال',
             titleStyle: _titleStyle,
+            controller: controller.phone,
           ),
           CustomTextField(
             title: 'البريد الإلكتروني',
             titleStyle: _titleStyle,
+            controller: controller.email,
             helper:
                 'في حال تغيير البريد الإلكتروني سيتحتم عليك تغييره مره أخرى',
           ),
           CustomTextField(
             title: 'نبذه',
             hint: 'اكتب نبذة عنك',
+            controller: controller.bio,
             titleStyle: _titleStyle,
             maxLines: 3,
           ),
@@ -49,6 +53,7 @@ class AccountSettingsView extends GetView<AccountSettingsController> {
           CustomButton(
             text: 'حفظ التعديل',
             onTap: () {},
+            loading: controller.loading,
             width: Get.width,
           ),
           const _SectionTitle('هل أنت شركة ؟'),
@@ -60,7 +65,7 @@ class AccountSettingsView extends GetView<AccountSettingsController> {
           ChooseFile(
             title: 'إرفاق السجل التجاري',
             hint: 'إختيار السجل التجاري',
-            file: controller.file,
+            file: controller.commercialCertificate,
             titleStyle: _titleStyle,
             helper:
                 'إذا قمت برفع ملف السجل التجاري سيتم وضع حسابك تحت مراجعة الإدارة',
@@ -77,18 +82,21 @@ class AccountSettingsView extends GetView<AccountSettingsController> {
             titleStyle: _titleStyle,
             inputType: Input.password,
             passSecure: false.obs,
+            controller: controller.oldPassword,
           ),
           CustomTextField(
             title: 'كلمة المرور الجديدة',
             titleStyle: _titleStyle,
             inputType: Input.password,
             passSecure: false.obs,
+            controller: controller.newPassword,
           ),
           CustomTextField(
             title: 'تأكيد كلمة المرور',
             titleStyle: _titleStyle,
             inputType: Input.password,
             passSecure: false.obs,
+            controller: controller.confirmNewPassword,
           ),
           const SizedBox(height: 15),
           CustomButton(

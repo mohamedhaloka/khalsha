@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/features/fill_service_details/presentation/inputs_style.dart';
+import 'package:khalsha/features/service_intro/presentation/get/controllers/controller.dart';
 import 'package:khalsha/features/widgets/custom_button.dart';
 
 import '../../core/data/models/item_model.dart';
+import '../../core/inputs_style.dart';
 import '../../core/presentation/themes/colors_manager.dart';
 
 class ServicesFiltrationSheet extends StatefulWidget {
   const ServicesFiltrationSheet(
     this.title, {
     Key? key,
-    required this.selectedServices,
+    required this.selectedService,
+    required this.onDoneTapped,
   }) : super(key: key);
   final String title;
-  final RxList<int> selectedServices;
+  final RxInt selectedService;
+  final void Function() onDoneTapped;
 
   @override
   State<ServicesFiltrationSheet> createState() =>
@@ -21,13 +24,13 @@ class ServicesFiltrationSheet extends StatefulWidget {
 }
 
 class _ServicesFiltrationSheetState extends State<ServicesFiltrationSheet> {
-  List<ItemModel> services = const <ItemModel>[
-    ItemModel(text: 'الشحن البري', id: 0),
-    ItemModel(text: 'الشحن البحري', id: 1),
-    ItemModel(text: 'الشحن الجوي', id: 2),
-    ItemModel(text: 'التخليص الجمركي', id: 3),
-    ItemModel(text: 'المخازن و المستودعات', id: 4),
-    ItemModel(text: 'المختبرات و المقاييس', id: 5),
+  List<ItemModel> services = <ItemModel>[
+    ItemModel(text: ServiceType.customsClearance.value, id: 0),
+    ItemModel(text: ServiceType.stores.value, id: 1),
+    ItemModel(text: ServiceType.laboratoryAndStandards.value, id: 2),
+    ItemModel(text: ServiceType.landShipping.value, id: 3),
+    ItemModel(text: ServiceType.marineShipping.value, id: 4),
+    ItemModel(text: ServiceType.airFreight.value, id: 5),
   ];
 
   @override
@@ -56,15 +59,11 @@ class _ServicesFiltrationSheetState extends State<ServicesFiltrationSheet> {
           itemBuilder: (_, int index) => InkWell(
             onTap: () {
               int id = services[index].id ?? 0;
-              if (widget.selectedServices.contains(id)) {
-                widget.selectedServices.remove(id);
-                return;
-              }
-              widget.selectedServices.add(id);
+              widget.selectedService(id);
             },
             child: Obx(() {
               int id = services[index].id ?? 0;
-              bool isSelected = widget.selectedServices.contains(id);
+              bool isSelected = widget.selectedService.value == id;
               return Container(
                 padding: const EdgeInsets.all(2),
                 decoration: BoxDecoration(
@@ -73,7 +72,7 @@ class _ServicesFiltrationSheetState extends State<ServicesFiltrationSheet> {
                     border: Border.all(color: ColorManager.lightGreyColor)),
                 child: Center(
                   child: Text(
-                    services[index].text,
+                    services[index].text.tr,
                     textAlign: TextAlign.center,
                     style: Get.textTheme.bodySmall!.copyWith(
                       color: isSelected ? Colors.white : ColorManager.greyColor,
@@ -90,7 +89,7 @@ class _ServicesFiltrationSheetState extends State<ServicesFiltrationSheet> {
               child: CustomButton(
                 height: inputHeight,
                 radius: radius,
-                onTap: Get.back,
+                onTap: widget.onDoneTapped,
                 text: 'تأكيد',
               ),
             ),
@@ -99,7 +98,7 @@ class _ServicesFiltrationSheetState extends State<ServicesFiltrationSheet> {
               child: CustomButton(
                 height: inputHeight,
                 radius: radius,
-                onTap: widget.selectedServices.clear,
+                onTap: () => widget.selectedService(0),
                 text: 'إزالة',
               ),
             ),

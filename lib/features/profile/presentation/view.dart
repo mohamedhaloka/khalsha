@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:khalsha/core/presentation/routes/app_routes.dart';
 import 'package:khalsha/features/profile/presentation/widgets/change_profile_photo.dart';
 import 'package:khalsha/features/widgets/custom_button.dart';
 
@@ -27,18 +28,21 @@ class ProfileView extends GetView<ProfileController> {
                 contentPadding: _contentPadding,
                 borderSide: _borderColor,
                 enabled: false,
+                controller: controller.name,
               ),
               CustomTextField(
                 title: 'البريد الإلكتروني',
                 contentPadding: _contentPadding,
                 borderSide: _borderColor,
                 enabled: false,
+                controller: controller.email,
               ),
               CustomTextField(
                 title: 'رقم الهاتف',
                 contentPadding: _contentPadding,
                 borderSide: _borderColor,
                 enabled: false,
+                controller: controller.phone,
               ),
               CustomTextField(
                 title: 'السجل التجاري',
@@ -52,7 +56,7 @@ class ProfileView extends GetView<ProfileController> {
                   width: Get.width,
                   height: 36,
                   radius: 6,
-                  onTap: () {},
+                  onTap: () => Get.toNamed(Routes.accountSettings),
                   text: 'تعديل',
                 ),
               )

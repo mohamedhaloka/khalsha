@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/features/fill_service_details/presentation/inputs_style.dart';
 import 'package:khalsha/features/statistics/presentation/get/controllers/controller.dart';
 
+import '../../../../core/inputs_style.dart';
 import '../../../../core/presentation/themes/colors_manager.dart';
 
 class PeriodsStatistic extends GetView<StatisticsController> {

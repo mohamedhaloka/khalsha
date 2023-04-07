@@ -34,9 +34,9 @@ class LoginView extends GetView<LoginController> {
           const SizedBox(height: 10),
           CustomTextField(
             title: 'كلمة المرور',
-            inputType: Input.password,
             controller: controller.password,
             passSecure: controller.passSecure,
+            inputType: Input.password,
           ),
           const SizedBox(height: 10),
           InkWell(

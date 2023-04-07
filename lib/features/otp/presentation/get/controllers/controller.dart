@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/core/data/local_storage/user_local.dart';
 import 'package:khalsha/core/domain/error/failures.dart';
 import 'package:khalsha/features/otp/domain/use_cases/check_code_use_case.dart';
 import 'package:khalsha/features/otp/domain/use_cases/send_code.dart';
 
+import '../../../../../core/data/source/local/user_local.dart';
 import '../../../../../core/presentation/routes/app_routes.dart';
 import '../../../../../core/utils.dart';
 
@@ -61,8 +61,8 @@ class OTPController extends GetxController {
       (Failure failure) => showAlertMessage(failure.statusMessage),
       (String successMsg) {
         showAlertMessage(successMsg);
-        Get.offAllNamed(Routes.navigationMenu);
         UserDataLocal.instance.save(userData);
+        Get.offAllNamed(Routes.root);
       },
     );
   }

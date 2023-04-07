@@ -16,6 +16,7 @@ class CustomDropDown extends StatelessWidget {
       this.height,
       this.radius,
       this.fontSize,
+      this.icon,
       this.isExpanded,
       this.onTapUpper,
       Key? key})
@@ -24,13 +25,14 @@ class CustomDropDown extends StatelessWidget {
   final double? height;
   final String? title, hint;
   final RxString dropVal;
-  final RxList source;
+  final List<DropdownMenuItem> source;
   final ValueChanged<int>? onTap;
   final Color? hintColor, iconColor;
   final double? radius, fontSize;
   final Border? border;
   final bool? isExpanded;
   final Function()? onTapUpper;
+  final Widget? icon;
 
   @override
   Widget build(BuildContext context) {
@@ -60,10 +62,11 @@ class CustomDropDown extends StatelessWidget {
                         style: Get.textTheme.caption!.copyWith(
                             color: hintColor ?? Colors.black,
                             fontSize: fontSize)),
-                    icon: Icon(
-                      Icons.keyboard_arrow_down,
-                      color: iconColor ?? Colors.black,
-                    ),
+                    icon: icon ??
+                        Icon(
+                          Icons.keyboard_arrow_down,
+                          color: iconColor ?? Colors.black,
+                        ),
                     style:
                         Get.textTheme.subtitle1!.copyWith(fontSize: fontSize),
                     onChanged: (value) {
@@ -73,12 +76,7 @@ class CustomDropDown extends StatelessWidget {
                       }
                     },
                     isExpanded: isExpanded ?? false,
-                    items: source
-                        .map((e) => DropdownMenuItem(
-                              value: e.toString(),
-                              child: Text(e),
-                            ))
-                        .toList(),
+                    items: source,
                   ),
                 )),
           ),

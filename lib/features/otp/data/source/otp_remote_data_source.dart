@@ -40,7 +40,8 @@ class OTPRemoteDataSourceImpl extends OTPRemoteDataSource {
         await _httpService.post('auth/$query/verify/code', formData);
 
     if (response.statusCode == 200) {
-      if (response.data['message'] == "تم التحقق من الجوال بنجاح ") {
+      if (response.data['message'] == "تم التحقق من الجوال بنجاح " ||
+          response.data['message'] == "تم التحقق من البريد الالكتروني بنجاح") {
         return response.data['message'];
       } else {
         throw ServerException(

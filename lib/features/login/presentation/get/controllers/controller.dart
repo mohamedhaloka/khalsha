@@ -6,9 +6,9 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:khalsha/core/utils.dart';
 import 'package:khalsha/features/login/domain/use_cases/login_use_case.dart';
 
-import '../../../../../core/data/local_storage/user_local.dart';
 import '../../../../../core/data/models/item_model.dart';
 import '../../../../../core/data/models/user_data_model.dart';
+import '../../../../../core/data/source/local/user_local.dart';
 import '../../../../../core/domain/error/failures.dart';
 import '../../../../../core/presentation/routes/app_routes.dart';
 
@@ -44,7 +44,7 @@ class LoginController extends GetxController {
       (Failure failure) => showAlertMessage(failure.statusMessage),
       (UserData userData) {
         UserDataLocal.instance.save(userData.toJson());
-        Get.offAllNamed(Routes.navigationMenu);
+        Get.offAllNamed(Routes.root);
       },
     );
   }

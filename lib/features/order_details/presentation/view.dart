@@ -12,7 +12,6 @@ import '../../../core/presentation/themes/colors_manager.dart';
 import '../../widgets/bill.dart';
 import '../../widgets/custom_app_bar.dart';
 import '../../widgets/stylish_text.dart';
-import '../../widgets/table_items.dart';
 
 part 'tabs/bill_data.dart';
 part 'tabs/order_data.dart';

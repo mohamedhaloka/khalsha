@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/features/fill_service_details/presentation/inputs_style.dart';
 import 'package:khalsha/features/widgets/custom_button.dart';
-import 'package:khalsha/features/widgets/custom_drop_down.dart';
 import 'package:khalsha/features/widgets/custom_text_field.dart';
 
+import '../../../core/inputs_style.dart';
 import '../../../core/presentation/routes/app_routes.dart';
 import '../../../core/presentation/themes/colors_manager.dart';
 import '../../widgets/custom_app_bar.dart';
@@ -16,8 +15,8 @@ class SettlementDetailsView extends GetView<SettlementDetailsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(
-        title: 'تسوية الطلب رقم #3',
+      appBar: CustomAppBar(
+        title: 'تسوية الطلب رقم #${controller.settlementModel.id}',
       ),
       bottomNavigationBar: SizedBox(
         height: 150,
@@ -28,7 +27,10 @@ class SettlementDetailsView extends GetView<SettlementDetailsController> {
               CustomButton(
                 text: 'عرض الفاتورة',
                 width: Get.width,
-                onTap: () => Get.toNamed(Routes.billDetails),
+                onTap: () => Get.toNamed(
+                  Routes.billDetails,
+                  arguments: controller.settlementModel,
+                ),
               ),
               const SizedBox(height: 10),
               CustomButton.fillBlue(
@@ -78,13 +80,13 @@ class SettlementDetailsView extends GetView<SettlementDetailsController> {
             title: 'اسم صاحب البطاقة',
             borderSide: inputBorderSide,
           ),
-          CustomDropDown(
-            title: 'عنوان وصول الفواتير',
-            dropVal: ''.obs,
-            source: [].obs,
-            isExpanded: true,
-            radius: 10,
-          )
+          // CustomDropDown(
+          //   title: 'عنوان وصول الفواتير',
+          //   dropVal: ''.obs,
+          //   source: [].obs,
+          //   isExpanded: true,
+          //   radius: 10,
+          // )
         ],
       ),
     );

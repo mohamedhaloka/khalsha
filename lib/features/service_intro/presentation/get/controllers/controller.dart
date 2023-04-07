@@ -44,12 +44,12 @@ class ServiceIntroController extends GetxController {
 }
 
 enum ServiceType {
-  customsClearance('customs-clearance'),
-  landShipping('land-shipping'),
-  stores('stores'),
-  marineShipping('marine-shipping'),
-  airFreight('air-freight'),
-  laboratoryAndStandards('laboratory-and-standards');
+  customsClearance('customsclearance'),
+  landShipping('landshippings'),
+  stores('warehouses'),
+  marineShipping('seashippings'),
+  airFreight('airshippings'),
+  laboratoryAndStandards('laboratories');
 
   const ServiceType(this.value);
   final String value;

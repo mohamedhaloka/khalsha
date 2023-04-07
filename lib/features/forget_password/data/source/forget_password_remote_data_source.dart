@@ -20,11 +20,12 @@ class ForgetPasswordRemoteDataSourceImpl
     });
     final response = await _httpService.post('auth/forget/password', formData);
 
+    log(response.statusCode.toString());
     log(response.data.toString());
     if (response.statusCode == 200) {
       return response.data['message'];
     } else {
-      throw ServerException(errorMessage: response.data.toString());
+      throw ServerException(errorMessage: response.data['message'].toString());
     }
   }
 }

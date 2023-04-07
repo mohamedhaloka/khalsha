@@ -11,24 +11,67 @@ class SettlementView extends GetView<SettlementController> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.all(20),
-      children: [
-        TableItems(
-          onItemTapped: () => Get.toNamed(Routes.settlementDetails),
-          itemsHeader: const ['رقم الفاتورة', 'إجمالي الفاتورة', 'الحالة', ''],
-          itemsBody: const ['كود #200', '2000 ريال', 'إنتظار', 'تسوية'],
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+    return Obx(() => controller.loading.value
+        ? const Center(
+            child: CircularProgressIndicator(
+              color: ColorManager.secondaryColor,
+            ),
+          )
+        : ListView(
+            padding: const EdgeInsets.all(20),
+            children: [
+              TableItems(
+                onItemTapped: () => Get.toNamed(
+                  Routes.settlementDetails,
+                  arguments: controller.settlements,
+                ),
+                itemsHeader: const [
+                  'رقم الفاتورة',
+                  'إجمالي الفاتورة',
+                  'الحالة',
+                  ''
+                ],
+                itemBuilder: (int index) => Row(
+                  children: [
+                    _detail(controller.settlements[index].id.toString()),
+                    _detail(controller.settlements[index].getTotal.total
+                        .toString()),
+                    _detail(controller.settlements[index].status),
+                    _detail(
+                      'تسوية',
+                      textColor: ColorManager.secondaryColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ],
+                ),
+                itemCount: controller.settlements.length,
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                child: Text(
+                  'يتم تسوية الفاتورة في حال تجاوزها مده لا تقل عن ثلاثين يوماً او في حال بلوغها الحد الإقصي وهو مائة ريال.',
+                  style: Get.textTheme.bodyText2!.copyWith(
+                    color: ColorManager.darkTobyColor,
+                  ),
+                ),
+              )
+            ],
+          ));
+  }
+
+  Widget _detail(String text, {Color? textColor, FontWeight? fontWeight}) =>
+      Expanded(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
           child: Text(
-            'يتم تسوية الفاتورة في حال تجاوزها مده لا تقل عن ثلاثين يوماً او في حال بلوغها الحد الإقصي وهو مائة ريال.',
-            style: Get.textTheme.bodyText2!.copyWith(
-              color: ColorManager.darkTobyColor,
+            text,
+            textAlign: TextAlign.center,
+            style: Get.textTheme.button!.copyWith(
+              color: textColor,
+              fontWeight: fontWeight,
             ),
           ),
-        )
-      ],
-    );
-  }
+        ),
+      );
 }

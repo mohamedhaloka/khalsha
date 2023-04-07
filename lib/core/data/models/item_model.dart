@@ -17,7 +17,5 @@ class ItemModel {
     this.child,
   });
 
-  factory ItemModel.empty() => const ItemModel(
-        text: '',
-      );
+  factory ItemModel.empty() => const ItemModel(text: '');
 }

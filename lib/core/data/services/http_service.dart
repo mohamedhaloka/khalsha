@@ -7,8 +7,8 @@ import 'package:khalsha/core/presentation/routes/app_routes.dart';
 import 'package:khalsha/features/otp/domain/entites/enums/verify_type.dart';
 import 'package:khalsha/features/otp/presentation/get/controllers/controller.dart';
 
-import '../local_storage/lang_locale.dart';
-import '../local_storage/user_local.dart';
+import '../source/local/lang_locale.dart';
+import '../source/local/user_local.dart';
 
 class HttpService extends GetxService {
   HttpService(Dio dio) {
@@ -23,23 +23,13 @@ class HttpService extends GetxService {
   Future<dio.Response> post(String endPoint, dio.FormData data) async {
     log(baseURL + endPoint, name: 'URL');
     log(data.fields.toString(), name: 'BODY');
+    log(data.fields.length.toString(), name: 'BODY');
 
     var response = await _dio.post(
       baseURL + endPoint,
       data: data,
       options: Options(headers: _header),
     );
-    return response;
-  }
-
-  Future<dio.Response> get(endPoint) async {
-    log('URL ${baseURL + endPoint}');
-
-    var response = await _dio.get(
-      baseURL + endPoint,
-      options: Options(headers: _header),
-    );
-
     if (response.data['type'] == 'need_verify_email') {
       final userData = UserDataLocal.instance.data.value.toJson();
       Get.offAllNamed(
@@ -50,6 +40,15 @@ class HttpService extends GetxService {
         },
       );
     }
+    return response;
+  }
+
+  Future<dio.Response> get(endPoint) async {
+    log('URL ${baseURL + endPoint}');
+    var response = await _dio.get(
+      baseURL + endPoint,
+      options: Options(headers: _header),
+    );
     return response;
   }
 

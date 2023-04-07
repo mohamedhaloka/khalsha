@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:khalsha/features/orders/data/models/order_model.dart';
 
-import '../../../../core/data/models/item_model.dart';
 import '../../../../core/presentation/routes/app_routes.dart';
 import '../../../../core/presentation/themes/colors_manager.dart';
 
+const _kAccepted = 'accepted';
+const _kRejected = 'rejected';
+const _kPending = 'pending';
+const _kOpen = 'open';
+const _kClose = 'closed';
+
 class OrderItem extends StatelessWidget {
   const OrderItem(this.order, {Key? key}) : super(key: key);
-  final ItemModel order;
+  final OrderModel order;
 
   @override
   Widget build(BuildContext context) {
@@ -35,13 +41,9 @@ class OrderItem extends StatelessWidget {
             Expanded(
               child: Row(
                 children: [
-                  _detail('نقل أغذية'),
-                  _detail('من جدة'),
-                  if (Get.currentRoute == Routes.orders) ...[
-                    _detail('الميناء الجاف'),
-                  ] else ...[
-                    _detail('${order.text} ريال'),
-                  ],
+                  _detail(order.customclearance.title),
+                  _detail(order.customclearance.user.name),
+                  _detail('${order.total} ريال'),
                 ],
               ),
             ),
@@ -51,13 +53,8 @@ class OrderItem extends StatelessWidget {
             Expanded(
               child: Row(
                 children: [
-                  _detail('مواد غذائية'),
-                  _detail('من الرياض'),
-                  if (Get.currentRoute == Routes.orders) ...[
-                    _detail('2300 ريال'),
-                  ] else ...[
-                    _Status(order.id ?? 0)
-                  ],
+                  _Status(order.customclearance.status),
+                  _Status(order.status)
                 ],
               ),
             ),
@@ -78,26 +75,31 @@ class OrderItem extends StatelessWidget {
 
 class _Status extends StatelessWidget {
   const _Status(this.statusId, {Key? key}) : super(key: key);
-  final int statusId;
+  final String statusId;
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        child: Chip(
-      label: Text(
-        _statusTxt,
-        style: TextStyle(color: _statusTxtColor),
+      child: Chip(
+        label: Text(
+          _statusTxt,
+          style: TextStyle(color: _statusTxtColor),
+        ),
+        backgroundColor: _statusBGColor,
       ),
-      backgroundColor: _statusBGColor,
-    ));
+    );
   }
 
   Color get _statusBGColor {
     switch (statusId) {
-      case 0:
+      case _kAccepted:
+      case _kOpen:
         return ColorManager.primaryColor;
-      case 1:
+      case _kRejected:
+      case _kClose:
         return ColorManager.darkTobyColor;
+      case _kPending:
+        return Colors.orange;
       default:
         return ColorManager.skyColor;
     }
@@ -105,9 +107,13 @@ class _Status extends StatelessWidget {
 
   Color get _statusTxtColor {
     switch (statusId) {
-      case 0:
-      case 1:
+      case _kAccepted:
+      case _kRejected:
+      case _kOpen:
+      case _kClose:
         return Colors.white;
+      case _kPending:
+        return Colors.black;
       default:
         return Colors.blue;
     }
@@ -115,12 +121,18 @@ class _Status extends StatelessWidget {
 
   String get _statusTxt {
     switch (statusId) {
-      case 0:
+      case _kAccepted:
         return 'تم القبول';
-      case 1:
+      case _kRejected:
         return 'تم الرفض';
+      case _kOpen:
+        return 'مفتوح';
+      case _kClose:
+        return 'مغلق';
+      case _kPending:
+        return 'بالإنتظار';
       default:
-        return 'قيد الإنتظار';
+        return '';
     }
   }
 }

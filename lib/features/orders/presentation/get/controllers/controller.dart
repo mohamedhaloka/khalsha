@@ -1,20 +1,50 @@
 import 'package:get/get.dart';
+import 'package:khalsha/features/orders/data/models/order_model.dart';
+import 'package:khalsha/features/orders/domain/use_cases/get_orders_use_case.dart';
 
-import '../../../../../core/data/models/item_model.dart';
+import '../../../../../core/utils.dart';
 
 class OrdersController extends GetxController {
-  List<ItemModel> orders = <ItemModel>[];
+  final GetOrdersUseCase _getOrdersUseCase;
+  OrdersController(this._getOrdersUseCase);
 
+  RxInt selectedService = 0.obs;
+
+  List<OrderModel> orders = <OrderModel>[];
+
+  RxBool loading = false.obs;
   @override
   void onInit() {
-    orders = const [
-      ItemModel(id: 0, text: '2800'),
-      ItemModel(id: 1, text: '2100'),
-      ItemModel(id: 2, text: '2000'),
-      ItemModel(id: 3, text: '1500'),
-      ItemModel(id: 4, text: '4000'),
-      ItemModel(id: 5, text: '100'),
-    ];
+    getOrders();
     super.onInit();
+  }
+
+  Future<void> getOrders() async {
+    orders.clear();
+    final params = GetOrdersParams(loading: loading, type: _type);
+    final result = await _getOrdersUseCase.execute(params);
+    result.fold(
+      (failure) => showAlertMessage(failure.statusMessage),
+      (data) => orders.addAll(data),
+    );
+  }
+
+  String get _type {
+    switch (selectedService.value) {
+      case 0:
+        return 'customsclearance';
+      case 1:
+        return 'warehouses';
+      case 2:
+        return 'laboratories';
+      case 3:
+        return 'landshippings';
+      case 4:
+        return 'seashippings';
+      case 5:
+        return 'airshippings';
+      default:
+        return '';
+    }
   }
 }

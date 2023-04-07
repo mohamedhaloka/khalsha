@@ -6,8 +6,8 @@ import 'package:get_storage/get_storage.dart';
 import 'package:khalsha/firebase_options.dart';
 import 'package:khalsha/injection_container.dart';
 
-import 'core/data/local_storage/user_local.dart';
 import 'core/data/services/http_service.dart';
+import 'core/data/source/local/user_local.dart';
 import 'core/presentation/routes/app_routes.dart';
 import 'core/presentation/themes/theme_manager.dart';
 import 'core/presentation/translation/app_translation.dart';
@@ -45,9 +45,8 @@ class MyApp extends StatelessWidget {
   }
 
   Locale get _locale => const Locale('ar');
-  String get _initialRoute => UserDataLocal.instance.isLoggedIn
-      ? Routes.navigationMenu
-      : AppPages.initial;
+  String get _initialRoute =>
+      UserDataLocal.instance.isLoggedIn ? Routes.root : AppPages.initial;
 }
 
 Future<void> _initData() async {

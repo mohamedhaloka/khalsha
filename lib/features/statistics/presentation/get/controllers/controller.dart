@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import '../../../../../core/data/models/item_model.dart';
 
 class StatisticsController extends GetxController {
-  RxList<int> selectedServicesFilter = <int>[].obs;
+  RxInt selectedService = 0.obs;
 
   List<ItemModel> periodsStatistic = const <ItemModel>[
     ItemModel(
