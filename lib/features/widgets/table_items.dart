@@ -14,7 +14,7 @@ class TableItems extends StatelessWidget {
   final int itemCount;
   final List<String> itemsHeader;
   final Widget Function(int) itemBuilder;
-  final void Function() onItemTapped;
+  final void Function(int) onItemTapped;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class TableItems extends StatelessWidget {
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (_, int index) => InkWell(
-            onTap: onItemTapped,
+            onTap: () => onItemTapped(index),
             child: Container(
               height: 35,
               color: index.isOdd ? Colors.grey[100] : Colors.grey[200],

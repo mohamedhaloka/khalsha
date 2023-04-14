@@ -5,7 +5,13 @@ import 'package:khalsha/core/domain/error/exceptions.dart';
 import '../models/customs_clearance_data.dart';
 
 abstract class CustomsClearanceRemoteDataSource {
-  Future<String> createOrder(CustomsClearanceData customsClearanceData);
+  Future<Map<String, dynamic>> createOrder(
+    CustomsClearanceData customsClearanceData,
+  );
+
+  Future<Map<String, dynamic>> updateOrder(
+    CustomsClearanceData customsClearanceData,
+  );
 }
 
 class CustomsClearanceRemoteDataSourceImpl
@@ -14,7 +20,48 @@ class CustomsClearanceRemoteDataSourceImpl
   CustomsClearanceRemoteDataSourceImpl(this._httpService);
 
   @override
-  Future<String> createOrder(CustomsClearanceData customsClearanceData) async {
+  Future<Map<String, dynamic>> createOrder(
+      CustomsClearanceData customsClearanceData) async {
+    final formData = _prepareFormData(customsClearanceData);
+    final response = await _httpService.post(
+      'importer/customsclearance',
+      formData,
+    );
+
+    if (response.statusCode == 200) {
+      return {
+        'message': response.data['message'],
+        'orderId': response.data['result']['id'],
+      };
+    } else {
+      throw ServerException(errorMessage: response.data['message'].toString());
+    }
+  }
+
+  @override
+  Future<Map<String, dynamic>> updateOrder(
+      CustomsClearanceData customsClearanceData) async {
+    final formData = _prepareFormData(customsClearanceData);
+    Map<String, dynamic> data = {};
+    for (var element in formData.fields) {
+      data[element.key] = element.value;
+    }
+    final response = await _httpService.put(
+      'importer/customsclearance/${customsClearanceData.orderId}',
+      data,
+    );
+
+    if (response.statusCode == 200) {
+      return {
+        'message': response.data['message'],
+        'orderId': response.data['result']['id'],
+      };
+    } else {
+      throw ServerException(errorMessage: response.data['message'].toString());
+    }
+  }
+
+  FormData _prepareFormData(CustomsClearanceData customsClearanceData) {
     final formData = FormData.fromMap(customsClearanceData.toJson());
 
     _fillDataOfList(
@@ -67,18 +114,7 @@ class CustomsClearanceRemoteDataSourceImpl
       dataList: customsClearanceData.quantity,
       key: 'quantity',
     );
-
-    final response = await _httpService.post(
-      'importer/customsclearance',
-      formData,
-    );
-    print(response.data);
-
-    if (response.statusCode == 200) {
-      return response.data['message'];
-    } else {
-      throw ServerException(errorMessage: response.data['message'].toString());
-    }
+    return formData;
   }
 
   void _fillDataOfList(FormData formData,

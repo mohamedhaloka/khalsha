@@ -1,45 +1,29 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:khalsha/features/order_details/data/models/order_section_model.dart';
+import 'package:khalsha/features/order_details/domain/use_cases/get_order_details_use_case.dart';
+import 'package:khalsha/features/orders/data/models/order_model.dart';
+import 'package:khalsha/features/service_intro/presentation/get/controllers/controller.dart';
 
 import '../../../../../core/data/models/item_model.dart';
 
 class OrderDetailsController extends GetxController {
+  final GetOrderDetailsUseCase _getOrderDetailsUseCase;
+  OrderDetailsController(this._getOrderDetailsUseCase);
+
+  int orderId = Get.arguments;
+
   RxInt currentTab = 0.obs;
   PageController pageViewController = PageController();
 
   RxInt currentStatus = 1.obs;
   PageController statusSliderController = PageController(initialPage: 1);
 
-  List<ItemModel> orderData = const <ItemModel>[
-    ItemModel(text: 'عنوان الطلب', description: 'نقل أخشاب'),
-    ItemModel(text: 'منفذ الشحنة', description: 'ميناء جدة'),
-    ItemModel(text: 'نوع الشحنة', description: 'استيراد'),
-    ItemModel(text: 'هل يوجد بند جمزكي', description: 'نعم'),
-    ItemModel(text: 'إجمالي الفاتورة', description: '2500'),
-    ItemModel(text: 'توصيل إلي', description: 'الرياض'),
-    ItemModel(text: 'مجال الشحنة', description: 'شخصي'),
-    ItemModel(text: 'نوع الشحن', description: 'طرد'),
-    ItemModel(text: 'رقم البند الجمركي', description: '443322'),
-    ItemModel(text: 'العملة', description: 'ريال سعودي'),
-  ];
+  List<OrderSectionModel> orderSections = <OrderSectionModel>[];
 
-  List<ItemModel> orderRequirement = const <ItemModel>[
-    ItemModel(text: 'نوع البضاعة', description: 'أخشاب'),
-    ItemModel(text: 'نوع الطرد', description: 'صندوق خشبي'),
-    ItemModel(text: 'إجمالي الحجم', description: '22 متر مربع'),
-    ItemModel(text: 'إجمالي الوزن', description: '50 كيلو جرام'),
-    ItemModel(text: 'الكمية', description: '33 عدد'),
-    ItemModel(text: 'الحالة', description: 'إنتظار'),
-  ];
+  RxBool loading = true.obs;
 
-  List<ItemModel> extraServices = const <ItemModel>[
-    ItemModel(text: 'هل تريد التخزين', description: 'نعم'),
-    ItemModel(text: 'عدد أيام التخزين', description: '44 يوم'),
-    ItemModel(text: 'خدمة الفك', description: 'نعم'),
-    ItemModel(text: 'خدمة التغليف', description: 'لا'),
-    ItemModel(text: 'خدمة التركيب', description: 'نعم'),
-    ItemModel(text: 'تخليص جمركي', description: 'لا'),
-  ];
+  OrderModel orderModel = OrderModel.empty();
 
   List<ItemModel> status = const <ItemModel>[
     ItemModel(
@@ -68,6 +52,13 @@ class OrderDetailsController extends GetxController {
     ),
   ];
 
+  @override
+  void onInit() {
+    _getOrderDetails();
+
+    super.onInit();
+  }
+
   void goToParticularPage(int id) => pageViewController.animateToPage(
         id,
         duration: const Duration(milliseconds: 500),
@@ -79,4 +70,65 @@ class OrderDetailsController extends GetxController {
         duration: const Duration(milliseconds: 500),
         curve: Curves.easeInOut,
       );
+
+  Future<void> _getOrderDetails() async {
+    final params = GetOrderDetailsUseCaseParams(
+      loading: loading,
+      type: ServiceType.customsClearance.value,
+      orderId: orderId,
+    );
+    final result = await _getOrderDetailsUseCase.execute(params);
+    result.fold((_) => _, (r) {
+      orderModel = r;
+      _fillData();
+    });
+  }
+
+  void _fillData() {
+    orderSections = [
+      OrderSectionModel(
+        title: 'معلومات الطلب',
+        data: [
+          ItemModel(text: 'عنوان الطلب', description: orderModel.title),
+          ItemModel(text: 'وصف البضاعة', description: orderModel.content),
+          ItemModel(
+              text: 'منفذ الشحنة', description: orderModel.shippingport.name),
+          ItemModel(text: 'نوع الشحنة', description: orderModel.shipmentType),
+          ItemModel(text: 'الإجمالي', description: orderModel.total),
+          ItemModel(text: 'نوع الشحن', description: orderModel.shippingMethod),
+          ItemModel(text: 'توصيل إلي', description: orderModel.deliveryTo),
+          ItemModel(text: 'مجال الشحنة', description: orderModel.chargeField),
+          ItemModel(
+              text: 'هل يوجد بند جمزكي', description: orderModel.customsItem),
+          for (var item in orderModel.items) ...[
+            ItemModel(text: 'رقم البند الجمركي', description: item.name),
+          ]
+        ],
+      ),
+      OrderSectionModel(
+        title: 'طرد',
+        data: [
+          for (var item in orderModel.shippingmethods) ...[
+            ItemModel(text: 'نوع البضاعة', description: item.parcelType),
+            ItemModel(text: 'نوع الطرد', description: item.parcelType),
+            ItemModel(
+                text: 'إجمالي الحجم (متر مكعب)', description: item.totalSize),
+            ItemModel(
+                text: 'إجمالي الوزن (كيلوجرام)', description: item.totalWeight),
+            ItemModel(text: 'الكمية', description: item.quantity),
+          ]
+        ],
+      ),
+      OrderSectionModel(
+        title: 'خدمات إضافية',
+        data: [
+          ItemModel(
+              text: 'هل تريد التخزين',
+              description: orderModel.storageDaysNumber > 0 ? 'yes' : 'no'),
+          ItemModel(
+              text: 'عدد أيام التخزين', description: orderModel.storageDays),
+        ],
+      ),
+    ];
+  }
 }

@@ -6,12 +6,12 @@ import 'package:khalsha/features/customs_clearance_service/domain/repository/cus
 import '../../data/models/customs_clearance_data.dart';
 
 class AddCustomsClearanceUseCase
-    extends UseCase<String, AddCustomsClearanceUseCaseParams> {
+    extends UseCase<Map<String, dynamic>, AddCustomsClearanceUseCaseParams> {
   final CustomsClearanceRepository _clearanceRepository;
   AddCustomsClearanceUseCase(this._clearanceRepository);
 
   @override
-  Future<Either<Failure, String>> execute(
+  Future<Either<Failure, Map<String, dynamic>>> execute(
       AddCustomsClearanceUseCaseParams params) {
     params.loading(true);
     final call = _clearanceRepository.createOrder(params.customsClearanceData);

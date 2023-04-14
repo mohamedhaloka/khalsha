@@ -29,22 +29,22 @@ class ChooseShippingPlace extends StatelessWidget {
           color: ColorManager.greyColor,
         ),
         DropDownInputWithHolder(
-          title: 'المدينة',
+          title: 'الدولة',
           source: [
-            'دبي',
-            'الإمارات',
-            'قطر',
-            'الكويت',
+            'جمهورية مصر العربية',
+            'المملكة العربية السعودية',
           ].obs,
         ),
         const Divider(
           color: ColorManager.greyColor,
         ),
         DropDownInputWithHolder(
-          title: 'الدولة',
+          title: 'المدينة',
           source: [
-            'جمهورية مصر العربية',
-            'المملكة العربية السعودية',
+            'دبي',
+            'الإمارات',
+            'قطر',
+            'الكويت',
           ].obs,
         ),
         const Divider(

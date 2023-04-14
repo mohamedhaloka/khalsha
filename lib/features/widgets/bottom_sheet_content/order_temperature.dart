@@ -21,6 +21,7 @@ class OrderTemperature extends StatelessWidget {
         ),
         const Divider(
           color: ColorManager.greyColor,
+          height: 50,
         ),
         CounterComponent(
           number: 0.obs,
@@ -29,6 +30,7 @@ class OrderTemperature extends StatelessWidget {
         ),
         const Divider(
           color: ColorManager.greyColor,
+          height: 50,
         ),
         const SizedBox(height: 20),
         Center(

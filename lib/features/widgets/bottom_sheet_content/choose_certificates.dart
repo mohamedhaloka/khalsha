@@ -1,48 +1,70 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:khalsha/core/data/models/data_model.dart';
 
 import '../../../../core/presentation/themes/colors_manager.dart';
 import '../../../core/inputs_style.dart';
 import '../custom_button.dart';
 
 class ChooseCertificates extends StatefulWidget {
-  const ChooseCertificates({Key? key}) : super(key: key);
+  const ChooseCertificates(this.certificates, {Key? key}) : super(key: key);
+  final List<DataModel> certificates;
 
   @override
   State<ChooseCertificates> createState() => _ChooseCertificatesState();
 }
 
 class _ChooseCertificatesState extends State<ChooseCertificates> {
-  List<List> certificates = <List>[
-    ['شهادة سايبر', true],
-    ['شهادة الغذاء و الدواء', true],
-    ['شهادة المطابقة السعودية', true],
-    ['شهادة المطابقة الخارجية', true],
-  ];
-
   @override
   Widget build(BuildContext context) {
     return ListView(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 40),
-          child: Text(
-            'حدد الشهادات المراد إستخراجها',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: ColorManager.greyColor,
-            ),
+        const Text(
+          'حدد الشهادات المراد إستخراجها',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: ColorManager.greyColor,
           ),
         ),
         ListView.separated(
-          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
-          itemBuilder: (_, int index) => _buildCheckBox(
-            certificates[index][1],
-            certificates[index][0],
+          padding: const EdgeInsets.all(20),
+          itemBuilder: (_, int index) => Row(
+            children: [
+              InkWell(
+                onTap: () => widget.certificates[index]
+                    .selected(!widget.certificates[index].selected.value),
+                child: Obx(() => SizedBox(
+                      width: 25,
+                      height: 25,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Get.theme.primaryColor),
+                          color: widget.certificates[index].selected.value
+                              ? Get.theme.primaryColor
+                              : Colors.white,
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(4)),
+                        ),
+                        child: const Icon(
+                          Icons.check,
+                          size: 15,
+                          color: Colors.white,
+                        ),
+                      ),
+                    )),
+              ),
+              const SizedBox(width: 20),
+              Text(
+                widget.certificates[index].name,
+                style: Get.textTheme.bodyMedium!.copyWith(
+                  color: ColorManager.greyColor,
+                ),
+              )
+            ],
           ),
           separatorBuilder: (_, __) => const SizedBox(height: 20),
-          itemCount: 4,
+          itemCount: widget.certificates.length,
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
         ),
@@ -57,39 +79,19 @@ class _ChooseCertificatesState extends State<ChooseCertificates> {
             radius: radius,
             text: 'تأكيد',
             onTap: () {
-              Get.back(result: true);
+              bool selectAnyCertificate = false;
+              for (var element in widget.certificates) {
+                if (element.selected.value) {
+                  selectAnyCertificate = true;
+                  break;
+                }
+              }
+
+              Get.back(result: selectAnyCertificate);
             },
           ),
         )
       ],
     );
   }
-
-  Widget _buildCheckBox(
-    bool value,
-    String text,
-  ) =>
-      Row(
-        children: [
-          SizedBox(
-            width: 10,
-            height: 10,
-            child: Checkbox(
-              value: value,
-              onChanged: (bool? v) {
-                value = v ?? false;
-                setState(() {});
-              },
-              activeColor: ColorManager.primaryColor,
-            ),
-          ),
-          const SizedBox(width: 20),
-          Text(
-            text,
-            style: Get.textTheme.bodyMedium!.copyWith(
-              color: ColorManager.greyColor,
-            ),
-          )
-        ],
-      );
 }

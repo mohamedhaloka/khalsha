@@ -11,7 +11,7 @@ import 'input_holder_box.dart';
 class ServiceItemWithHolder extends StatelessWidget {
   const ServiceItemWithHolder({
     Key? key,
-    this.title,
+    required this.title,
     this.bottomSheetTitle,
     this.height,
     this.onTap,
@@ -19,8 +19,8 @@ class ServiceItemWithHolder extends StatelessWidget {
     this.onDelete,
     this.body,
   }) : super(key: key);
-  final String? title, text;
-  final String? bottomSheetTitle;
+  final String title;
+  final String? bottomSheetTitle, text;
   final Widget? body;
   final double? height;
   final void Function()? onTap, onDelete;
@@ -36,7 +36,7 @@ class ServiceItemWithHolder extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    title ?? '',
+                    title,
                     style: Get.textTheme.bodyMedium!.copyWith(
                       fontWeight: FontWeight.bold,
                       color: ColorManager.greyColor,
@@ -68,7 +68,7 @@ class ServiceItemWithHolder extends StatelessWidget {
                     HeadLineBottomSheet(
                       height: height,
                       body: body ?? const SizedBox(),
-                      bottomSheetTitle: bottomSheetTitle ?? '',
+                      bottomSheetTitle: bottomSheetTitle ?? title,
                     ),
                     isScrollControlled: true,
                   );

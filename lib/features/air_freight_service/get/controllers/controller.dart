@@ -57,5 +57,10 @@ class AddEditAirFreightServiceController extends GetxController {
     );
   }
 
-  void onTapNext() {}
+  void onTapNext() {
+    pageController.nextPage(
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+    );
+  }
 }

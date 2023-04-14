@@ -69,4 +69,53 @@ class CoreRepositoryImpl extends CoreRepository {
       return left(ServerFailure(statusMessage: e.response!.data.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, String>> uploadImage({
+    required String pageName,
+    required String orderId,
+    required String path,
+    required String field,
+    required String filePath,
+  }) async {
+    try {
+      final result = await _coreRemoteDataSource.uploadImage(
+        pageName: pageName,
+        orderId: orderId,
+        path: path,
+        field: field,
+        filePath: filePath,
+      );
+      return right(result);
+    } on ServerException catch (e) {
+      return left(ServerFailure(statusMessage: e.errorMessage));
+    } on DioError catch (e) {
+      return left(ServerFailure(statusMessage: e.response!.data.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> deleteFile(String pageName,
+      {required int id}) async {
+    try {
+      final result = await _coreRemoteDataSource.deleteFile(pageName, id: id);
+      return right(result);
+    } on ServerException catch (e) {
+      return left(ServerFailure(statusMessage: e.errorMessage));
+    } on DioError catch (e) {
+      return left(ServerFailure(statusMessage: e.response!.data.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> downloadFile(String url) async {
+    try {
+      final result = await _coreRemoteDataSource.downloadFile(url);
+      return right(result);
+    } on ServerException catch (e) {
+      return left(ServerFailure(statusMessage: e.errorMessage));
+    } on DioError catch (e) {
+      return left(ServerFailure(statusMessage: e.response!.data.toString()));
+    }
+  }
 }

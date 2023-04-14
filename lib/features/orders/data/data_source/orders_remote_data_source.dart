@@ -13,10 +13,10 @@ class OrdersRemoteDataSourceImpl extends OrdersRemoteDataSource {
 
   @override
   Future<List<OrderModel>> getOrders(String type) async {
-    final response = await _httpService.get('provider/offers?type=$type');
+    final response = await _httpService.get('importer/customsclearance');
 
     if (response.statusCode == 200) {
-      final data = response.data['data']['offers']['data'];
+      final data = response.data['result']['data'];
       List<OrderModel> orders = <OrderModel>[];
 
       for (var item in data) {

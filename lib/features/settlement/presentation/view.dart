@@ -21,7 +21,7 @@ class SettlementView extends GetView<SettlementController> {
             padding: const EdgeInsets.all(20),
             children: [
               TableItems(
-                onItemTapped: () => Get.toNamed(
+                onItemTapped: (_) => Get.toNamed(
                   Routes.settlementDetails,
                   arguments: controller.settlements,
                 ),

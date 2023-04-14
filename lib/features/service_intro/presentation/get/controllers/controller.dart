@@ -30,7 +30,7 @@ class ServiceIntroController extends GetxController {
       case ServiceType.customsClearance:
         return Routes.customsClearanceService;
       case ServiceType.landShipping:
-        return Routes.landShipping;
+        return Routes.chooseShippingService;
       case ServiceType.stores:
         return Routes.stores;
       case ServiceType.marineShipping:

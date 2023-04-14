@@ -60,6 +60,11 @@ dependencies:
   firebase_core: ^2.9.0
   google_sign_in: ^6.0.2
 #  flutter_login_facebook: ^1.7.0
+  # for map and get location
+  google_maps_flutter: ^2.2.1
+  location: ^4.2.3
+  flutter_google_places: ^0.3.0
+  geocoding: ^2.0.4
 
 dev_dependencies:
   flutter_test:

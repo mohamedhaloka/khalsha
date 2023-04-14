@@ -20,9 +20,12 @@ class SetNumberCount extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         children: [
-          CounterComponent(
-            title: title,
-            number: number,
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 15),
+            child: CounterComponent(
+              title: title,
+              number: number,
+            ),
           ),
           CustomButton(
             height: inputHeight,

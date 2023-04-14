@@ -11,14 +11,14 @@ import 'input_holder_box.dart';
 class ChooseItemWithHolder extends StatelessWidget {
   const ChooseItemWithHolder({
     Key? key,
-    this.title,
+    required this.title,
     this.height,
-    required this.bottomSheetTitle,
+    this.bottomSheetTitle,
     required this.selectedItem,
     required this.body,
   }) : super(key: key);
-  final String? title;
-  final String bottomSheetTitle;
+  final String title;
+  final String? bottomSheetTitle;
   final Rx<DataModel> selectedItem;
   final Widget body;
   final double? height;
@@ -28,29 +28,27 @@ class ChooseItemWithHolder extends StatelessWidget {
     return InputHolderBox(
       Row(
         children: [
-          if (title != null) ...[
-            Text(
-              title ?? '',
-              style: Get.textTheme.bodyMedium!.copyWith(
-                fontWeight: FontWeight.bold,
-                color: ColorManager.greyColor,
-              ),
+          Text(
+            title,
+            style: Get.textTheme.bodyMedium!.copyWith(
+              fontWeight: FontWeight.bold,
+              color: ColorManager.greyColor,
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 12, 0),
-              child: InkWell(
-                onTap: () {},
-                child: SvgPicture.asset('assets/images/icons/info.svg'),
-              ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 0, 12, 0),
+            child: InkWell(
+              onTap: () {},
+              child: SvgPicture.asset('assets/images/icons/info.svg'),
             ),
-          ],
+          ),
           Expanded(
             child: InkWell(
               onTap: () => Get.bottomSheet(
                 HeadLineBottomSheet(
                   height: height,
                   body: body,
-                  bottomSheetTitle: bottomSheetTitle,
+                  bottomSheetTitle: bottomSheetTitle ?? title,
                 ),
                 isScrollControlled: true,
               ),
@@ -63,7 +61,9 @@ class ChooseItemWithHolder extends StatelessWidget {
                 ),
                 child: Obx(
                   () => Text(
-                    selectedItem.value.name,
+                    selectedItem.value.name == ''
+                        ? 'اختر'
+                        : selectedItem.value.name,
                     textAlign: TextAlign.center,
                     style: Get.textTheme.bodyLarge,
                   ),

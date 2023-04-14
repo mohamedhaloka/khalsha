@@ -1,16 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:khalsha/core/presentation/themes/colors_manager.dart';
-import 'package:khalsha/features/widgets/custom_button.dart';
-import 'package:khalsha/features/widgets/custom_drop_down.dart';
-import 'package:khalsha/features/widgets/custom_text_field.dart';
+part of '../../customs_clearance.dart';
 
-import '../../../../core/inputs_style.dart';
-import '../get/controllers/controller.dart';
-import '../get/models/container_data_model.dart';
-
-class ContainerSheetBody extends GetView<AddEditCustomsClearanceController> {
-  const ContainerSheetBody({Key? key}) : super(key: key);
+class _ContainerSheetBody extends GetView<AddEditCustomsClearanceController> {
+  const _ContainerSheetBody({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +58,7 @@ class ContainerSheetBody extends GetView<AddEditCustomsClearanceController> {
                     isExpanded: true,
                     source: ContainerSize.values
                         .map((e) => DropdownMenuItem(
-                              value: e.name,
+                              value: e.value,
                               child: Text(e.name.tr),
                             ))
                         .toList(),

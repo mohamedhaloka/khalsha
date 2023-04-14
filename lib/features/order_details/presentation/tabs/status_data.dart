@@ -12,65 +12,68 @@ class _StatusData extends GetView<OrderDetailsController> {
           title: 'حالة طلبك الأن',
           hint: 'هنا تظهر حالة الطلب من قبلك',
         ),
-        SizedBox(
-          height: 200,
-          child: Obx(() => Row(
+        if (controller.orderModel.steps.isNotEmpty) ...[
+          SizedBox(
+            height: 200,
+            child: Obx(() => Row(
+                  children: [
+                    if (controller.currentStatus.value != 0) ...[
+                      InkWell(
+                        onTap: () {
+                          controller.currentStatus.value--;
+                          controller.goToStatus();
+                        },
+                        child: RotatedBox(
+                            quarterTurns: 2,
+                            child: SvgPicture.asset(
+                                'assets/images/icons/arrow.svg')),
+                      ),
+                    ] else ...[
+                      const SizedBox(width: 30),
+                    ],
+                    Expanded(
+                      child: PageView.builder(
+                        controller: controller.statusSliderController,
+                        onPageChanged: (int index) =>
+                            controller.currentStatus(index),
+                        itemCount: controller.status.length,
+                        itemBuilder: (_, int index) =>
+                            _StatusItem(controller.status[index]),
+                      ),
+                    ),
+                    if (controller.currentStatus.value !=
+                        controller.status.length - 1) ...[
+                      InkWell(
+                        onTap: () {
+                          controller.currentStatus.value++;
+                          controller.goToStatus();
+                        },
+                        child:
+                            SvgPicture.asset('assets/images/icons/arrow.svg'),
+                      ),
+                    ] else ...[
+                      const SizedBox(width: 30),
+                    ],
+                  ],
+                )),
+          ),
+          Obx(() => Column(
                 children: [
-                  if (controller.currentStatus.value != 0) ...[
-                    InkWell(
-                      onTap: () {
-                        controller.currentStatus.value--;
-                        controller.goToStatus();
-                      },
-                      child: RotatedBox(
-                          quarterTurns: 2,
-                          child: SvgPicture.asset(
-                              'assets/images/icons/arrow.svg')),
-                    ),
-                  ] else ...[
-                    const SizedBox(width: 30),
-                  ],
-                  Expanded(
-                    child: PageView.builder(
-                      controller: controller.statusSliderController,
-                      onPageChanged: (int index) =>
-                          controller.currentStatus(index),
-                      itemCount: controller.status.length,
-                      itemBuilder: (_, int index) =>
-                          _StatusItem(controller.status[index]),
-                    ),
+                  Text(status),
+                  TextUnderline(
+                    statusTxt,
+                    contentColor: _statusColor,
                   ),
-                  if (controller.currentStatus.value !=
-                      controller.status.length - 1) ...[
-                    InkWell(
-                      onTap: () {
-                        controller.currentStatus.value++;
-                        controller.goToStatus();
-                      },
-                      child: SvgPicture.asset('assets/images/icons/arrow.svg'),
-                    ),
-                  ] else ...[
-                    const SizedBox(width: 30),
-                  ],
                 ],
               )),
-        ),
-        Obx(() => Column(
-              children: [
-                Text(status),
-                TextUnderline(
-                  statusTxt,
-                  contentColor: _statusColor,
-                ),
-              ],
-            )),
-        Padding(
-          padding: const EdgeInsets.only(top: 50, bottom: 20),
-          child: CustomButton(
-            onTap: () {},
-            text: 'تعديل حالة الطلب',
-          ),
-        )
+          Padding(
+            padding: const EdgeInsets.only(top: 50, bottom: 20),
+            child: CustomButton(
+              onTap: () {},
+              text: 'تعديل حالة الطلب',
+            ),
+          )
+        ]
       ],
     );
   }

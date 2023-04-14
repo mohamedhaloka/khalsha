@@ -55,6 +55,17 @@ List<ItemModel> marineOrderSizeOptions = const <ItemModel>[
   )
 ];
 
+List<ItemModel> marinePackageTypeOptions = const <ItemModel>[
+  ItemModel(
+    text: 'كرتون',
+    id: 0,
+  ),
+  ItemModel(
+    text: 'طبلية',
+    id: 1,
+  )
+];
+
 List<ItemModel> testItemsList = const <ItemModel>[
   ItemModel(
     text: '1',

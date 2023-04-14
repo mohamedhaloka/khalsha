@@ -32,7 +32,6 @@ class AddShippingSize extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (_, int index) => Column(
               children: [
-                const Divider(),
                 TextFieldInputWithHolder(
                   title: 'وصف البضاعة',
                   controller: packages[index].goodsDescription,
@@ -51,40 +50,43 @@ class AddShippingSize extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextFieldInputWithHolder(
-                        hint: 'طول',
-                        controller: packages[index].weight,
-                        padding: EdgeInsets.zero,
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextFieldInputWithHolder(
+                          hint: 'طول',
+                          controller: packages[index].weight,
+                          padding: EdgeInsets.zero,
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: TextFieldInputWithHolder(
-                        hint: 'عرض',
-                        controller: packages[index].weight,
-                        padding: EdgeInsets.zero,
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: TextFieldInputWithHolder(
+                          hint: 'عرض',
+                          controller: packages[index].weight,
+                          padding: EdgeInsets.zero,
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: TextFieldInputWithHolder(
-                        hint: 'ارتفاع',
-                        controller: packages[index].weight,
-                        padding: EdgeInsets.zero,
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: TextFieldInputWithHolder(
+                          hint: 'ارتفاع',
+                          controller: packages[index].weight,
+                          padding: EdgeInsets.zero,
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: TextFieldInputWithHolder(
-                        hint: 'الكمية',
-                        controller: packages[index].weight,
-                        padding: EdgeInsets.zero,
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: TextFieldInputWithHolder(
+                          hint: 'الكمية',
+                          controller: packages[index].weight,
+                          padding: EdgeInsets.zero,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 const Divider(),
                 Padding(

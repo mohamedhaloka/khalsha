@@ -7,41 +7,88 @@ import '../custom_button.dart';
 import '../inputs/text_field_input_with_holder.dart';
 
 class AddLocationSheet extends StatelessWidget {
-  const AddLocationSheet({Key? key}) : super(key: key);
+  const AddLocationSheet({
+    Key? key,
+    required this.items,
+    this.allowMulti = false,
+  }) : super(key: key);
+  final RxList<int> items;
+  final bool allowMulti;
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      children: [
-        const Divider(
-          color: ColorManager.greyColor,
-        ),
-        const TextFieldInputWithHolder(
-          title: 'موقع التحميل',
-        ),
-        const Divider(
-          color: ColorManager.greyColor,
-        ),
-        const TextFieldInputWithHolder(
-          title: 'وصف الموقع',
-        ),
-        const Divider(
-          color: ColorManager.greyColor,
-        ),
-        const SizedBox(height: 20),
-        Center(
-          child: CustomButton(
-            height: inputHeight,
-            width: 100,
-            radius: radius,
-            text: 'تأكيد',
-            onTap: () {
-              Get.back();
-            },
+    return Padding(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        children: [
+          Expanded(
+            child: Obx(() => ListView.separated(
+                  itemBuilder: (_, int index) => Column(
+                    children: [
+                      if (items.length > 1)
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: CustomButton(
+                            width: 40,
+                            height: 40,
+                            onTap: () => items.remove(items[index]),
+                            imgName: 'delete',
+                            backgroundColor: ColorManager.errorColor,
+                          ),
+                        ),
+                      const TextFieldInputWithHolder(
+                        title: 'موقع التحميل',
+                      ),
+                      const Divider(
+                        color: ColorManager.greyColor,
+                      ),
+                      const TextFieldInputWithHolder(
+                        title: 'وصف الموقع',
+                      ),
+                    ],
+                  ),
+                  separatorBuilder: (_, __) => const Divider(
+                    color: Colors.black,
+                    indent: 20,
+                    endIndent: 20,
+                  ),
+                  itemCount: items.length,
+                )),
           ),
-        )
-      ],
+          if (allowMulti)
+            Row(
+              children: [
+                const Expanded(
+                  child: Divider(color: ColorManager.greyColor),
+                ),
+                InkWell(
+                  onTap: () => items.add(0),
+                  child: const Chip(
+                    backgroundColor: ColorManager.primaryColor,
+                    label: Text(
+                      'إضافة موقع جديد  +',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+                const Expanded(
+                  child: Divider(color: ColorManager.greyColor),
+                ),
+              ],
+            ),
+          Center(
+            child: CustomButton(
+              height: inputHeight,
+              width: 100,
+              radius: radius,
+              text: 'تأكيد',
+              onTap: () {
+                Get.back();
+              },
+            ),
+          )
+        ],
+      ),
     );
   }
 }

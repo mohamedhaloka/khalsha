@@ -19,6 +19,18 @@ abstract class CoreRemoteDataSource {
   Future<String> updateProfilePhoto(String photoPath);
 
   Future<List<DataModel>> getParticularEnvData(String pageName);
+
+  Future<String> uploadImage({
+    required String pageName,
+    required String orderId,
+    required String path,
+    required String field,
+    required String filePath,
+  });
+
+  Future<String> deleteFile(String pageName, {required int id});
+
+  Future<String> downloadFile(String url);
 }
 
 class CoreRemoteDataSourceImpl extends CoreRemoteDataSource {
@@ -96,6 +108,63 @@ class CoreRemoteDataSourceImpl extends CoreRemoteDataSource {
       return dataList;
     } else {
       throw ServerException(errorMessage: response.data.toString());
+    }
+  }
+
+  @override
+  Future<String> uploadImage({
+    required String pageName,
+    required String orderId,
+    required String path,
+    required String field,
+    required String filePath,
+  }) async {
+    final formData = FormData.fromMap({
+      'dz_attach_param_name': field,
+      'dz_id': orderId,
+      'dz_path': '$path/$orderId',
+    });
+
+    if (filePath.isNotEmpty) {
+      formData.files.addAll([
+        MapEntry(
+          field,
+          await MultipartFile.fromFile(filePath),
+        ),
+      ]);
+    }
+    final response = await _httpService.post(
+      '$pageName/upload/multi',
+      formData,
+    );
+
+    if (response.statusCode == 200) {
+      return 'تم رفع الملف بنجاح';
+    } else {
+      throw ServerException(errorMessage: response.data.toString());
+    }
+  }
+
+  @override
+  Future<String> deleteFile(String pageName, {required int id}) async {
+    final formData = FormData.fromMap({'id': id});
+    final response =
+        await _httpService.post('customsclearance/delete/file', formData);
+
+    if (response.statusCode == 200) {
+      return response.data['message'];
+    } else {
+      throw ServerException(errorMessage: response.data.toString());
+    }
+  }
+
+  @override
+  Future<String> downloadFile(String url) async {
+    final file = await _httpService.download(url);
+    if (file.path != '') {
+      return file.path;
+    } else {
+      throw const ServerException();
     }
   }
 }

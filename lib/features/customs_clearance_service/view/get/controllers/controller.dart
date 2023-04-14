@@ -1,24 +1,31 @@
-import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
-import 'package:get/get.dart';
-import 'package:khalsha/core/domain/use_cases/get_particular_env_data_use_case.dart';
-import 'package:khalsha/core/presentation/routes/app_routes.dart';
-import 'package:khalsha/core/utils.dart';
-import 'package:khalsha/features/customs_clearance_service/data/models/customs_clearance_data.dart';
-
-import '../../../../../../../core/data/models/data_model.dart';
-import '../../../domain/use_cases/add_customs_clearance_use_case.dart';
-import '../models/container_data_model.dart';
-import '../models/parcel_data_model.dart';
+part of '../../../customs_clearance.dart';
 
 class AddEditCustomsClearanceController extends GetxController {
   final GetParticularEnvDataUseCase _getParticularEnvDataUseCase;
   final AddCustomsClearanceUseCase _addCustomsClearanceUseCase;
+  final UpdateCustomsClearanceUseCase _updateCustomsClearanceUseCase;
+  final UploadImageUseCase _uploadImageUseCase;
+  final DownloadFileUseCase _downloadFileUseCase;
+  final DeleteFileUseCase _deleteFileUseCase;
   AddEditCustomsClearanceController(
     this._getParticularEnvDataUseCase,
     this._addCustomsClearanceUseCase,
+    this._uploadImageUseCase,
+    this._downloadFileUseCase,
+    this._updateCustomsClearanceUseCase,
+    this._deleteFileUseCase,
   );
+
+  final OrderModel? orderModel = Get.arguments;
+
+  bool get isAddMode => orderModel == null;
+
+  List<Widget> children = const [
+    _FillData(),
+    _AdditionalServices(),
+    AttachFilesStepView(),
+    OrderSendSuccessfullyStepView(),
+  ];
 
   PageController pageController = PageController();
 
@@ -39,7 +46,10 @@ class AddEditCustomsClearanceController extends GetxController {
   }
 
   String get btnTxt {
-    if (currentStep.value == 3) return 'اطلب';
+    if (currentStep.value == 3) {
+      if (isAddMode) return 'اطلب';
+      return 'تعديل';
+    }
     return 'التالي';
   }
 
@@ -51,7 +61,9 @@ class AddEditCustomsClearanceController extends GetxController {
   List<DataModel> shippingPorts = <DataModel>[];
 
   RxString selectedGoodType = ''.obs;
-  List<DataModel> goodsTypes = <DataModel>[];
+  RxList<DataModel> goodsTypes = <DataModel>[].obs,
+      certificates = <DataModel>[].obs,
+      currencies = <DataModel>[].obs;
 
   RxInt selectedShippingMethod = (-1).obs;
   RxInt numberOfStorage = 0.obs;
@@ -64,23 +76,61 @@ class AddEditCustomsClearanceController extends GetxController {
       description = TextEditingController(),
       total = TextEditingController();
 
+  LocationDetails locationDetails = LocationDetails();
+
   RxString selectedCurrency = ''.obs;
 
   RxList<ParcelDataModel> parcel = <ParcelDataModel>[].obs;
   RxList<ContainerDataModel> container = <ContainerDataModel>[].obs;
 
-  Rx<File> commercialInvoice = File('').obs,
-      certificateOfOrigin = File('').obs,
-      packingList = File('').obs,
-      billOfLading = File('').obs;
+  RxList<FileModel> files = <FileModel>[].obs;
 
   RxBool loading = false.obs;
+
+  List<int> deletedFilesIds = <int>[];
+  List<String> newFilesPath = <String>[];
 
   @override
   void onInit() {
     _getData('shippingports', onSuccess: (data) => shippingPorts.addAll(data));
     _getData('goodstypes', onSuccess: (data) => goodsTypes.addAll(data));
+    _getData('certificates', onSuccess: (data) => certificates.addAll(data));
+    _getData('currencies', onSuccess: (data) => currencies.addAll(data));
+    _fillData();
     super.onInit();
+  }
+
+  void _fillData() {
+    if (orderModel == null) return;
+    name.text = orderModel!.title;
+    selectedShippingField(orderModel!.chargeFieldId);
+    selectedShippingType(orderModel!.shipmentTypeId);
+    selectedShippingPort(orderModel!.shippingport);
+    deliverTo.text = orderModel!.deliveryTo;
+    description.text = orderModel!.content;
+    total.text = orderModel!.total;
+    selectedCurrency(orderModel!.currency.id.toString());
+    selectedShippingMethod(orderModel!.shippingMethodId);
+    if (selectedShippingMethod.value == 0) {
+      parcel.addAll(orderModel!.parcelDataList);
+    } else {
+      container.addAll(orderModel!.containerDataList);
+    }
+    numberOfStorage(orderModel!.storageDaysNumber);
+    customsClauseList.addAll(orderModel!.customsClauseDataList);
+
+    for (var file in orderModel!.files) {
+      _downloadFile(file);
+    }
+  }
+
+  void chooseLocation() async {
+    final result = await Get.toNamed(Routes.map, arguments: locationDetails);
+    if (result == null) return;
+    if (result is LocationDetails) {
+      locationDetails = result;
+      deliverTo.text = result.name ?? '';
+    }
   }
 
   Future<void> _getData(
@@ -93,6 +143,20 @@ class AddEditCustomsClearanceController extends GetxController {
     );
     final result = await _getParticularEnvDataUseCase.execute(params);
     result.fold((_) => _, onSuccess);
+  }
+
+  Future<void> _downloadFile(OrderFile orderFile) async {
+    final params =
+        DownloadFileUseCaseParams(loading: loading, url: orderFile.fullPath);
+    final result = await _downloadFileUseCase.execute(params);
+    result.fold((_) => _, (r) {
+      log(r, name: 'FILE PATH');
+      files.add(FileModel(
+        id: orderFile.id,
+        file: File(r),
+        type: orderFile.mimtype,
+      ));
+    });
   }
 
   void onPageChanged(int index) => currentStep(index);
@@ -109,7 +173,11 @@ class AddEditCustomsClearanceController extends GetxController {
 
   void onTapNext() {
     if (currentStep.value == 3) {
-      createOrder();
+      if (isAddMode) {
+        _createOrder();
+        return;
+      }
+      _updateOrder();
       return;
     }
 
@@ -168,15 +236,13 @@ class AddEditCustomsClearanceController extends GetxController {
             _validateParcelFieldInputsIsEmpty ||
             _validateContainerFieldInputsIsEmpty;
       case 2:
-        return commercialInvoice.value.path == '' ||
-            packingList.value.path == '' ||
-            certificateOfOrigin.value.path == '' ||
-            billOfLading.value.path == '';
+        return files.isEmpty;
     }
     return false;
   }
 
   CustomsClearanceData get _customsClearanceData => CustomsClearanceData(
+        orderId: isAddMode ? null : orderModel!.id,
         shippingMethod:
             selectedShippingMethod.value == 0 ? 'parcel' : 'container',
         parcelType: selectedShippingMethod.value == 0
@@ -207,6 +273,7 @@ class AddEditCustomsClearanceController extends GetxController {
             ? []
             : container.map((element) => element.containerSize.value).toList(),
         notes: '',
+        method: isAddMode ? null : 'PUT',
         total: total.text,
         title: name.text,
         chargeField:
@@ -223,7 +290,7 @@ class AddEditCustomsClearanceController extends GetxController {
         wantStorage: numberOfStorage.value > 0 ? 'yes' : 'no',
       );
 
-  Future<void> createOrder() async {
+  Future<void> _createOrder() async {
     final params = AddCustomsClearanceUseCaseParams(
       loading: loading,
       customsClearanceData: _customsClearanceData,
@@ -231,10 +298,70 @@ class AddEditCustomsClearanceController extends GetxController {
     final result = await _addCustomsClearanceUseCase.execute(params);
     result.fold(
       (failure) => showAlertMessage(failure.statusMessage),
-      (successMsg) {
-        showAlertMessage(successMsg);
+      (data) async {
+        showAlertMessage(data['message']);
+        await _uploadImages(data['orderId'].toString(),
+            listLength: files.length,
+            item: (int index) => files[index].file.path);
         Get.offAllNamed(Routes.root);
       },
     );
+  }
+
+  Future<void> _uploadImages(String orderId,
+      {required int listLength,
+      required String Function(int index) item}) async {
+    for (int i = 0; i < listLength; i++) {
+      final params = UploadImageUseCaseParams(
+        loading: loading,
+        pageName: 'customsclearance',
+        path: 'customclearancestep',
+        orderId: orderId,
+        field: 'customclearancestep_file',
+        filePath: item(i),
+      );
+
+      final result = await _uploadImageUseCase.execute(params);
+      result.fold(
+        (_) => _,
+        (successMsg) => showAlertMessage(successMsg),
+      );
+    }
+  }
+
+  Future<void> _updateOrder() async {
+    final params = UpdateCustomsClearanceUseCaseParams(
+      loading: loading,
+      customsClearanceData: _customsClearanceData,
+    );
+    final result = await _updateCustomsClearanceUseCase.execute(params);
+    result.fold(
+      (failure) => showAlertMessage(failure.statusMessage),
+      (data) async {
+        showAlertMessage(data['message']);
+        await _uploadImages(
+          data['orderId'].toString(),
+          listLength: newFilesPath.length,
+          item: (int index) => newFilesPath[index],
+        );
+        _deleteRemovedFiles();
+      },
+    );
+  }
+
+  Future<void> _deleteRemovedFiles() async {
+    for (var deletedFileId in deletedFilesIds) {
+      final params = DeleteFileUseCaseParams(
+        loading: loading,
+        pageName: 'customsclearance',
+        id: deletedFileId,
+      );
+      final result = await _deleteFileUseCase.execute(params);
+      result.fold(
+        (failure) => showAlertMessage(failure.statusMessage),
+        (r) => showAlertMessage(r),
+      );
+    }
+    Get.back(result: true);
   }
 }

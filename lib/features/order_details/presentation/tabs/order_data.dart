@@ -12,19 +12,16 @@ class _OrderDataTab extends GetView<OrderDetailsController> {
           title: 'تفاصيل الطلب',
           hint: 'هنا تظهر جميع التفاصيل الخاصة بالعميل',
         ),
-        _DetailsGroupItem(
-          text: 'معلومات الطلب',
-          details: controller.orderData,
-        ),
-        _DetailsGroupItem(
-          text: 'مواصفات الطلب',
-          details: controller.orderRequirement,
-        ),
-        _DetailsGroupItem(
-          text: 'خدمات إضافية',
-          details: controller.extraServices,
-        ),
-        if (Get.previousRoute == Routes.orders) ...[
+        ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (_, int index) => _DetailsGroupItem(
+                  text: controller.orderSections[index].title,
+                  details: controller.orderSections[index].data,
+                ),
+            itemCount: controller.orderSections.length),
+        if (!UserDataLocal.instance.isImporterExporter &&
+            controller.orderModel.offers.isEmpty) ...[
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
             child: CustomButton(

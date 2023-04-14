@@ -3,6 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 import '../../../../../core/presentation/themes/colors_manager.dart';
+import '../../../core/inputs_style.dart';
+import '../custom_drop_down.dart';
 import 'input_holder_box.dart';
 
 class DropDownInputWithHolder extends StatelessWidget {
@@ -42,18 +44,18 @@ class DropDownInputWithHolder extends StatelessWidget {
               ),
             ),
           ],
-          // Expanded(
-          //   child: CustomDropDown(
-          //     radius: radius,
-          //     height: inputHeight,
-          //     hint: hint ?? 'إختر',
-          //     dropVal: ''.obs,
-          //     isExpanded: true,
-          //     source: source,
-          //     hintColor: ColorManager.greyColor,
-          //     iconColor: ColorManager.greyColor,
-          //   ),
-          // ),
+          Expanded(
+            child: CustomDropDown(
+              radius: radius,
+              height: inputHeight,
+              hint: hint ?? 'إختر',
+              dropVal: ''.obs,
+              isExpanded: true,
+              source: [],
+              hintColor: ColorManager.greyColor,
+              iconColor: ColorManager.greyColor,
+            ),
+          ),
         ],
       ),
     );

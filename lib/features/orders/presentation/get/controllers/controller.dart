@@ -47,4 +47,9 @@ class OrdersController extends GetxController {
         return '';
     }
   }
+
+  Future<void> onRefresh() async {
+    orders.clear();
+    getOrders();
+  }
 }

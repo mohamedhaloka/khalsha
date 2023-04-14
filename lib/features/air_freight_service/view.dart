@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:khalsha/core/data/models/data_model.dart';
 import 'package:khalsha/features/service_intro/presentation/get/controllers/controller.dart';
 
 import '../../../../../core/presentation/themes/colors_manager.dart';
 import '../../core/service_utils.dart';
 import '../widgets/bottom_sheet_content/add_notes_sheet.dart';
+import '../widgets/bottom_sheet_content/add_shipping_size.dart';
 import '../widgets/bottom_sheet_content/choose_certificates.dart';
+import '../widgets/bottom_sheet_content/choose_shipping_place.dart';
+import '../widgets/bottom_sheet_content/multi_items_list.dart';
 import '../widgets/headline_bottom_sheet.dart';
 import '../widgets/inputs/attach_file_with_holder.dart';
 import '../widgets/inputs/checker_with_holder.dart';
+import '../widgets/inputs/choose_item_with_holder.dart';
+import '../widgets/inputs/text_field_input_with_drop_down_with_holder.dart';
 import '../widgets/inputs/text_field_input_with_holder.dart';
 import '../widgets/inputs/toggle_item_with_holder.dart';
 import '../widgets/service_content.dart';
@@ -56,47 +62,48 @@ class _FillData extends GetView<AddEditAirFreightServiceController> {
             items: shippingTypeOptions,
             selectedItem: controller.selectedShippingType,
           ),
-          // ChooseItemWithHolder(
-          //   title: 'الشحن من',
-          //   bottomSheetTitle: 'الشحن من',
-          //   height: Get.height / 1.6,
-          //   selectedItem: const ItemModel(text: '').obs,
-          //   body: const ChooseShippingPlace(),
-          // ),
-          // ChooseItemWithHolder(
-          //   title: 'الشحن إلي',
-          //   bottomSheetTitle: 'الشحن إلي',
-          //   height: Get.height / 1.6,
-          //   selectedItem: const ItemModel(text: '').obs,
-          //   body: const ChooseShippingPlace(),
-          // ),
-          // ChooseItemWithHolder(
-          //   title: 'حجم الشحنة',
-          //   bottomSheetTitle: 'بيانات الشحنة',
-          //   height: Get.height / 1.3,
-          //   selectedItem: const ItemModel(text: '').obs,
-          //   body: AddShippingSize(
-          //     packages: controller.packages,
-          //     items: shippingFieldOptions,
-          //     onAdd: controller.addNewPackageItem,
-          //   ),
-          // ),
-          // const TextFieldInputWithDropDownWithHolder(
-          //   title: 'قيمة الشحنة',
-          //   firstInputHint: '2000',
-          //   firstInputFlex: 2,
-          //   secondInputHint: 'ر.س',
-          // ),
-          // ChooseItemWithHolder(
-          //   title: 'جاهزية الشحنة',
-          //   selectedItem: controller.selectedShippingPlace,
-          //   bottomSheetTitle: 'جاهزية الشحنة',
-          //   height: Get.height / 2,
-          //   body: MultiItemsList(
-          //     items: testItemsList,
-          //     selectedItem: controller.selectedShippingPlace,
-          //   ),
-          // ),
+          ChooseItemWithHolder(
+            title: 'الشحن من',
+            bottomSheetTitle: 'الشحن من',
+            height: Get.height / 1.6,
+            selectedItem: DataModel.empty().obs,
+            body: const ChooseShippingPlace(),
+          ),
+          ChooseItemWithHolder(
+            title: 'الشحن إلي',
+            bottomSheetTitle: 'الشحن إلي',
+            height: Get.height / 1.6,
+            selectedItem: DataModel.empty().obs,
+            body: const ChooseShippingPlace(),
+          ),
+          ChooseItemWithHolder(
+            title: 'حجم الشحنة',
+            bottomSheetTitle: 'بيانات الشحنة',
+            height: Get.height / 1.3,
+            selectedItem: DataModel.empty().obs,
+            body: AddShippingSize(
+              packages: controller.packages,
+              items: shippingFieldOptions,
+              onAdd: controller.addNewPackageItem,
+            ),
+          ),
+          TextFieldInputWithDropDownWithHolder(
+            title: 'قيمة البضاعة بالدولار',
+            firstInputHint: '2000',
+            firstInputFlex: 2,
+            selectedDropDownValue: ''.obs,
+            source: [],
+          ),
+          ChooseItemWithHolder(
+            title: 'جاهزية الشحنة',
+            selectedItem: DataModel.empty().obs,
+            bottomSheetTitle: 'جاهزية الشحنة',
+            height: Get.height / 2,
+            body: MultiItemsList(
+              items: [],
+              selectedItem: DataModel.empty().obs,
+            ),
+          ),
           const AttachFileWithHolder(
             title: 'صورة للشحنة',
           ),
@@ -129,7 +136,7 @@ class _AdditionalServices extends GetView<AddEditAirFreightServiceController> {
             title: 'المساعدة في إستخراج الشهادات',
             active: false.obs,
             bottomSheetTitle: 'الشهادات',
-            body: const ChooseCertificates(),
+            body: const ChooseCertificates([]),
             height: Get.height / 1.6,
           ),
           InkWell(

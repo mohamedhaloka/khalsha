@@ -5,9 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '../../../../core/data/models/file_model.dart';
 import '../../../../core/presentation/themes/colors_manager.dart';
 import '../../../widgets/inputs/service_item_with_holder.dart';
-import '../get/controllers/controller.dart';
+import '../../customs_clearance.dart';
 
 class AttachFilesStepView extends GetView<AddEditCustomsClearanceController> {
   const AttachFilesStepView({Key? key}) : super(key: key);
@@ -28,61 +29,95 @@ class AttachFilesStepView extends GetView<AddEditCustomsClearanceController> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            ServiceItemWithHolder(
-              height: 200,
-              title: 'الفاتورة التجارية',
-              text: controller.commercialInvoice.value.fileName,
-              onTap: () async {
-                final result = await pickFile();
-                if (result == null) return;
-                controller.commercialInvoice(File(result.path ?? ''));
-              },
-              onDelete: () => controller.commercialInvoice(File('')),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Wrap(
+                children: [
+                  'الفاتورة التجارية',
+                  'قائمة التعبئة',
+                  'شهادة المنشأ',
+                  'بوليصة الشحن',
+                ]
+                    .map((e) => SizedBox(
+                          width: Get.width / 2.3,
+                          height: 40,
+                          child: Text(
+                            e,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              color: ColorManager.greyColor,
+                            ),
+                          ),
+                        ))
+                    .toList(),
+              ),
             ),
             ServiceItemWithHolder(
               height: 200,
-              title: 'قائمة التعبئة',
-              text: controller.packingList.value.fileName,
+              title: 'أضف الملفات',
+              bottomSheetTitle: 'أضف الملفات',
+              text: controller.files.isEmpty ? null : 'تم',
               onTap: () async {
-                final result = await pickFile();
-                if (result == null) return;
-                controller.packingList(File(result.path ?? ''));
+                final files = await pickFiles();
+                if (files == null) return;
+                for (var file in files) {
+                  controller.files.add(FileModel(file: File(file.path!)));
+                  controller.newFilesPath.add(file.path!);
+                }
               },
-              onDelete: () => controller.packingList(File('')),
             ),
-            ServiceItemWithHolder(
-              height: 200,
-              title: 'شهادة المنشأ',
-              text: controller.certificateOfOrigin.value.fileName,
-              onTap: () async {
-                final result = await pickFile();
-                if (result == null) return;
-                controller.certificateOfOrigin(File(result.path ?? ''));
-              },
-              onDelete: () => controller.certificateOfOrigin(File('')),
-            ),
-            ServiceItemWithHolder(
-              height: 200,
-              title: 'بوليصة الشحن',
-              text: controller.billOfLading.value.fileName,
-              onTap: () async {
-                final result = await pickFile();
-                if (result == null) return;
-                controller.billOfLading(File(result.path ?? ''));
-              },
-              onDelete: () => controller.billOfLading(File('')),
-            ),
+            Obx(() => GridView.builder(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 10.0,
+                    mainAxisSpacing: 10.0,
+                  ),
+                  itemCount: controller.files.length,
+                  itemBuilder: (_, int index) => Stack(
+                    children: [
+                      if (controller.files[index].type.contains('image')) ...[
+                        Image.file(
+                          controller.files[index].file,
+                          fit: BoxFit.cover,
+                        ),
+                      ] else ...[
+                        SvgPicture.asset('assets/images/icons/pdf-file.svg')
+                      ],
+                      Positioned(
+                          child: InkWell(
+                        onTap: () {
+                          final file = controller.files[index];
+                          controller.files.remove(file);
+                          if (file.id == null) return;
+                          controller.deletedFilesIds.add(file.id!);
+                        },
+                        child: const CircleAvatar(
+                          radius: 8,
+                          backgroundColor: ColorManager.errorColor,
+                          child: Icon(
+                            Icons.close,
+                            size: 10,
+                          ),
+                        ),
+                      )),
+                    ],
+                  ),
+                ))
           ],
         ));
   }
 
-  Future<PlatformFile?> pickFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
+  Future<List<PlatformFile>?> pickFiles() async {
+    FilePickerResult? result =
+        await FilePicker.platform.pickFiles(allowMultiple: true);
 
     if (result != null) {
-      PlatformFile file = result.files.first;
+      List<PlatformFile> files = result.files;
 
-      return file;
+      return files;
     } else {
       return null;
     }

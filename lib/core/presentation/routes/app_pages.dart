@@ -19,7 +19,14 @@ abstract class Routes {
   static const laboratoryAndStandardsService =
       _Paths.laboratoryAndStandardsService;
   static const airFreight = _Paths.airFreight;
-  static const landShipping = _Paths.landShipping;
+  static const personalDomesticLandShipping =
+      _Paths.personalDomesticLandShipping;
+  static const commercialDomesticLandShipping =
+      _Paths.commercialDomesticLandShipping;
+  static const internationalBulkGoodsLandShipping =
+      _Paths.internationalBulkGoodsLandShipping;
+  static const internationalPrivateTransferLandShipping =
+      _Paths.internationalPrivateTransferLandShipping;
   static const marineShipping = _Paths.marineShipping;
   static const stores = _Paths.stores;
   static const orderDetails = _Paths.orderDetails;
@@ -32,6 +39,8 @@ abstract class Routes {
   static const statistics = _Paths.statistics;
   static const forgetPassword = _Paths.forgetPassword;
   static const resetPassword = _Paths.resetPassword;
+  static const map = _Paths.map;
+  static const chooseShippingService = _Paths.chooseShippingService;
 }
 
 abstract class _Paths {
@@ -52,7 +61,14 @@ abstract class _Paths {
   static const laboratoryAndStandardsService =
       '/laboratory_and_standards_service';
   static const airFreight = '/air_freight';
-  static const landShipping = '/land_shipping';
+  static const personalDomesticLandShipping =
+      '/personal_domestic_land_shipping';
+  static const commercialDomesticLandShipping =
+      '/commercial_domestic_land_shipping';
+  static const internationalBulkGoodsLandShipping =
+      '/international_bulk_goods_land_shipping';
+  static const internationalPrivateTransferLandShipping =
+      '/international_private_transfer_land_shipping';
   static const marineShipping = '/marine_shipping';
   static const stores = '/stores';
   static const orderDetails = '/order_details';
@@ -65,4 +81,6 @@ abstract class _Paths {
   static const statistics = '/statistics';
   static const forgetPassword = '/forget_password';
   static const resetPassword = '/reset_password';
+  static const map = '/map';
+  static const chooseShippingService = '/choose_shipping_service';
 }

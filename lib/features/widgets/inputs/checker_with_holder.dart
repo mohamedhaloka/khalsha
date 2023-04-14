@@ -64,7 +64,7 @@ class CheckerWithHolder extends StatelessWidget {
                   backgroundColor:
                       active.value ? Get.theme.primaryColor : Colors.white,
                   contentColor: active.value ? Colors.white : null,
-                  text: 'نعم',
+                  text: active.value ? 'نعم' : 'لا',
                 )),
           )
         ],

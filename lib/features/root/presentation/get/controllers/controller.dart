@@ -60,7 +60,7 @@ class RootController extends GetxController {
       const ItemModel(
         id: 1,
         image: 'orders',
-        text: 'عروضي',
+        text: 'طلباتي',
         child: OrdersBody(),
       ),
       const ItemModel(
@@ -131,7 +131,7 @@ class RootController extends GetxController {
       ),
     ];
 
-    if (UserDataLocal.instance.isImporterExporter) {
+    if (!UserDataLocal.instance.isImporterExporter) {
       menu.insertAll(
         1,
         const [

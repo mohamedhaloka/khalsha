@@ -12,10 +12,12 @@ class AddEditStoresServiceController extends GetxController {
       case 0:
         return 'تعبئة الطلب';
       case 1:
-        return 'خدمات إضافية';
+        return 'تفاصيل الشحنة';
       case 2:
-        return 'تأكيد الطلب';
+        return 'خدمات إضافية';
       case 3:
+        return 'تأكيد الطلب';
+      case 4:
         return 'إرسال الطلب';
     }
     return '';
@@ -46,5 +48,10 @@ class AddEditStoresServiceController extends GetxController {
     );
   }
 
-  void onTapNext() {}
+  void onTapNext() {
+    pageController.nextPage(
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+    );
+  }
 }

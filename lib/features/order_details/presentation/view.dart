@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:khalsha/core/data/source/local/user_local.dart';
 import 'package:khalsha/features/order_details/presentation/get/controllers/controller.dart';
 import 'package:khalsha/features/order_details/presentation/widgets/order_tab_header.dart';
 import 'package:khalsha/features/widgets/custom_button.dart';
 import 'package:khalsha/main.dart';
 
 import '../../../core/data/models/item_model.dart';
-import '../../../core/presentation/routes/app_routes.dart';
 import '../../../core/presentation/themes/colors_manager.dart';
 import '../../widgets/bill.dart';
 import '../../widgets/custom_app_bar.dart';
@@ -27,30 +27,38 @@ class OrderDetailsView extends GetView<OrderDetailsController> {
       appBar: const CustomAppBar(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            if (Get.previousRoute != Routes.orders) ...[
-              const _DetailsTabs(),
-            ],
-            Expanded(
-              child: PageView(
-                controller: controller.pageViewController,
-                physics: const NeverScrollableScrollPhysics(),
-                onPageChanged: (int index) => controller.currentTab(index),
+        child: Obx(() => controller.loading.value
+            ? Center(
+                child: CircularProgressIndicator(
+                  color: Get.theme.primaryColor,
+                ),
+              )
+            : Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  const _OrderDataTab(),
-                  if (provider) ...[
-                    const _BillDataTab(),
-                  ] else ...[
-                    const _PricingOffersTab(),
+                  if (controller.orderModel.steps.isNotEmpty ||
+                      UserDataLocal.instance.isImporterExporter) ...[
+                    const _DetailsTabs(),
                   ],
-                  const _StatusData(),
+                  Expanded(
+                    child: PageView(
+                      controller: controller.pageViewController,
+                      physics: const NeverScrollableScrollPhysics(),
+                      onPageChanged: (int index) =>
+                          controller.currentTab(index),
+                      children: [
+                        const _OrderDataTab(),
+                        if (provider) ...[
+                          const _BillDataTab(),
+                        ] else ...[
+                          const _PricingOffersTab(),
+                        ],
+                        const _StatusData(),
+                      ],
+                    ),
+                  ),
                 ],
-              ),
-            ),
-          ],
-        ),
+              )),
       ),
     );
   }

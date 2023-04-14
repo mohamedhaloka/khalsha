@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:khalsha/features/orders/data/models/order_model.dart';
+import 'package:khalsha/features/orders/presentation/get/controllers/controller.dart';
 
 import '../../../../core/presentation/routes/app_routes.dart';
 import '../../../../core/presentation/themes/colors_manager.dart';
@@ -18,7 +19,7 @@ class OrderItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Get.toNamed(Routes.orderDetails),
+      onTap: () => Get.toNamed(Routes.orderDetails, arguments: 30),
       child: Container(
         height: 110,
         decoration: const BoxDecoration(
@@ -41,9 +42,8 @@ class OrderItem extends StatelessWidget {
             Expanded(
               child: Row(
                 children: [
-                  _detail(order.customclearance.title),
-                  _detail(order.customclearance.user.name),
-                  _detail('${order.total} ريال'),
+                  _detail(order.title),
+                  _detail('${'offers'.tr}   ${order.offers.length}'),
                 ],
               ),
             ),
@@ -53,8 +53,20 @@ class OrderItem extends StatelessWidget {
             Expanded(
               child: Row(
                 children: [
-                  _Status(order.customclearance.status),
-                  _Status(order.status)
+                  _Status(order.status),
+                  Expanded(
+                    child: IconButton(
+                        onPressed: () async {
+                          final result = await Get.toNamed(
+                            Routes.customsClearanceService,
+                            arguments: order,
+                          );
+                          if (result == null) return;
+                          final ordersController = Get.find<OrdersController>();
+                          ordersController.onRefresh();
+                        },
+                        icon: const Icon(Icons.edit)),
+                  )
                 ],
               ),
             ),

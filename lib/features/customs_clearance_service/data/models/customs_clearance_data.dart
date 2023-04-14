@@ -1,4 +1,6 @@
 class CustomsClearanceData {
+  final int? orderId;
+
   final String title,
       shipmentType,
       chargeField,
@@ -13,6 +15,8 @@ class CustomsClearanceData {
       currencyId,
       shippingMethod;
 
+  final String? method;
+
   final List<String> customsItemIds,
       goodTypeId,
       containerType,
@@ -25,11 +29,13 @@ class CustomsClearanceData {
       quantity;
 
   const CustomsClearanceData({
+    required this.orderId,
     required this.containerType,
     required this.containerCount,
     required this.containerSize,
     required this.parcelType,
     required this.quantity,
+    required this.method,
     required this.notes,
     required this.totalWeight,
     required this.totalSize,
@@ -50,7 +56,7 @@ class CustomsClearanceData {
     required this.wantStorage,
   });
 
-  Map<String, String> toJson() => {
+  Map<String, dynamic> toJson() => {
         'title': title,
         'shipment_type': shipmentType,
         'charge_field': chargeField,
@@ -64,5 +70,6 @@ class CustomsClearanceData {
         'currency_id': currencyId,
         'shipping_method': shippingMethod,
         'notes': notes,
+        '_method': method,
       };
 }

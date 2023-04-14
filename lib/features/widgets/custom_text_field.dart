@@ -24,6 +24,7 @@ class CustomTextField extends StatelessWidget {
       this.contentPadding,
       this.padding,
       this.maxLength,
+      this.hintColor,
       this.titleStyle,
       this.passSecure,
       this.onSubmitted,
@@ -70,6 +71,7 @@ class CustomTextField extends StatelessWidget {
       this.width,
       this.contentPadding,
       this.titleStyle,
+      this.hintColor,
       this.passSecure,
       this.radius = 22,
       this.maxLines = 1,
@@ -80,7 +82,7 @@ class CustomTextField extends StatelessWidget {
   final String? prefixImg, suffixImg, title, hint, helper;
   final BorderSide? borderSide;
   final int? maxLines, maxLength;
-  final Color? fillColor, contentColor, activeBorderColor;
+  final Color? fillColor, contentColor, activeBorderColor, hintColor;
   final double? radius, fontSize, height, width;
   final FontWeight? fontWeight;
   final TextEditingController? controller;
@@ -196,7 +198,7 @@ class CustomTextField extends StatelessWidget {
                               vertical: 14,
                             ),
                         hintStyle: Get.textTheme.subtitle2!.copyWith(
-                            color: contentColor ?? ColorManager.greyColor,
+                            color: hintColor ?? ColorManager.lightGreyColor,
                             fontSize: fontSize,
                             fontWeight: fontWeight)),
                   )),

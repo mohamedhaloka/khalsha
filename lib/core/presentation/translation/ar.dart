@@ -6,4 +6,10 @@ Map<String, String> ar = {
   'seashippings': 'الشحن البحري',
   'airshippings': 'الشحن الجوي',
   'laboratories': 'المختبرات و المقاييس',
+
+  //Choose Service Type
+  'private-transfer': 'النقل الخاص',
+  'bulk-goods': 'بضائع مجمعة',
+  'personal-domestic': 'محلي شخصي',
+  'commercial-domestic': 'محلي تجاري',
 };

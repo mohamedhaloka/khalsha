@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
+import '../../../../core/presentation/routes/app_routes.dart';
+import '../../../map/data/model/location_details.dart';
+
 class AddEditMarineShippingServiceController extends GetxController {
   PageController pageController = PageController();
 
@@ -21,7 +24,12 @@ class AddEditMarineShippingServiceController extends GetxController {
   }
 
   RxInt selectedShippingType = 0.obs;
-  RxInt selectedMarineOrderSize = 0.obs;
+  RxInt selectedMarineOrderSize = (-1).obs;
+
+  LocationDetails deliverFromLocationDetails = LocationDetails(),
+      deliverToLocationDetails = LocationDetails();
+  TextEditingController deliverFrom = TextEditingController(),
+      deliverTo = TextEditingController();
 
   void onPageChanged(int index) => currentStep(index);
   void onTapBack() {
@@ -35,5 +43,32 @@ class AddEditMarineShippingServiceController extends GetxController {
     );
   }
 
-  void onTapNext() {}
+  void onTapNext() {
+    pageController.nextPage(
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+    );
+  }
+
+  void chooseLocation(bool addShippingFrom) async {
+    Object? args;
+
+    if (addShippingFrom) {
+      args = deliverFromLocationDetails;
+    } else {
+      args = deliverToLocationDetails;
+    }
+
+    final result = await Get.toNamed(Routes.map, arguments: args);
+    if (result == null) return;
+    if (result is LocationDetails) {
+      if (addShippingFrom) {
+        deliverFromLocationDetails = result;
+        deliverFrom.text = result.name ?? '';
+      } else {
+        deliverToLocationDetails = result;
+        deliverTo.text = result.name ?? '';
+      }
+    }
+  }
 }

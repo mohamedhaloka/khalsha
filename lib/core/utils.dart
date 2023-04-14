@@ -8,7 +8,7 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 import '../main.dart';
 import 'data/source/local/user_local.dart';
 
-const apiKey = 'AIzaSyALkq2eRP2FmAiEioUx4UACuo1pogRFMxk';
+const apiKey = 'AIzaSyC6vGIyIwOA5xR8WgM3-aG3qG3g43Ie8Zs';
 
 void showAlertMessage(String? msg) => Fluttertoast.showToast(
       msg: (msg ?? '').tr,

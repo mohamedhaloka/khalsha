@@ -1,26 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:khalsha/core/data/models/item_model.dart';
-import 'package:khalsha/features/customs_clearance_service/view/steps/attach_files_step_view.dart';
-import 'package:khalsha/features/service_intro/presentation/get/controllers/controller.dart';
-import 'package:khalsha/features/widgets/headline_bottom_sheet.dart';
-
-import '../../../core/service_utils.dart';
-import '../../widgets/bottom_sheet_content/customs_clause.dart';
-import '../../widgets/bottom_sheet_content/multi_items_list.dart';
-import '../../widgets/bottom_sheet_content/set_number_count.dart';
-import '../../widgets/inputs/choose_item_with_holder.dart';
-import '../../widgets/inputs/service_item_with_holder.dart';
-import '../../widgets/inputs/text_field_input_with_drop_down_with_holder.dart';
-import '../../widgets/inputs/text_field_input_with_holder.dart';
-import '../../widgets/inputs/toggle_item_with_holder.dart';
-import '../../widgets/service_content.dart';
-import '../../widgets/steps/additional_service_step_view.dart';
-import '../../widgets/steps/fill_data_step_view.dart';
-import '../../widgets/steps/order_send_successfully_step_view.dart';
-import 'bottom_sheets/add_container_sheet.dart';
-import 'bottom_sheets/add_parcel_sheet.dart';
-import 'get/controllers/controller.dart';
+part of '../customs_clearance.dart';
 
 class AddEditCustomsClearanceServiceView
     extends GetView<AddEditCustomsClearanceController> {
@@ -37,12 +15,7 @@ class AddEditCustomsClearanceServiceView
           nextTitle: controller.btnTxt,
           currentStep: controller.currentStep,
           btnLoading: controller.loading,
-          children: const [
-            _FillData(),
-            _AdditionalServices(),
-            AttachFilesStepView(),
-            OrderSendSuccessfullyStepView(),
-          ],
+          children: controller.children,
         ));
   }
 }
@@ -58,6 +31,7 @@ class _FillData extends GetView<AddEditCustomsClearanceController> {
         children: [
           TextFieldInputWithHolder(
             title: 'عنوان الطلب',
+            hint: 'أضف عنوان',
             controller: controller.name,
           ),
           ToggleItemWithHolder(
@@ -71,7 +45,7 @@ class _FillData extends GetView<AddEditCustomsClearanceController> {
             selectedItem: controller.selectedShippingType,
           ),
           ChooseItemWithHolder(
-            title: 'منفذ الشحنة',
+            title: 'منفذ وصول الشحنة',
             selectedItem: controller.selectedShippingPort,
             bottomSheetTitle: 'اختر منفذ الشحنة',
             height: Get.height / 2,
@@ -83,24 +57,28 @@ class _FillData extends GetView<AddEditCustomsClearanceController> {
           TextFieldInputWithHolder(
             title: 'التوصيل إلي',
             controller: controller.deliverTo,
+            enabled: false,
+            onTap: controller.chooseLocation,
           ),
           TextFieldInputWithHolder(
-            hint: 'وصف البضاعة',
+            hint: 'وصف البضاعة مثل: أجهزة إلكترونية للإستخدام الشخصي',
             controller: controller.description,
           ),
-          TextFieldInputWithDropDownWithHolder(
-            title: 'الإجمالي',
-            firstInputHint: 'السعر',
-            firstInputFlex: 2,
-            secondInputHint: 'العملة',
-            firstInputController: controller.total,
-            selectedDropDownValue: controller.selectedCurrency,
-            source: ['دولار أمريكي', 'ريال سعودي']
-                .map((e) => DropdownMenuItem(
-                      value: e,
-                      child: Text(e),
-                    ))
-                .toList(),
+          Obx(
+            () => TextFieldInputWithDropDownWithHolder(
+              title: 'قيمة الفاتورة',
+              firstInputHint: 'السعر',
+              firstInputFlex: 2,
+              secondInputHint: 'العملة',
+              firstInputController: controller.total,
+              selectedDropDownValue: controller.selectedCurrency,
+              source: controller.currencies
+                  .map((e) => DropdownMenuItem(
+                        value: e.id.toString(),
+                        child: Text(e.name),
+                      ))
+                  .toList(),
+            ),
           ),
           ToggleItemWithHolder(
             title: 'نوع الشحن',
@@ -109,9 +87,9 @@ class _FillData extends GetView<AddEditCustomsClearanceController> {
             onChooseItem: (ItemModel item) {
               late Widget bottomSheetBody;
               if (item.id == 0) {
-                bottomSheetBody = const ParcelSheetBody();
+                bottomSheetBody = const _ParcelSheetBody();
               } else {
-                bottomSheetBody = const ContainerSheetBody();
+                bottomSheetBody = const _ContainerSheetBody();
               }
               Get.bottomSheet(
                   HeadLineBottomSheet(
@@ -134,27 +112,40 @@ class _AdditionalServices extends GetView<AddEditCustomsClearanceController> {
   @override
   Widget build(BuildContext context) {
     return AdditionalServiceStepView(
-      body: Column(
-        children: [
-          ServiceItemWithHolder(
-            title: 'هل تريد التخزين',
-            bottomSheetTitle: 'خدمة التخزين',
-            height: Get.height / 3,
-            body: SetNumberCount(
-              number: controller.numberOfStorage,
-              title: 'عدد أيام التخزين',
-            ),
-          ),
-          ServiceItemWithHolder(
-            title: 'هل يوجد بند جمركي',
-            bottomSheetTitle: 'إضافة بند جمركي',
-            height: Get.height / 2,
-            body: CustomsClause(
-              customsClause: controller.customsClauseList,
-            ),
-          ),
-        ],
-      ),
+      body: Obx(() => Column(
+            children: [
+              ServiceItemWithHolder(
+                title: 'هل تريد خدمة التخزين',
+                bottomSheetTitle: 'خدمة التخزين',
+                height: Get.height / 3,
+                text: controller.numberOfStorage.value > 0 ? 'تم' : null,
+                onDelete: () => controller.numberOfStorage(0),
+                body: SetNumberCount(
+                  number: controller.numberOfStorage,
+                  title: 'عدد أيام التخزين',
+                ),
+              ),
+              ServiceItemWithHolder(
+                title: 'هل يوجد بند جمركي',
+                bottomSheetTitle: 'إضافة بند جمركي',
+                height: Get.height / 2,
+                text: controller.customsClauseList.isNotEmpty ? 'تم' : null,
+                onDelete: () => controller.customsClauseList.clear(),
+                body: CustomsClause(
+                  customsClause: controller.customsClauseList,
+                ),
+              ),
+              CheckerWithHolder(
+                title: 'خدمة إستخراج الشهادات اللازمة',
+                active: controller.certificates
+                    .any((element) => element.selected.value)
+                    .obs,
+                bottomSheetTitle: 'الشهادات',
+                body: ChooseCertificates(controller.certificates),
+                height: Get.height / 1.6,
+              ),
+            ],
+          )),
     );
   }
 }

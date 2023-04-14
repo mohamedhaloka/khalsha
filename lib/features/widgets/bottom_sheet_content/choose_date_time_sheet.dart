@@ -39,7 +39,7 @@ class _ChooseDateTimeSheetState extends State<ChooseDateTimeSheet> {
                 setState(() {});
               },
               children: const [
-                _CalenderView(),
+                CalenderView(),
                 _TimeView(),
               ],
             ),
@@ -69,8 +69,8 @@ class _ChooseDateTimeSheetState extends State<ChooseDateTimeSheet> {
   }
 }
 
-class _CalenderView extends StatelessWidget {
-  const _CalenderView({Key? key}) : super(key: key);
+class CalenderView extends StatelessWidget {
+  const CalenderView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

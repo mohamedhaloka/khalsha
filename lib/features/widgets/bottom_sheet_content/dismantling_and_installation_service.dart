@@ -7,8 +7,8 @@ import '../../../core/inputs_style.dart';
 import '../custom_button.dart';
 import '../inputs/text_field_input_with_holder.dart';
 
-class StorageService extends StatelessWidget {
-  const StorageService({Key? key}) : super(key: key);
+class DismantlingAndInstallationService extends StatelessWidget {
+  const DismantlingAndInstallationService({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

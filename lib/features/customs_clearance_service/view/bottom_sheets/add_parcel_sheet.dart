@@ -1,16 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:khalsha/core/presentation/themes/colors_manager.dart';
-import 'package:khalsha/features/widgets/custom_button.dart';
-import 'package:khalsha/features/widgets/custom_drop_down.dart';
-import 'package:khalsha/features/widgets/custom_text_field.dart';
+part of '../../customs_clearance.dart';
 
-import '../../../../core/inputs_style.dart';
-import '../get/controllers/controller.dart';
-import '../get/models/parcel_data_model.dart';
-
-class ParcelSheetBody extends GetView<AddEditCustomsClearanceController> {
-  const ParcelSheetBody({Key? key}) : super(key: key);
+class _ParcelSheetBody extends GetView<AddEditCustomsClearanceController> {
+  const _ParcelSheetBody({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

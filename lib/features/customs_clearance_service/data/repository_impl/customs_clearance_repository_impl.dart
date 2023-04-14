@@ -12,7 +12,7 @@ class CustomsClearanceRepositoryImpl extends CustomsClearanceRepository {
   CustomsClearanceRepositoryImpl(this._clearanceRemoteDataSource);
 
   @override
-  Future<Either<Failure, String>> createOrder(
+  Future<Either<Failure, Map<String, dynamic>>> createOrder(
       CustomsClearanceData customsClearanceData) async {
     try {
       final result =
@@ -21,9 +21,25 @@ class CustomsClearanceRepositoryImpl extends CustomsClearanceRepository {
     } on ServerException catch (e) {
       return left(ServerFailure(statusMessage: e.errorMessage));
     } on DioError catch (e) {
-      print(e.response!.data.toString());
       return left(
-          ServerFailure(statusMessage: e.response!.data['message'].toString()));
+        ServerFailure(statusMessage: e.response!.data['message'].toString()),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, Map<String, dynamic>>> updateOrder(
+      CustomsClearanceData customsClearanceData) async {
+    try {
+      final result =
+          await _clearanceRemoteDataSource.updateOrder(customsClearanceData);
+      return right(result);
+    } on ServerException catch (e) {
+      return left(ServerFailure(statusMessage: e.errorMessage));
+    } on DioError catch (e) {
+      return left(
+        ServerFailure(statusMessage: e.response!.data['message'].toString()),
+      );
     }
   }
 }
