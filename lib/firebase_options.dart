@@ -60,7 +60,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '949672352683',
     projectId: 'khalsha-54b3c',
     storageBucket: 'khalsha-54b3c.appspot.com',
-    iosClientId: '949672352683-2kmd8rpqcivrrskkd20vukhhur0q6i3r.apps.googleusercontent.com',
+    iosClientId:
+        '949672352683-2kmd8rpqcivrrskkd20vukhhur0q6i3r.apps.googleusercontent.com',
     iosBundleId: 'com.app.khalsha',
   );
 }

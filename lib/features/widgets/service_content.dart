@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/features/widgets/steps_progress_indicator.dart';
 
 import '../../../core/presentation/themes/colors_manager.dart';
 import 'custom_app_bar.dart';
@@ -88,4 +88,42 @@ class DynamicServiceAppBar extends StatelessWidget with PreferredSizeWidget {
 
   @override
   Size get preferredSize => const Size.fromHeight(60);
+}
+
+class StepsProgressIndicator extends StatelessWidget {
+  const StepsProgressIndicator({
+    Key? key,
+    required this.pagesLength,
+    required this.currentStep,
+  }) : super(key: key);
+  final int pagesLength;
+  final RxInt currentStep;
+
+  double get progressWidth =>
+      (Get.width * ((currentStep.value + 1) / pagesLength));
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.centerRight,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          SvgPicture.asset(
+            'assets/images/icons/truck.svg',
+            color: ColorManager.secondaryColor,
+            width: 30,
+          ),
+          Obx(
+            () => AnimatedContainer(
+              duration: const Duration(milliseconds: 500),
+              width: progressWidth,
+              height: 1.5,
+              color: ColorManager.secondaryColor,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }

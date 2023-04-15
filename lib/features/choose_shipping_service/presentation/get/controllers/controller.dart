@@ -13,4 +13,17 @@ class ChooseShippingServiceController extends GetxController {
       id: 1,
     )
   ];
+
+  List<ItemModel> serviceTypes = const <ItemModel>[
+    ItemModel(
+      id: 0,
+      text: 'الشحن المحلي',
+      image: 'domestic_shipping',
+    ),
+    ItemModel(
+      id: 1,
+      text: 'الشحن الدولي',
+      image: 'international_shipping',
+    )
+  ];
 }
