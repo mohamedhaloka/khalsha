@@ -120,9 +120,6 @@ class ChooseShippingServiceView
                                   ],
                                 ),
                                 alignment: Alignment.centerRight,
-                              ),
-                              Positioned(
-                                right: 0,
                                 child: ClipRRect(
                                   borderRadius: const BorderRadius.only(
                                     topRight: Radius.circular(14),
@@ -133,6 +130,7 @@ class ChooseShippingServiceView
                                     children: [
                                       SvgPicture.asset(
                                         'assets/images/icons/oval_shape.svg',
+                                        fit: BoxFit.fill,
                                       ),
                                       Positioned(
                                         right: 10,
@@ -155,6 +153,7 @@ class ChooseShippingServiceView
                                 bottom: 0,
                                 child: SvgPicture.asset(
                                   'assets/images/icons/${e.image}.svg',
+                                  fit: BoxFit.fill,
                                 ),
                               ),
                             ],
