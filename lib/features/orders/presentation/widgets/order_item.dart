@@ -19,7 +19,7 @@ class OrderItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Get.toNamed(Routes.orderDetails, arguments: 30),
+      onTap: () => Get.toNamed(Routes.orderDetails, arguments: order.id),
       child: Container(
         height: 110,
         decoration: const BoxDecoration(
@@ -58,7 +58,7 @@ class OrderItem extends StatelessWidget {
                     child: IconButton(
                         onPressed: () async {
                           final result = await Get.toNamed(
-                            Routes.customsClearanceService,
+                            Routes.stores,
                             arguments: order,
                           );
                           if (result == null) return;

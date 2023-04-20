@@ -17,19 +17,10 @@ class ConfirmOrderStepView extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         const TextFieldInputWithHolder(
-          hint: 'اسم الشحن المسئول',
+          hint: 'اسم الشخص المستلم',
         ),
-        TextFieldInputWithDropDownWithHolder(
-          firstInputHint: 'رقم الجوال',
-          secondInputHint: '33+',
-          firstInputFlex: 5,
-          selectedDropDownValue: ''.obs,
-          source: ['', '']
-              .map((e) => DropdownMenuItem(
-                    value: e,
-                    child: Text(e),
-                  ))
-              .toList(),
+        const TextFieldInputWithHolder(
+          hint: 'رقم الجوال',
         ),
         const TextFieldInputWithHolder(
           hint: 'الإيميل',

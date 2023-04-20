@@ -38,9 +38,11 @@ class _ChooseDateTimeSheetState extends State<ChooseDateTimeSheet> {
                 currentStep = index;
                 setState(() {});
               },
-              children: const [
-                CalenderView(),
-                _TimeView(),
+              children: [
+                // CalenderView(
+                //   onDateChanged: (_) => _,
+                // ),
+                const _TimeView(),
               ],
             ),
           ),
@@ -70,7 +72,13 @@ class _ChooseDateTimeSheetState extends State<ChooseDateTimeSheet> {
 }
 
 class CalenderView extends StatelessWidget {
-  const CalenderView({Key? key}) : super(key: key);
+  const CalenderView({
+    Key? key,
+    required this.onDateChanged,
+    required this.initialDate,
+  }) : super(key: key);
+  final ValueChanged<DateTime> onDateChanged;
+  final DateTime initialDate;
 
   @override
   Widget build(BuildContext context) {
@@ -90,10 +98,10 @@ class CalenderView extends StatelessWidget {
         onSurface: Get.theme.primaryColor,
       )),
       child: CalendarDatePicker(
-        initialDate: DateTime.now(),
+        initialDate: initialDate,
         firstDate: DateTime(2000),
         lastDate: DateTime(2030),
-        onDateChanged: (_) => _,
+        onDateChanged: onDateChanged,
       ),
     );
   }

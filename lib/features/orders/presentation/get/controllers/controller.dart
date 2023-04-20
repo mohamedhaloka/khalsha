@@ -8,7 +8,7 @@ class OrdersController extends GetxController {
   final GetOrdersUseCase _getOrdersUseCase;
   OrdersController(this._getOrdersUseCase);
 
-  RxInt selectedService = 0.obs;
+  RxInt selectedService = 2.obs;
 
   List<OrderModel> orders = <OrderModel>[];
 

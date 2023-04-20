@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:khalsha/features/orders/data/models/order_model.dart';
 
 import '../../core/presentation/themes/colors_manager.dart';
 
 class Bill extends StatelessWidget {
-  const Bill({Key? key}) : super(key: key);
+  const Bill(this.invoice, {Key? key}) : super(key: key);
+  final Invoice invoice;
 
   @override
   Widget build(BuildContext context) {
@@ -48,21 +50,21 @@ class Bill extends StatelessWidget {
                     color: ColorManager.lightGreyColor,
                     width: 1.5,
                   ),
-                  children: const [
+                  children: [
                     TableRow(children: [
                       _BillUserDetails(
                         title: 'الفاتورة بإسم:',
-                        subTitle: 'محمود إبراهيم',
-                        hint: 'مستورد أجهزة طبية',
+                        subTitle: invoice.user.name,
+                        hint: invoice.user.bio,
                       ),
                       _BillUserDetails(
                         title: 'الفاتورة رقم:',
-                        subTitle: '#345345',
-                        hint: 'بتاريخ : 12/2/2022',
+                        subTitle: '#${invoice.customClearanceId}',
+                        hint: 'بتاريخ : ${invoice.importListDate}',
                       ),
                       _BillUserDetails(
                         title: 'إجمالي الفاتورة:',
-                        subTitle: '12,000',
+                        subTitle: invoice.total,
                         hint: 'دولار أمريكي',
                       ),
                     ])
@@ -96,17 +98,17 @@ class Bill extends StatelessWidget {
                 ListView.separated(
                   padding: const EdgeInsets.symmetric(horizontal: 6),
                   itemBuilder: (_, int index) => Row(
-                    children: const [
+                    children: [
                       Expanded(
-                        child: Text('المخلص الجمركي'),
+                        child: Text(invoice.items[index].text),
                       ),
-                      Text('النبهان'),
+                      Text(invoice.items[index].description ?? ''),
                     ],
                   ),
                   separatorBuilder: (_, __) => const Divider(
                     color: ColorManager.lightGreyColor,
                   ),
-                  itemCount: 6,
+                  itemCount: invoice.items.length,
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                 ),
@@ -176,14 +178,6 @@ class _BillPricingDetails extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(15, 20, 15, 40),
       child: Column(
         children: [
-          _billPriceItemData(
-            title: 'الإجمالي بدون الضريبة',
-            price: '11.500',
-          ),
-          _billPriceItemData(
-            title: 'إجمالي الضريبة',
-            price: '500',
-          ),
           _billPriceItemData(
             title: 'الإجمالي بعد الضريبة',
             price: '12.000',

@@ -73,6 +73,7 @@ class AddEditCustomsClearanceController extends GetxController {
 
   TextEditingController name = TextEditingController(),
       deliverTo = TextEditingController(),
+      note = TextEditingController(),
       description = TextEditingController(),
       total = TextEditingController();
 
@@ -80,8 +81,12 @@ class AddEditCustomsClearanceController extends GetxController {
 
   RxString selectedCurrency = ''.obs;
 
-  RxList<ParcelDataModel> parcel = <ParcelDataModel>[].obs;
-  RxList<ContainerDataModel> container = <ContainerDataModel>[].obs;
+  RxList<ParcelDataModel> parcel = <ParcelDataModel>[
+    ParcelDataModel.newItem(),
+  ].obs;
+  RxList<ContainerDataModel> container = <ContainerDataModel>[
+    ContainerDataModel.newItem(),
+  ].obs;
 
   RxList<FileModel> files = <FileModel>[].obs;
 
@@ -92,36 +97,52 @@ class AddEditCustomsClearanceController extends GetxController {
 
   @override
   void onInit() {
-    _getData('shippingports', onSuccess: (data) => shippingPorts.addAll(data));
-    _getData('goodstypes', onSuccess: (data) => goodsTypes.addAll(data));
-    _getData('certificates', onSuccess: (data) => certificates.addAll(data));
-    _getData('currencies', onSuccess: (data) => currencies.addAll(data));
     _fillData();
     super.onInit();
   }
 
-  void _fillData() {
-    if (orderModel == null) return;
+  void _fillData() async {
+    loading(true);
+    await _getData('shippingports',
+        onSuccess: (data) => shippingPorts.addAll(data));
+    await _getData('goodstypes', onSuccess: (data) => goodsTypes.addAll(data));
+    await _getData('certificates',
+        onSuccess: (data) => certificates.addAll(data));
+    await _getData('currencies', onSuccess: (data) => currencies.addAll(data));
+
+    if (orderModel == null) {
+      loading(false);
+      return;
+    }
     name.text = orderModel!.title;
     selectedShippingField(orderModel!.chargeFieldId);
     selectedShippingType(orderModel!.shipmentTypeId);
     selectedShippingPort(orderModel!.shippingport);
     deliverTo.text = orderModel!.deliveryTo;
     description.text = orderModel!.content;
+    note.text = orderModel!.notes;
     total.text = orderModel!.total;
     selectedCurrency(orderModel!.currency.id.toString());
     selectedShippingMethod(orderModel!.shippingMethodId);
     if (selectedShippingMethod.value == 0) {
+      parcel.clear();
       parcel.addAll(orderModel!.parcelDataList);
     } else {
+      container.clear();
       container.addAll(orderModel!.containerDataList);
     }
     numberOfStorage(orderModel!.storageDaysNumber);
     customsClauseList.addAll(orderModel!.customsClauseDataList);
+    for (var e in orderModel!.certificates) {
+      final item =
+          certificates.firstWhereOrNull((element) => element.id == e.id);
+      item?.selected(true);
+    }
 
     for (var file in orderModel!.files) {
       _downloadFile(file);
     }
+    loading(false);
   }
 
   void chooseLocation() async {
@@ -172,7 +193,7 @@ class AddEditCustomsClearanceController extends GetxController {
   }
 
   void onTapNext() {
-    if (currentStep.value == 3) {
+    if (currentStep.value == children.length - 1) {
       if (isAddMode) {
         _createOrder();
         return;
@@ -272,7 +293,12 @@ class AddEditCustomsClearanceController extends GetxController {
         containerSize: selectedShippingMethod.value == 0
             ? []
             : container.map((element) => element.containerSize.value).toList(),
-        notes: '',
+        notes: note.text,
+        certificates: certificates.isEmpty ? 'no' : 'yes',
+        certificate: certificates
+            .where((e) => e.selected.value)
+            .map((e) => e.id.toString())
+            .toList(),
         method: isAddMode ? null : 'PUT',
         total: total.text,
         title: name.text,
@@ -284,6 +310,8 @@ class AddEditCustomsClearanceController extends GetxController {
         customsItemIds:
             customsClauseList.map((element) => element.text).toList(),
         deliveryTo: deliverTo.text,
+        deliverToLat: locationDetails.lat.toString(),
+        deliverToLng: locationDetails.long.toString(),
         shipmentType: selectedShippingType.value == 0 ? 'import' : 'export',
         shippingPortId: selectedShippingPort.value.id.toString(),
         storageDays: numberOfStorage.string,
@@ -291,7 +319,7 @@ class AddEditCustomsClearanceController extends GetxController {
       );
 
   Future<void> _createOrder() async {
-    final params = AddCustomsClearanceUseCaseParams(
+    final params = CustomsClearanceUseCaseParams(
       loading: loading,
       customsClearanceData: _customsClearanceData,
     );
@@ -330,7 +358,7 @@ class AddEditCustomsClearanceController extends GetxController {
   }
 
   Future<void> _updateOrder() async {
-    final params = UpdateCustomsClearanceUseCaseParams(
+    final params = CustomsClearanceUseCaseParams(
       loading: loading,
       customsClearanceData: _customsClearanceData,
     );

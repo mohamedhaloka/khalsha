@@ -37,7 +37,7 @@ class AddLocationSheet extends StatelessWidget {
                           ),
                         ),
                       const TextFieldInputWithHolder(
-                        title: 'موقع التحميل',
+                        title: 'الموقع',
                       ),
                       const Divider(
                         color: ColorManager.greyColor,

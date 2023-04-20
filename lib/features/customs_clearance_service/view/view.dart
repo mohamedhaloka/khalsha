@@ -31,7 +31,7 @@ class _FillData extends GetView<AddEditCustomsClearanceController> {
         children: [
           TextFieldInputWithHolder(
             title: 'عنوان الطلب',
-            hint: 'أضف عنوان',
+            hint: 'مثال: تخليص مواد كهربائية',
             controller: controller.name,
           ),
           ToggleItemWithHolder(
@@ -45,7 +45,7 @@ class _FillData extends GetView<AddEditCustomsClearanceController> {
             selectedItem: controller.selectedShippingType,
           ),
           ChooseItemWithHolder(
-            title: 'منفذ وصول الشحنة',
+            title: 'منفذ الشحنة',
             selectedItem: controller.selectedShippingPort,
             bottomSheetTitle: 'اختر منفذ الشحنة',
             height: Get.height / 2,
@@ -144,6 +144,10 @@ class _AdditionalServices extends GetView<AddEditCustomsClearanceController> {
                 body: ChooseCertificates(controller.certificates),
                 height: Get.height / 1.6,
               ),
+              TextFieldInputWithHolder(
+                hint: 'الملاحضات',
+                controller: controller.note,
+              )
             ],
           )),
     );

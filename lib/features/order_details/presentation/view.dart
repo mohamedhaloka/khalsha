@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:khalsha/core/data/source/local/user_local.dart';
 import 'package:khalsha/features/order_details/presentation/get/controllers/controller.dart';
 import 'package:khalsha/features/order_details/presentation/widgets/order_tab_header.dart';
+import 'package:khalsha/features/order_details/presentation/widgets/status_steps.dart';
+import 'package:khalsha/features/orders/data/models/order_model.dart';
 import 'package:khalsha/features/widgets/custom_button.dart';
 import 'package:khalsha/main.dart';
 
@@ -54,6 +56,9 @@ class OrderDetailsView extends GetView<OrderDetailsController> {
                           const _PricingOffersTab(),
                         ],
                         const _StatusData(),
+                        if (controller.orderModel.invoice != null) ...[
+                          const _BillDataTab(),
+                        ],
                       ],
                     ),
                   ),
@@ -72,10 +77,16 @@ class _DetailsTabs extends GetView<OrderDetailsController> {
     return Obx(() => Row(
           children: [
             _tabWidget(id: 0, imgName: 'data'),
-            _separator,
-            _tabWidget(id: 1, imgName: 'bill'),
+            if (controller.orderModel.offer == null) ...[
+              _separator,
+              _tabWidget(id: 1, imgName: 'pricing-offers'),
+            ],
             _separator,
             _tabWidget(id: 2, imgName: 'track'),
+            if (controller.orderModel.invoice != null) ...[
+              _separator,
+              _tabWidget(id: 3, imgName: 'bill'),
+            ],
           ],
         ));
   }

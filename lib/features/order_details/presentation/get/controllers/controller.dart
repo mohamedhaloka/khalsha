@@ -1,23 +1,36 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:khalsha/core/domain/use_cases/upload_image_use_case.dart';
 import 'package:khalsha/features/order_details/data/models/order_section_model.dart';
 import 'package:khalsha/features/order_details/domain/use_cases/get_order_details_use_case.dart';
+import 'package:khalsha/features/order_details/domain/use_cases/update_order_status_use_case.dart';
 import 'package:khalsha/features/orders/data/models/order_model.dart';
 import 'package:khalsha/features/service_intro/presentation/get/controllers/controller.dart';
 
-import '../../../../../core/data/models/item_model.dart';
+import '../../../../../core/domain/use_cases/delete_file_use_case.dart';
+import '../../../../../core/utils.dart';
 
 class OrderDetailsController extends GetxController {
   final GetOrderDetailsUseCase _getOrderDetailsUseCase;
-  OrderDetailsController(this._getOrderDetailsUseCase);
+  final UpdateOrderStatusUseCase _updateOrderStatusUseCase;
+  final UploadImageUseCase _uploadImageUseCase;
+  final DeleteFileUseCase _deleteFileUseCase;
+  OrderDetailsController(
+    this._getOrderDetailsUseCase,
+    this._updateOrderStatusUseCase,
+    this._uploadImageUseCase,
+    this._deleteFileUseCase,
+  );
 
   int orderId = Get.arguments;
 
   RxInt currentTab = 0.obs;
   PageController pageViewController = PageController();
 
-  RxInt currentStatus = 1.obs;
-  PageController statusSliderController = PageController(initialPage: 1);
+  RxInt currentStatus = 0.obs;
+  PageController statusSliderController = PageController();
 
   List<OrderSectionModel> orderSections = <OrderSectionModel>[];
 
@@ -25,36 +38,9 @@ class OrderDetailsController extends GetxController {
 
   OrderModel orderModel = OrderModel.empty();
 
-  List<ItemModel> status = const <ItemModel>[
-    ItemModel(
-      id: 0,
-      statusId: 0,
-      text: 'استلام الاوراق',
-      image: 'receipt-of-papers',
-    ),
-    ItemModel(
-      id: 1,
-      statusId: 1,
-      text: 'استلام التفويض',
-      image: 'receipt-of-authorization',
-    ),
-    ItemModel(
-      id: 2,
-      statusId: 2,
-      text: 'تحضير الاوراق',
-      image: 'paper-preparation',
-    ),
-    ItemModel(
-      id: 3,
-      statusId: 2,
-      text: 'استلام الشحنة',
-      image: 'receive-the-shipment',
-    ),
-  ];
-
   @override
   void onInit() {
-    _getOrderDetails();
+    getOrderDetails();
 
     super.onInit();
   }
@@ -71,7 +57,7 @@ class OrderDetailsController extends GetxController {
         curve: Curves.easeInOut,
       );
 
-  Future<void> _getOrderDetails() async {
+  Future<void> getOrderDetails() async {
     final params = GetOrderDetailsUseCaseParams(
       loading: loading,
       type: ServiceType.customsClearance.value,
@@ -80,55 +66,63 @@ class OrderDetailsController extends GetxController {
     final result = await _getOrderDetailsUseCase.execute(params);
     result.fold((_) => _, (r) {
       orderModel = r;
-      _fillData();
+      currentTab(0);
+      orderSections = orderModel.customsClrearse;
     });
   }
 
-  void _fillData() {
-    orderSections = [
-      OrderSectionModel(
-        title: 'معلومات الطلب',
-        data: [
-          ItemModel(text: 'عنوان الطلب', description: orderModel.title),
-          ItemModel(text: 'وصف البضاعة', description: orderModel.content),
-          ItemModel(
-              text: 'منفذ الشحنة', description: orderModel.shippingport.name),
-          ItemModel(text: 'نوع الشحنة', description: orderModel.shipmentType),
-          ItemModel(text: 'الإجمالي', description: orderModel.total),
-          ItemModel(text: 'نوع الشحن', description: orderModel.shippingMethod),
-          ItemModel(text: 'توصيل إلي', description: orderModel.deliveryTo),
-          ItemModel(text: 'مجال الشحنة', description: orderModel.chargeField),
-          ItemModel(
-              text: 'هل يوجد بند جمزكي', description: orderModel.customsItem),
-          for (var item in orderModel.items) ...[
-            ItemModel(text: 'رقم البند الجمركي', description: item.name),
-          ]
-        ],
-      ),
-      OrderSectionModel(
-        title: 'طرد',
-        data: [
-          for (var item in orderModel.shippingmethods) ...[
-            ItemModel(text: 'نوع البضاعة', description: item.parcelType),
-            ItemModel(text: 'نوع الطرد', description: item.parcelType),
-            ItemModel(
-                text: 'إجمالي الحجم (متر مكعب)', description: item.totalSize),
-            ItemModel(
-                text: 'إجمالي الوزن (كيلوجرام)', description: item.totalWeight),
-            ItemModel(text: 'الكمية', description: item.quantity),
-          ]
-        ],
-      ),
-      OrderSectionModel(
-        title: 'خدمات إضافية',
-        data: [
-          ItemModel(
-              text: 'هل تريد التخزين',
-              description: orderModel.storageDaysNumber > 0 ? 'yes' : 'no'),
-          ItemModel(
-              text: 'عدد أيام التخزين', description: orderModel.storageDays),
-        ],
-      ),
-    ];
+  Future<void> updateOrderStatus({
+    required String comment,
+    required String status,
+    required int statusId,
+  }) async {
+    final params = UpdateOrderStatusUseCaseParams(
+      loading: false.obs,
+      type: ServiceType.customsClearance.value,
+      statusId: statusId,
+      status: status,
+      comment: comment,
+    );
+    final result = await _updateOrderStatusUseCase.execute(params);
+    result.fold(
+      (l) => showAlertMessage(l.statusMessage),
+      (r) => showAlertMessage(r),
+    );
+  }
+
+  Future<void> uploadImages({
+    required int statusId,
+    required List<File> images,
+  }) async {
+    for (var image in images) {
+      final params = UploadImageUseCaseParams(
+        loading: false.obs,
+        pageName: '${ServiceType.customsClearance.value}/step',
+        path: 'customclearancestep${orderModel.id}',
+        orderId: statusId.toString(),
+        field: 'customclearancestep_file',
+        filePath: image.path,
+      );
+      final result = await _uploadImageUseCase.execute(params);
+      result.fold(
+        (_) => _,
+        (r) => showAlertMessage(r),
+      );
+    }
+  }
+
+  Future<void> deleteImage(int imageId) async {
+    final params = DeleteFileUseCaseParams(
+        loading: false.obs,
+        pageName: '${ServiceType.customsClearance.value}/step',
+        id: imageId);
+    final result = await _deleteFileUseCase.execute(params);
+    result.fold(
+      (l) => showAlertMessage(l.statusMessage),
+      (r) {
+        showAlertMessage(r);
+        getOrderDetails();
+      },
+    );
   }
 }

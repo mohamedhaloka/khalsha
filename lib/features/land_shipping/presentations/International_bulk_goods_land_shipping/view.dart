@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:khalsha/core/data/models/data_model.dart';
@@ -9,13 +11,13 @@ import 'package:khalsha/features/widgets/inputs/input_holder_box.dart';
 import 'package:khalsha/features/widgets/steps/pick_locations_step_view.dart';
 
 import '../../../service_intro/presentation/get/controllers/controller.dart';
-import '../../../widgets/bottom_sheet_content/add_location_sheet.dart';
 import '../../../widgets/bottom_sheet_content/choose_date_time_sheet.dart';
 import '../../../widgets/bottom_sheet_content/multi_items_list.dart';
 import '../../../widgets/bottom_sheet_content/order_temperature.dart';
 import '../../../widgets/custom_button.dart';
 import '../../../widgets/inputs/attach_file_with_holder.dart';
 import '../../../widgets/inputs/choose_item_with_holder.dart';
+import '../../../widgets/inputs/drop_down_input_with_holder.dart';
 import '../../../widgets/inputs/service_item_with_holder.dart';
 import '../../../widgets/inputs/yes_or_no_with_holder.dart';
 import '../../../widgets/service_content.dart';
@@ -82,9 +84,9 @@ class _FillData
                     const SizedBox(height: 10),
                   ],
                   ChooseItemWithHolder(
-                    title: 'نوع الشحنة',
+                    title: 'اسم الصنف',
+                    hint: 'مثال: ثلاجة',
                     selectedItem: DataModel.empty().obs,
-                    bottomSheetTitle: 'نوع البضاعة',
                     height: Get.height / 2,
                     body: MultiItemsList(
                       items: const [],
@@ -103,8 +105,9 @@ class _FillData
                     number: 0.obs,
                     title: 'إجمالي الوزن',
                   )),
-                  const AttachFileWithHolder(
+                  AttachFileWithHolder(
                     title: 'صورة الشحنة',
+                    file: File('').obs,
                   ),
                 ],
               ),
@@ -189,8 +192,22 @@ class _PickLocations
           bottomSheetTitle: 'موقع التسليم',
           height: Get.height / 1.8,
           onDelete: () {},
-          body: AddLocationSheet(
-            items: <int>[1].obs,
+          body: Column(
+            children: [
+              DropDownInputWithHolder(
+                dropValue: ''.obs,
+                title: 'الدولة',
+                source: [],
+              ),
+              const Divider(
+                color: ColorManager.greyColor,
+              ),
+              DropDownInputWithHolder(
+                dropValue: ''.obs,
+                title: 'المدينة',
+                source: [],
+              ),
+            ],
           ),
         ),
         ServiceItemWithHolder(

@@ -65,6 +65,7 @@ class AttachFilesStepView extends GetView<AddEditCustomsClearanceController> {
                   controller.newFilesPath.add(file.path!);
                 }
               },
+              onDelete: () => controller.files.clear(),
             ),
             Obx(() => GridView.builder(
                   padding: const EdgeInsets.symmetric(vertical: 10),

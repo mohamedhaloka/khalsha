@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -7,13 +10,15 @@ import '../../../core/inputs_style.dart';
 import 'input_holder_box.dart';
 
 class AttachFileWithHolder extends StatelessWidget {
-  const AttachFileWithHolder({Key? key, this.title}) : super(key: key);
+  const AttachFileWithHolder({Key? key, this.title, required this.file})
+      : super(key: key);
   final String? title;
+  final Rx<File> file;
 
   @override
   Widget build(BuildContext context) {
     return InputHolderBox(
-      Row(
+      Column(
         children: [
           if (title != null) ...[
             Text(
@@ -31,14 +36,17 @@ class AttachFileWithHolder extends StatelessWidget {
               ),
             ),
           ],
-          Expanded(
-            child: InkWell(
-              onTap: () {},
-              child: Center(
-                child: Container(
+          const SizedBox(height: 5),
+          InkWell(
+            onTap: chooseFile,
+            child: Center(
+              child: Obx(() {
+                final isSelected = file.value.path != '';
+                return Container(
                   height: inputHeight,
                   padding: const EdgeInsets.symmetric(horizontal: 12),
                   decoration: BoxDecoration(
+                    color: isSelected ? ColorManager.primaryColor : null,
                     border: Border.all(color: ColorManager.lightGreyColor),
                     borderRadius:
                         const BorderRadius.all(Radius.circular(radius)),
@@ -47,22 +55,34 @@ class AttachFileWithHolder extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SvgPicture.asset('assets/images/icons/upload-file.svg'),
+                      SvgPicture.asset(
+                        'assets/images/icons/upload-file.svg',
+                        color: isSelected ? Colors.white : null,
+                      ),
                       const SizedBox(width: 6),
-                      const Text(
-                        'إرفاق',
+                      Text(
+                        isSelected ? 'تم' : 'إرفاق',
                         style: TextStyle(
-                          color: ColorManager.greyColor,
+                          color: isSelected
+                              ? Colors.white
+                              : ColorManager.greyColor,
                         ),
                       ),
                     ],
                   ),
-                ),
-              ),
+                );
+              }),
             ),
           ),
         ],
       ),
     );
+  }
+
+  void chooseFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+    if (result == null) return;
+    file(File(result.files.single.path!));
   }
 }

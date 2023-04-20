@@ -80,15 +80,17 @@ class ServiceItemWithHolder extends StatelessWidget {
                     text != null ? ColorManager.primaryColor : null,
                 text: text ?? 'إضافة',
               ),
-              const SizedBox(width: 6),
-              CustomButton(
-                height: inputHeight,
-                width: inputHeight,
-                radius: radius,
-                contentColor: contentColor,
-                onTap: onDelete,
-                imgName: 'delete',
-              ),
+              if (onDelete != null) ...[
+                const SizedBox(width: 6),
+                CustomButton(
+                  height: inputHeight,
+                  width: inputHeight,
+                  radius: radius,
+                  contentColor: contentColor,
+                  onTap: onDelete,
+                  imgName: 'delete',
+                ),
+              ],
             ],
           )
         ],

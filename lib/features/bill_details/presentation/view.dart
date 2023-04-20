@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/features/widgets/bill.dart';
 
 import '../../../core/presentation/routes/app_routes.dart';
 import '../../widgets/custom_app_bar.dart';
@@ -41,7 +40,7 @@ class BillDetailsView extends GetView<BillDetailsController> {
       ),
       body: const SingleChildScrollView(
         padding: EdgeInsets.all(20),
-        child: Bill(),
+        // child: Bill(),
       ),
     );
   }

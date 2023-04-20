@@ -16,24 +16,42 @@ class _PricingOffersTab extends GetView<OrderDetailsController> {
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           padding: const EdgeInsets.symmetric(vertical: 15),
-          itemBuilder: (_, int index) => Row(
-            children: [
-              Expanded(
-                  child: Text(controller.orderModel.offers[index].user.name)),
-              Expanded(child: Text(controller.orderModel.offers[index].total)),
-              Text(
-                'عرض',
-                style: Get.textTheme.bodyText1!.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: ColorManager.secondaryColor,
-                ),
-              )
-            ],
-          ),
+          itemBuilder: (_, int index) =>
+              _OfferItem(controller.orderModel.offers[index]),
           separatorBuilder: (_, __) => const Divider(),
           itemCount: controller.orderModel.offers.length,
         ),
       ],
+    );
+  }
+}
+
+class _OfferItem extends StatelessWidget {
+  const _OfferItem(this.offer, {Key? key}) : super(key: key);
+  final OfferModel offer;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {},
+      child: Container(
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(6)),
+            border: Border.all(color: Get.theme.primaryColor)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              offer.user.name,
+              style: Get.textTheme.titleMedium!.copyWith(
+                color: ColorManager.primaryColor,
+              ),
+            ),
+            Text(offer.total),
+          ],
+        ),
+      ),
     );
   }
 }

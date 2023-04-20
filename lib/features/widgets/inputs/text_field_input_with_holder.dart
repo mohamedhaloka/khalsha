@@ -14,6 +14,7 @@ class TextFieldInputWithHolder extends StatelessWidget {
     this.title,
     this.controller,
     this.padding,
+    this.maxLines,
     this.enabled,
     this.onTap,
   }) : super(key: key);
@@ -22,6 +23,7 @@ class TextFieldInputWithHolder extends StatelessWidget {
   final EdgeInsets? padding;
   final bool? enabled;
   final void Function()? onTap;
+  final int? maxLines;
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +56,7 @@ class TextFieldInputWithHolder extends StatelessWidget {
               textAlign: TextAlign.center,
               enabled: enabled,
               onTap: onTap,
+              // maxLines: maxLines,
               contentPadding: contentPadding,
               borderSide: inputBorderSide,
               contentColor: contentColor,

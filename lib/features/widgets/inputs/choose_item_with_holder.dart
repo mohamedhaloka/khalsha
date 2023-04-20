@@ -14,11 +14,12 @@ class ChooseItemWithHolder extends StatelessWidget {
     required this.title,
     this.height,
     this.bottomSheetTitle,
+    this.hint,
     required this.selectedItem,
     required this.body,
   }) : super(key: key);
   final String title;
-  final String? bottomSheetTitle;
+  final String? bottomSheetTitle, hint;
   final Rx<DataModel> selectedItem;
   final Widget body;
   final double? height;
@@ -62,7 +63,7 @@ class ChooseItemWithHolder extends StatelessWidget {
                 child: Obx(
                   () => Text(
                     selectedItem.value.name == ''
-                        ? 'اختر'
+                        ? hint ?? 'اختر'
                         : selectedItem.value.name,
                     textAlign: TextAlign.center,
                     style: Get.textTheme.bodyLarge,

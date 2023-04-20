@@ -1,18 +1,21 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:khalsha/core/presentation/themes/colors_manager.dart';
 import 'package:khalsha/features/widgets/bottom_sheet_content/dismantling_and_installation_service.dart';
 import 'package:khalsha/features/widgets/steps/pick_locations_step_view.dart';
 
 import '../../../../core/data/models/data_model.dart';
 import '../../../../core/service_utils.dart';
 import '../../../service_intro/presentation/get/controllers/controller.dart';
-import '../../../widgets/bottom_sheet_content/add_location_sheet.dart';
 import '../../../widgets/bottom_sheet_content/choose_date_time_sheet.dart';
 import '../../../widgets/bottom_sheet_content/multi_items_list.dart';
 import '../../../widgets/bottom_sheet_content/order_temperature.dart';
 import '../../../widgets/bottom_sheet_content/set_number_count.dart';
 import '../../../widgets/inputs/attach_file_with_holder.dart';
 import '../../../widgets/inputs/choose_item_with_holder.dart';
+import '../../../widgets/inputs/drop_down_input_with_holder.dart';
 import '../../../widgets/inputs/service_item_with_holder.dart';
 import '../../../widgets/inputs/text_field_input_with_holder.dart';
 import '../../../widgets/inputs/toggle_item_with_holder.dart';
@@ -64,12 +67,12 @@ class _FillData
       body: Column(
         children: [
           ToggleItemWithHolder(
-            title: 'مجال الشحنة',
+            title: 'مجال الشحن',
             items: shippingFieldOptions,
             selectedItem: 0.obs,
           ),
           ChooseItemWithHolder(
-            title: 'نوع الشحنة',
+            title: 'نوع البضاعة',
             selectedItem: DataModel.empty().obs,
             height: Get.height / 2,
             body: MultiItemsList(
@@ -78,7 +81,7 @@ class _FillData
             ),
           ),
           const TextFieldInputWithHolder(
-            title: 'وصف الشحنة',
+            title: 'وصف البضاعة',
             hint: 'ثلاجات',
           ),
           ChooseItemWithHolder(
@@ -90,8 +93,9 @@ class _FillData
               selectedItem: DataModel.empty().obs,
             ),
           ),
-          const AttachFileWithHolder(
-            title: 'صورة الشحنة',
+          AttachFileWithHolder(
+            title: 'صورة البضاعة',
+            file: File('').obs,
           ),
         ],
       ),
@@ -173,17 +177,44 @@ class _PickLocations
           title: 'موقع التحميل',
           height: Get.height / 1.8,
           onDelete: () {},
-          body: AddLocationSheet(
-            items: <int>[1].obs,
-            allowMulti: true,
+          body: Column(
+            children: [
+              DropDownInputWithHolder(
+                title: 'الدولة',
+                dropValue: ''.obs,
+                source: [],
+              ),
+              const Divider(
+                color: ColorManager.greyColor,
+              ),
+              DropDownInputWithHolder(
+                title: 'المدينة',
+                dropValue: ''.obs,
+                source: [],
+              ),
+            ],
           ),
         ),
         ServiceItemWithHolder(
           title: 'موقع التسليم',
           height: Get.height / 1.8,
           onDelete: () {},
-          body: AddLocationSheet(
-            items: <int>[1].obs,
+          body: Column(
+            children: [
+              DropDownInputWithHolder(
+                title: 'الدولة',
+                dropValue: ''.obs,
+                source: [],
+              ),
+              const Divider(
+                color: ColorManager.greyColor,
+              ),
+              DropDownInputWithHolder(
+                title: 'المدينة',
+                dropValue: ''.obs,
+                source: [],
+              ),
+            ],
           ),
         ),
         ServiceItemWithHolder(

@@ -13,11 +13,35 @@ class OrderDetailsRepositoryImpl extends OrderDetailsRepository {
 
   @override
   Future<Either<Failure, OrderModel>> getOrderDetails(
-      String type, int id) async {
+    String type,
+    int id,
+  ) async {
     try {
       final result = await _orderDetailsRemoteDataSource.getOrderDetails(
         type,
         id,
+      );
+      return right(result);
+    } on ServerException catch (e) {
+      return left(ServerFailure(statusMessage: e.errorMessage));
+    } on DioError catch (e) {
+      return left(ServerFailure(statusMessage: e.response!.data.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> updateStep(
+    String type,
+    int statusId,
+    String status,
+    String note,
+  ) async {
+    try {
+      final result = await _orderDetailsRemoteDataSource.updateStep(
+        type,
+        statusId,
+        status,
+        note,
       );
       return right(result);
     } on ServerException catch (e) {

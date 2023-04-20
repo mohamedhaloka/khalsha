@@ -54,12 +54,12 @@ class ChooseNumberWithHolder extends StatelessWidget {
                       ),
                     ),
                     alignment: Alignment.center,
-                    child: Text(
-                      currentNumber.value.toString(),
-                      style: Get.textTheme.bodySmall!.copyWith(
-                        color: ColorManager.greyColor,
-                      ),
-                    ),
+                    child: Obx(() => Text(
+                          currentNumber.value.toString(),
+                          style: Get.textTheme.bodySmall!.copyWith(
+                            color: ColorManager.greyColor,
+                          ),
+                        )),
                   ),
                 ),
                 CustomButton(

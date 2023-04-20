@@ -66,6 +66,11 @@ class CustomsClearanceRemoteDataSourceImpl
 
     _fillDataOfList(
       formData,
+      dataList: customsClearanceData.certificate,
+      key: 'certificate',
+    );
+    _fillDataOfList(
+      formData,
       dataList: customsClearanceData.customsItemIds,
       key: 'customs_item_ids',
     );

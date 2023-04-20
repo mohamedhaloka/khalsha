@@ -148,8 +148,7 @@ class CoreRemoteDataSourceImpl extends CoreRemoteDataSource {
   @override
   Future<String> deleteFile(String pageName, {required int id}) async {
     final formData = FormData.fromMap({'id': id});
-    final response =
-        await _httpService.post('customsclearance/delete/file', formData);
+    final response = await _httpService.post('$pageName/delete/file', formData);
 
     if (response.statusCode == 200) {
       return response.data['message'];

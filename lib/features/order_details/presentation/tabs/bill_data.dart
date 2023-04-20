@@ -12,11 +12,8 @@ class _BillDataTab extends GetView<OrderDetailsController> {
           title: 'الفاتورة',
           hint: 'هنا بتم تحديد فاتورتك و إرسالها للعميل',
         ),
-        const Bill(),
-        CustomButton(
-          onTap: () {},
-          text: 'إضافة بنود أخرى',
-        ),
+        if (controller.orderModel.invoice != null)
+          Bill(controller.orderModel.invoice!),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 12),
           child: CustomButton(

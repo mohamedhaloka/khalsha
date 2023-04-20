@@ -27,6 +27,7 @@ class HttpService extends GetxService {
     log(baseURL + endPoint, name: 'URL');
     log(data.fields.toString(), name: 'BODY');
     log(data.fields.length.toString(), name: 'BODY');
+    log(data.files.length.toString(), name: 'BODY');
 
     var response = await _dio.post(
       baseURL + endPoint,
@@ -108,5 +109,6 @@ class HttpService extends GetxService {
         'Authorization': 'Bearer ${UserDataLocal.instance.token}',
         'lang': Lang.instance.langCode,
         'Accept': 'application/json',
+        'Content-Type': 'multipart/form-data',
       };
 }

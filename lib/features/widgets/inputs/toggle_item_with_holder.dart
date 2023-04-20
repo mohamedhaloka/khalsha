@@ -87,17 +87,19 @@ class _Item extends StatelessWidget {
         },
         child: Obx(() => Container(
               height: inputHeight,
-              padding: const EdgeInsets.all(6),
+              padding: const EdgeInsets.all(2),
               decoration: BoxDecoration(
                 color: isSelected ? ColorManager.primaryColor : null,
                 borderRadius: const BorderRadius.all(Radius.circular(radius)),
                 border: Border.all(color: ColorManager.lightGreyColor),
               ),
-              child: Text(
-                item.text,
-                textAlign: TextAlign.center,
-                style: Get.textTheme.bodySmall!.copyWith(
-                  color: isSelected ? Colors.white : null,
+              child: Center(
+                child: Text(
+                  item.text,
+                  textAlign: TextAlign.center,
+                  style: Get.textTheme.bodySmall!.copyWith(
+                    color: isSelected ? Colors.white : null,
+                  ),
                 ),
               ),
             )),

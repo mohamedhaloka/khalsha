@@ -14,7 +14,7 @@ class MapView extends GetView<MapController> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        title: Text('choose-location'.tr),
+        title: const Text('اختر الموقع'),
         actions: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 6),
@@ -28,6 +28,7 @@ class MapView extends GetView<MapController> {
                 child: Icon(
                   Icons.done,
                   color: Get.theme.primaryColor,
+                  size: 20,
                 ),
               ),
             ),
@@ -50,12 +51,11 @@ class MapView extends GetView<MapController> {
                           controller.getPlaceDetails(place.placeId ?? '0'),
                       onChanged: (_) => controller.getPlacesFromSearch(),
                       controller: controller.searchController,
-                      decoration: InputDecoration(
-                          border: const UnderlineInputBorder(
-                              borderSide: BorderSide.none),
-                          hintText: 'search-here'.tr,
-                          contentPadding:
-                              const EdgeInsets.symmetric(horizontal: 4)),
+                      decoration: const InputDecoration(
+                          border:
+                              UnderlineInputBorder(borderSide: BorderSide.none),
+                          hintText: 'ابحث هنا',
+                          contentPadding: EdgeInsets.symmetric(horizontal: 4)),
                     ),
                   ),
                   Expanded(
@@ -88,7 +88,7 @@ class MapView extends GetView<MapController> {
                                 color: Colors.white),
                             child: Obx(() => Text(
                                   controller.getLocationDataLoading.value
-                                      ? 'get-location-data-loading'.tr
+                                      ? 'جاري البحث عن الموقع'
                                       : controller.locationName,
                                   textAlign: TextAlign.center,
                                   style: Get.textTheme.subtitle1!

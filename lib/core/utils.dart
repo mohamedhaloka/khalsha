@@ -9,6 +9,8 @@ import '../main.dart';
 import 'data/source/local/user_local.dart';
 
 const apiKey = 'AIzaSyC6vGIyIwOA5xR8WgM3-aG3qG3g43Ie8Zs';
+const kField = 'field';
+const kFile = 'file';
 
 void showAlertMessage(String? msg) => Fluttertoast.showToast(
       msg: (msg ?? '').tr,

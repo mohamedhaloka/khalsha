@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:khalsha/core/data/models/data_model.dart';
@@ -78,8 +80,9 @@ class _FillData extends GetView<PersonalDomesticLandShippingServiceController> {
               selectedItem: DataModel.empty().obs,
             ),
           ),
-          const AttachFileWithHolder(
+          AttachFileWithHolder(
             title: 'صورة الشحنة',
+            file: File('').obs,
           ),
         ],
       ),
@@ -107,7 +110,7 @@ class _AdditionalServices
             ),
           ),
           ServiceItemWithHolder(
-            title: 'خدمات الفك و التركيب',
+            title: 'خدمات الفك و التركيب و التغليف',
             height: Get.height / 1.5,
             onDelete: () {},
             body: const DismantlingAndInstallationService(),
@@ -143,7 +146,7 @@ class _PickLocations
           ),
         ),
         ServiceItemWithHolder(
-          title: 'تاريخ/وقت التسليم',
+          title: 'تاريخ/وقت التحميل',
           height: Get.height / 1.8,
           onDelete: () {},
           body: const ChooseDateTimeSheet(),

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:khalsha/core/data/models/data_model.dart';
@@ -8,7 +10,6 @@ import '../../core/service_utils.dart';
 import '../widgets/bottom_sheet_content/add_notes_sheet.dart';
 import '../widgets/bottom_sheet_content/add_shipping_size.dart';
 import '../widgets/bottom_sheet_content/choose_certificates.dart';
-import '../widgets/bottom_sheet_content/choose_shipping_place.dart';
 import '../widgets/bottom_sheet_content/multi_items_list.dart';
 import '../widgets/headline_bottom_sheet.dart';
 import '../widgets/inputs/attach_file_with_holder.dart';
@@ -62,20 +63,20 @@ class _FillData extends GetView<AddEditAirFreightServiceController> {
             items: shippingTypeOptions,
             selectedItem: controller.selectedShippingType,
           ),
-          ChooseItemWithHolder(
-            title: 'الشحن من',
-            bottomSheetTitle: 'الشحن من',
-            height: Get.height / 1.6,
-            selectedItem: DataModel.empty().obs,
-            body: const ChooseShippingPlace(),
-          ),
-          ChooseItemWithHolder(
-            title: 'الشحن إلي',
-            bottomSheetTitle: 'الشحن إلي',
-            height: Get.height / 1.6,
-            selectedItem: DataModel.empty().obs,
-            body: const ChooseShippingPlace(),
-          ),
+          // ChooseItemWithHolder(
+          //   title: 'الشحن من',
+          //   bottomSheetTitle: 'الشحن من',
+          //   height: Get.height / 1.6,
+          //   selectedItem: DataModel.empty().obs,
+          //   body: const ChooseShippingPlace(),
+          // ),
+          // ChooseItemWithHolder(
+          //   title: 'الشحن إلي',
+          //   bottomSheetTitle: 'الشحن إلي',
+          //   height: Get.height / 1.6,
+          //   selectedItem: DataModel.empty().obs,
+          //   body: const ChooseShippingPlace(),
+          // ),
           ChooseItemWithHolder(
             title: 'حجم الشحنة',
             bottomSheetTitle: 'بيانات الشحنة',
@@ -104,8 +105,9 @@ class _FillData extends GetView<AddEditAirFreightServiceController> {
               selectedItem: DataModel.empty().obs,
             ),
           ),
-          const AttachFileWithHolder(
+          AttachFileWithHolder(
             title: 'صورة للشحنة',
+            file: File('').obs,
           ),
           const TextFieldInputWithHolder(
             hint: 'وصف الشحنة',

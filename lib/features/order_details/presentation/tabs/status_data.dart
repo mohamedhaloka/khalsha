@@ -1,5 +1,8 @@
 part of '../view.dart';
 
+const kDone = 'done';
+const kPending = 'pending';
+
 class _StatusData extends GetView<OrderDetailsController> {
   const _StatusData({Key? key}) : super(key: key);
 
@@ -36,13 +39,13 @@ class _StatusData extends GetView<OrderDetailsController> {
                         controller: controller.statusSliderController,
                         onPageChanged: (int index) =>
                             controller.currentStatus(index),
-                        itemCount: controller.status.length,
+                        itemCount: controller.orderModel.steps.length,
                         itemBuilder: (_, int index) =>
-                            _StatusItem(controller.status[index]),
+                            _StatusItem(controller.orderModel.steps[index]),
                       ),
                     ),
                     if (controller.currentStatus.value !=
-                        controller.status.length - 1) ...[
+                        controller.orderModel.steps.length - 1) ...[
                       InkWell(
                         onTap: () {
                           controller.currentStatus.value++;
@@ -57,55 +60,51 @@ class _StatusData extends GetView<OrderDetailsController> {
                   ],
                 )),
           ),
-          Obx(() => Column(
-                children: [
-                  Text(status),
-                  TextUnderline(
-                    statusTxt,
-                    contentColor: _statusColor,
-                  ),
-                ],
-              )),
-          Padding(
-            padding: const EdgeInsets.only(top: 50, bottom: 20),
-            child: CustomButton(
-              onTap: () {},
-              text: 'تعديل حالة الطلب',
+          Obx(
+            () => Column(
+              children: [
+                Text(status),
+                TextUnderline(
+                  statusTxt.tr,
+                  contentColor: _statusColor,
+                ),
+              ],
             ),
-          )
+          ),
+          OrderStatusSteps(
+            steps: controller.orderModel.steps,
+          ),
         ]
       ],
     );
   }
 
   String get statusTxt =>
-      controller.status[controller.currentStatus.value].text;
+      controller.orderModel.steps[controller.currentStatus.value].step;
 
   String get status {
-    ItemModel status = controller.status[controller.currentStatus.value];
-    switch (status.statusId) {
-      case 0:
+    String statusStr =
+        controller.orderModel.steps[controller.currentStatus.value].status;
+    switch (statusStr) {
+      case kDone:
         return 'الحالة المنتهية';
-      case 1:
+      case kPending:
         return 'الحالة الحالية';
-      case 2:
-        return 'حالة لم تنتهي';
       default:
-        return '';
+        return 'حالة لم تنتهي';
     }
   }
 
   Color get _statusColor {
-    ItemModel status = controller.status[controller.currentStatus.value];
-    switch (status.statusId) {
-      case 0:
+    String statusStr =
+        controller.orderModel.steps[controller.currentStatus.value].status;
+    switch (statusStr) {
+      case kDone:
         return ColorManager.primaryColor;
-      case 1:
+      case kPending:
         return ColorManager.secondaryColor;
-      case 2:
-        return ColorManager.lightGreyColor;
       default:
-        return Colors.black;
+        return ColorManager.lightGreyColor;
     }
   }
 }
@@ -115,7 +114,7 @@ class _StatusItem extends StatelessWidget {
     this.status, {
     Key? key,
   }) : super(key: key);
-  final ItemModel status;
+  final OrderStepModel status;
 
   @override
   Widget build(BuildContext context) {
@@ -125,12 +124,16 @@ class _StatusItem extends StatelessWidget {
         CircleAvatar(
           radius: 30,
           backgroundColor: _statusColor,
-          child: SvgPicture.asset(
-              'assets/images/order_details/status/${status.image}.svg'),
+          child: Text(
+            (status.status == kDone ? 'y' : 'x').toUpperCase(),
+            style: Get.textTheme.titleLarge!.copyWith(
+              color: Colors.white,
+            ),
+          ),
         ),
         const SizedBox(height: 5),
         Text(
-          status.text,
+          status.step.tr,
           style: Get.textTheme.headlineSmall,
         )
       ],
@@ -138,15 +141,13 @@ class _StatusItem extends StatelessWidget {
   }
 
   Color get _statusColor {
-    switch (status.statusId) {
-      case 0:
+    switch (status.status) {
+      case kDone:
         return ColorManager.primaryColor;
-      case 1:
+      case kPending:
         return ColorManager.secondaryColor;
-      case 2:
-        return ColorManager.lightGreyColor;
       default:
-        return Colors.black;
+        return ColorManager.lightGreyColor;
     }
   }
 }

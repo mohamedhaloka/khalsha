@@ -21,8 +21,17 @@ import 'package:khalsha/features/forget_password/data/repo_impl/forget_password_
 import 'package:khalsha/features/forget_password/data/source/forget_password_remote_data_source.dart';
 import 'package:khalsha/features/forget_password/domain/repository/forget_password_repository.dart';
 import 'package:khalsha/features/forget_password/domain/use_cases/forget_password_use_case.dart';
+import 'package:khalsha/features/laboratory_and_standards_service/data/data_source/laboratory_remote_data_source.dart';
+import 'package:khalsha/features/laboratory_and_standards_service/data/repository_impl/laboratory_repository_impl.dart';
+import 'package:khalsha/features/laboratory_and_standards_service/domain/repository/laboratory_repository.dart';
+import 'package:khalsha/features/laboratory_and_standards_service/domain/use_case/add_laboratory_use_case.dart';
+import 'package:khalsha/features/laboratory_and_standards_service/domain/use_case/update_laboratory_use_case.dart';
 import 'package:khalsha/features/login/domain/use_cases/login_use_case.dart';
 import 'package:khalsha/features/map/data/data_source/map_remote_data_source.dart';
+import 'package:khalsha/features/marine_shipping/data/data_source/marine_shipment_remote_data_source.dart';
+import 'package:khalsha/features/marine_shipping/data/repository_impl/marine_shippment_repository_impl.dart';
+import 'package:khalsha/features/marine_shipping/domain/repository/marine_shipment_repository.dart';
+import 'package:khalsha/features/marine_shipping/domain/use_cases/add_marine_shipment_use_case.dart';
 import 'package:khalsha/features/new_orders/data/data_source/new_orders_remote_data_source.dart';
 import 'package:khalsha/features/new_orders/data/repo_impl/new_orders_repository_impl.dart';
 import 'package:khalsha/features/new_orders/domain/repository/new_orders_repository.dart';
@@ -30,6 +39,7 @@ import 'package:khalsha/features/order_details/data/data_source/order_details_re
 import 'package:khalsha/features/order_details/data/repo_impl/order_details_repository_impl.dart';
 import 'package:khalsha/features/order_details/domain/repository/order_details_repository.dart';
 import 'package:khalsha/features/order_details/domain/use_cases/get_order_details_use_case.dart';
+import 'package:khalsha/features/order_details/domain/use_cases/update_order_status_use_case.dart';
 import 'package:khalsha/features/orders/data/data_source/orders_remote_data_source.dart';
 import 'package:khalsha/features/orders/data/repo_impl/orders_repository_impl.dart';
 import 'package:khalsha/features/orders/domain/repository/orders_repository.dart';
@@ -55,6 +65,11 @@ import 'package:khalsha/features/settlement/data/data_source/settlement_remote_d
 import 'package:khalsha/features/settlement/data/repo_impl/settlement_repository_impl.dart';
 import 'package:khalsha/features/settlement/domain/repo/settlement_repository.dart';
 import 'package:khalsha/features/settlement/domain/use_cases/get_settlements_use_case.dart';
+import 'package:khalsha/features/stores/data/data_source/ware_house_remote_data_source.dart';
+import 'package:khalsha/features/stores/data/repository_impl/ware_house_repository_impl.dart';
+import 'package:khalsha/features/stores/domain/repository/ware_house_repository.dart';
+import 'package:khalsha/features/stores/domain/use_case/add_ware_house_order_use_case.dart';
+import 'package:khalsha/features/stores/domain/use_case/update_ware_house_order_use_case.dart';
 import 'package:location/location.dart';
 
 import 'core/data/services/http_service.dart';
@@ -164,6 +179,34 @@ class InjectionContainer {
     sl.registerLazySingleton<UpdateCustomsClearanceUseCase>(
         () => UpdateCustomsClearanceUseCase(sl()));
 
+    //Ware Houses
+    sl.registerLazySingleton<WareHouseRemoteDataSource>(
+        () => WareHouseRemoteDataSourceImpl(dioService));
+    sl.registerLazySingleton<WareHouseRepository>(
+        () => WareHouseRepositoryImpl(sl()));
+    sl.registerLazySingleton<AddWareHouseOrderUseCase>(
+        () => AddWareHouseOrderUseCase(sl()));
+    sl.registerLazySingleton<UpdateWareHouseOrderUseCase>(
+        () => UpdateWareHouseOrderUseCase(sl()));
+
+    //Laboratory Houses
+    sl.registerLazySingleton<LaboratoryRemoteDataSource>(
+        () => LaboratoryRemoteDataSourceImpl(dioService));
+    sl.registerLazySingleton<LaboratoryRepository>(
+        () => LaboratoryRepositoryImpl(sl()));
+    sl.registerLazySingleton<AddLaboratoryUseCase>(
+        () => AddLaboratoryUseCase(sl()));
+    sl.registerLazySingleton<UpdateLaboratoryUseCase>(
+        () => UpdateLaboratoryUseCase(sl()));
+
+    //Marine Shipment
+    sl.registerLazySingleton<MarineShipmentRemoteDataSource>(
+        () => MarineShipmentRemoteDataSourceImpl(dioService));
+    sl.registerLazySingleton<MarineShipmentRepository>(
+        () => MarineShipmentRepositoryImpl(sl()));
+    sl.registerLazySingleton<AddMarineShipmentUseCase>(
+        () => AddMarineShipmentUseCase(sl()));
+
     //New Orders
     sl.registerLazySingleton<NewOrdersRemoteDataSource>(
         () => NewOrdersRemoteDataSourceImpl(dioService));
@@ -179,6 +222,8 @@ class InjectionContainer {
         () => OrderDetailsRepositoryImpl(sl()));
     sl.registerLazySingleton<GetOrderDetailsUseCase>(
         () => GetOrderDetailsUseCase(sl()));
+    sl.registerLazySingleton<UpdateOrderStatusUseCase>(
+        () => UpdateOrderStatusUseCase(sl()));
 
     //Map
     sl.registerLazySingleton<Location>(() => Location());

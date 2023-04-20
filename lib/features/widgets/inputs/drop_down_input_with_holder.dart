@@ -12,10 +12,12 @@ class DropDownInputWithHolder extends StatelessWidget {
     Key? key,
     this.hint,
     this.title,
+    required this.dropValue,
     required this.source,
   }) : super(key: key);
   final String? title, hint;
-  final RxList source;
+  final List<DropdownMenuItem> source;
+  final RxString dropValue;
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +28,13 @@ class DropDownInputWithHolder extends StatelessWidget {
             Expanded(
               child: Row(
                 children: [
-                  Text(
-                    title ?? '',
-                    style: Get.textTheme.bodyMedium!.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: ColorManager.greyColor,
+                  Expanded(
+                    child: Text(
+                      title ?? '',
+                      style: Get.textTheme.bodyMedium!.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: ColorManager.greyColor,
+                      ),
                     ),
                   ),
                   Padding(
@@ -49,9 +53,9 @@ class DropDownInputWithHolder extends StatelessWidget {
               radius: radius,
               height: inputHeight,
               hint: hint ?? 'إختر',
-              dropVal: ''.obs,
+              dropVal: dropValue,
               isExpanded: true,
-              source: [],
+              source: source,
               hintColor: ColorManager.greyColor,
               iconColor: ColorManager.greyColor,
             ),

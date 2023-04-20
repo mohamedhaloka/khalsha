@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:khalsha/core/data/models/data_model.dart';
@@ -99,7 +101,7 @@ class _FillData
                     hint: 'مثال: نقل عفش منزلي',
                   ),
                   ChooseItemWithHolder(
-                    title: 'مجال الشاحنة',
+                    title: 'نوع الشاحنة',
                     selectedItem: DataModel.empty().obs,
                     height: Get.height / 2,
                     body: MultiItemsList(
@@ -107,8 +109,9 @@ class _FillData
                       selectedItem: DataModel.empty().obs,
                     ),
                   ),
-                  const AttachFileWithHolder(
-                    title: 'صورة الشحنة',
+                  AttachFileWithHolder(
+                    title: 'صورة البضاعة',
+                    file: File('').obs,
                   ),
                   InputHolderBox(CounterComponent(
                     number: 0.obs,
@@ -157,7 +160,7 @@ class _AdditionalServices
       body: Column(
         children: [
           ServiceItemWithHolder(
-            title: 'خدمات التغليف',
+            title: 'خدمات الفك و التركيب و التغليف',
             height: Get.height / 1.5,
             onDelete: () {},
             body: const DismantlingAndInstallationService(),
@@ -235,7 +238,7 @@ class _PickLocations
           ),
         ),
         ServiceItemWithHolder(
-          title: 'تاريخ/وقت التسليم',
+          title: 'تاريخ/وقت التحميل',
           height: Get.height / 1.8,
           onDelete: () {},
           body: const ChooseDateTimeSheet(),
