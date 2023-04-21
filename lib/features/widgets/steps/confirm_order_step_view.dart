@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
 
-import '../inputs/text_field_input_with_drop_down_with_holder.dart';
 import '../inputs/text_field_input_with_holder.dart';
 
 class ConfirmOrderStepView extends StatelessWidget {

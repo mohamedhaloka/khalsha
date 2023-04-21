@@ -42,7 +42,7 @@ class CustomDropDown extends StatelessWidget {
         if (title != null) ...[
           Text(
             (title ?? '').tr,
-            style: Get.textTheme.subtitle2!.copyWith(),
+            style: Get.textTheme.titleSmall!.copyWith(),
           ),
         ],
         InkWell(
@@ -59,7 +59,7 @@ class CustomDropDown extends StatelessWidget {
                   child: DropdownButton(
                     value: dropVal.value == '' ? null : dropVal.value,
                     hint: Text((hint ?? '').tr,
-                        style: Get.textTheme.caption!.copyWith(
+                        style: Get.textTheme.bodySmall!.copyWith(
                             color: hintColor ?? Colors.black,
                             fontSize: fontSize)),
                     icon: icon ??
@@ -68,7 +68,7 @@ class CustomDropDown extends StatelessWidget {
                           color: iconColor ?? Colors.black,
                         ),
                     style:
-                        Get.textTheme.subtitle1!.copyWith(fontSize: fontSize),
+                        Get.textTheme.titleMedium!.copyWith(fontSize: fontSize),
                     onChanged: (value) {
                       dropVal(value.toString());
                       if (onTap != null) {

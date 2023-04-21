@@ -18,7 +18,7 @@ class HomeHeader extends GetView<HomeController> {
         children: [
           Text(
             provider ? 'تقدم بخدماتك المتنوعة' : 'جميع الخدمات اللوجيستية',
-            style: Get.textTheme.headline5!.copyWith(
+            style: Get.textTheme.headlineSmall!.copyWith(
               fontWeight: FontWeight.bold,
               color: ColorManager.primaryColor,
             ),
@@ -35,7 +35,7 @@ class HomeHeader extends GetView<HomeController> {
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: Text(
                   'في مكان واحد',
-                  style: Get.textTheme.headline6!.copyWith(
+                  style: Get.textTheme.titleLarge!.copyWith(
                     fontWeight: FontWeight.bold,
                     color: ColorManager.primaryColor,
                   ),

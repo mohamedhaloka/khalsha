@@ -89,7 +89,18 @@ class ChooseShippingPlace extends StatelessWidget {
                 radius: radius,
                 text: 'تأكيد',
                 onTap: () {
-                  Get.back();
+                  bool hasEmptyInputs = false;
+
+                  if (shipmentLocation.value == '' ||
+                      (shipmentLocation.value == PlaceOfShipment.other.value
+                          ? otherLocation.text.isEmpty
+                          : false) ||
+                      selectedCountry.value == '' ||
+                      city.text.isEmpty) {
+                    hasEmptyInputs = true;
+                  }
+
+                  Get.back(result: hasEmptyInputs);
                 },
               ),
             )

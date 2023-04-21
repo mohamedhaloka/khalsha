@@ -8,7 +8,7 @@ import '../../../core/presentation/themes/colors_manager.dart';
 import '../../widgets/custom_app_bar.dart';
 import 'get/controllers/controller.dart';
 
-TextStyle _titleStyle = Get.textTheme.subtitle2!.copyWith(
+TextStyle _titleStyle = Get.textTheme.titleSmall!.copyWith(
   color: ColorManager.primaryColor,
   fontWeight: FontWeight.bold,
 );

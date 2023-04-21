@@ -92,7 +92,24 @@ class OrderItemsSheet
           CustomButton(
             height: 50,
             width: Get.width,
-            onTap: Get.back,
+            onTap: () {
+              bool hasEmptyData = false;
+
+              for (var element in controller.orderItems) {
+                if (element.nameEn.text.isEmpty ||
+                    element.nameAr.text.isEmpty ||
+                    element.photoItem.value.path == '' ||
+                    element.photoCard.value.path == '' ||
+                    element.itemServiceId.value == '' ||
+                    element.factoryName.text.isEmpty ||
+                    element.customsCode.text.isEmpty) {
+                  hasEmptyData = true;
+                  break;
+                }
+              }
+
+              Get.back(result: hasEmptyData);
+            },
             text: 'تأكيد',
           )
         ],

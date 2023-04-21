@@ -3,19 +3,25 @@ part of '../../../marine_shipping.dart';
 class AddEditMarineShippingServiceController extends GetxController {
   final GetParticularEnvDataUseCase _getParticularEnvDataUseCase;
   final AddMarineShipmentUseCase _addMarineShipmentUseCase;
+  final UpdateMarineShipmentUseCase _updateMarineShipmentUseCase;
+  final DownloadFileUseCase _downloadFileUseCase;
   AddEditMarineShippingServiceController(
+    this._downloadFileUseCase,
     this._getParticularEnvDataUseCase,
     this._addMarineShipmentUseCase,
+    this._updateMarineShipmentUseCase,
   );
 
   PageController pageController = PageController();
 
-  final OrderModel? orderData = Get.arguments;
-  bool get isAdd => orderData == null;
+  // final OrderModel? orderData = Get.arguments;
+  // bool get isAdd => orderData == null;
 
   RxInt currentStep = 0.obs;
 
   RxBool loading = false.obs;
+
+  final formKey = GlobalKey<FormBuilderState>();
 
   List<ItemModel> throughOptions = const <ItemModel>[
     ItemModel(
@@ -86,7 +92,9 @@ class AddEditMarineShippingServiceController extends GetxController {
     GoodsUnitTypeMarineShipmentModel.nexItem(),
   ].obs;
 
-  RxBool enableInsurance = false.obs, enableCustomsClearance = false.obs;
+  RxBool enableInsurance = false.obs,
+      enableCustomsClearance = false.obs,
+      enableCertificate = false.obs;
 
   @override
   void onInit() {
@@ -100,40 +108,97 @@ class AddEditMarineShippingServiceController extends GetxController {
     await _getData('certificates',
         onSuccess: (data) => certificates.addAll(data));
     await _getData('currencies', onSuccess: (data) => currency.addAll(data));
-    if (orderData == null) {
-      loading(false);
-      return;
-    }
-    name.text = orderData!.title;
-    selectedShippingType(orderData!.shipmentTypeId);
-    fromShipmentLocation(orderData!.fromshipmentLocation);
-    fromShipmentOther.text = orderData!.fromshipmentOtherLocation.toString();
-    fromCountryId(orderData!.fromCountry.id.toString());
-    fromCity.text = orderData!.fromcity;
-    fromCityLocationDetails = LocationDetails(
-      name: orderData!.fromcity,
-      lat: double.tryParse(orderData!.fromcityLat) ?? 0.0,
-      long: double.tryParse(orderData!.fromcityLng) ?? 0.0,
-    );
-    toShipmentLocation(orderData!.toshipmentLocation);
-    toShipmentOther.text = orderData!.toshipmentOtherLocation.toString();
-    toCountryId(orderData!.toCountry.id.toString());
-    toCity.text = orderData!.tocity;
-    toCityLocationDetails = LocationDetails(
-      name: orderData!.tocity,
-      lat: double.tryParse(orderData!.tocityLat) ?? 0.0,
-      long: double.tryParse(orderData!.tocityLng) ?? 0.0,
-    );
-    price.text = orderData!.total;
-    selectedCurrencyId(orderData!.currencyId.toString());
-    selectedShipmentReady(orderData!.shipmentReady);
-    enableInsurance(orderData!.insurance == 'yes' ? true : false);
-    enableCustomsClearance(orderData!.customsClearance == 'yes' ? true : false);
-    for (var e in orderData!.certificates) {
-      final item =
-          certificates.firstWhereOrNull((element) => element.id == e.id);
-      item?.selected(true);
-    }
+    // if (orderData == null) {
+    //   loading(false);
+    //   return;
+    // }
+    // name.text = orderData!.title;
+    // content.text = orderData!.content!;
+    // selectedShippingType(orderData!.shipmentTypeId);
+    // fromShipmentLocation(orderData!.fromshipmentLocation);
+    // fromShipmentOther.text = orderData!.fromshipmentOtherLocation.toString();
+    // fromCountryId(orderData!.fromcountryId.toString());
+    // fromCity.text = orderData!.fromcity!;
+    // fromCityLocationDetails = LocationDetails(
+    //   name: orderData!.fromcity,
+    //   lat: double.tryParse(orderData!.fromcityLat!) ?? 0.0,
+    //   long: double.tryParse(orderData!.fromcityLng!) ?? 0.0,
+    // );
+    // toShipmentLocation(orderData!.toshipmentLocation);
+    // toShipmentOther.text = orderData!.toshipmentOtherLocation.toString();
+    // toCountryId(orderData!.tocountryId.toString());
+    // toCity.text = orderData!.tocity!;
+    // toCityLocationDetails = LocationDetails(
+    //   name: orderData!.tocity,
+    //   lat: double.tryParse(orderData!.tocityLat!) ?? 0.0,
+    //   long: double.tryParse(orderData!.tocityLng!) ?? 0.0,
+    // );
+    // // price.text = orderData!.total!;
+    // // selectedCurrencyId(orderData!.currencyId.toString());
+    // selectedShipmentReady(orderData!.shipmentReady);
+    // enableInsurance(orderData!.insurance == 'yes' ? true : false);
+    // enableCustomsClearance(orderData!.customsClearance == 'yes' ? true : false);
+    // for (var e in orderData!.certificates!) {
+    //   final item =
+    //       certificates.firstWhereOrNull((element) => element.id == e.id);
+    //   if (item == null) continue;
+    //   item.selected(true);
+    //   if (item.selected.value) enableCertificate(true);
+    // }
+    // selectedShipmentSize(orderData!.shipmentSizesId);
+    // if (orderData!.shipmentSizes == 'goods') {
+    //   if (orderData!.goods!.isNotEmpty) {
+    //     goodsUnitType.clear();
+    //     goodsTotalShipment.clear();
+    //     for (var goodItem in orderData!.goods!) {
+    //       selectedThrough(goodItem.through == 'unit_type' ? 1 : 0);
+    //       if (goodItem.through == 'unit_type') {
+    //         File image = File('');
+    //         await _downloadFile(
+    //           goodItem.image!,
+    //           onSuccess: (String filePath) => image = File(filePath),
+    //         );
+    //         goodsUnitType.add(GoodsUnitTypeMarineShipmentModel(
+    //           length: TextEditingController(text: goodItem.length),
+    //           width: TextEditingController(text: goodItem.width),
+    //           height: TextEditingController(text: goodItem.height),
+    //           image: image.obs,
+    //           quantity: TextEditingController(text: goodItem.quantity),
+    //           cm: TextEditingController(text: goodItem.cm),
+    //           unitType: (goodItem.unitType == 'pallet' ? 1 : 0).obs,
+    //           weightPerUnit:
+    //               TextEditingController(text: goodItem.weightPerUnit),
+    //         ));
+    //       } else {
+    //         goodsTotalShipment.add(GoodsTotalShipmentMarineShipmentModel(
+    //           totalWeight: TextEditingController(text: goodItem.totalWeight),
+    //           overallSize: TextEditingController(text: goodItem.overallSize),
+    //           quantity: TextEditingController(text: goodItem.quantity),
+    //         ));
+    //       }
+    //     }
+    //   }
+    // } else {
+    //   if (orderData!.containers!.isNotEmpty) {
+    //     containers.clear();
+    //     for (var containerItem in orderData!.containers!) {
+    //       late File image;
+    //       await _downloadFile(
+    //         containerItem.image!,
+    //         onSuccess: (String filePath) => image = File(filePath),
+    //       );
+    //       containers.add(
+    //         ContainerMarineShipmentModel(
+    //           containerCount: containerItem.containerCount!.obs,
+    //           file: image.obs,
+    //           containerType: containerItem.containerType!.obs,
+    //           containerContent:
+    //               TextEditingController(text: containerItem.content),
+    //         ),
+    //       );
+    //     }
+    //   }
+    // }
 
     loading(false);
   }
@@ -150,6 +215,15 @@ class AddEditMarineShippingServiceController extends GetxController {
     result.fold((_) => _, onSuccess);
   }
 
+  Future<void> _downloadFile(
+    String url, {
+    required void Function(String filePath) onSuccess,
+  }) async {
+    final params = DownloadFileUseCaseParams(loading: loading, url: url);
+    final result = await _downloadFileUseCase.execute(params);
+    result.fold((_) => _, (r) => onSuccess(r));
+  }
+
   void onPageChanged(int index) => currentStep(index);
   void onTapBack() {
     if (currentStep.value == 0) {
@@ -164,9 +238,18 @@ class AddEditMarineShippingServiceController extends GetxController {
 
   void onTapNext() {
     if (currentStep.value == children.length - 1) {
+      // if (isAdd) {
       _createOrder();
+      // return;
+      // }
+      // _updateOrder();
       return;
     }
+
+    formKey.currentState?.save();
+
+    if (!formKey.currentState!.validate()) return;
+
     pageController.nextPage(
       duration: const Duration(milliseconds: 500),
       curve: Curves.easeInOut,
@@ -174,6 +257,7 @@ class AddEditMarineShippingServiceController extends GetxController {
   }
 
   MarineShipmentData get _marineShipmentData => MarineShipmentData(
+        id: 0, //isAdd ? 0 : orderData!.id,
         title: name.text,
         shipmentType: selectedShippingType.value == 0 ? 'import' : 'export',
         fromShipmentLocation: fromShipmentLocation.value,
@@ -194,9 +278,7 @@ class AddEditMarineShippingServiceController extends GetxController {
         content: content.text,
         insurance: enableInsurance.value ? 'yes' : 'no',
         customsClearance: enableCustomsClearance.value ? 'yes' : 'no',
-        certificates: certificates.any((element) => element.selected.value)
-            ? 'yes'
-            : 'no',
+        certificates: enableCertificate.value ? 'yes' : 'no',
         shipmentSizes: selectedShipmentSize.value == 0 ? 'container' : 'goods',
         through: selectedShipmentSize.value == 0
             ? null
@@ -243,7 +325,7 @@ class AddEditMarineShippingServiceController extends GetxController {
       );
 
   Future<void> _createOrder() async {
-    final params = AddMarineShipmentUseCaseParams(
+    final params = MarineShipmentUseCaseParams(
       loading: loading,
       data: _marineShipmentData,
     );
@@ -252,7 +334,22 @@ class AddEditMarineShippingServiceController extends GetxController {
       (failure) => showAlertMessage(failure.statusMessage),
       (data) async {
         showAlertMessage(data['message']);
-        // Get.offAllNamed(Routes.root);
+        Get.offAllNamed(Routes.root);
+      },
+    );
+  }
+
+  Future<void> _updateOrder() async {
+    final params = MarineShipmentUseCaseParams(
+      loading: loading,
+      data: _marineShipmentData,
+    );
+    final result = await _updateMarineShipmentUseCase.execute(params);
+    result.fold(
+      (failure) => showAlertMessage(failure.statusMessage),
+      (data) async {
+        showAlertMessage(data['message']);
+        Get.back(result: true);
       },
     );
   }

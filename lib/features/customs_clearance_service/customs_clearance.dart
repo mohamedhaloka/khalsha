@@ -20,7 +20,7 @@ import '../../core/presentation/themes/colors_manager.dart';
 import '../../core/service_utils.dart';
 import '../../core/utils.dart';
 import '../map/data/model/location_details.dart';
-import '../orders/data/models/order_model.dart';
+import '../orders/domain/entities/order_model.dart';
 import '../service_intro/presentation/get/controllers/controller.dart';
 import '../widgets/bottom_sheet_content/choose_certificates.dart';
 import '../widgets/bottom_sheet_content/customs_clause.dart';

@@ -16,6 +16,7 @@ class CustomTextField extends StatelessWidget {
       this.helper,
       this.fontWeight,
       this.width,
+      this.onSaved,
       this.suffixImg,
       this.textAlign,
       this.onChanged,
@@ -23,6 +24,7 @@ class CustomTextField extends StatelessWidget {
       this.prefixIcon,
       this.contentPadding,
       this.padding,
+      this.validator,
       this.maxLength,
       this.hintColor,
       this.titleStyle,
@@ -58,6 +60,7 @@ class CustomTextField extends StatelessWidget {
       this.onTap,
       this.activeBorderColor,
       this.fontSize,
+      this.validator,
       this.onChanged,
       this.maxLength,
       this.fontWeight,
@@ -67,6 +70,7 @@ class CustomTextField extends StatelessWidget {
       this.keyboardType,
       this.textAlign,
       this.textInputAction,
+      this.onSaved,
       this.inputType,
       this.width,
       this.contentPadding,
@@ -89,6 +93,7 @@ class CustomTextField extends StatelessWidget {
   final bool? enabled;
   final Widget? suffixIcon, prefixIcon;
   final void Function()? onTap;
+  final String? Function(String? value)? validator;
   final InputBorder? inputBorder;
   final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
@@ -98,6 +103,7 @@ class CustomTextField extends StatelessWidget {
   final TextAlign? textAlign;
   final TextStyle? titleStyle;
   final void Function(String)? onSubmitted, onChanged;
+  final void Function(String?)? onSaved;
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +113,7 @@ class CustomTextField extends StatelessWidget {
         if (title != null) ...[
           Text(
             (title ?? '').tr,
-            style: titleStyle ?? Get.textTheme.subtitle2,
+            style: titleStyle ?? Get.textTheme.titleSmall,
           ),
         ],
         InkWell(
@@ -117,13 +123,14 @@ class CustomTextField extends StatelessWidget {
             child: SizedBox(
               height: height,
               width: width,
-              child: Obx(() => TextField(
+              child: Obx(() => TextFormField(
                     scrollPadding: const EdgeInsets.only(bottom: 30, top: 40),
                     controller: controller,
                     cursorColor: ColorManager.primaryColor,
                     obscureText: (passSecure ?? false.obs).value,
                     maxLines: maxLines,
                     maxLength: inputsMaxLength[inputType] ?? maxLength,
+                    validator: validator,
                     textInputAction: textInputAction ??
                         (maxLines == 1
                             ? TextInputAction.next
@@ -143,8 +150,9 @@ class CustomTextField extends StatelessWidget {
                               ]
                             : [],
                     textAlign: textAlign ?? TextAlign.start,
-                    onSubmitted: onSubmitted,
+                    onFieldSubmitted: onSubmitted,
                     onChanged: onChanged,
+                    onSaved: onSaved,
                     decoration: InputDecoration(
                         enabled: onTap == null ? enabled ?? true : false,
                         border: inputBorder ?? border(borderSide),
@@ -197,7 +205,7 @@ class CustomTextField extends StatelessWidget {
                               horizontal: 12,
                               vertical: 14,
                             ),
-                        hintStyle: Get.textTheme.subtitle2!.copyWith(
+                        hintStyle: Get.textTheme.titleSmall!.copyWith(
                             color: hintColor ?? ColorManager.lightGreyColor,
                             fontSize: fontSize,
                             fontWeight: fontWeight)),

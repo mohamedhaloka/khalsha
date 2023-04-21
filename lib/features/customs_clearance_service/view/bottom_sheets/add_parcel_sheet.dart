@@ -115,4 +115,4 @@ class _ParcelSheetBody extends GetView<AddEditCustomsClearanceController> {
   }
 }
 
-enum ParcelType { wood, cartoon, roll, other }
+enum ParcelType { wood, carton, roll, other }

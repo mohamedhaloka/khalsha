@@ -64,7 +64,7 @@ class _FillData
   Widget build(BuildContext context) {
     return FillDataStepView(
       serviceName:
-          '${ServiceType.landShipping.value.tr} / ${'commercial-domestic'.tr}',
+          '${ServiceTypes.landShipping.value.tr} / ${'commercial-domestic'.tr}',
       body: Column(
         children: [
           Obx(

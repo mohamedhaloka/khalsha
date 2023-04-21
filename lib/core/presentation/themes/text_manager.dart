@@ -2,37 +2,37 @@ import 'package:flutter/material.dart';
 
 class TextManager {
   static TextTheme get textStyle => const TextTheme(
-        headline1: TextStyle(
+        displayLarge: TextStyle(
           fontWeight: FontWeight.w400,
         ),
-        headline2: TextStyle(
+        displayMedium: TextStyle(
           fontWeight: FontWeight.w400,
         ),
-        headline5: TextStyle(
+        headlineSmall: TextStyle(
           fontWeight: FontWeight.w400,
         ),
-        headline4: TextStyle(
+        headlineMedium: TextStyle(
           fontWeight: FontWeight.w400,
         ),
-        subtitle1: TextStyle(
+        titleMedium: TextStyle(
           fontWeight: FontWeight.w400,
         ),
-        subtitle2: TextStyle(
+        titleSmall: TextStyle(
           fontWeight: FontWeight.w400,
         ),
-        bodyText1: TextStyle(
+        bodyLarge: TextStyle(
           fontWeight: FontWeight.w400,
         ),
-        bodyText2: TextStyle(
+        bodyMedium: TextStyle(
           fontWeight: FontWeight.w400,
         ),
-        overline: TextStyle(
+        labelSmall: TextStyle(
           fontWeight: FontWeight.w400,
         ),
-        button: TextStyle(
+        labelLarge: TextStyle(
           fontWeight: FontWeight.w400,
         ),
-        caption: TextStyle(
+        bodySmall: TextStyle(
           fontWeight: FontWeight.w400,
         ),
       );

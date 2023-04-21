@@ -46,7 +46,7 @@ class ServiceItem extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
                 child: Text(
                   service.text,
-                  style: Get.textTheme.subtitle1!.copyWith(
+                  style: Get.textTheme.titleMedium!.copyWith(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),

@@ -6,6 +6,7 @@ class ItemModel {
   final String? image, description, route;
   final Widget? child;
   final Object? arguments;
+  final bool? mainItem;
   const ItemModel({
     this.id,
     this.statusId,
@@ -14,6 +15,7 @@ class ItemModel {
     this.image,
     this.arguments,
     this.description,
+    this.mainItem,
     this.child,
   });
 

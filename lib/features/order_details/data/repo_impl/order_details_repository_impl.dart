@@ -3,9 +3,9 @@ import 'package:dio/dio.dart';
 import 'package:khalsha/core/domain/error/failures.dart';
 import 'package:khalsha/features/order_details/data/data_source/order_details_remote_data_source.dart';
 import 'package:khalsha/features/order_details/domain/repository/order_details_repository.dart';
-import 'package:khalsha/features/orders/data/models/order_model.dart';
 
 import '../../../../core/domain/error/exceptions.dart';
+import '../../../orders/domain/entities/order_model.dart';
 
 class OrderDetailsRepositoryImpl extends OrderDetailsRepository {
   final OrderDetailsRemoteDataSource _orderDetailsRemoteDataSource;

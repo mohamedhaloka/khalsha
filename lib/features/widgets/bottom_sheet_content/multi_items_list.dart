@@ -9,9 +9,11 @@ class MultiItemsList extends StatelessWidget {
     Key? key,
     required this.items,
     required this.selectedItem,
+    this.onSelectItem,
   }) : super(key: key);
   final List<DataModel> items;
   final Rx<DataModel> selectedItem;
+  final void Function(DataModel)? onSelectItem;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,9 @@ class MultiItemsList extends StatelessWidget {
       itemBuilder: (_, int index) => InkWell(
         onTap: () {
           selectedItem(items[index]);
+
           Get.back();
+          if (onSelectItem != null) onSelectItem!(items[index]);
         },
         child: Obx(
           () => Container(

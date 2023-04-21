@@ -5,16 +5,19 @@ class AddEditStoresServiceView extends GetView<AddEditStoresServiceController> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => ServiceContent(
-        onTapBack: controller.onTapBack,
-        onPageChanged: controller.onPageChanged,
-        pageViewController: controller.pageController,
-        pageTitle: controller.pageTitle,
-        onTapNext: controller.onTapNext,
-        currentStep: controller.currentStep,
-        btnLoading: controller.loading,
-        children: controller.children,
+    return FormBuilder(
+      key: controller.formKey,
+      child: Obx(
+        () => ServiceContent(
+          onTapBack: controller.onTapBack,
+          onPageChanged: controller.onPageChanged,
+          pageViewController: controller.pageController,
+          pageTitle: controller.pageTitle,
+          onTapNext: controller.onTapNext,
+          currentStep: controller.currentStep,
+          btnLoading: controller.loading,
+          children: controller.children,
+        ),
       ),
     );
   }
@@ -26,46 +29,71 @@ class _FillData extends GetView<AddEditStoresServiceController> {
   @override
   Widget build(BuildContext context) {
     return FillDataStepView(
-      serviceName: ServiceType.stores.value,
+      serviceName: ServiceTypes.stores.value,
       body: Column(
         children: [
-          TextFieldInputWithHolder(
-            title: 'عنوان الطلب',
-            hint: 'أضف عنوان',
-            controller: controller.name,
+          FormBuilderField(
+            builder: (FormFieldState<dynamic> field) =>
+                TextFieldInputWithHolder(
+              title: 'عنوان الطلب',
+              hint: 'أضف عنوان',
+              controller: controller.name,
+              onChanged: (String value) => field.didChange(value),
+              errorText: field.errorText,
+            ),
+            validator: FormBuilderValidators.required(),
+            name: 'name',
           ),
           ToggleItemWithHolder(
             title: 'الغرض من التخزين',
             items: shippingFieldOptions,
             selectedItem: controller.selectedShippingField,
           ),
-          DropDownInputWithHolder(
-            title: 'نوع التخزين',
-            hint: 'أختر',
-            dropValue: controller.selectedStorageType,
-            source: StorageTypes.values
-                .map((e) => DropdownMenuItem(
-                      value: e.value.toString(),
-                      child: Text(e.value.tr),
-                    ))
-                .toList()
-                .obs,
-          ),
-          ChooseItemWithHolder(
-            title: 'نوع الصنف',
-            selectedItem: controller.selectedItem,
-            bottomSheetTitle: 'نوع الصنف',
-            height: Get.height / 2,
-            body: MultiItemsList(
-              items: controller.items,
-              selectedItem: controller.selectedItem,
+          FormBuilderField(
+            builder: (FormFieldState<dynamic> field) => DropDownInputWithHolder(
+              title: 'نوع التخزين',
+              hint: 'أختر',
+              dropValue: controller.selectedStorageType,
+              source: StorageTypes.values
+                  .map((e) => DropdownMenuItem(
+                        value: e.value.toString(),
+                        child: Text(e.value.tr),
+                      ))
+                  .toList()
+                  .obs,
+              onTap: (int id) => field.didChange(id.toString()),
+              errorText: field.errorText,
             ),
+            validator: FormBuilderValidators.required(),
+            name: 'storage_type',
           ),
-          TextFieldInputWithHolder(
-            title: 'المدينة/الدولة',
-            controller: controller.location,
-            enabled: false,
-            onTap: controller.chooseLocation,
+          FormBuilderField(
+            builder: (FormFieldState<dynamic> field) => ChooseItemWithHolder(
+              title: 'نوع الصنف',
+              selectedItem: controller.selectedItem,
+              height: Get.height / 2,
+              body: MultiItemsList(
+                  items: controller.items,
+                  selectedItem: controller.selectedItem,
+                  onSelectItem: (DataModel data) =>
+                      field.didChange(data.id.toString())),
+              errorMsg: field.errorText,
+            ),
+            validator: FormBuilderValidators.required(),
+            name: 'item_type',
+          ),
+          FormBuilderField(
+            builder: (FormFieldState<dynamic> field) =>
+                TextFieldInputWithHolder(
+              title: 'المدينة/الدولة',
+              controller: controller.location,
+              enabled: false,
+              onTap: controller.chooseLocation,
+              onSaved: (String? value) => field.didChange(value),
+              errorText: field.errorText,
+            ),
+            validator: FormBuilderValidators.required(),
+            name: 'location',
           ),
         ],
       ),

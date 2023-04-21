@@ -4,7 +4,7 @@ import '../../../../../core/data/models/item_model.dart';
 import '../../../../../core/presentation/routes/app_routes.dart';
 
 class ServiceIntroController extends GetxController {
-  ServiceType serviceType = Get.arguments;
+  ServiceTypes serviceType = Get.arguments;
 
   List<ItemModel> options = const <ItemModel>[
     ItemModel(
@@ -27,23 +27,23 @@ class ServiceIntroController extends GetxController {
 
   String get routeNamed {
     switch (serviceType) {
-      case ServiceType.customsClearance:
+      case ServiceTypes.customsClearance:
         return Routes.customsClearanceService;
-      case ServiceType.landShipping:
+      case ServiceTypes.landShipping:
         return Routes.chooseShippingService;
-      case ServiceType.stores:
+      case ServiceTypes.stores:
         return Routes.stores;
-      case ServiceType.marineShipping:
+      case ServiceTypes.marineShipping:
         return Routes.marineShipping;
-      case ServiceType.airFreight:
+      case ServiceTypes.airFreight:
         return Routes.airFreight;
-      case ServiceType.laboratoryAndStandards:
+      case ServiceTypes.laboratoryAndStandards:
         return Routes.laboratoryAndStandardsService;
     }
   }
 }
 
-enum ServiceType {
+enum ServiceTypes {
   customsClearance('customsclearance'),
   landShipping('landshippings'),
   stores('warehouses'),
@@ -51,6 +51,6 @@ enum ServiceType {
   airFreight('airshippings'),
   laboratoryAndStandards('laboratories');
 
-  const ServiceType(this.value);
+  const ServiceTypes(this.value);
   final String value;
 }

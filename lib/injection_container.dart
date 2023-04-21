@@ -32,6 +32,7 @@ import 'package:khalsha/features/marine_shipping/data/data_source/marine_shipmen
 import 'package:khalsha/features/marine_shipping/data/repository_impl/marine_shippment_repository_impl.dart';
 import 'package:khalsha/features/marine_shipping/domain/repository/marine_shipment_repository.dart';
 import 'package:khalsha/features/marine_shipping/domain/use_cases/add_marine_shipment_use_case.dart';
+import 'package:khalsha/features/marine_shipping/domain/use_cases/update_marine_shipment_use_case.dart';
 import 'package:khalsha/features/new_orders/data/data_source/new_orders_remote_data_source.dart';
 import 'package:khalsha/features/new_orders/data/repo_impl/new_orders_repository_impl.dart';
 import 'package:khalsha/features/new_orders/domain/repository/new_orders_repository.dart';
@@ -206,6 +207,8 @@ class InjectionContainer {
         () => MarineShipmentRepositoryImpl(sl()));
     sl.registerLazySingleton<AddMarineShipmentUseCase>(
         () => AddMarineShipmentUseCase(sl()));
+    sl.registerLazySingleton<UpdateMarineShipmentUseCase>(
+        () => UpdateMarineShipmentUseCase(sl()));
 
     //New Orders
     sl.registerLazySingleton<NewOrdersRemoteDataSource>(

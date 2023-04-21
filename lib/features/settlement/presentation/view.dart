@@ -51,7 +51,7 @@ class SettlementView extends GetView<SettlementController> {
                     const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                 child: Text(
                   'يتم تسوية الفاتورة في حال تجاوزها مده لا تقل عن ثلاثين يوماً او في حال بلوغها الحد الإقصي وهو مائة ريال.',
-                  style: Get.textTheme.bodyText2!.copyWith(
+                  style: Get.textTheme.bodyMedium!.copyWith(
                     color: ColorManager.darkTobyColor,
                   ),
                 ),
@@ -67,7 +67,7 @@ class SettlementView extends GetView<SettlementController> {
           child: Text(
             text,
             textAlign: TextAlign.center,
-            style: Get.textTheme.button!.copyWith(
+            style: Get.textTheme.labelLarge!.copyWith(
               color: textColor,
               fontWeight: fontWeight,
             ),

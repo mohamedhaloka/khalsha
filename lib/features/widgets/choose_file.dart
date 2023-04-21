@@ -28,7 +28,7 @@ class ChooseFile extends StatelessWidget {
       children: [
         Text(
           title.tr,
-          style: titleStyle ?? Get.textTheme.subtitle2,
+          style: titleStyle ?? Get.textTheme.titleSmall,
         ),
         InkWell(
           onTap: chooseFile,
@@ -47,7 +47,7 @@ class ChooseFile extends StatelessWidget {
                       file.value.path == ''
                           ? hint
                           : file.value.path.split("/").last,
-                      style: Get.textTheme.subtitle2!.copyWith(
+                      style: Get.textTheme.titleSmall!.copyWith(
                         color: ColorManager.greyColor,
                       ),
                     ),

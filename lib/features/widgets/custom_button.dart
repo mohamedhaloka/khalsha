@@ -71,7 +71,7 @@ class CustomButton extends StatelessWidget {
                       children: [
                         Text(
                           (text ?? '').tr,
-                          style: Get.textTheme.bodyText2!.copyWith(
+                          style: Get.textTheme.bodyMedium!.copyWith(
                             color: contentColor ?? Colors.black,
                           ),
                         ),
@@ -85,7 +85,7 @@ class CustomButton extends StatelessWidget {
                         )
                       : Text(
                           (text ?? '').tr,
-                          style: Get.textTheme.bodyText2!.copyWith(
+                          style: Get.textTheme.bodyMedium!.copyWith(
                             color: contentColor ?? Colors.black,
                             fontWeight: FontWeight.w700,
                           ),

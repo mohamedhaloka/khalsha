@@ -53,7 +53,7 @@ class ServiceIntroView extends GetView<ServiceIntroController> {
                                   flex: 5,
                                   child: Text(
                                     item.text,
-                                    style: Get.textTheme.subtitle1!.copyWith(
+                                    style: Get.textTheme.titleMedium!.copyWith(
                                       color: ColorManager.primaryColor,
                                     ),
                                   ),

@@ -10,10 +10,16 @@ import '../../../core/inputs_style.dart';
 import 'input_holder_box.dart';
 
 class AttachFileWithHolder extends StatelessWidget {
-  const AttachFileWithHolder({Key? key, this.title, required this.file})
-      : super(key: key);
-  final String? title;
+  const AttachFileWithHolder({
+    Key? key,
+    this.title,
+    this.errorMsg,
+    this.onChooseFile,
+    required this.file,
+  }) : super(key: key);
+  final String? title, errorMsg;
   final Rx<File> file;
+  final void Function(String)? onChooseFile;
 
   @override
   Widget build(BuildContext context) {
@@ -76,6 +82,7 @@ class AttachFileWithHolder extends StatelessWidget {
           ),
         ],
       ),
+      errorText: errorMsg,
     );
   }
 
@@ -84,5 +91,7 @@ class AttachFileWithHolder extends StatelessWidget {
 
     if (result == null) return;
     file(File(result.files.single.path!));
+    if (onChooseFile == null) return;
+    onChooseFile!(result.files.single.path!);
   }
 }

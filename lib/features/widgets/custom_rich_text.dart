@@ -30,13 +30,13 @@ class CustomRichText extends StatelessWidget {
         text: TextSpan(
           text: text,
           style: textStyle ??
-              Get.textTheme.bodyText2!.copyWith(fontWeight: FontWeight.w500),
+              Get.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w500),
           children: [
             TextSpan(
                 text: subText,
                 recognizer: TapGestureRecognizer()..onTap = onTap,
                 style: subTextStyle ??
-                    Get.textTheme.bodyText2!.copyWith(
+                    Get.textTheme.bodyMedium!.copyWith(
                       fontWeight: FontWeight.bold,
                       color: ColorManager.secondaryColor,
                     )),

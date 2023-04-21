@@ -49,7 +49,7 @@ class SliverBody extends StatelessWidget {
               ? null
               : Text(
                   title!.tr,
-                  style: Get.textTheme.headline5!.copyWith(
+                  style: Get.textTheme.headlineSmall!.copyWith(
                       fontWeight: FontWeight.bold, color: Colors.white),
                 ),
           toolbarHeight: toolbarHeight,

@@ -16,14 +16,17 @@ class ServiceItemWithHolder extends StatelessWidget {
     this.height,
     this.onTap,
     this.text,
+    this.errorMsg,
+    this.onBack,
     this.onDelete,
     this.body,
   }) : super(key: key);
   final String title;
-  final String? bottomSheetTitle, text;
+  final String? bottomSheetTitle, text, errorMsg;
   final Widget? body;
   final double? height;
   final void Function()? onTap, onDelete;
+  final void Function(bool)? onBack;
 
   @override
   Widget build(BuildContext context) {
@@ -58,20 +61,26 @@ class ServiceItemWithHolder extends StatelessWidget {
               CustomButton(
                 height: inputHeight,
                 width: inputHeight + 50,
-                onTap: () {
+                onTap: () async {
                   if (onTap != null) {
                     onTap!();
                     return;
                   }
 
-                  Get.bottomSheet(
+                  final result = await Get.bottomSheet(
                     HeadLineBottomSheet(
                       height: height,
                       body: body ?? const SizedBox(),
                       bottomSheetTitle: bottomSheetTitle ?? title,
                     ),
                     isScrollControlled: true,
-                  );
+                    enableDrag: false,
+                    isDismissible: false,
+                  ) as bool?;
+
+                  if (result == null) return;
+                  if (onBack == null) return;
+                  onBack!(result);
                 },
                 radius: radius,
                 contentColor:
@@ -95,6 +104,7 @@ class ServiceItemWithHolder extends StatelessWidget {
           )
         ],
       ),
+      errorText: errorMsg,
     );
   }
 }

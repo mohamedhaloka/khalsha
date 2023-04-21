@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/features/orders/data/models/order_model.dart';
 import 'package:khalsha/features/orders/presentation/get/controllers/controller.dart';
+import 'package:khalsha/features/service_intro/presentation/get/controllers/controller.dart';
 
 import '../../../../core/presentation/routes/app_routes.dart';
 import '../../../../core/presentation/themes/colors_manager.dart';
+import '../../domain/entities/order_model.dart';
 
 const _kAccepted = 'accepted';
 const _kRejected = 'rejected';
@@ -13,13 +14,26 @@ const _kOpen = 'open';
 const _kClose = 'closed';
 
 class OrderItem extends StatelessWidget {
-  const OrderItem(this.order, {Key? key}) : super(key: key);
+  const OrderItem(
+    this.order, {
+    Key? key,
+    required this.route,
+    required this.serviceType,
+  }) : super(key: key);
   final OrderModel order;
+  final String route;
+  final ServiceTypes serviceType;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Get.toNamed(Routes.orderDetails, arguments: order.id),
+      onTap: () => Get.toNamed(
+        Routes.orderDetails,
+        arguments: [
+          order.id,
+          serviceType,
+        ],
+      ),
       child: Container(
         height: 110,
         decoration: const BoxDecoration(
@@ -43,7 +57,7 @@ class OrderItem extends StatelessWidget {
               child: Row(
                 children: [
                   _detail(order.title),
-                  _detail('${'offers'.tr}   ${order.offers.length}'),
+                  _detail('${'offers'.tr}   ${order.offersNum}'),
                 ],
               ),
             ),
@@ -58,7 +72,7 @@ class OrderItem extends StatelessWidget {
                     child: IconButton(
                         onPressed: () async {
                           final result = await Get.toNamed(
-                            Routes.stores,
+                            route,
                             arguments: order,
                           );
                           if (result == null) return;
@@ -80,7 +94,7 @@ class OrderItem extends StatelessWidget {
         child: Text(
           text,
           textAlign: TextAlign.center,
-          style: Get.textTheme.subtitle1,
+          style: Get.textTheme.titleMedium,
         ),
       );
 }

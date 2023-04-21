@@ -36,7 +36,7 @@ class SettlementItem extends StatelessWidget {
           child: Text(
             text,
             textAlign: TextAlign.center,
-            style: Get.textTheme.button!.copyWith(
+            style: Get.textTheme.labelLarge!.copyWith(
               color: textColor,
               fontWeight: fontWeight,
             ),

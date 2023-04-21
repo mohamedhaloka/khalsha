@@ -6,15 +6,18 @@ class AddEditMarineShippingServiceView
 
   @override
   Widget build(BuildContext context) {
-    return ServiceContent(
-      onTapBack: controller.onTapBack,
-      onPageChanged: controller.onPageChanged,
-      pageViewController: controller.pageController,
-      pageTitle: controller.pageTitle,
-      onTapNext: controller.onTapNext,
-      currentStep: controller.currentStep,
-      btnLoading: controller.loading,
-      children: controller.children,
+    return FormBuilder(
+      key: controller.formKey,
+      child: ServiceContent(
+        onTapBack: controller.onTapBack,
+        onPageChanged: controller.onPageChanged,
+        pageViewController: controller.pageController,
+        pageTitle: controller.pageTitle,
+        onTapNext: controller.onTapNext,
+        currentStep: controller.currentStep,
+        btnLoading: controller.loading,
+        children: controller.children,
+      ),
     );
   }
 }
@@ -25,44 +28,67 @@ class _FillData extends GetView<AddEditMarineShippingServiceController> {
   @override
   Widget build(BuildContext context) {
     return FillDataStepView(
-      serviceName: ServiceType.marineShipping.value,
+      serviceName: ServiceTypes.marineShipping.value,
       body: Column(
         children: [
-          TextFieldInputWithHolder(
-            title: 'عنوان الطلب',
-            hint: 'أضف عنوان',
-            controller: controller.name,
+          FormBuilderField(
+            builder: (FormFieldState<dynamic> field) =>
+                TextFieldInputWithHolder(
+              title: 'عنوان الطلب',
+              hint: 'أضف عنوان',
+              controller: controller.name,
+              onChanged: (String value) => field.didChange(value),
+              errorText: field.errorText,
+            ),
+            validator: FormBuilderValidators.required(),
+            name: 'name',
           ),
           ToggleItemWithHolder(
             title: 'نوع الشحنة',
             items: shippingTypeOptions,
             selectedItem: controller.selectedShippingType,
           ),
-          ChooseItemWithHolder(
-            title: 'الشحن من',
-            height: Get.height / 1.6,
-            selectedItem: DataModel.empty().obs,
-            body: ChooseShippingPlace(
-              shipmentLocation: controller.fromShipmentLocation,
-              selectedCountry: controller.fromCountryId,
-              city: controller.fromCity,
-              cityLocationDetails: controller.fromCityLocationDetails,
-              countries: controller.countries,
-              otherLocation: controller.fromShipmentOther,
+          FormBuilderField(
+            builder: (FormFieldState<dynamic> field) => ChooseItemWithHolder(
+              title: 'الشحن من',
+              height: Get.height / 1.6,
+              selectedItem: DataModel.empty().obs,
+              body: ChooseShippingPlace(
+                shipmentLocation: controller.fromShipmentLocation,
+                selectedCountry: controller.fromCountryId,
+                city: controller.fromCity,
+                cityLocationDetails: controller.fromCityLocationDetails,
+                countries: controller.countries,
+                otherLocation: controller.fromShipmentOther,
+              ),
+              onBack: (bool hasEmptyData) => field.didChange(
+                hasEmptyData ? '' : '_',
+              ),
+              errorMsg: field.errorText,
             ),
+            validator: FormBuilderValidators.required(),
+            name: 'shipment_from',
           ),
-          ChooseItemWithHolder(
-            title: 'الشحن إلي',
-            height: Get.height / 1.6,
-            selectedItem: DataModel.empty().obs,
-            body: ChooseShippingPlace(
-              shipmentLocation: controller.toShipmentLocation,
-              selectedCountry: controller.toCountryId,
-              city: controller.toCity,
-              cityLocationDetails: controller.toCityLocationDetails,
-              countries: controller.countries,
-              otherLocation: controller.toShipmentOther,
+          FormBuilderField(
+            builder: (FormFieldState<dynamic> field) => ChooseItemWithHolder(
+              title: 'الشحن من',
+              height: Get.height / 1.6,
+              selectedItem: DataModel.empty().obs,
+              body: ChooseShippingPlace(
+                shipmentLocation: controller.toShipmentLocation,
+                selectedCountry: controller.toCountryId,
+                city: controller.toCity,
+                cityLocationDetails: controller.toCityLocationDetails,
+                countries: controller.countries,
+                otherLocation: controller.toShipmentOther,
+              ),
+              onBack: (bool hasEmptyData) => field.didChange(
+                hasEmptyData ? '' : '_',
+              ),
+              errorMsg: field.errorText,
             ),
+            validator: FormBuilderValidators.required(),
+            name: 'shipment_to',
           ),
           ToggleItemWithHolder(
             title: 'حجم الشحنة',
@@ -85,17 +111,23 @@ class _FillData extends GetView<AddEditMarineShippingServiceController> {
               );
             },
           ),
-          DropDownInputWithHolder(
-            title: 'هل الشحنة جاهزة',
-            dropValue: controller.selectedShipmentReady,
-            source: ShipmentReadyPeriods.values
-                .map(
-                  (e) => DropdownMenuItem(
-                    value: e.value,
-                    child: Text(e.value.tr),
-                  ),
-                )
-                .toList(),
+          FormBuilderField(
+            builder: (FormFieldState<dynamic> field) => DropDownInputWithHolder(
+              title: 'هل الشحنة جاهزة',
+              dropValue: controller.selectedShipmentReady,
+              source: ShipmentReadyPeriods.values
+                  .map(
+                    (e) => DropdownMenuItem(
+                      value: e.value,
+                      child: Text(e.value.tr),
+                    ),
+                  )
+                  .toList(),
+              onTap: (int id) => field.didChange(id.toString()),
+              errorText: field.errorText,
+            ),
+            validator: FormBuilderValidators.required(),
+            name: 'shipment_ready',
           ),
           Obx(
             () => TextFieldInputWithDropDownWithHolder(
@@ -141,9 +173,7 @@ class _AdditionalServices
           ),
           CheckerWithHolder(
             title: 'خدمة إستخراج الشهادات اللازمة',
-            active: controller.certificates
-                .any((element) => element.selected.value)
-                .obs,
+            active: controller.enableCertificate,
             bottomSheetTitle: 'الشهادات',
             body: ChooseCertificates(controller.certificates),
             height: Get.height / 1.6,
@@ -157,7 +187,7 @@ class _AdditionalServices
 enum ShipmentReadyPeriods {
   ready('ready'),
   oneWeekOrLess('one_week_or_less'),
-  twoWeekOrLess('two_week_or_less');
+  twoWeeksOrLess('two_weeks_or_less');
 
   final String value;
   const ShipmentReadyPeriods(this.value);

@@ -5,6 +5,7 @@ class _BillDataTab extends GetView<OrderDetailsController> {
 
   @override
   Widget build(BuildContext context) {
+    final invoice = controller.orderModel.invoice;
     return ListView(
       padding: const EdgeInsets.only(top: 30),
       children: [
@@ -12,15 +13,23 @@ class _BillDataTab extends GetView<OrderDetailsController> {
           title: 'الفاتورة',
           hint: 'هنا بتم تحديد فاتورتك و إرسالها للعميل',
         ),
-        if (controller.orderModel.invoice != null)
-          Bill(controller.orderModel.invoice!),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 12),
-          child: CustomButton(
-            onTap: () {},
-            text: 'مشاركة',
+        if (invoice != null) ...[
+          Bill(
+            items: invoice.items,
+            total: invoice.total.toString(),
+            orderId: invoice.id.toString(),
+            userName: invoice.user!.name!,
+            billCreatedDate: invoice.importListDate!,
+            userBio: invoice.user!.bio!,
           ),
-        ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 12),
+            child: CustomButton(
+              onTap: () {},
+              text: 'مشاركة',
+            ),
+          ),
+        ],
       ],
     );
   }

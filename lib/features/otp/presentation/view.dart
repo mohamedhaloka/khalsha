@@ -35,12 +35,12 @@ class OTPView extends GetView<OTPController> {
         children: [
           Text(
             'من فضلك\nتفحــص رســائل $_accountStr',
-            style: Get.textTheme.headline6!.copyWith(
+            style: Get.textTheme.titleLarge!.copyWith(
                 color: ColorManager.primaryColor, fontWeight: FontWeight.bold),
           ),
           Text(
             'تم إرسال الكود إلى  $_account',
-            style: Get.textTheme.subtitle1!.copyWith(
+            style: Get.textTheme.titleMedium!.copyWith(
               color: ColorManager.greyColor,
             ),
           ),

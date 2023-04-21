@@ -29,7 +29,7 @@ class MenuHeader extends StatelessWidget {
           const SizedBox(height: 14),
           Text(
             UserDataLocal.instance.clientName,
-            style: Get.textTheme.subtitle1!.copyWith(
+            style: Get.textTheme.titleMedium!.copyWith(
               color: Colors.white,
               fontWeight: FontWeight.w700,
             ),
@@ -38,7 +38,7 @@ class MenuHeader extends StatelessWidget {
             UserDataLocal.instance.isImporterExporter
                 ? 'مستورد/مصدر'
                 : 'مقدم خدمة لوجيستية',
-            style: Get.textTheme.subtitle2!.copyWith(
+            style: Get.textTheme.titleSmall!.copyWith(
               color: Colors.white,
             ),
           ),

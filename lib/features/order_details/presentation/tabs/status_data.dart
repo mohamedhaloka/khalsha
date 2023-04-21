@@ -3,11 +3,37 @@ part of '../view.dart';
 const kDone = 'done';
 const kPending = 'pending';
 
-class _StatusData extends GetView<OrderDetailsController> {
+class _StatusData extends StatefulWidget {
   const _StatusData({Key? key}) : super(key: key);
 
   @override
+  State<_StatusData> createState() => _StatusDataState();
+}
+
+class _StatusDataState extends State<_StatusData> {
+  final controller = Get.find<OrderDetailsController>();
+  RxInt currentStatus = 0.obs;
+
+  PageController statusSliderController = PageController();
+
+  @override
+  void initState() {
+    List<OrderStepModel> steps =
+        (controller.orderModel as CustomsClearanceOrder).steps;
+    int initialPage = steps.indexWhere((element) => element.status == kPending);
+    if (initialPage == -1) {
+      currentStatus(steps.length - 1);
+      statusSliderController = PageController(initialPage: steps.length - 1);
+      return;
+    }
+    currentStatus(initialPage);
+    statusSliderController = PageController(initialPage: initialPage);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final orderData = controller.orderModel as CustomsClearanceOrder;
     return ListView(
       padding: const EdgeInsets.only(top: 30),
       children: [
@@ -15,76 +41,41 @@ class _StatusData extends GetView<OrderDetailsController> {
           title: 'حالة طلبك الأن',
           hint: 'هنا تظهر حالة الطلب من قبلك',
         ),
-        if (controller.orderModel.steps.isNotEmpty) ...[
+        if (orderData.steps.isNotEmpty) ...[
           SizedBox(
             height: 200,
-            child: Obx(() => Row(
-                  children: [
-                    if (controller.currentStatus.value != 0) ...[
-                      InkWell(
-                        onTap: () {
-                          controller.currentStatus.value--;
-                          controller.goToStatus();
-                        },
-                        child: RotatedBox(
-                            quarterTurns: 2,
-                            child: SvgPicture.asset(
-                                'assets/images/icons/arrow.svg')),
-                      ),
-                    ] else ...[
-                      const SizedBox(width: 30),
-                    ],
-                    Expanded(
-                      child: PageView.builder(
-                        controller: controller.statusSliderController,
-                        onPageChanged: (int index) =>
-                            controller.currentStatus(index),
-                        itemCount: controller.orderModel.steps.length,
-                        itemBuilder: (_, int index) =>
-                            _StatusItem(controller.orderModel.steps[index]),
-                      ),
-                    ),
-                    if (controller.currentStatus.value !=
-                        controller.orderModel.steps.length - 1) ...[
-                      InkWell(
-                        onTap: () {
-                          controller.currentStatus.value++;
-                          controller.goToStatus();
-                        },
-                        child:
-                            SvgPicture.asset('assets/images/icons/arrow.svg'),
-                      ),
-                    ] else ...[
-                      const SizedBox(width: 30),
-                    ],
-                  ],
-                )),
+            child: PageView.builder(
+              controller: statusSliderController,
+              onPageChanged: (int index) => currentStatus(index),
+              itemCount: orderData.steps.length,
+              itemBuilder: (_, int index) =>
+                  _StatusItem(orderData.steps[index]),
+            ),
           ),
           Obx(
             () => Column(
               children: [
-                Text(status),
+                Text(status(orderData.steps)),
                 TextUnderline(
-                  statusTxt.tr,
-                  contentColor: _statusColor,
+                  statusTxt(orderData.steps).tr,
+                  contentColor: _statusColor(orderData.steps),
                 ),
               ],
             ),
           ),
           OrderStatusSteps(
-            steps: controller.orderModel.steps,
+            steps: orderData.steps,
           ),
         ]
       ],
     );
   }
 
-  String get statusTxt =>
-      controller.orderModel.steps[controller.currentStatus.value].step;
+  String statusTxt(List<OrderStepModel> steps) =>
+      steps[currentStatus.value].step!;
 
-  String get status {
-    String statusStr =
-        controller.orderModel.steps[controller.currentStatus.value].status;
+  String status(List<OrderStepModel> steps) {
+    String statusStr = steps[currentStatus.value].status!;
     switch (statusStr) {
       case kDone:
         return 'الحالة المنتهية';
@@ -95,14 +86,13 @@ class _StatusData extends GetView<OrderDetailsController> {
     }
   }
 
-  Color get _statusColor {
-    String statusStr =
-        controller.orderModel.steps[controller.currentStatus.value].status;
+  Color _statusColor(List<OrderStepModel> steps) {
+    String statusStr = steps[currentStatus.value].status!;
     switch (statusStr) {
       case kDone:
-        return ColorManager.primaryColor;
-      case kPending:
         return ColorManager.secondaryColor;
+      case kPending:
+        return ColorManager.primaryColor;
       default:
         return ColorManager.lightGreyColor;
     }
@@ -133,7 +123,7 @@ class _StatusItem extends StatelessWidget {
         ),
         const SizedBox(height: 5),
         Text(
-          status.step.tr,
+          status.step!.tr,
           style: Get.textTheme.headlineSmall,
         )
       ],
@@ -143,9 +133,9 @@ class _StatusItem extends StatelessWidget {
   Color get _statusColor {
     switch (status.status) {
       case kDone:
-        return ColorManager.primaryColor;
-      case kPending:
         return ColorManager.secondaryColor;
+      case kPending:
+        return ColorManager.primaryColor;
       default:
         return ColorManager.lightGreyColor;
     }

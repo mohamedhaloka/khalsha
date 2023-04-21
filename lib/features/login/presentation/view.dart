@@ -21,7 +21,7 @@ class LoginView extends GetView<LoginController> {
             padding: const EdgeInsets.fromLTRB(0, 100, 0, 40),
             child: Text(
               'اهلا بك في خلصها !',
-              style: Get.textTheme.headline6!.copyWith(
+              style: Get.textTheme.titleLarge!.copyWith(
                 color: ColorManager.primaryColor,
                 fontWeight: FontWeight.bold,
               ),

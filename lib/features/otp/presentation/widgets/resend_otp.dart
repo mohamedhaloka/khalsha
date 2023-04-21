@@ -19,7 +19,7 @@ class ResendOTP extends GetView<OTPController> {
                 ? InkWell(
                     onTap: controller.resendCode,
                     child: Text('إرسال مرة أخرى',
-                        style: Get.textTheme.subtitle1!.copyWith(
+                        style: Get.textTheme.titleMedium!.copyWith(
                           color: ColorManager.secondaryColor,
                         )),
                   )
@@ -30,11 +30,11 @@ class ResendOTP extends GetView<OTPController> {
                         text: TextSpan(
                           text: 'يمكنك الإسال مرة أخرى بعد',
                           style:
-                              Get.textTheme.subtitle1!.copyWith(fontSize: 16),
+                              Get.textTheme.titleMedium!.copyWith(fontSize: 16),
                           children: [
                             TextSpan(
                                 text: " ${time!.sec} ثانية",
-                                style: Get.textTheme.subtitle1!.copyWith(
+                                style: Get.textTheme.titleMedium!.copyWith(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
                                     color: Get.theme.primaryColor)),
@@ -49,7 +49,7 @@ class ResendOTP extends GetView<OTPController> {
                         log('Error in timer=> $e');
                       }
                     },
-                    textStyle: Get.textTheme.bodyText2!
+                    textStyle: Get.textTheme.bodyMedium!
                         .copyWith(color: Get.theme.primaryColor),
                     endTime: controller.timer.value,
                   ),

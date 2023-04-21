@@ -31,7 +31,7 @@ class MenuDrawerView extends GetView<RootController> {
                 const SizedBox(width: 6),
                 Text(
                   'تسجيل خروج',
-                  style: Get.textTheme.subtitle1!.copyWith(
+                  style: Get.textTheme.titleMedium!.copyWith(
                     color: ColorManager.darkTobyColor,
                     fontWeight: FontWeight.bold,
                   ),

@@ -1,8 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:khalsha/core/domain/error/failures.dart';
 import 'package:khalsha/core/domain/use_cases/use_case.dart';
-import 'package:khalsha/features/orders/data/models/order_model.dart';
 import 'package:khalsha/features/orders/domain/repository/orders_repository.dart';
+
+import '../entities/order_model.dart';
 
 class GetOrdersUseCase extends UseCase<List<OrderModel>, GetOrdersParams> {
   final OrdersRepository _ordersRepository;

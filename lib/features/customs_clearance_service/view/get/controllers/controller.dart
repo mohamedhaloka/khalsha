@@ -114,32 +114,33 @@ class AddEditCustomsClearanceController extends GetxController {
       loading(false);
       return;
     }
+    CustomsClearanceOrder customsOrder = orderModel as CustomsClearanceOrder;
     name.text = orderModel!.title;
-    selectedShippingField(orderModel!.chargeFieldId);
-    selectedShippingType(orderModel!.shipmentTypeId);
-    selectedShippingPort(orderModel!.shippingport);
-    deliverTo.text = orderModel!.deliveryTo;
-    description.text = orderModel!.content;
-    note.text = orderModel!.notes;
-    total.text = orderModel!.total;
-    selectedCurrency(orderModel!.currency.id.toString());
-    selectedShippingMethod(orderModel!.shippingMethodId);
+    selectedShippingField(customsOrder.chargeFieldId);
+    selectedShippingType(customsOrder.shipmentTypeId);
+    selectedShippingPort(customsOrder.shippingPort);
+    deliverTo.text = customsOrder.deliveryTo;
+    description.text = customsOrder.content;
+    note.text = customsOrder.notes;
+    total.text = customsOrder.total;
+    selectedCurrency(customsOrder.currency.id.toString());
+    selectedShippingMethod(customsOrder.shippingMethodId);
     if (selectedShippingMethod.value == 0) {
       parcel.clear();
-      parcel.addAll(orderModel!.parcelDataList);
+      parcel.addAll(customsOrder.parcelDataList);
     } else {
       container.clear();
-      container.addAll(orderModel!.containerDataList);
+      container.addAll(customsOrder.containerDataList);
     }
-    numberOfStorage(orderModel!.storageDaysNumber);
-    customsClauseList.addAll(orderModel!.customsClauseDataList);
-    for (var e in orderModel!.certificates) {
+    numberOfStorage(customsOrder.storageDaysNumber);
+    customsClauseList.addAll(customsOrder.customsClauseDataList);
+    for (var e in customsOrder.certificates) {
       final item =
           certificates.firstWhereOrNull((element) => element.id == e.id);
       item?.selected(true);
     }
 
-    for (var file in orderModel!.files) {
+    for (var file in customsOrder.files) {
       _downloadFile(file);
     }
     loading(false);
@@ -167,15 +168,17 @@ class AddEditCustomsClearanceController extends GetxController {
   }
 
   Future<void> _downloadFile(OrderFile orderFile) async {
-    final params =
-        DownloadFileUseCaseParams(loading: loading, url: orderFile.fullPath);
+    final params = DownloadFileUseCaseParams(
+      loading: loading,
+      url: orderFile.fullPath!,
+    );
     final result = await _downloadFileUseCase.execute(params);
     result.fold((_) => _, (r) {
       log(r, name: 'FILE PATH');
       files.add(FileModel(
         id: orderFile.id,
         file: File(r),
-        type: orderFile.mimtype,
+        type: orderFile.mimtype!,
       ));
     });
   }

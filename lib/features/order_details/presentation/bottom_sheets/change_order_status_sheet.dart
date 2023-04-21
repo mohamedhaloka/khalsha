@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:khalsha/features/order_details/presentation/get/controllers/controller.dart';
 import 'package:khalsha/features/order_details/presentation/view.dart';
-import 'package:khalsha/features/orders/data/models/order_model.dart';
 import 'package:khalsha/features/widgets/add_photos.dart';
 import 'package:khalsha/features/widgets/custom_button.dart';
 import 'package:khalsha/features/widgets/custom_drop_down.dart';
 import 'package:khalsha/features/widgets/custom_text_field.dart';
+
+import '../../../orders/domain/entities/order_model.dart';
 
 class ChangeOrderStatusSheet extends StatefulWidget {
   const ChangeOrderStatusSheet(this.stepModel, {Key? key}) : super(key: key);
@@ -67,7 +68,7 @@ class _ChangeOrderStatusSheetState extends State<ChangeOrderStatusSheet> {
                 await orderDetailsController.updateOrderStatus(
                   comment: notes.text,
                   status: selectedStatus.value,
-                  statusId: widget.stepModel.id,
+                  statusId: widget.stepModel.id!,
                 );
               }
               bool hasImagesAdded = images.any((element) => element.path != '');
@@ -76,7 +77,7 @@ class _ChangeOrderStatusSheetState extends State<ChangeOrderStatusSheet> {
                 return;
               }
               await orderDetailsController.uploadImages(
-                statusId: widget.stepModel.id,
+                statusId: widget.stepModel.id!,
                 images: images,
               );
               loading(false);

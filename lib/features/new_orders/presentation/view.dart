@@ -54,7 +54,7 @@ class NewOrdersView extends GetView<NewOrdersController> {
                     itemBuilder: (int index) => Row(
                       children: [
                         _detail(controller.orders[index].title.toString()),
-                        _detail(controller.orders[index].user.name.toString()),
+                        // _detail(controller.orders[index].user.name.toString()),
                         _detail(controller.orders[index].status),
                         _detail(
                           'رؤية التفاصيل',
@@ -70,7 +70,7 @@ class NewOrdersView extends GetView<NewOrdersController> {
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
             child: Text(
               'يتم تسوية الفاتورة في حال تجاوزها مده لا تقل عن ثلاثين يوماً او في حال بلوغها الحد الإقصي وهو مائة ريال.',
-              style: Get.textTheme.bodyText2!.copyWith(
+              style: Get.textTheme.bodyMedium!.copyWith(
                 color: ColorManager.darkTobyColor,
               ),
             ),
@@ -87,7 +87,7 @@ class NewOrdersView extends GetView<NewOrdersController> {
           child: Text(
             text,
             textAlign: TextAlign.center,
-            style: Get.textTheme.button!.copyWith(
+            style: Get.textTheme.labelLarge!.copyWith(
               color: textColor,
               fontWeight: fontWeight,
             ),

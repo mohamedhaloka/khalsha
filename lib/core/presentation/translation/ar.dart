@@ -28,4 +28,7 @@ Map<String, String> ar = {
   'create_invoice': 'إنشاء الفاتورة',
   'done': 'إنتهى',
   'pending': 'معلق',
+
+  //Offer
+  'offers': 'عروض',
 };

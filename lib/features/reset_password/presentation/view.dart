@@ -21,7 +21,7 @@ class ResetPasswordView extends GetView<ResetPasswordController> {
         children: [
           Text(
             'من فضلك\nقم بكتابة رقم الهاتف أو البريد الإلكتروني',
-            style: Get.textTheme.headline6!.copyWith(
+            style: Get.textTheme.titleLarge!.copyWith(
               color: ColorManager.primaryColor,
               fontWeight: FontWeight.bold,
             ),

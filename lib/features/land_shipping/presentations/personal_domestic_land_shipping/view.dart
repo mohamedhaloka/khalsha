@@ -55,7 +55,7 @@ class _FillData extends GetView<PersonalDomesticLandShippingServiceController> {
   Widget build(BuildContext context) {
     return FillDataStepView(
       serviceName:
-          '${ServiceType.landShipping.value.tr} / ${'personal-domestic'.tr}',
+          '${ServiceTypes.landShipping.value.tr} / ${'personal-domestic'.tr}',
       body: Column(
         children: [
           ChooseItemWithHolder(

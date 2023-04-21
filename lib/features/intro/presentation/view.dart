@@ -30,14 +30,14 @@ class IntroView extends GetView<IntroController> {
                     SvgPicture.asset('assets/images/icons/intro.svg'),
                     Text(
                       'انضم لعائلة خلصها',
-                      style: Get.textTheme.headline5!.copyWith(
+                      style: Get.textTheme.headlineSmall!.copyWith(
                           color: ColorManager.primaryColor,
                           fontWeight: FontWeight.bold),
                     ),
                     Text(
                       'استمتع بخدمات خلصها المتعددة\nفي المجال اللوجستي',
                       textAlign: TextAlign.center,
-                      style: Get.textTheme.bodyText2,
+                      style: Get.textTheme.bodyMedium,
                     ),
                   ],
                 ),

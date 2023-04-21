@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/core/data/source/local/user_local.dart';
+import 'package:khalsha/features/order_details/data/models/order_details_item_model.dart';
 import 'package:khalsha/features/order_details/presentation/get/controllers/controller.dart';
 import 'package:khalsha/features/order_details/presentation/widgets/order_tab_header.dart';
 import 'package:khalsha/features/order_details/presentation/widgets/status_steps.dart';
-import 'package:khalsha/features/orders/data/models/order_model.dart';
+import 'package:khalsha/features/service_intro/presentation/get/controllers/controller.dart';
 import 'package:khalsha/features/widgets/custom_button.dart';
-import 'package:khalsha/main.dart';
 
-import '../../../core/data/models/item_model.dart';
 import '../../../core/presentation/themes/colors_manager.dart';
+import '../../orders/domain/entities/order_model.dart';
 import '../../widgets/bill.dart';
 import '../../widgets/custom_app_bar.dart';
 import '../../widgets/stylish_text.dart';
@@ -38,10 +37,7 @@ class OrderDetailsView extends GetView<OrderDetailsController> {
             : Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  if (controller.orderModel.steps.isNotEmpty ||
-                      UserDataLocal.instance.isImporterExporter) ...[
-                    const _DetailsTabs(),
-                  ],
+                  const _DetailsTabs(),
                   Expanded(
                     child: PageView(
                       controller: controller.pageViewController,
@@ -50,15 +46,11 @@ class OrderDetailsView extends GetView<OrderDetailsController> {
                           controller.currentTab(index),
                       children: [
                         const _OrderDataTab(),
-                        if (provider) ...[
-                          const _BillDataTab(),
-                        ] else ...[
-                          const _PricingOffersTab(),
-                        ],
-                        const _StatusData(),
-                        if (controller.orderModel.invoice != null) ...[
-                          const _BillDataTab(),
-                        ],
+                        const _PricingOffersTab(),
+                        if (controller.serviceType ==
+                            ServiceTypes.customsClearance)
+                          const _StatusData(),
+                        const _BillDataTab(),
                       ],
                     ),
                   ),
@@ -81,12 +73,12 @@ class _DetailsTabs extends GetView<OrderDetailsController> {
               _separator,
               _tabWidget(id: 1, imgName: 'pricing-offers'),
             ],
-            _separator,
-            _tabWidget(id: 2, imgName: 'track'),
-            if (controller.orderModel.invoice != null) ...[
+            if (controller.serviceType == ServiceTypes.customsClearance) ...[
               _separator,
-              _tabWidget(id: 3, imgName: 'bill'),
+              _tabWidget(id: 2, imgName: 'track'),
             ],
+            _separator,
+            _tabWidget(id: 3, imgName: 'bill'),
           ],
         ));
   }

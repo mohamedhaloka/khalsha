@@ -7,4 +7,8 @@ abstract class MarineShipmentRepository {
   Future<Either<Failure, Map<String, dynamic>>> createOrder(
     MarineShipmentData marineShipmentData,
   );
+
+  Future<Either<Failure, Map<String, dynamic>>> updateOrder(
+    MarineShipmentData marineShipmentData,
+  );
 }

@@ -13,37 +13,37 @@ class HomeController extends GetxController {
         id: 1,
         image: 'landshippings',
         text: 'الشحن البري',
-        arguments: ServiceType.landShipping,
+        arguments: ServiceTypes.landShipping,
       ),
       ItemModel(
         id: 0,
         image: 'customsclearance',
         text: 'التخليص الجمركي',
-        arguments: ServiceType.customsClearance,
+        arguments: ServiceTypes.customsClearance,
       ),
       ItemModel(
         id: 3,
         image: 'seashippings',
         text: 'الشحن البحري',
-        arguments: ServiceType.marineShipping,
+        arguments: ServiceTypes.marineShipping,
       ),
       ItemModel(
         id: 2,
         image: 'warehouses',
         text: 'المخازن',
-        arguments: ServiceType.stores,
+        arguments: ServiceTypes.stores,
       ),
       ItemModel(
         id: 5,
         image: 'laboratories',
         text: 'المختبرات و المقاييس',
-        arguments: ServiceType.laboratoryAndStandards,
+        arguments: ServiceTypes.laboratoryAndStandards,
       ),
       ItemModel(
         id: 4,
         image: 'airshippings',
         text: 'الشحن الجوي',
-        arguments: ServiceType.airFreight,
+        arguments: ServiceTypes.airFreight,
       ),
     ];
     super.onInit();

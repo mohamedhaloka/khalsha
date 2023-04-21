@@ -1,4 +1,5 @@
 class MarineShipmentData {
+  final int id;
   final String title,
       shipmentType,
       fromShipmentLocation,
@@ -40,6 +41,7 @@ class MarineShipmentData {
       image;
 
   const MarineShipmentData({
+    required this.id,
     required this.title,
     required this.shipmentType,
     required this.fromShipmentLocation,

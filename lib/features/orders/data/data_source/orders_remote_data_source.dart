@@ -1,7 +1,10 @@
+import 'package:get/get.dart';
 import 'package:khalsha/core/data/services/http_service.dart';
+import 'package:khalsha/features/order_details/data/data_source/order_details_remote_data_source.dart';
+import 'package:khalsha/features/service_intro/presentation/get/controllers/controller.dart';
 
 import '../../../../core/domain/error/exceptions.dart';
-import '../models/order_model.dart';
+import '../../domain/entities/order_model.dart';
 
 abstract class OrdersRemoteDataSource {
   Future<List<OrderModel>> getOrders(String type);
@@ -18,9 +21,10 @@ class OrdersRemoteDataSourceImpl extends OrdersRemoteDataSource {
     if (response.statusCode == 200) {
       final data = response.data['result']['data'];
       List<OrderModel> orders = <OrderModel>[];
-
+      ServiceTypes? serviceTypes = ServiceTypes.values
+          .firstWhereOrNull((element) => element.value == type);
       for (var item in data) {
-        orders.add(OrderModel.fromJson(item));
+        orders.add(serviceTypes!.getModel(item));
       }
       return orders;
     } else {

@@ -12,12 +12,15 @@ class DropDownInputWithHolder extends StatelessWidget {
     Key? key,
     this.hint,
     this.title,
+    this.errorText,
+    this.onTap,
     required this.dropValue,
     required this.source,
   }) : super(key: key);
-  final String? title, hint;
+  final String? title, hint, errorText;
   final List<DropdownMenuItem> source;
   final RxString dropValue;
+  final void Function(int)? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +57,7 @@ class DropDownInputWithHolder extends StatelessWidget {
               height: inputHeight,
               hint: hint ?? 'إختر',
               dropVal: dropValue,
+              onTap: onTap,
               isExpanded: true,
               source: source,
               hintColor: ColorManager.greyColor,
@@ -62,6 +66,7 @@ class DropDownInputWithHolder extends StatelessWidget {
           ),
         ],
       ),
+      errorText: errorText,
     );
   }
 }

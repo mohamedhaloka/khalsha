@@ -9,6 +9,10 @@ abstract class MarineShipmentRemoteDataSource {
   Future<Map<String, dynamic>> createOrder(
     MarineShipmentData marineShipmentData,
   );
+
+  Future<Map<String, dynamic>> updateOrder(
+    MarineShipmentData marineShipmentData,
+  );
 }
 
 class MarineShipmentRemoteDataSourceImpl
@@ -22,6 +26,25 @@ class MarineShipmentRemoteDataSourceImpl
     final formData = _prepareFormData(marineShipmentData);
     final response = await _httpService.post(
       'importer/seashippings',
+      formData,
+    );
+
+    if (response.statusCode == 200) {
+      return {
+        'message': response.data['message'],
+        'orderId': response.data['result']['id'],
+      };
+    } else {
+      throw ServerException(errorMessage: response.data['message'].toString());
+    }
+  }
+
+  @override
+  Future<Map<String, dynamic>> updateOrder(
+      MarineShipmentData marineShipmentData) async {
+    final formData = _prepareFormData(marineShipmentData);
+    final response = await _httpService.post(
+      'importer/seashippings/${marineShipmentData.id}',
       formData,
     );
 
@@ -77,7 +100,6 @@ class MarineShipmentRemoteDataSourceImpl
       dataList: marineShipmentData.goodsOverallSize,
       key: 'overall_size',
     );
-    print(marineShipmentData.goodsQuantity);
     _fillDataOfList(
       formData,
       dataList: marineShipmentData.goodsQuantity,

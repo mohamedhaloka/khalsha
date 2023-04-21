@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:khalsha/core/presentation/themes/colors_manager.dart';
 import 'package:khalsha/features/orders/presentation/widgets/filter.dart';
 import 'package:khalsha/features/orders/presentation/widgets/order_item.dart';
+import 'package:khalsha/features/service_intro/presentation/get/controllers/controller.dart';
 import 'package:khalsha/features/widgets/custom_app_bar.dart';
 
 import '../../../injection_container.dart';
@@ -61,7 +62,7 @@ class _OrdersBodyState extends State<OrdersBody> {
                   controller.getOrders();
                 },
               ),
-              height: Get.height / 2.1,
+              height: Get.height / 3,
             ),
           ),
         ),
@@ -74,8 +75,12 @@ class _OrdersBodyState extends State<OrdersBody> {
             : ListView.separated(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (_, int index) =>
-                    OrderItem(controller.orders[index]),
+                itemBuilder: (_, int index) => OrderItem(
+                      controller.orders[index],
+                      route: controller.route,
+                      serviceType:
+                          ServiceTypes.values[controller.selectedService.value],
+                    ),
                 separatorBuilder: (_, __) => const SizedBox(height: 20),
                 itemCount: controller.orders.length)),
       ],

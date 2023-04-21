@@ -3,14 +3,13 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:khalsha/core/domain/use_cases/upload_image_use_case.dart';
-import 'package:khalsha/features/order_details/data/models/order_section_model.dart';
 import 'package:khalsha/features/order_details/domain/use_cases/get_order_details_use_case.dart';
 import 'package:khalsha/features/order_details/domain/use_cases/update_order_status_use_case.dart';
-import 'package:khalsha/features/orders/data/models/order_model.dart';
 import 'package:khalsha/features/service_intro/presentation/get/controllers/controller.dart';
 
 import '../../../../../core/domain/use_cases/delete_file_use_case.dart';
 import '../../../../../core/utils.dart';
+import '../../../../orders/domain/entities/order_model.dart';
 
 class OrderDetailsController extends GetxController {
   final GetOrderDetailsUseCase _getOrderDetailsUseCase;
@@ -24,24 +23,19 @@ class OrderDetailsController extends GetxController {
     this._deleteFileUseCase,
   );
 
-  int orderId = Get.arguments;
+  int orderId = Get.arguments[0];
+  ServiceTypes serviceType = Get.arguments[1];
 
   RxInt currentTab = 0.obs;
   PageController pageViewController = PageController();
 
-  RxInt currentStatus = 0.obs;
-  PageController statusSliderController = PageController();
-
-  List<OrderSectionModel> orderSections = <OrderSectionModel>[];
-
   RxBool loading = true.obs;
 
-  OrderModel orderModel = OrderModel.empty();
+  late OrderModel orderModel;
 
   @override
   void onInit() {
     getOrderDetails();
-
     super.onInit();
   }
 
@@ -51,23 +45,16 @@ class OrderDetailsController extends GetxController {
         curve: Curves.easeInOut,
       );
 
-  void goToStatus() => statusSliderController.animateToPage(
-        currentStatus.value,
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.easeInOut,
-      );
-
   Future<void> getOrderDetails() async {
     final params = GetOrderDetailsUseCaseParams(
       loading: loading,
-      type: ServiceType.customsClearance.value,
+      type: serviceType.value,
       orderId: orderId,
     );
     final result = await _getOrderDetailsUseCase.execute(params);
     result.fold((_) => _, (r) {
       orderModel = r;
       currentTab(0);
-      orderSections = orderModel.customsClrearse;
     });
   }
 
@@ -78,7 +65,7 @@ class OrderDetailsController extends GetxController {
   }) async {
     final params = UpdateOrderStatusUseCaseParams(
       loading: false.obs,
-      type: ServiceType.customsClearance.value,
+      type: ServiceTypes.customsClearance.value,
       statusId: statusId,
       status: status,
       comment: comment,
@@ -97,7 +84,7 @@ class OrderDetailsController extends GetxController {
     for (var image in images) {
       final params = UploadImageUseCaseParams(
         loading: false.obs,
-        pageName: '${ServiceType.customsClearance.value}/step',
+        pageName: '${ServiceTypes.customsClearance.value}/step',
         path: 'customclearancestep${orderModel.id}',
         orderId: statusId.toString(),
         field: 'customclearancestep_file',
@@ -114,7 +101,7 @@ class OrderDetailsController extends GetxController {
   Future<void> deleteImage(int imageId) async {
     final params = DeleteFileUseCaseParams(
         loading: false.obs,
-        pageName: '${ServiceType.customsClearance.value}/step',
+        pageName: '${ServiceTypes.customsClearance.value}/step',
         id: imageId);
     final result = await _deleteFileUseCase.execute(params);
     result.fold(

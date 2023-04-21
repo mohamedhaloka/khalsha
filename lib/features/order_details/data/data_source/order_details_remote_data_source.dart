@@ -1,8 +1,10 @@
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' as dio;
+import 'package:get/get.dart';
 import 'package:khalsha/core/data/services/http_service.dart';
 import 'package:khalsha/core/domain/error/exceptions.dart';
+import 'package:khalsha/features/service_intro/presentation/get/controllers/controller.dart';
 
-import '../../../orders/data/models/order_model.dart';
+import '../../../orders/domain/entities/order_model.dart';
 
 abstract class OrderDetailsRemoteDataSource {
   Future<OrderModel> getOrderDetails(String type, int id);
@@ -23,8 +25,11 @@ class OrderDetailsRemoteDataSourceImpl extends OrderDetailsRemoteDataSource {
   Future<OrderModel> getOrderDetails(String type, int id) async {
     final response = await _httpService.get('importer/$type/$id');
     if (response.statusCode == 200) {
-      return OrderModel.fromJson(response.data['result']);
+      ServiceTypes? serviceType =
+          ServiceTypes.values.firstWhereOrNull((e) => e.value == type);
+      return serviceType!.getModel(response.data['result']);
     } else {
+      ServiceTypes.airFreight;
       throw const ServerException();
     }
   }
@@ -36,16 +41,39 @@ class OrderDetailsRemoteDataSourceImpl extends OrderDetailsRemoteDataSource {
     String status,
     String note,
   ) async {
-    final formData = FormData.fromMap({
+    final formData = dio.FormData.fromMap({
       'status': status,
       'note': note,
     });
     final response = await _httpService.post(
-        'importer/$type/action/step/$statusId', formData);
+      'importer/$type/action/step/$statusId',
+      formData,
+    );
     if (response.statusCode == 200) {
       return response.data['message'];
     } else {
       throw ServerException(errorMessage: response.data['message'].toString());
+    }
+  }
+}
+
+extension ServiceTypesToModel on ServiceTypes {
+  OrderModel getModel(Map<String, dynamic> json) {
+    switch (this) {
+      case ServiceTypes.customsClearance:
+        return CustomsClearanceOrder.fromJson(json);
+      case ServiceTypes.landShipping:
+        return CustomsClearanceOrder.fromJson(json);
+      case ServiceTypes.stores:
+        return CustomsClearanceOrder.fromJson(json);
+      case ServiceTypes.marineShipping:
+        return CustomsClearanceOrder.fromJson(json);
+      case ServiceTypes.airFreight:
+        return CustomsClearanceOrder.fromJson(json);
+      case ServiceTypes.laboratoryAndStandards:
+        return CustomsClearanceOrder.fromJson(json);
+      default:
+        return CustomsClearanceOrder.fromJson(json);
     }
   }
 }

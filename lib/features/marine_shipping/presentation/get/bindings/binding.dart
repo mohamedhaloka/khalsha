@@ -4,9 +4,12 @@ class AddEditMarineShippingServiceBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<AddEditMarineShippingServiceController>(
-        () => AddEditMarineShippingServiceController(
-              InjectionContainer.sl(),
-              InjectionContainer.sl(),
-            ));
+      () => AddEditMarineShippingServiceController(
+        InjectionContainer.sl(),
+        InjectionContainer.sl(),
+        InjectionContainer.sl(),
+        InjectionContainer.sl(),
+      ),
+    );
   }
 }

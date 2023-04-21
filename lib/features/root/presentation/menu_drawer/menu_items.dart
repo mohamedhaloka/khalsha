@@ -44,7 +44,7 @@ class _MenuItem extends StatelessWidget {
             Expanded(
                 child: Text(
               item.text,
-              style: Get.textTheme.subtitle2!.copyWith(
+              style: Get.textTheme.titleSmall!.copyWith(
                 color: ColorManager.primaryColor,
                 fontWeight: FontWeight.bold,
               ),

@@ -55,7 +55,7 @@ class _FillData extends GetView<AddEditAirFreightServiceController> {
   @override
   Widget build(BuildContext context) {
     return FillDataStepView(
-      serviceName: ServiceType.airFreight.value,
+      serviceName: ServiceTypes.airFreight.value,
       body: Column(
         children: [
           ToggleItemWithHolder(
@@ -93,7 +93,7 @@ class _FillData extends GetView<AddEditAirFreightServiceController> {
             firstInputHint: '2000',
             firstInputFlex: 2,
             selectedDropDownValue: ''.obs,
-            source: [],
+            source: const [],
           ),
           ChooseItemWithHolder(
             title: 'جاهزية الشحنة',
@@ -101,7 +101,7 @@ class _FillData extends GetView<AddEditAirFreightServiceController> {
             bottomSheetTitle: 'جاهزية الشحنة',
             height: Get.height / 2,
             body: MultiItemsList(
-              items: [],
+              items: const [],
               selectedItem: DataModel.empty().obs,
             ),
           ),

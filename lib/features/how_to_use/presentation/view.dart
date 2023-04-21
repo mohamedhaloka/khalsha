@@ -72,7 +72,7 @@ class _OnBoardingItemView extends StatelessWidget {
               Text(
                 onBoardingItem.subTitle,
                 textAlign: TextAlign.center,
-                style: Get.textTheme.button,
+                style: Get.textTheme.labelLarge,
               ),
             ],
           ))

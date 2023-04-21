@@ -91,7 +91,7 @@ class MapView extends GetView<MapController> {
                                       ? 'جاري البحث عن الموقع'
                                       : controller.locationName,
                                   textAlign: TextAlign.center,
-                                  style: Get.textTheme.subtitle1!
+                                  style: Get.textTheme.titleMedium!
                                       .copyWith(color: Get.theme.primaryColor),
                                 )),
                           ),

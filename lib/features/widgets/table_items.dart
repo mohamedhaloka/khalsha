@@ -32,7 +32,7 @@ class TableItems extends StatelessWidget {
                           child: Center(
                             child: Text(
                               e,
-                              style: Get.textTheme.caption!.copyWith(
+                              style: Get.textTheme.bodySmall!.copyWith(
                                 fontWeight: FontWeight.w900,
                                 color: Colors.black,
                                 fontSize: 12,

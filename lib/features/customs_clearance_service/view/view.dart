@@ -26,7 +26,7 @@ class _FillData extends GetView<AddEditCustomsClearanceController> {
   @override
   Widget build(BuildContext context) {
     return FillDataStepView(
-      serviceName: ServiceType.customsClearance.value,
+      serviceName: ServiceTypes.customsClearance.value,
       body: Column(
         children: [
           TextFieldInputWithHolder(

@@ -16,23 +16,23 @@ class _OrderDataTab extends GetView<OrderDetailsController> {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (_, int index) => _DetailsGroupItem(
-                  text: controller.orderSections[index].title,
-                  details: controller.orderSections[index].data,
+                  text: controller.orderModel.data[index].title,
+                  details: controller.orderModel.data[index].data,
                 ),
-            itemCount: controller.orderSections.length),
-        if (!UserDataLocal.instance.isImporterExporter &&
-            controller.orderModel.offers.isEmpty) ...[
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
-            child: CustomButton(
-              width: Get.width,
-              height: 36,
-              radius: 10,
-              onTap: () {},
-              text: 'إنشاء عرض سعر',
-            ),
-          )
-        ],
+            itemCount: controller.orderModel.data.length),
+        // if (!UserDataLocal.instance.isImporterExporter &&
+        //     controller.orderModel.offers!.isEmpty) ...[
+        //   Padding(
+        //     padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+        //     child: CustomButton(
+        //       width: Get.width,
+        //       height: 36,
+        //       radius: 10,
+        //       onTap: () {},
+        //       text: 'إنشاء عرض سعر',
+        //     ),
+        //   )
+        // ],
       ],
     );
   }
@@ -45,7 +45,7 @@ class _DetailsGroupItem extends StatelessWidget {
     required this.text,
   }) : super(key: key);
   final String text;
-  final List<ItemModel> details;
+  final List<OrderDetailsItemModel> details;
 
   @override
   Widget build(BuildContext context) {
@@ -76,21 +76,25 @@ class _DetailsGroupItem extends StatelessWidget {
                 children: [
                   Expanded(
                       child: Text(
-                    details[index].text,
-                    textAlign: TextAlign.left,
+                    details[index].title ?? '',
+                    textAlign: details[index].description != null
+                        ? TextAlign.left
+                        : TextAlign.center,
                     style: Get.textTheme.titleSmall!.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
                   )),
-                  const VerticalDivider(
-                    color: ColorManager.lightGreyColor,
-                    width: 50,
-                  ),
-                  Expanded(
-                      child: Text(
-                    details[index].description ?? '',
-                    textAlign: TextAlign.right,
-                  )),
+                  if (details[index].description != null) ...[
+                    const VerticalDivider(
+                      color: ColorManager.lightGreyColor,
+                      width: 50,
+                    ),
+                    Expanded(
+                        child: Text(
+                      details[index].description ?? '',
+                      textAlign: TextAlign.right,
+                    )),
+                  ]
                 ],
               ),
             ),

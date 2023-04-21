@@ -16,8 +16,9 @@ class _PricingOffersTab extends GetView<OrderDetailsController> {
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           padding: const EdgeInsets.symmetric(vertical: 15),
-          itemBuilder: (_, int index) =>
-              _OfferItem(controller.orderModel.offers[index]),
+          itemBuilder: (_, int index) => _OfferItem(
+            controller.orderModel.offers[index],
+          ),
           separatorBuilder: (_, __) => const Divider(),
           itemCount: controller.orderModel.offers.length,
         ),
@@ -43,12 +44,12 @@ class _OfferItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              offer.user.name,
+              offer.user!.name!,
               style: Get.textTheme.titleMedium!.copyWith(
                 color: ColorManager.primaryColor,
               ),
             ),
-            Text(offer.total),
+            Text(offer.total!),
           ],
         ),
       ),

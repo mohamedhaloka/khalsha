@@ -26,4 +26,20 @@ class MarineShipmentRepositoryImpl extends MarineShipmentRepository {
       );
     }
   }
+
+  @override
+  Future<Either<Failure, Map<String, dynamic>>> updateOrder(
+      MarineShipmentData marineShipmentData) async {
+    try {
+      final result =
+          await _marineShipmentRemoteDataSource.updateOrder(marineShipmentData);
+      return right(result);
+    } on ServerException catch (e) {
+      return left(ServerFailure(statusMessage: e.errorMessage));
+    } on DioError catch (e) {
+      return left(
+        ServerFailure(statusMessage: e.response!.data['message'].toString()),
+      );
+    }
+  }
 }

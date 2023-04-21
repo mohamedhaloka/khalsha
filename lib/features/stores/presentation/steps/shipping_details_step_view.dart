@@ -7,56 +7,96 @@ class ShippingDetailsStepView extends GetView<AddEditStoresServiceController> {
   Widget build(BuildContext context) {
     return Obx(() => ListView(
           children: [
-            DropDownInputWithHolder(
-              title: 'المساحة المطلوبة',
-              hint: 'أختر',
-              dropValue: controller.selectedSpaceType,
-              source: SpaceTypes.values
-                  .map((e) => DropdownMenuItem(
-                        value: e.value.toString(),
-                        child: Text(e.value.tr),
-                      ))
-                  .toList()
-                  .obs,
-            ),
-            if (controller.selectedSpaceType.value ==
-                SpaceTypes.pallet.value) ...[
-              TextFieldInputWithHolder(
-                title: 'عدد الطبليات',
-                controller: controller.palletNumber,
-              ),
-            ] else ...[
-              DropDownInputWithHolder(
-                title: 'المساحة التي تحتاجها',
+            FormBuilderField(
+              builder: (FormFieldState<dynamic> field) =>
+                  DropDownInputWithHolder(
+                title: 'المساحة المطلوبة',
                 hint: 'أختر',
-                dropValue: controller.selectedWareHouseSpace,
-                source: WareHouseTypes.values
+                dropValue: controller.selectedSpaceType,
+                source: SpaceTypes.values
                     .map((e) => DropdownMenuItem(
                           value: e.value.toString(),
                           child: Text(e.value.tr),
                         ))
                     .toList()
                     .obs,
+                onTap: (int id) {
+                  field.didChange(id.toString());
+                },
+                errorText: field.errorText,
+              ),
+              validator: FormBuilderValidators.required(),
+              name: 'space_type',
+            ),
+            if (controller.selectedSpaceType.value ==
+                SpaceTypes.pallet.value) ...[
+              FormBuilderField(
+                builder: (FormFieldState<dynamic> field) =>
+                    TextFieldInputWithHolder(
+                  title: 'عدد الطبليات',
+                  controller: controller.palletNumber,
+                  onChanged: (String value) {
+                    field.didChange(value);
+                  },
+                  errorText: field.errorText,
+                ),
+                validator: FormBuilderValidators.required(),
+                name: 'pallet_numbers',
+              ),
+            ] else ...[
+              FormBuilderField(
+                builder: (FormFieldState<dynamic> field) {
+                  return DropDownInputWithHolder(
+                    title: 'المساحة التي تحتاجها',
+                    hint: 'أختر',
+                    dropValue: controller.selectedWareHouseSpace,
+                    source: WareHouseTypes.values
+                        .map((e) => DropdownMenuItem(
+                              value: e.value.toString(),
+                              child: Text(e.value.tr),
+                            ))
+                        .toList()
+                        .obs,
+                    onTap: (int id) => field.didChange(id.toString()),
+                    errorText: field.errorText,
+                  );
+                },
+                validator: FormBuilderValidators.required(),
+                name: 'ware_house_space',
               ),
               if (controller.selectedWareHouseSpace.value ==
                   WareHouseTypes.custom.value) ...[
-                TextFieldInputWithHolder(
-                  title: 'المساحة بالمتر المربع',
-                  controller: controller.customWareHouseSpace,
+                FormBuilderField(
+                  builder: (FormFieldState<dynamic> field) =>
+                      TextFieldInputWithHolder(
+                    title: 'المساحة بالمتر المربع',
+                    controller: controller.customWareHouseSpace,
+                    onChanged: (String value) => field.didChange(value),
+                    errorText: field.errorText,
+                  ),
+                  validator: FormBuilderValidators.required(),
+                  name: 'custom_ware_house_space',
                 ),
               ],
             ],
-            DropDownInputWithHolder(
-              title: 'نوع التعاقد',
-              hint: 'أختر',
-              dropValue: controller.selectedContactType,
-              source: ContractTypes.values
-                  .map((e) => DropdownMenuItem(
-                        value: e.value.toString(),
-                        child: Text(e.value.tr),
-                      ))
-                  .toList()
-                  .obs,
+            FormBuilderField(
+              builder: (FormFieldState<dynamic> field) =>
+                  DropDownInputWithHolder(
+                title: 'نوع التعاقد',
+                hint: 'أختر',
+                dropValue: controller.selectedContactType,
+                source: ContractTypes.values
+                    .map((e) => DropdownMenuItem(
+                          value: e.value.toString(),
+                          child: Text(e.value.tr),
+                        ))
+                    .toList()
+                    .obs,
+                onTap: (int id) => field.didChange(id.toString()),
+                errorText: field.errorText,
+              ),
+              validator: FormBuilderValidators.required(),
+              name: 'contract_type',
             ),
             InputHolderBox(
               CounterComponent(

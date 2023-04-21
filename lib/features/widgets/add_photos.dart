@@ -34,7 +34,7 @@ class _AddPhotosState extends State<AddPhotos> {
           children: [
             Text(
               'أضف صور',
-              style: Get.textTheme.subtitle1!
+              style: Get.textTheme.titleMedium!
                   .copyWith(fontWeight: FontWeight.w600),
             ),
             if (widget.text != null) ...[
@@ -42,7 +42,7 @@ class _AddPhotosState extends State<AddPhotos> {
               Expanded(
                   child: Text(
                 (widget.text ?? '').tr,
-                style: Get.textTheme.caption!
+                style: Get.textTheme.bodySmall!
                     .copyWith(color: ColorManager.greyColor),
               ))
             ]

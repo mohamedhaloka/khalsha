@@ -19,7 +19,7 @@ class TextUnderline extends StatelessWidget {
         Text(
           text,
           textAlign: TextAlign.center,
-          style: Get.textTheme.headline6!.copyWith(
+          style: Get.textTheme.titleLarge!.copyWith(
             color: contentColor ?? ColorManager.secondaryColor,
             fontWeight: FontWeight.bold,
           ),
@@ -44,7 +44,7 @@ class TextDash extends StatelessWidget {
     return Text(
       "- ${text.tr} -",
       textAlign: TextAlign.center,
-      style: Get.textTheme.headline5!.copyWith(
+      style: Get.textTheme.headlineSmall!.copyWith(
         color: ColorManager.secondaryColor,
         fontWeight: FontWeight.bold,
       ),

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:khalsha/features/service_intro/presentation/get/controllers/controller.dart';
-import 'package:khalsha/features/widgets/custom_button.dart';
 
 import '../../core/data/models/item_model.dart';
-import '../../core/inputs_style.dart';
 import '../../core/presentation/themes/colors_manager.dart';
 
 class ServicesFiltrationSheet extends StatefulWidget {
@@ -25,12 +23,12 @@ class ServicesFiltrationSheet extends StatefulWidget {
 
 class _ServicesFiltrationSheetState extends State<ServicesFiltrationSheet> {
   List<ItemModel> services = <ItemModel>[
-    ItemModel(text: ServiceType.customsClearance.value, id: 0),
-    ItemModel(text: ServiceType.stores.value, id: 1),
-    ItemModel(text: ServiceType.laboratoryAndStandards.value, id: 2),
-    ItemModel(text: ServiceType.landShipping.value, id: 3),
-    ItemModel(text: ServiceType.marineShipping.value, id: 4),
-    ItemModel(text: ServiceType.airFreight.value, id: 5),
+    ItemModel(text: ServiceTypes.customsClearance.value, id: 0),
+    ItemModel(text: ServiceTypes.landShipping.value, id: 1),
+    ItemModel(text: ServiceTypes.stores.value, id: 2),
+    ItemModel(text: ServiceTypes.marineShipping.value, id: 3),
+    ItemModel(text: ServiceTypes.airFreight.value, id: 4),
+    ItemModel(text: ServiceTypes.laboratoryAndStandards.value, id: 5),
   ];
 
   @override
@@ -60,6 +58,7 @@ class _ServicesFiltrationSheetState extends State<ServicesFiltrationSheet> {
             onTap: () {
               int id = services[index].id ?? 0;
               widget.selectedService(id);
+              widget.onDoneTapped();
             },
             child: Obx(() {
               int id = services[index].id ?? 0;
@@ -83,27 +82,6 @@ class _ServicesFiltrationSheetState extends State<ServicesFiltrationSheet> {
             }),
           ),
         ),
-        Row(
-          children: [
-            Expanded(
-              child: CustomButton(
-                height: inputHeight,
-                radius: radius,
-                onTap: widget.onDoneTapped,
-                text: 'تأكيد',
-              ),
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: CustomButton(
-                height: inputHeight,
-                radius: radius,
-                onTap: () => widget.selectedService(0),
-                text: 'إزالة',
-              ),
-            ),
-          ],
-        )
       ],
     );
   }

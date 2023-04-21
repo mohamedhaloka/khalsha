@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/features/orders/data/models/order_model.dart';
 
+import '../../core/data/models/item_model.dart';
 import '../../core/presentation/themes/colors_manager.dart';
 
 class Bill extends StatelessWidget {
-  const Bill(this.invoice, {Key? key}) : super(key: key);
-  final Invoice invoice;
+  const Bill({
+    Key? key,
+    required this.items,
+    required this.total,
+    required this.orderId,
+    required this.userName,
+    required this.billCreatedDate,
+    required this.userBio,
+  }) : super(key: key);
+  final String userName, userBio, orderId, billCreatedDate, total;
+  final List<ItemModel> items;
 
   @override
   Widget build(BuildContext context) {
@@ -54,17 +63,17 @@ class Bill extends StatelessWidget {
                     TableRow(children: [
                       _BillUserDetails(
                         title: 'الفاتورة بإسم:',
-                        subTitle: invoice.user.name,
-                        hint: invoice.user.bio,
+                        subTitle: userName,
+                        hint: userBio,
                       ),
                       _BillUserDetails(
                         title: 'الفاتورة رقم:',
-                        subTitle: '#${invoice.customClearanceId}',
-                        hint: 'بتاريخ : ${invoice.importListDate}',
+                        subTitle: '#$orderId',
+                        hint: 'بتاريخ : $billCreatedDate',
                       ),
                       _BillUserDetails(
                         title: 'إجمالي الفاتورة:',
-                        subTitle: invoice.total,
+                        subTitle: total,
                         hint: 'دولار أمريكي',
                       ),
                     ])
@@ -97,26 +106,52 @@ class Bill extends StatelessWidget {
                 ),
                 ListView.separated(
                   padding: const EdgeInsets.symmetric(horizontal: 6),
-                  itemBuilder: (_, int index) => Row(
-                    children: [
-                      Expanded(
-                        child: Text(invoice.items[index].text),
-                      ),
-                      Text(invoice.items[index].description ?? ''),
-                    ],
+                  itemBuilder: (_, int index) => Container(
+                    color: (items[index].mainItem ?? false)
+                        ? ColorManager.darkTobyColor
+                        : null,
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            items[index].text,
+                            style: TextStyle(
+                              color: (items[index].mainItem ?? false)
+                                  ? Colors.white
+                                  : null,
+                              fontWeight: (items[index].mainItem ?? false)
+                                  ? FontWeight.bold
+                                  : null,
+                            ),
+                          ),
+                        ),
+                        Text(
+                          items[index].description ?? '',
+                          style: TextStyle(
+                            color: (items[index].mainItem ?? false)
+                                ? Colors.white
+                                : null,
+                            fontWeight: (items[index].mainItem ?? false)
+                                ? FontWeight.bold
+                                : null,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   separatorBuilder: (_, __) => const Divider(
                     color: ColorManager.lightGreyColor,
+                    height: 0,
                   ),
-                  itemCount: invoice.items.length,
+                  itemCount: items.length,
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                 ),
               ],
             ),
           ),
-          _separator,
-          const _BillPricingDetails()
         ],
       ),
     );
@@ -167,59 +202,4 @@ class _BillUserDetails extends StatelessWidget {
       ),
     );
   }
-}
-
-class _BillPricingDetails extends StatelessWidget {
-  const _BillPricingDetails({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(15, 20, 15, 40),
-      child: Column(
-        children: [
-          _billPriceItemData(
-            title: 'الإجمالي بعد الضريبة',
-            price: '12.000',
-            backgroundColor: ColorManager.darkTobyColor,
-            contentColor: Colors.white,
-            contentWeight: FontWeight.bold,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _billPriceItemData({
-    required String title,
-    required String price,
-    Color? backgroundColor,
-    Color? contentColor,
-    FontWeight? contentWeight,
-  }) =>
-      Container(
-        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
-        margin: const EdgeInsets.symmetric(vertical: 2),
-        color: backgroundColor,
-        child: Row(
-          children: [
-            Expanded(
-              child: Text(
-                title,
-                style: TextStyle(
-                  fontWeight: contentWeight,
-                  color: contentColor,
-                ),
-              ),
-            ),
-            Text(
-              '$price دولار أمريكي',
-              style: TextStyle(
-                fontWeight: contentWeight,
-                color: contentColor,
-              ),
-            ),
-          ],
-        ),
-      );
 }

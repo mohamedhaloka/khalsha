@@ -63,7 +63,7 @@ class _FillData
   Widget build(BuildContext context) {
     return FillDataStepView(
       serviceName:
-          '${ServiceType.landShipping.value.tr} / ${'private-transfer'.tr}',
+          '${ServiceTypes.landShipping.value.tr} / ${'private-transfer'.tr}',
       body: Column(
         children: [
           ToggleItemWithHolder(
@@ -182,7 +182,7 @@ class _PickLocations
               DropDownInputWithHolder(
                 title: 'الدولة',
                 dropValue: ''.obs,
-                source: [],
+                source: const [],
               ),
               const Divider(
                 color: ColorManager.greyColor,
@@ -190,7 +190,7 @@ class _PickLocations
               DropDownInputWithHolder(
                 title: 'المدينة',
                 dropValue: ''.obs,
-                source: [],
+                source: const [],
               ),
             ],
           ),
@@ -204,7 +204,7 @@ class _PickLocations
               DropDownInputWithHolder(
                 title: 'الدولة',
                 dropValue: ''.obs,
-                source: [],
+                source: const [],
               ),
               const Divider(
                 color: ColorManager.greyColor,
@@ -212,7 +212,7 @@ class _PickLocations
               DropDownInputWithHolder(
                 title: 'المدينة',
                 dropValue: ''.obs,
-                source: [],
+                source: const [],
               ),
             ],
           ),

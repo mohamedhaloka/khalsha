@@ -41,7 +41,7 @@ class NotificationItem extends StatelessWidget {
                 children: [
                   Text(
                     notification.text,
-                    style: Get.textTheme.subtitle2!.copyWith(
+                    style: Get.textTheme.titleSmall!.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -49,7 +49,8 @@ class NotificationItem extends StatelessWidget {
                     notification.description ?? '',
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: Get.textTheme.caption!.copyWith(color: Colors.black),
+                    style:
+                        Get.textTheme.bodySmall!.copyWith(color: Colors.black),
                   )
                 ],
               ))

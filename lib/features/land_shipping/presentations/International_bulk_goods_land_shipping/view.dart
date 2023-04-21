@@ -62,7 +62,7 @@ class _FillData
   @override
   Widget build(BuildContext context) {
     return FillDataStepView(
-      serviceName: '${ServiceType.landShipping.value.tr} / ${'bulk-goods'.tr}',
+      serviceName: '${ServiceTypes.landShipping.value.tr} / ${'bulk-goods'.tr}',
       body: Column(
         children: [
           Obx(
@@ -197,7 +197,7 @@ class _PickLocations
               DropDownInputWithHolder(
                 dropValue: ''.obs,
                 title: 'الدولة',
-                source: [],
+                source: const [],
               ),
               const Divider(
                 color: ColorManager.greyColor,
@@ -205,7 +205,7 @@ class _PickLocations
               DropDownInputWithHolder(
                 dropValue: ''.obs,
                 title: 'المدينة',
-                source: [],
+                source: const [],
               ),
             ],
           ),

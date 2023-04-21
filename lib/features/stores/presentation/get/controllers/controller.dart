@@ -10,11 +10,13 @@ class AddEditStoresServiceController extends GetxController {
     this._updateWareHouseOrderUseCase,
   );
 
-  final OrderModel? orderData = Get.arguments;
-  bool get isAdd => orderData == null;
+  // final OrderModel? orderData = Get.arguments;
+  // bool get isAdd => orderData == null;
 
   PageController pageController = PageController();
   RxInt currentStep = 0.obs;
+
+  final formKey = GlobalKey<FormBuilderState>();
 
   RxBool loading = false.obs;
 
@@ -32,11 +34,11 @@ class AddEditStoresServiceController extends GetxController {
     return '';
   }
 
-  List<Widget> children = const [
-    _FillData(),
-    ShippingDetailsStepView(),
-    _AdditionalServices(),
-    OrderSendSuccessfullyStepView(),
+  List<Widget> children = [
+    const _FillData(),
+    const ShippingDetailsStepView(),
+    const _AdditionalServices(),
+    const OrderSendSuccessfullyStepView(),
   ];
 
   TextEditingController name = TextEditingController(),
@@ -91,39 +93,38 @@ class AddEditStoresServiceController extends GetxController {
     await _getData('certificates',
         onSuccess: (data) => certificates.addAll(data));
 
-    if (orderData == null) {
-      loading(false);
-      return;
-    }
-    name.text = orderData!.title;
-    selectedShippingField(orderData!.storingPurposeId);
-    selectedStorageType(orderData!.storingType);
-    selectedItem(orderData!.item);
-    locationDetails = LocationDetails(
-      lat: double.tryParse(orderData!.addressLat) ?? 0.0,
-      long: double.tryParse(orderData!.addressLng) ?? 0.0,
-      name: orderData!.address,
-    );
-    location.text = orderData!.address;
-    selectedSpaceType(orderData!.spaceType);
-    selectedWareHouseSpace(orderData!.warehouseSpace);
-    customWareHouseSpace.text = orderData!.customWarehouseSpace;
-    selectedContactType(orderData!.contractType);
-    contractDays(orderData!.contractCount);
-    notes.text = orderData!.notes;
-    palletNumber.text = orderData!.palletCounts.toString();
-    print(orderData!.contractStartAt);
-    contractDate = orderData!.contractStartAt;
-
-    needPackaging(orderData!.needPackaging == 'yes' ? true : false);
-    importCertificates(orderData!.importCertificates == 'yes' ? true : false);
-    exportCertificates(orderData!.exportCertificates == 'yes' ? true : false);
-    farmingProcedures(orderData!.farmingProcedures == 'yes' ? true : false);
-    for (var e in orderData!.certificates) {
+    // if (orderData == null) {
+    //   loading(false);
+    //   return;
+    // }
+    // name.text = orderData!.title;
+    // selectedShippingField(orderData!.storingPurposeId);
+    // selectedStorageType(orderData!.storingType);
+    // selectedItem(orderData!.item);
+    // locationDetails = LocationDetails(
+    //   lat: double.tryParse(orderData!.addressLat!) ?? 0.0,
+    //   long: double.tryParse(orderData!.addressLng!) ?? 0.0,
+    //   name: orderData!.address,
+    // );
+    // location.text = orderData!.address!;
+    // selectedSpaceType(orderData!.spaceType);
+    // selectedWareHouseSpace(orderData!.warehouseSpace);
+    // customWareHouseSpace.text = orderData!.customWarehouseSpace!;
+    // selectedContactType(orderData!.contractType);
+    // contractDays(orderData!.contractCount);
+    // // notes.text = orderData!.notes ?? '';
+    // palletNumber.text = orderData!.palletCounts.toString();
+    // contractDate = orderData!.contractStartAt!;
+    //
+    // needPackaging(orderData!.needPackaging == 'yes' ? true : false);
+    // importCertificates(orderData!.importCertificates == 'yes' ? true : false);
+    // exportCertificates(orderData!.exportCertificates == 'yes' ? true : false);
+    // farmingProcedures(orderData!.farmingProcedures == 'yes' ? true : false);
+    /*for (var e in orderData!.certificates!) {
       final item =
           certificates.firstWhereOrNull((element) => element.id == e.id);
       item?.selected(true);
-    }
+    }*/
 
     loading(false);
   }
@@ -164,15 +165,18 @@ class AddEditStoresServiceController extends GetxController {
 
   void onTapNext() {
     if (currentStep.value == children.length - 1) {
-      if (isAdd) {
-        _createOrder();
-        return;
-      }
+      // if (isAdd) {
+      _createOrder();
+      // return;
+      // }
 
-      _updateOrder();
+      // _updateOrder();
       return;
     }
 
+    formKey.currentState?.save();
+
+    if (!formKey.currentState!.validate()) return;
     pageController.nextPage(
       duration: const Duration(milliseconds: 500),
       curve: Curves.easeInOut,
@@ -180,7 +184,7 @@ class AddEditStoresServiceController extends GetxController {
   }
 
   WareHouseData get _wareHouseData => WareHouseData(
-        id: isAdd ? 0 : orderData!.id,
+        id: 0, //isAdd ? 0 : orderData!.id,
         needPackaging: needPackaging.value ? 'yes' : 'no',
         importCertificates: importCertificates.value ? 'yes' : 'no',
         exportCertificates: exportCertificates.value ? 'yes' : 'no',

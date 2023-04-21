@@ -23,7 +23,7 @@ class RegisterView extends GetView<RegisterController> {
             padding: const EdgeInsets.fromLTRB(0, 100, 0, 0),
             child: Text(
               'إنشاء حساب جديد',
-              style: Get.textTheme.headline6!.copyWith(
+              style: Get.textTheme.titleLarge!.copyWith(
                 color: ColorManager.primaryColor,
                 fontWeight: FontWeight.bold,
               ),
@@ -150,7 +150,7 @@ class _RegisterTabs extends StatelessWidget {
                     child: Center(
                       child: Text(
                         item.text,
-                        style: Get.textTheme.caption!.copyWith(
+                        style: Get.textTheme.bodySmall!.copyWith(
                             color: selected
                                 ? ColorManager.primaryColor
                                 : Colors.white),

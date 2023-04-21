@@ -17,10 +17,11 @@ class TextFieldInputWithDropDownWithHolder extends StatelessWidget {
     this.firstInputFlex,
     this.secondInputFlex,
     this.firstInputController,
+    this.errorMsg,
     required this.selectedDropDownValue,
     required this.source,
   }) : super(key: key);
-  final String? title, firstInputHint, secondInputHint;
+  final String? title, firstInputHint, secondInputHint, errorMsg;
   final int? firstInputFlex, secondInputFlex;
   final TextEditingController? firstInputController;
   final RxString selectedDropDownValue;
@@ -77,6 +78,7 @@ class TextFieldInputWithDropDownWithHolder extends StatelessWidget {
           ),
         ],
       ),
+      errorText: errorMsg,
     );
   }
 }

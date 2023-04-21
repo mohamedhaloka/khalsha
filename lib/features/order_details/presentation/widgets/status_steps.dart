@@ -5,10 +5,10 @@ import 'package:khalsha/core/presentation/themes/colors_manager.dart';
 import 'package:khalsha/features/order_details/presentation/bottom_sheets/change_order_status_sheet.dart';
 import 'package:khalsha/features/order_details/presentation/get/controllers/controller.dart';
 import 'package:khalsha/features/order_details/presentation/view.dart';
-import 'package:khalsha/features/orders/data/models/order_model.dart';
 import 'package:khalsha/features/widgets/headline_bottom_sheet.dart';
 
 import '../../../../core/data/services/http_service.dart';
+import '../../../orders/domain/entities/order_model.dart';
 
 class OrderStatusSteps extends GetView<OrderDetailsController> {
   const OrderStatusSteps({
@@ -49,7 +49,7 @@ class _OrderStep extends StatelessWidget {
           : () {
               Get.bottomSheet(
                 HeadLineBottomSheet(
-                  bottomSheetTitle: stepModel.step,
+                  bottomSheetTitle: stepModel.step!,
                   height: Get.height / 1.5,
                   body: ChangeOrderStatusSheet(stepModel),
                 ),
@@ -71,7 +71,7 @@ class _OrderStep extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  stepModel.step.tr,
+                  stepModel.step!.tr,
                   style: Get.textTheme.titleMedium!.copyWith(
                     fontWeight: FontWeight.bold,
                     color: stepModel.status == kDone
@@ -81,15 +81,15 @@ class _OrderStep extends StatelessWidget {
                 ),
                 const SizedBox(width: 12),
                 Text(
-                  stepModel.status.tr,
+                  stepModel.status!.tr,
                   style: const TextStyle(
                     decoration: TextDecoration.underline,
                   ),
                 ),
               ],
             ),
-            Text(stepModel.user.name),
-            if (stepModel.files.isNotEmpty) ...[
+            Text(stepModel.user!.name!),
+            if (stepModel.files!.isNotEmpty) ...[
               const Divider(),
               GridView.builder(
                 shrinkWrap: true,
@@ -100,7 +100,7 @@ class _OrderStep extends StatelessWidget {
                   crossAxisSpacing: 12.0,
                   mainAxisSpacing: 12.0,
                 ),
-                itemCount: stepModel.files.length,
+                itemCount: stepModel.files!.length,
                 itemBuilder: (_, int index) => Stack(
                   alignment: Alignment.center,
                   children: [
@@ -111,7 +111,7 @@ class _OrderStep extends StatelessWidget {
                             const BorderRadius.all(Radius.circular(22)),
                         image: DecorationImage(
                           image: NetworkImage(
-                              '${HttpService.imageBaseURL}${stepModel.files[index].fullPath}'),
+                              '${HttpService.imageBaseURL}${stepModel.files![index].fullPath}'),
                           fit: BoxFit.fill,
                         ),
                       ),
@@ -126,7 +126,7 @@ class _OrderStep extends StatelessWidget {
                         onTap: () async {
                           // loading(true);
                           await controller.deleteImage(
-                            stepModel.files[index].id,
+                            stepModel.files![index].id!,
                           );
                           Get.back();
                           // loading(false);

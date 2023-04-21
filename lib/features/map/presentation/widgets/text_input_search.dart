@@ -49,7 +49,7 @@ class TextFieldSearchState extends State<TextFieldSearch> {
         widget.controller.selection = TextSelection(
             baseOffset: 0, extentOffset: widget.controller.text.length);
         _overlayEntry = _createOverlayEntry();
-        Overlay.of(context)?.insert(_overlayEntry);
+        Overlay.of(context).insert(_overlayEntry);
       } else {
         _overlayEntry.remove();
       }

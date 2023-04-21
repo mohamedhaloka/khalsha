@@ -15,14 +15,17 @@ class ChooseItemWithHolder extends StatelessWidget {
     this.height,
     this.bottomSheetTitle,
     this.hint,
+    this.onBack,
+    this.errorMsg,
     required this.selectedItem,
     required this.body,
   }) : super(key: key);
   final String title;
-  final String? bottomSheetTitle, hint;
+  final String? bottomSheetTitle, hint, errorMsg;
   final Rx<DataModel> selectedItem;
   final Widget body;
   final double? height;
+  final void Function(bool)? onBack;
 
   @override
   Widget build(BuildContext context) {
@@ -45,14 +48,22 @@ class ChooseItemWithHolder extends StatelessWidget {
           ),
           Expanded(
             child: InkWell(
-              onTap: () => Get.bottomSheet(
-                HeadLineBottomSheet(
-                  height: height,
-                  body: body,
-                  bottomSheetTitle: bottomSheetTitle ?? title,
-                ),
-                isScrollControlled: true,
-              ),
+              onTap: () async {
+                final result = await Get.bottomSheet(
+                  HeadLineBottomSheet(
+                    height: height,
+                    body: body,
+                    bottomSheetTitle: bottomSheetTitle ?? title,
+                  ),
+                  isScrollControlled: true,
+                  enableDrag: false,
+                  isDismissible: false,
+                ) as bool?;
+
+                if (result == null) return;
+                if (onBack == null) return;
+                onBack!(result);
+              },
               child: Container(
                 height: inputHeight,
                 padding: const EdgeInsets.all(6),
@@ -74,6 +85,7 @@ class ChooseItemWithHolder extends StatelessWidget {
           ),
         ],
       ),
+      errorText: errorMsg,
     );
   }
 }
