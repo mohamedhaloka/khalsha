@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:khalsha/core/presentation/themes/colors_manager.dart';
 import 'package:khalsha/features/order_details/presentation/bottom_sheets/change_order_status_sheet.dart';
-import 'package:khalsha/features/order_details/presentation/get/controllers/controller.dart';
 import 'package:khalsha/features/order_details/presentation/view.dart';
 import 'package:khalsha/features/widgets/headline_bottom_sheet.dart';
 

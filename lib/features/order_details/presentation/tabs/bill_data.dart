@@ -5,6 +5,7 @@ class _BillDataTab extends GetView<OrderDetailsController> {
 
   @override
   Widget build(BuildContext context) {
+    final orderData = controller.orderModel;
     final invoice = controller.orderModel.invoice;
     return ListView(
       padding: const EdgeInsets.only(top: 30),
@@ -19,13 +20,16 @@ class _BillDataTab extends GetView<OrderDetailsController> {
             total: invoice.total.toString(),
             orderId: invoice.id.toString(),
             userName: invoice.user!.name!,
-            billCreatedDate: invoice.importListDate!,
+            billCreatedDate: invoice.createdAt.toString(),
             userBio: invoice.user!.bio!,
           ),
+          // if (orderData.invoiceUrl != null)
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 12),
             child: CustomButton(
-              onTap: () {},
+              onTap: () {
+                print(orderData.runtimeType);
+              },
               text: 'مشاركة',
             ),
           ),

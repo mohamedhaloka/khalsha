@@ -10,8 +10,8 @@ class AddEditStoresServiceController extends GetxController {
     this._updateWareHouseOrderUseCase,
   );
 
-  // final OrderModel? orderData = Get.arguments;
-  // bool get isAdd => orderData == null;
+  final OrderModel? orderData = Get.arguments;
+  bool get isAdd => orderData == null;
 
   PageController pageController = PageController();
   RxInt currentStep = 0.obs;
@@ -93,38 +93,40 @@ class AddEditStoresServiceController extends GetxController {
     await _getData('certificates',
         onSuccess: (data) => certificates.addAll(data));
 
-    // if (orderData == null) {
-    //   loading(false);
-    //   return;
-    // }
-    // name.text = orderData!.title;
-    // selectedShippingField(orderData!.storingPurposeId);
-    // selectedStorageType(orderData!.storingType);
-    // selectedItem(orderData!.item);
-    // locationDetails = LocationDetails(
-    //   lat: double.tryParse(orderData!.addressLat!) ?? 0.0,
-    //   long: double.tryParse(orderData!.addressLng!) ?? 0.0,
-    //   name: orderData!.address,
-    // );
-    // location.text = orderData!.address!;
-    // selectedSpaceType(orderData!.spaceType);
-    // selectedWareHouseSpace(orderData!.warehouseSpace);
-    // customWareHouseSpace.text = orderData!.customWarehouseSpace!;
-    // selectedContactType(orderData!.contractType);
-    // contractDays(orderData!.contractCount);
-    // // notes.text = orderData!.notes ?? '';
-    // palletNumber.text = orderData!.palletCounts.toString();
-    // contractDate = orderData!.contractStartAt!;
-    //
-    // needPackaging(orderData!.needPackaging == 'yes' ? true : false);
-    // importCertificates(orderData!.importCertificates == 'yes' ? true : false);
-    // exportCertificates(orderData!.exportCertificates == 'yes' ? true : false);
-    // farmingProcedures(orderData!.farmingProcedures == 'yes' ? true : false);
-    /*for (var e in orderData!.certificates!) {
+    if (orderData == null) {
+      loading(false);
+      return;
+    }
+
+    final order = orderData as WareHouseOrder;
+    name.text = orderData!.title;
+    selectedShippingField(order.storingPurposeId);
+    selectedStorageType(order.storingType);
+    selectedItem(order.item);
+    locationDetails = LocationDetails(
+      lat: double.tryParse(order.addressLat) ?? 0.0,
+      long: double.tryParse(order.addressLng) ?? 0.0,
+      name: order.address,
+    );
+    location.text = order.address;
+    selectedSpaceType(order.spaceType);
+    selectedWareHouseSpace(order.warehouseSpace);
+    customWareHouseSpace.text = order.customWarehouseSpace!;
+    selectedContactType(order.contractType);
+    contractDays(order.contractCount);
+    notes.text = order.notes;
+    palletNumber.text = order.palletCounts.toString();
+    contractDate = order.contractStartAt;
+
+    needPackaging(order.needPackaging == 'yes' ? true : false);
+    importCertificates(order.importCertificates == 'yes' ? true : false);
+    exportCertificates(order.exportCertificates == 'yes' ? true : false);
+    farmingProcedures(order.farmingProcedures == 'yes' ? true : false);
+    for (var e in order.certificates) {
       final item =
           certificates.firstWhereOrNull((element) => element.id == e.id);
       item?.selected(true);
-    }*/
+    }
 
     loading(false);
   }
@@ -165,12 +167,12 @@ class AddEditStoresServiceController extends GetxController {
 
   void onTapNext() {
     if (currentStep.value == children.length - 1) {
-      // if (isAdd) {
-      _createOrder();
-      // return;
-      // }
+      if (isAdd) {
+        _createOrder();
+        return;
+      }
 
-      // _updateOrder();
+      _updateOrder();
       return;
     }
 
@@ -184,7 +186,7 @@ class AddEditStoresServiceController extends GetxController {
   }
 
   WareHouseData get _wareHouseData => WareHouseData(
-        id: 0, //isAdd ? 0 : orderData!.id,
+        id: isAdd ? 0 : orderData!.id,
         needPackaging: needPackaging.value ? 'yes' : 'no',
         importCertificates: importCertificates.value ? 'yes' : 'no',
         exportCertificates: exportCertificates.value ? 'yes' : 'no',

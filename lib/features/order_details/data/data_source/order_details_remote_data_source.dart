@@ -65,7 +65,7 @@ extension ServiceTypesToModel on ServiceTypes {
       case ServiceTypes.landShipping:
         return CustomsClearanceOrder.fromJson(json);
       case ServiceTypes.stores:
-        return CustomsClearanceOrder.fromJson(json);
+        return WareHouseOrder.fromJson(json);
       case ServiceTypes.marineShipping:
         return CustomsClearanceOrder.fromJson(json);
       case ServiceTypes.airFreight:

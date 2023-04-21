@@ -21,8 +21,6 @@ class CustomsClearanceOrder extends OrderModel {
   List<ShippingMethod> shippingMethods;
   DataModel currency;
   DataModel shippingPort;
-  List<DataModel> certificates;
-  String invoiceUrl;
 
   CustomsClearanceOrder({
     required super.id,
@@ -33,6 +31,9 @@ class CustomsClearanceOrder extends OrderModel {
     required super.status,
     required super.offers,
     required super.offer,
+    required super.invoiceUrl,
+    required super.invoice,
+    required super.certificates,
     required this.shipmentType,
     required this.chargeField,
     required this.shippingPortId,
@@ -53,9 +54,6 @@ class CustomsClearanceOrder extends OrderModel {
     required this.shippingMethods,
     required this.currency,
     required this.shippingPort,
-    required super.invoice,
-    required this.certificates,
-    required this.invoiceUrl,
   });
 
   int get chargeFieldId {
@@ -117,7 +115,7 @@ class CustomsClearanceOrder extends OrderModel {
       containerData.add(
         ContainerDataModel(
           containerSize: (containerItem.containerSize ?? '').obs,
-          goodsType: (containerItem.containerSize ?? '').obs,
+          goodsType: containerItem.goodTypeId.toString().obs,
           containerCount: TextEditingController(
             text: (int.tryParse(containerItem.containerCount ?? '0') ?? 0)
                 .toString(),
@@ -182,40 +180,6 @@ class CustomsClearanceOrder extends OrderModel {
             ? null
             : CustomsClearanceOffer.fromJson(json["offer"]),
         invoiceUrl: json["invoice_url"] ?? '',
-      );
-
-  factory CustomsClearanceOrder.empty() => CustomsClearanceOrder(
-        id: 0,
-        title: '',
-        userId: 0,
-        user: User.fromJson({}),
-        shipmentType: '',
-        chargeField: '',
-        shippingPortId: 0,
-        deliveryTo: '',
-        customsItem: 'no',
-        wantStorage: 'no',
-        storageDays: '0',
-        offersNum: 0,
-        content: '',
-        shippingMethod: '',
-        total: '',
-        currencyId: 0,
-        notes: '',
-        status: '',
-        createdAt: DateTime.now(),
-        updatedAt: DateTime.now(),
-        steps: [],
-        files: [],
-        items: [],
-        shippingMethods: [],
-        currency: DataModel.fromJson({}),
-        shippingPort: DataModel.fromJson({}),
-        offers: [],
-        certificates: [],
-        invoice: CustomsClearanceInvoice.fromJson({}),
-        offer: CustomsClearanceOffer.fromJson({}),
-        invoiceUrl: '',
       );
 
   @override
@@ -345,6 +309,7 @@ class CustomsClearanceOffer extends OfferModel {
   CustomsClearanceOffer({
     super.id,
     super.userId,
+    super.total,
     this.customClearanceId,
     this.firstContainer,
     this.extraContainer,
@@ -352,17 +317,16 @@ class CustomsClearanceOffer extends OfferModel {
     this.transport,
     this.translate,
     this.unloading,
-    super.deliveryPermits,
-    super.total,
-    super.shippingMethod,
+    this.deliveryPermits,
+    this.shippingMethod,
     super.status,
     super.notes,
     super.acceptedAt,
     super.rejectedAt,
-    super.systemPercent,
-    super.systemTax,
-    super.settlementId,
-    super.deletedAt,
+    this.systemPercent,
+    this.systemTax,
+    this.settlementId,
+    this.deletedAt,
     super.createdAt,
     super.updatedAt,
     super.user,
@@ -375,6 +339,12 @@ class CustomsClearanceOffer extends OfferModel {
   String? transport;
   String? translate;
   String? unloading;
+  String? deliveryPermits;
+  String? shippingMethod;
+  String? systemPercent;
+  String? systemTax;
+  int? settlementId;
+  dynamic deletedAt;
 
   factory CustomsClearanceOffer.fromJson(Map<String, dynamic> json) =>
       CustomsClearanceOffer(
@@ -443,22 +413,25 @@ class CustomsClearanceInvoice extends Invoice {
     this.weight,
     this.containerCount,
     this.importListNumber,
-    super.importListDate,
+    this.importListDate,
+    this.totalWithoutTax,
+    this.totalTax,
     super.user,
     super.total,
     super.id,
-    super.totalWithoutTax,
     super.updatedAt,
     super.createdAt,
     super.status,
     super.note,
     super.deletedAt,
-    super.totalTax,
     super.userId,
   });
 
   int? customClearanceId;
   int? customClearancesOfferId;
+  String? totalWithoutTax;
+  String? totalTax;
+  String? importListDate;
   String? ship;
   String? ladingNumber;
   String? typeGoods;

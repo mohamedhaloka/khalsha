@@ -1,19 +1,27 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:khalsha/core/data/models/item_model.dart';
+import 'package:khalsha/core/domain/use_cases/upload_image_use_case.dart';
 import 'package:khalsha/features/order_details/data/models/order_details_item_model.dart';
-import 'package:khalsha/features/order_details/presentation/get/controllers/controller.dart';
+import 'package:khalsha/features/order_details/domain/use_cases/get_order_details_use_case.dart';
+import 'package:khalsha/features/order_details/domain/use_cases/update_order_status_use_case.dart';
 import 'package:khalsha/features/order_details/presentation/widgets/order_tab_header.dart';
 import 'package:khalsha/features/order_details/presentation/widgets/status_steps.dart';
 import 'package:khalsha/features/service_intro/presentation/get/controllers/controller.dart';
 import 'package:khalsha/features/widgets/custom_button.dart';
 
+import '../../../../../core/domain/use_cases/delete_file_use_case.dart';
+import '../../../../../core/utils.dart';
 import '../../../core/presentation/themes/colors_manager.dart';
 import '../../orders/domain/entities/order_model.dart';
 import '../../widgets/bill.dart';
 import '../../widgets/custom_app_bar.dart';
 import '../../widgets/stylish_text.dart';
 
+part 'get/controllers/controller.dart';
 part 'tabs/bill_data.dart';
 part 'tabs/order_data.dart';
 part 'tabs/pricing_offers.dart';
@@ -44,14 +52,7 @@ class OrderDetailsView extends GetView<OrderDetailsController> {
                       physics: const NeverScrollableScrollPhysics(),
                       onPageChanged: (int index) =>
                           controller.currentTab(index),
-                      children: [
-                        const _OrderDataTab(),
-                        const _PricingOffersTab(),
-                        if (controller.serviceType ==
-                            ServiceTypes.customsClearance)
-                          const _StatusData(),
-                        const _BillDataTab(),
-                      ],
+                      children: controller.pages.map((e) => e.child!).toList(),
                     ),
                   ),
                 ],
@@ -67,44 +68,49 @@ class _DetailsTabs extends GetView<OrderDetailsController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() => Row(
-          children: [
-            _tabWidget(id: 0, imgName: 'data'),
-            if (controller.orderModel.offer == null) ...[
-              _separator,
-              _tabWidget(id: 1, imgName: 'pricing-offers'),
-            ],
-            if (controller.serviceType == ServiceTypes.customsClearance) ...[
-              _separator,
-              _tabWidget(id: 2, imgName: 'track'),
-            ],
-            _separator,
-            _tabWidget(id: 3, imgName: 'bill'),
-          ],
+          children: controller.pages
+              .map(
+                (e) => _tabWidget(
+                  id: e.id!,
+                  imgName: e.image!,
+                ),
+              )
+              .toList(),
         ));
   }
 
   Widget _tabWidget({
     required int id,
     required String imgName,
-  }) =>
-      InkWell(
-        onTap: () => controller.goToParticularPage(id),
-        child: CircleAvatar(
-          radius: controller.currentTab.value == id ? 22 : 18,
-          backgroundColor: controller.currentTab.value == id
-              ? ColorManager.primaryColor
-              : ColorManager.lightGreyColor,
-          child: Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: SvgPicture.asset(
-              'assets/images/order_details/$imgName.svg',
-              color: controller.currentTab.value == id
-                  ? Colors.white
-                  : ColorManager.greyColor,
+  }) {
+    int index = controller.pages.indexWhere((element) => element.id == id);
+    return Expanded(
+      child: Row(
+        children: [
+          _separator,
+          InkWell(
+            onTap: () => controller.goToParticularPage(index),
+            child: CircleAvatar(
+              radius: controller.currentTab.value == index ? 22 : 18,
+              backgroundColor: controller.currentTab.value == index
+                  ? ColorManager.primaryColor
+                  : ColorManager.lightGreyColor,
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: SvgPicture.asset(
+                  'assets/images/order_details/$imgName.svg',
+                  color: controller.currentTab.value == index
+                      ? Colors.white
+                      : ColorManager.greyColor,
+                ),
+              ),
             ),
           ),
-        ),
-      );
+          _separator,
+        ],
+      ),
+    );
+  }
 
   Widget get _separator => Expanded(
           child: Container(

@@ -14,6 +14,7 @@ import '../../core/presentation/routes/app_routes.dart';
 import '../../core/service_utils.dart';
 import '../../core/utils.dart';
 import '../map/data/model/location_details.dart';
+import '../orders/domain/entities/order_model.dart';
 import '../widgets/bottom_sheet_content/choose_certificates.dart';
 import '../widgets/bottom_sheet_content/choose_date_time_sheet.dart';
 import '../widgets/bottom_sheet_content/multi_items_list.dart';

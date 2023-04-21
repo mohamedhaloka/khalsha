@@ -33,6 +33,7 @@ class _FillData extends GetView<AddEditStoresServiceController> {
       body: Column(
         children: [
           FormBuilderField(
+            initialValue: controller.name,
             builder: (FormFieldState<dynamic> field) =>
                 TextFieldInputWithHolder(
               title: 'عنوان الطلب',
@@ -50,6 +51,7 @@ class _FillData extends GetView<AddEditStoresServiceController> {
             selectedItem: controller.selectedShippingField,
           ),
           FormBuilderField(
+            initialValue: controller.selectedStorageType,
             builder: (FormFieldState<dynamic> field) => DropDownInputWithHolder(
               title: 'نوع التخزين',
               hint: 'أختر',
@@ -68,6 +70,7 @@ class _FillData extends GetView<AddEditStoresServiceController> {
             name: 'storage_type',
           ),
           FormBuilderField(
+            initialValue: controller.selectedItem.value.id.toString(),
             builder: (FormFieldState<dynamic> field) => ChooseItemWithHolder(
               title: 'نوع الصنف',
               selectedItem: controller.selectedItem,
@@ -83,6 +86,7 @@ class _FillData extends GetView<AddEditStoresServiceController> {
             name: 'item_type',
           ),
           FormBuilderField(
+            initialValue: controller.location.text,
             builder: (FormFieldState<dynamic> field) =>
                 TextFieldInputWithHolder(
               title: 'المدينة/الدولة',

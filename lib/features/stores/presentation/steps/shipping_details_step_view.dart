@@ -8,6 +8,7 @@ class ShippingDetailsStepView extends GetView<AddEditStoresServiceController> {
     return Obx(() => ListView(
           children: [
             FormBuilderField(
+              initialValue: controller.selectedSpaceType,
               builder: (FormFieldState<dynamic> field) =>
                   DropDownInputWithHolder(
                 title: 'المساحة المطلوبة',
@@ -31,6 +32,7 @@ class ShippingDetailsStepView extends GetView<AddEditStoresServiceController> {
             if (controller.selectedSpaceType.value ==
                 SpaceTypes.pallet.value) ...[
               FormBuilderField(
+                initialValue: controller.palletNumber,
                 builder: (FormFieldState<dynamic> field) =>
                     TextFieldInputWithHolder(
                   title: 'عدد الطبليات',
@@ -45,6 +47,7 @@ class ShippingDetailsStepView extends GetView<AddEditStoresServiceController> {
               ),
             ] else ...[
               FormBuilderField(
+                initialValue: controller.selectedWareHouseSpace,
                 builder: (FormFieldState<dynamic> field) {
                   return DropDownInputWithHolder(
                     title: 'المساحة التي تحتاجها',
@@ -67,6 +70,7 @@ class ShippingDetailsStepView extends GetView<AddEditStoresServiceController> {
               if (controller.selectedWareHouseSpace.value ==
                   WareHouseTypes.custom.value) ...[
                 FormBuilderField(
+                  initialValue: controller.customWareHouseSpace,
                   builder: (FormFieldState<dynamic> field) =>
                       TextFieldInputWithHolder(
                     title: 'المساحة بالمتر المربع',
@@ -80,6 +84,7 @@ class ShippingDetailsStepView extends GetView<AddEditStoresServiceController> {
               ],
             ],
             FormBuilderField(
+              initialValue: controller.selectedContactType,
               builder: (FormFieldState<dynamic> field) =>
                   DropDownInputWithHolder(
                 title: 'نوع التعاقد',

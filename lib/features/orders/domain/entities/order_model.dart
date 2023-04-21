@@ -9,6 +9,7 @@ import '../../../order_details/data/models/order_details_item_model.dart';
 import '../../../order_details/data/models/order_section_item_model.dart';
 
 part 'customs_clearance_order.dart';
+part 'ware_house_order.dart';
 
 abstract class OrderModel {
   OrderModel({
@@ -21,6 +22,8 @@ abstract class OrderModel {
     required this.offers,
     required this.offer,
     required this.invoice,
+    required this.certificates,
+    required this.invoiceUrl,
   });
 
   int id;
@@ -30,8 +33,10 @@ abstract class OrderModel {
   User user;
   int offersNum;
   List<OfferModel> offers;
+  List<DataModel> certificates;
   OfferModel? offer;
   Invoice? invoice;
+  String? invoiceUrl;
 
   List<OrderSectionItemModel> get data => <OrderSectionItemModel>[];
 }
@@ -100,35 +105,23 @@ abstract class OfferModel {
   OfferModel({
     this.id,
     this.userId,
-    this.deliveryPermits,
-    this.total,
-    this.shippingMethod,
     this.status,
     this.notes,
     this.acceptedAt,
     this.rejectedAt,
-    this.systemPercent,
-    this.systemTax,
-    this.settlementId,
-    this.deletedAt,
     this.createdAt,
     this.updatedAt,
     this.user,
+    this.total,
   });
 
   int? id;
   int? userId;
-  String? deliveryPermits;
   String? total;
-  String? shippingMethod;
   String? status;
   String? notes;
   DateTime? acceptedAt;
   dynamic rejectedAt;
-  String? systemPercent;
-  String? systemTax;
-  int? settlementId;
-  dynamic deletedAt;
   DateTime? createdAt;
   DateTime? updatedAt;
   User? user;
@@ -164,24 +157,19 @@ class User {
 
 abstract class Invoice {
   Invoice({
-    this.importListDate,
     this.user,
     this.total,
     this.id,
-    this.totalWithoutTax,
     this.updatedAt,
     this.createdAt,
     this.status,
     this.note,
     this.deletedAt,
-    this.totalTax,
     this.userId,
   });
 
   int? id;
   int? userId;
-  String? totalWithoutTax;
-  String? totalTax;
   String? total;
   String? note;
   String? status;
@@ -189,7 +177,6 @@ abstract class Invoice {
   DateTime? createdAt;
   DateTime? updatedAt;
   User? user;
-  String? importListDate;
 
   List<ItemModel> get items => <ItemModel>[];
 }

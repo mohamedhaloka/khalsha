@@ -1,15 +1,4 @@
-import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
-import 'package:get/get.dart';
-import 'package:khalsha/core/domain/use_cases/upload_image_use_case.dart';
-import 'package:khalsha/features/order_details/domain/use_cases/get_order_details_use_case.dart';
-import 'package:khalsha/features/order_details/domain/use_cases/update_order_status_use_case.dart';
-import 'package:khalsha/features/service_intro/presentation/get/controllers/controller.dart';
-
-import '../../../../../core/domain/use_cases/delete_file_use_case.dart';
-import '../../../../../core/utils.dart';
-import '../../../../orders/domain/entities/order_model.dart';
+part of '../../view.dart';
 
 class OrderDetailsController extends GetxController {
   final GetOrderDetailsUseCase _getOrderDetailsUseCase;
@@ -33,17 +22,40 @@ class OrderDetailsController extends GetxController {
 
   late OrderModel orderModel;
 
+  List<ItemModel> pages = [
+    const ItemModel(
+      id: 0,
+      text: '',
+      image: 'data',
+      child: _OrderDataTab(),
+    ),
+    const ItemModel(
+      id: 1,
+      text: '',
+      image: 'pricing-offers',
+      child: _PricingOffersTab(),
+    ),
+    const ItemModel(
+      id: 2,
+      text: '',
+      image: 'track',
+      child: _StatusData(),
+    ),
+    const ItemModel(
+      id: 3,
+      text: '',
+      image: 'bill',
+      child: _BillDataTab(),
+    ),
+  ];
+
   @override
   void onInit() {
     getOrderDetails();
     super.onInit();
   }
 
-  void goToParticularPage(int id) => pageViewController.animateToPage(
-        id,
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.easeInOut,
-      );
+  void goToParticularPage(int index) => pageViewController.jumpToPage(index);
 
   Future<void> getOrderDetails() async {
     final params = GetOrderDetailsUseCaseParams(
@@ -55,6 +67,15 @@ class OrderDetailsController extends GetxController {
     result.fold((_) => _, (r) {
       orderModel = r;
       currentTab(0);
+
+      print(orderModel.invoiceUrl);
+      if (orderModel.offer != null) {
+        pages.removeWhere((element) => element.id == 1);
+      }
+
+      if (serviceType != ServiceTypes.customsClearance) {
+        pages.removeWhere((element) => element.id == 2);
+      }
     });
   }
 

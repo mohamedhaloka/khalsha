@@ -68,19 +68,21 @@ class OrderItem extends StatelessWidget {
               child: Row(
                 children: [
                   _Status(order.status),
-                  Expanded(
-                    child: IconButton(
-                        onPressed: () async {
-                          final result = await Get.toNamed(
-                            route,
-                            arguments: order,
-                          );
-                          if (result == null) return;
-                          final ordersController = Get.find<OrdersController>();
-                          ordersController.onRefresh();
-                        },
-                        icon: const Icon(Icons.edit)),
-                  )
+                  if (order.offersNum == 0)
+                    Expanded(
+                      child: IconButton(
+                          onPressed: () async {
+                            final result = await Get.toNamed(
+                              route,
+                              arguments: order,
+                            );
+                            if (result == null) return;
+                            final ordersController =
+                                Get.find<OrdersController>();
+                            ordersController.onRefresh();
+                          },
+                          icon: const Icon(Icons.edit)),
+                    )
                 ],
               ),
             ),

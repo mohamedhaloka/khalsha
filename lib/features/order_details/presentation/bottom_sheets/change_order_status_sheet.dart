@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/features/order_details/presentation/get/controllers/controller.dart';
 import 'package:khalsha/features/order_details/presentation/view.dart';
 import 'package:khalsha/features/widgets/add_photos.dart';
 import 'package:khalsha/features/widgets/custom_button.dart';

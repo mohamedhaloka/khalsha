@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
-import 'package:khalsha/features/order_details/presentation/get/controllers/controller.dart';
 import 'package:khalsha/injection_container.dart';
+
+import '../../view.dart';
 
 class OrderDetailsBinding extends Bindings {
   @override

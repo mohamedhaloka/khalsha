@@ -18,6 +18,7 @@ class _StatusDataState extends State<_StatusData> {
 
   @override
   void initState() {
+    if (controller.orderModel is! CustomsClearanceOrder) return;
     List<OrderStepModel> steps =
         (controller.orderModel as CustomsClearanceOrder).steps;
     int initialPage = steps.indexWhere((element) => element.status == kPending);
