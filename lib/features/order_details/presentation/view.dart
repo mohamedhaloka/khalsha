@@ -6,12 +6,15 @@ import 'package:get/get.dart';
 import 'package:khalsha/core/data/models/item_model.dart';
 import 'package:khalsha/core/domain/use_cases/upload_image_use_case.dart';
 import 'package:khalsha/features/order_details/data/models/order_details_item_model.dart';
+import 'package:khalsha/features/order_details/domain/use_cases/accept_reject_offer_use_case.dart';
 import 'package:khalsha/features/order_details/domain/use_cases/get_order_details_use_case.dart';
 import 'package:khalsha/features/order_details/domain/use_cases/update_order_status_use_case.dart';
+import 'package:khalsha/features/order_details/presentation/bottom_sheets/pricing_offer_details_sheet.dart';
 import 'package:khalsha/features/order_details/presentation/widgets/order_tab_header.dart';
 import 'package:khalsha/features/order_details/presentation/widgets/status_steps.dart';
 import 'package:khalsha/features/service_intro/presentation/get/controllers/controller.dart';
 import 'package:khalsha/features/widgets/custom_button.dart';
+import 'package:khalsha/features/widgets/headline_bottom_sheet.dart';
 
 import '../../../../../core/domain/use_cases/delete_file_use_case.dart';
 import '../../../../../core/utils.dart';

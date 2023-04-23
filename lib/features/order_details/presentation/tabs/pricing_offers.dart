@@ -34,7 +34,14 @@ class _OfferItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () => Get.bottomSheet(
+        HeadLineBottomSheet(
+          bottomSheetTitle: '${'offer'.tr} ${offer.id}',
+          body: PricingOfferDetailsSheet(offer),
+          height: Get.height / 1.1,
+        ),
+        isScrollControlled: true,
+      ),
       child: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(

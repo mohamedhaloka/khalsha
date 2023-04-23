@@ -5,7 +5,6 @@ import 'package:khalsha/core/presentation/routes/app_routes.dart';
 import 'package:khalsha/core/presentation/themes/colors_manager.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
-import '../main.dart';
 import 'data/source/local/user_local.dart';
 
 const apiKey = 'AIzaSyC6vGIyIwOA5xR8WgM3-aG3qG3g43Ie8Zs';
@@ -71,7 +70,6 @@ void showLogOutAlert() => showDialog(
       onDoneTapped: () async {
         UserDataLocal.instance.remove();
         Get.offAllNamed(Routes.login);
-        provider = false;
       },
     );
 
@@ -82,48 +80,3 @@ void showLoginFirstDialog() => showDialog(
       backColor: ColorManager.darkTobyColor,
       onDoneTapped: () => Get.offAllNamed(Routes.login),
     );
-
-//    this.goods,
-//     this.storingPurpose,
-//     this.storingType,
-//     this.steps,
-//     this.palletCounts,
-//     this.spaceType,
-//     this.warehouseSpace,
-//     this.customWarehouseSpace,
-//     this.contractType,
-//     this.contractCount,
-//     this.address,
-//     this.addressLat,
-//     this.addressLng,
-//     this.contractStartAt,
-//     this.item,
-//     this.customsClearanceOrder,
-//     this.needPackaging,
-//     this.exportCertificates,
-//     this.importCertificates,
-//     this.farmingProcedures,
-//     this.certificate,
-//     this.testReport,
-//     this.testReportPhoto,
-//     this.factoryAudit,
-//     this.factoryAuditPhoto,
-//     this.fromshipmentLocation,
-//     this.fromshipmentOtherLocation,
-//     this.fromcountryId,
-//     this.fromcity,
-//     this.toshipmentLocation,
-//     this.toshipmentOtherLocation,
-//     this.tocountryId,
-//     this.tocity,
-//     this.fromcityLat,
-//     this.fromcityLng,
-//     this.tocityLat,
-//     this.tocityLng,
-//     this.shipmentReady,
-//     this.shipmentSizes,
-//     this.containers,
-//     this.insurance,
-//     this.customsClearance,
-//     this.fromCountry,
-//     this.toCountry,

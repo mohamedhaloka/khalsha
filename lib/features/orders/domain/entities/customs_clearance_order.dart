@@ -34,6 +34,8 @@ class CustomsClearanceOrder extends OrderModel {
     required super.invoiceUrl,
     required super.invoice,
     required super.certificates,
+    required super.certificate,
+    required super.feedback,
     required this.shipmentType,
     required this.chargeField,
     required this.shippingPortId,
@@ -154,6 +156,7 @@ class CustomsClearanceOrder extends OrderModel {
         currencyId: json["currency_id"] ?? 0,
         notes: json["notes"] ?? '',
         status: json["status"] ?? '',
+        certificate: json["certificate"] ?? 'no',
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
         steps: List<OrderStepModel>.from(
@@ -173,6 +176,9 @@ class CustomsClearanceOrder extends OrderModel {
             .map((x) => CustomsClearanceOffer.fromJson(x))),
         offersNum: List<CustomsClearanceOffer>.from((json["offers"] ?? [])
             .map((x) => CustomsClearanceOffer.fromJson(x))).length,
+        feedback: json['feedback'] == null
+            ? null
+            : FeedbackObj.fromJson(json['feedback']),
         invoice: json["invoice"] == null
             ? null
             : CustomsClearanceInvoice.fromJson(json["invoice"]),
@@ -320,7 +326,7 @@ class CustomsClearanceOffer extends OfferModel {
     this.deliveryPermits,
     this.shippingMethod,
     super.status,
-    super.notes,
+    super.note,
     super.acceptedAt,
     super.rejectedAt,
     this.systemPercent,
@@ -361,7 +367,7 @@ class CustomsClearanceOffer extends OfferModel {
         total: json["total"] ?? '',
         shippingMethod: json["shipping_method"] ?? '',
         status: json["status"] ?? '',
-        notes: json["notes"] ?? '',
+        note: json["note"] ?? '',
         acceptedAt:
             DateTime.parse(json["accepted_at"] ?? DateTime.now().toString()),
         rejectedAt: json["rejected_at"],
@@ -390,7 +396,7 @@ class CustomsClearanceOffer extends OfferModel {
         "total": total,
         "shipping_method": shippingMethod,
         "status": status,
-        "notes": notes,
+        "note": note,
         "accepted_at": acceptedAt?.toIso8601String(),
         "rejected_at": rejectedAt,
         "system_percent": systemPercent,
@@ -401,6 +407,43 @@ class CustomsClearanceOffer extends OfferModel {
         "updated_at": updatedAt?.toIso8601String(),
         "user": user?.toJson(),
       };
+
+  @override
+  List<ItemModel> get data => [
+        ItemModel(
+          text: 'اتعاب الحاوية الاولى بالشحنة',
+          description: firstContainer,
+        ),
+        ItemModel(
+          text: 'اتعاب أي حاوية اضافية بالشحنة',
+          description: extraContainer,
+        ),
+        ItemModel(
+          text: 'اجور النقل',
+          description: transport,
+        ),
+        ItemModel(
+          text: 'ترجمة وتبنيد',
+          description: translate,
+        ),
+        ItemModel(
+          text: 'عمال تحميل وتفريغ',
+          description: unloading,
+        ),
+        ItemModel(
+          text: 'مراجعة الوكيل الملاحي واستلام اذونات التسليم',
+          description: deliveryPermits,
+        ),
+        if (note != null) ItemModel(text: 'الملاحظات', description: note ?? ''),
+        ItemModel(
+          text: 'الإجمالي',
+          description: total,
+          mainItem: true,
+        ),
+        const ItemModel(
+          text: 'تنوية هناك رسوم آخرى خلال العملية اللوجستية',
+        ),
+      ];
 }
 
 class CustomsClearanceInvoice extends Invoice {

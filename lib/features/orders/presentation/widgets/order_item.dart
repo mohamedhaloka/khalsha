@@ -68,7 +68,7 @@ class OrderItem extends StatelessWidget {
               child: Row(
                 children: [
                   _Status(order.status),
-                  if (order.offersNum == 0)
+                  if (order.offersNum == 0 && order.status != _kClose)
                     Expanded(
                       child: IconButton(
                           onPressed: () async {

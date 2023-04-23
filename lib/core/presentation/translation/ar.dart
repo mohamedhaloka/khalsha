@@ -31,4 +31,5 @@ Map<String, String> ar = {
 
   //Offer
   'offers': 'عروض',
+  'offer': 'عرض',
 };

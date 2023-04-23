@@ -22,7 +22,12 @@ class NewOrdersController extends GetxController {
 
   Future<void> getOrders() async {
     orders.clear();
-    final params = GetOrdersParams(loading: loading, type: _type);
+    final params = GetOrdersParams(
+      loading: loading,
+      type: _type,
+      pageIndex: 0,
+      loadingMoreData: false.obs,
+    );
     final result = await _getNewOrdersUseCase.execute(params);
     result.fold(
       (failure) => showAlertMessage(failure.statusMessage),

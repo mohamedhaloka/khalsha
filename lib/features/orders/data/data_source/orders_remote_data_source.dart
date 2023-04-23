@@ -7,7 +7,7 @@ import '../../../../core/domain/error/exceptions.dart';
 import '../../domain/entities/order_model.dart';
 
 abstract class OrdersRemoteDataSource {
-  Future<List<OrderModel>> getOrders(String type);
+  Future<List<OrderModel>> getOrders(String type, int page);
 }
 
 class OrdersRemoteDataSourceImpl extends OrdersRemoteDataSource {
@@ -15,8 +15,8 @@ class OrdersRemoteDataSourceImpl extends OrdersRemoteDataSource {
   OrdersRemoteDataSourceImpl(this._httpService);
 
   @override
-  Future<List<OrderModel>> getOrders(String type) async {
-    final response = await _httpService.get('importer/$type');
+  Future<List<OrderModel>> getOrders(String type, int page) async {
+    final response = await _httpService.get('importer/$type?page=$page');
 
     if (response.statusCode == 200) {
       final data = response.data['result']['data'];

@@ -12,4 +12,10 @@ abstract class OrderDetailsRepository {
     String status,
     String note,
   );
+
+  Future<Either<Failure, String>> acceptRejectOffer({
+    required String type,
+    required String status,
+    required String orderId,
+  });
 }

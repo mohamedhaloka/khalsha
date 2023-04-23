@@ -34,12 +34,13 @@ class CachedImage extends StatelessWidget {
       ),
       errorWidget: (BuildContext context, String str, error) => Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Colors.grey[400],
           borderRadius: borderRadius ?? BorderRadius.circular(8),
           border: border,
-          image: const DecorationImage(
-              image: ExactAssetImage('assets/images/no_image_placeholder.jpeg'),
-              fit: BoxFit.fill),
+        ),
+        child: const Icon(
+          Icons.image,
+          color: Colors.white,
         ),
       ),
     );

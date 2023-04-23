@@ -12,7 +12,9 @@ class WareHouseOrder extends OrderModel {
     required super.user,
     required super.status,
     required super.certificates,
+    required super.certificate,
     super.invoiceUrl,
+    super.feedback,
     required this.itemId,
     required this.storingPurpose,
     required this.storingType,
@@ -33,9 +35,7 @@ class WareHouseOrder extends OrderModel {
     required this.notes,
     required this.createdAt,
     required this.updatedAt,
-    this.feedback,
     required this.item,
-    required this.certificate,
   });
 
   int itemId;
@@ -55,11 +55,9 @@ class WareHouseOrder extends OrderModel {
   String exportCertificates;
   String importCertificates;
   String farmingProcedures;
-  String certificate;
   String notes;
   DateTime createdAt;
   DateTime updatedAt;
-  dynamic feedback;
   DataModel item;
 
   int get storingPurposeId {
@@ -98,7 +96,9 @@ class WareHouseOrder extends OrderModel {
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
         user: User.fromJson(json["user"]),
-        feedback: json["feedback"],
+        feedback: json["feedback"] == null
+            ? null
+            : FeedbackObj.fromJson(json["feedback"]),
         item: DataModel.fromJson(json["item"]),
         certificates: List<DataModel>.from(
             json["get_certificates"].map((x) => DataModel.fromJson(x))),
@@ -298,7 +298,7 @@ class WareHouseOffer extends OfferModel {
     super.id,
     super.userId,
     super.status,
-    super.notes,
+    super.note,
     super.acceptedAt,
     super.rejectedAt,
     super.createdAt,
@@ -311,7 +311,7 @@ class WareHouseOffer extends OfferModel {
         id: json["id"] ?? 0,
         userId: json["user_id"] ?? 0,
         status: json["status"] ?? '',
-        notes: json["notes"] ?? '',
+        note: json["note"] ?? '',
         total: json["total"] ?? '',
         acceptedAt:
             DateTime.parse(json["accepted_at"] ?? DateTime.now().toString()),
@@ -326,11 +326,24 @@ class WareHouseOffer extends OfferModel {
   Map<String, dynamic> toJson() => {
         "id": id,
         "status": status,
-        "notes": notes,
+        "note": note,
         "accepted_at": acceptedAt?.toIso8601String(),
         "rejected_at": rejectedAt,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
         "user": user?.toJson(),
       };
+
+  @override
+  List<ItemModel> get data => [
+        if (note != null) ItemModel(text: 'الملاحظات', description: note ?? ''),
+        ItemModel(
+          text: 'الإجمالي',
+          description: total,
+          mainItem: true,
+        ),
+        const ItemModel(
+          text: 'تنوية هناك رسوم آخرى خلال العملية اللوجستية',
+        ),
+      ];
 }

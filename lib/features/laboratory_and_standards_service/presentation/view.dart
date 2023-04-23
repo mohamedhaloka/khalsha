@@ -33,6 +33,7 @@ class _FillData
       body: Column(
         children: [
           FormBuilderField(
+            initialValue: controller.name.text,
             builder: (FormFieldState<dynamic> field) =>
                 TextFieldInputWithHolder(
               title: 'عنوان الطلب',
@@ -45,7 +46,7 @@ class _FillData
             name: 'name',
           ),
           FormBuilderField(
-            initialValue: controller.factoryAduitReport.value.path,
+            initialValue: controller.factoryAduitReport,
             builder: (FormFieldState<dynamic> field) => AttachFileWithHolder(
               title: 'متوفر لدي المورد Factory aduit report',
               file: controller.factoryAduitReport,
@@ -56,7 +57,7 @@ class _FillData
             name: 'factory_report',
           ),
           FormBuilderField(
-            initialValue: controller.testReportPhoto.value.path,
+            initialValue: controller.testReportPhoto,
             builder: (FormFieldState<dynamic> field) => AttachFileWithHolder(
               title: 'متوفر لدي المورد Test report',
               file: controller.testReportPhoto,
@@ -67,6 +68,7 @@ class _FillData
             name: 'test_report',
           ),
           FormBuilderField(
+            initialValue: controller.isAdd ? null : 'x',
             builder: (FormFieldState<dynamic> field) => Obx(
               () => ServiceItemWithHolder(
                 title: 'أصناف الطلب',

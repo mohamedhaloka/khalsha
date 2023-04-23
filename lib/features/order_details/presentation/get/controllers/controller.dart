@@ -5,11 +5,13 @@ class OrderDetailsController extends GetxController {
   final UpdateOrderStatusUseCase _updateOrderStatusUseCase;
   final UploadImageUseCase _uploadImageUseCase;
   final DeleteFileUseCase _deleteFileUseCase;
+  final AcceptRejectOfferUseCase _acceptRejectOfferUseCase;
   OrderDetailsController(
     this._getOrderDetailsUseCase,
     this._updateOrderStatusUseCase,
     this._uploadImageUseCase,
     this._deleteFileUseCase,
+    this._acceptRejectOfferUseCase,
   );
 
   int orderId = Get.arguments[0];
@@ -18,7 +20,7 @@ class OrderDetailsController extends GetxController {
   RxInt currentTab = 0.obs;
   PageController pageViewController = PageController();
 
-  RxBool loading = true.obs;
+  RxBool loading = true.obs, offerActionLoading = false.obs;
 
   late OrderModel orderModel;
 
@@ -68,8 +70,7 @@ class OrderDetailsController extends GetxController {
       orderModel = r;
       currentTab(0);
 
-      print(orderModel.invoiceUrl);
-      if (orderModel.offer != null) {
+      if (orderModel.offer != null || orderModel.invoice != null) {
         pages.removeWhere((element) => element.id == 1);
       }
 
@@ -129,6 +130,24 @@ class OrderDetailsController extends GetxController {
       (l) => showAlertMessage(l.statusMessage),
       (r) {
         showAlertMessage(r);
+        getOrderDetails();
+      },
+    );
+  }
+
+  Future<void> acceptReject(String status) async {
+    final params = AcceptRejectOfferUseCaseParams(
+      loading: offerActionLoading,
+      type: serviceType.value,
+      status: status,
+      orderId: orderId.toString(),
+    );
+    final result = await _acceptRejectOfferUseCase.execute(params);
+    result.fold(
+      (_) => _,
+      (msg) {
+        showAlertMessage(msg);
+        Get.back();
         getOrderDetails();
       },
     );

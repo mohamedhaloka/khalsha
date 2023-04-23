@@ -11,17 +11,21 @@ class GetOrdersUseCase extends UseCase<List<OrderModel>, GetOrdersParams> {
 
   @override
   Future<Either<Failure, List<OrderModel>>> execute(params) async {
-    params.loading(true);
-    final call = _ordersRepository.getOrders(params.type);
+    final call = _ordersRepository.getOrders(
+      params.type,
+      params.pageIndex,
+    );
     call.then((_) => params.loading(false));
     return call;
   }
 }
 
-class GetOrdersParams extends Params {
+class GetOrdersParams extends PaginationParams {
   final String type;
   GetOrdersParams({
     required super.loading,
     required this.type,
+    required super.pageIndex,
+    required super.loadingMoreData,
   });
 }

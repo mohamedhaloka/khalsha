@@ -12,8 +12,6 @@ import 'core/presentation/routes/app_routes.dart';
 import 'core/presentation/themes/theme_manager.dart';
 import 'core/presentation/translation/app_translation.dart';
 
-bool provider = false;
-
 void main() async {
   await _initData();
   runApp(const MyApp());

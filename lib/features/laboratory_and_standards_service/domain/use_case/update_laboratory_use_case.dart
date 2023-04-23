@@ -14,7 +14,7 @@ class UpdateLaboratoryUseCase
   Future<Either<Failure, Map<String, dynamic>>> execute(
       LaboratoryUseCaseParams params) {
     params.loading(true);
-    final call = _laboratoryRepository.createOrder(params.laboratoryData);
+    final call = _laboratoryRepository.updateOrder(params.laboratoryData);
     call.then((value) => params.loading(false));
     return call;
   }

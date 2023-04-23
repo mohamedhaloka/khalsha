@@ -32,6 +32,7 @@ class _FillData extends GetView<AddEditMarineShippingServiceController> {
       body: Column(
         children: [
           FormBuilderField(
+            initialValue: controller.name,
             builder: (FormFieldState<dynamic> field) =>
                 TextFieldInputWithHolder(
               title: 'عنوان الطلب',
@@ -49,6 +50,7 @@ class _FillData extends GetView<AddEditMarineShippingServiceController> {
             selectedItem: controller.selectedShippingType,
           ),
           FormBuilderField(
+            initialValue: '_',
             builder: (FormFieldState<dynamic> field) => ChooseItemWithHolder(
               title: 'الشحن من',
               height: Get.height / 1.6,
@@ -70,6 +72,7 @@ class _FillData extends GetView<AddEditMarineShippingServiceController> {
             name: 'shipment_from',
           ),
           FormBuilderField(
+            initialValue: '_',
             builder: (FormFieldState<dynamic> field) => ChooseItemWithHolder(
               title: 'الشحن من',
               height: Get.height / 1.6,
@@ -112,6 +115,7 @@ class _FillData extends GetView<AddEditMarineShippingServiceController> {
             },
           ),
           FormBuilderField(
+            initialValue: controller.selectedShipmentReady,
             builder: (FormFieldState<dynamic> field) => DropDownInputWithHolder(
               title: 'هل الشحنة جاهزة',
               dropValue: controller.selectedShipmentReady,

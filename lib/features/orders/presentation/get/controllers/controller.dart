@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:khalsha/features/orders/domain/use_cases/get_orders_use_case.dart';
 import 'package:khalsha/features/service_intro/presentation/get/controllers/controller.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../../../core/presentation/routes/app_routes.dart';
 import '../../../../../core/utils.dart';
@@ -11,26 +12,39 @@ class OrdersController extends GetxController {
   OrdersController(this._getOrdersUseCase);
 
   RxInt selectedService = 0.obs;
+  int currentPage = 1;
 
-  List<OrderModel> orders = <OrderModel>[];
+  RxList<OrderModel> orders = <OrderModel>[].obs;
 
-  RxBool loading = false.obs;
+  RxBool loading = true.obs;
+
+  RefreshController refreshController = RefreshController();
   @override
   void onInit() {
-    getOrders();
+    _getOrders();
     super.onInit();
   }
 
-  Future<void> getOrders() async {
-    orders.clear();
+  Future<void> _getOrders() async {
     final params = GetOrdersParams(
       loading: loading,
       type: ServiceTypes.values[selectedService.value].value,
+      pageIndex: currentPage,
+      loadingMoreData: false.obs,
     );
     final result = await _getOrdersUseCase.execute(params);
     result.fold(
-      (failure) => showAlertMessage(failure.statusMessage),
-      (data) => orders.addAll(data),
+      (failure) {
+        showAlertMessage(failure.statusMessage);
+        currentPage = currentPage - 1;
+      },
+      (data) {
+        if (data.isEmpty) {
+          currentPage = currentPage - 1;
+          return;
+        }
+        orders.addAll(data);
+      },
     );
   }
 
@@ -55,6 +69,15 @@ class OrdersController extends GetxController {
 
   Future<void> onRefresh() async {
     orders.clear();
-    getOrders();
+    currentPage = 1;
+    loading(true);
+    await _getOrders();
+    refreshController.refreshCompleted();
+  }
+
+  Future<void> onLoading() async {
+    currentPage++;
+    await _getOrders();
+    refreshController.loadComplete();
   }
 }

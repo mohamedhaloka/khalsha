@@ -16,6 +16,7 @@ import '../../core/domain/use_cases/download_file_use_case.dart';
 import '../../core/domain/use_cases/get_particular_env_data_use_case.dart';
 import '../../core/presentation/routes/app_routes.dart';
 import '../../core/utils.dart';
+import '../orders/domain/entities/order_model.dart';
 import '../widgets/bottom_sheet_content/choose_certificates.dart';
 import '../widgets/inputs/attach_file_with_holder.dart';
 import '../widgets/inputs/checker_with_holder.dart';

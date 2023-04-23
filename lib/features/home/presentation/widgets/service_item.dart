@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/main.dart';
 
 import '../../../../core/data/models/item_model.dart';
 import '../../../../core/presentation/routes/app_routes.dart';
@@ -17,11 +16,6 @@ class ServiceItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        if (provider) {
-          Get.toNamed(Routes.orders);
-          return;
-        }
-
         Get.toNamed(
           Routes.serviceIntro,
           arguments: service.arguments,

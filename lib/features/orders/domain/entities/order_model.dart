@@ -9,6 +9,8 @@ import '../../../order_details/data/models/order_details_item_model.dart';
 import '../../../order_details/data/models/order_section_item_model.dart';
 
 part 'customs_clearance_order.dart';
+part 'laboratory_order.dart';
+part 'marine_shipment_order.dart';
 part 'ware_house_order.dart';
 
 abstract class OrderModel {
@@ -24,6 +26,8 @@ abstract class OrderModel {
     required this.invoice,
     required this.certificates,
     required this.invoiceUrl,
+    required this.certificate,
+    required this.feedback,
   });
 
   int id;
@@ -37,12 +41,14 @@ abstract class OrderModel {
   OfferModel? offer;
   Invoice? invoice;
   String? invoiceUrl;
+  String? certificate;
+  FeedbackObj? feedback;
 
   List<OrderSectionItemModel> get data => <OrderSectionItemModel>[];
 }
 
-class Feedback {
-  Feedback({
+class FeedbackObj {
+  FeedbackObj({
     this.id,
     this.userId,
     this.ownerId,
@@ -70,7 +76,7 @@ class Feedback {
   DateTime? updatedAt;
   User? user;
 
-  factory Feedback.fromJson(Map<String, dynamic> json) => Feedback(
+  factory FeedbackObj.fromJson(Map<String, dynamic> json) => FeedbackObj(
         id: json["id"],
         userId: json["user_id"],
         ownerId: json["owner_id"],
@@ -82,7 +88,9 @@ class Feedback {
         deletedAt: json["deleted_at"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
-        user: User.fromJson(json["user"]),
+        user: json["user"] == null || json["user"] is String
+            ? null
+            : User.fromJson(json["user"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -106,7 +114,7 @@ abstract class OfferModel {
     this.id,
     this.userId,
     this.status,
-    this.notes,
+    this.note,
     this.acceptedAt,
     this.rejectedAt,
     this.createdAt,
@@ -119,12 +127,14 @@ abstract class OfferModel {
   int? userId;
   String? total;
   String? status;
-  String? notes;
+  String? note;
   DateTime? acceptedAt;
   dynamic rejectedAt;
   DateTime? createdAt;
   DateTime? updatedAt;
   User? user;
+
+  List<ItemModel> get data => <ItemModel>[];
 }
 
 class User {
@@ -133,24 +143,32 @@ class User {
     this.name,
     this.photoProfile,
     this.bio,
+    this.feedbacks,
+    this.ratingsOverall,
   });
 
   int? id;
   String? name;
   String? photoProfile;
   String? bio;
+  String? ratingsOverall;
+  List<FeedbackObj>? feedbacks;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         id: json["id"] ?? 0,
         name: json["name"] ?? '',
         photoProfile: json["photo_profile"] ?? '',
         bio: json["bio"] ?? '',
+        ratingsOverall: json["ratings_overall"] ?? '',
+        feedbacks: List<FeedbackObj>.from(
+            (json["feedbacks"] ?? []).map((x) => FeedbackObj.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
         "photo_profile": photoProfile,
+        "ratings_overall": ratingsOverall,
         "bio": bio,
       };
 }

@@ -14,8 +14,8 @@ class AddEditMarineShippingServiceController extends GetxController {
 
   PageController pageController = PageController();
 
-  // final OrderModel? orderData = Get.arguments;
-  // bool get isAdd => orderData == null;
+  final OrderModel? orderData = Get.arguments;
+  bool get isAdd => orderData == null;
 
   RxInt currentStep = 0.obs;
 
@@ -108,97 +108,99 @@ class AddEditMarineShippingServiceController extends GetxController {
     await _getData('certificates',
         onSuccess: (data) => certificates.addAll(data));
     await _getData('currencies', onSuccess: (data) => currency.addAll(data));
-    // if (orderData == null) {
-    //   loading(false);
-    //   return;
-    // }
-    // name.text = orderData!.title;
-    // content.text = orderData!.content!;
-    // selectedShippingType(orderData!.shipmentTypeId);
-    // fromShipmentLocation(orderData!.fromshipmentLocation);
-    // fromShipmentOther.text = orderData!.fromshipmentOtherLocation.toString();
-    // fromCountryId(orderData!.fromcountryId.toString());
-    // fromCity.text = orderData!.fromcity!;
-    // fromCityLocationDetails = LocationDetails(
-    //   name: orderData!.fromcity,
-    //   lat: double.tryParse(orderData!.fromcityLat!) ?? 0.0,
-    //   long: double.tryParse(orderData!.fromcityLng!) ?? 0.0,
-    // );
-    // toShipmentLocation(orderData!.toshipmentLocation);
-    // toShipmentOther.text = orderData!.toshipmentOtherLocation.toString();
-    // toCountryId(orderData!.tocountryId.toString());
-    // toCity.text = orderData!.tocity!;
-    // toCityLocationDetails = LocationDetails(
-    //   name: orderData!.tocity,
-    //   lat: double.tryParse(orderData!.tocityLat!) ?? 0.0,
-    //   long: double.tryParse(orderData!.tocityLng!) ?? 0.0,
-    // );
-    // // price.text = orderData!.total!;
-    // // selectedCurrencyId(orderData!.currencyId.toString());
-    // selectedShipmentReady(orderData!.shipmentReady);
-    // enableInsurance(orderData!.insurance == 'yes' ? true : false);
-    // enableCustomsClearance(orderData!.customsClearance == 'yes' ? true : false);
-    // for (var e in orderData!.certificates!) {
-    //   final item =
-    //       certificates.firstWhereOrNull((element) => element.id == e.id);
-    //   if (item == null) continue;
-    //   item.selected(true);
-    //   if (item.selected.value) enableCertificate(true);
-    // }
-    // selectedShipmentSize(orderData!.shipmentSizesId);
-    // if (orderData!.shipmentSizes == 'goods') {
-    //   if (orderData!.goods!.isNotEmpty) {
-    //     goodsUnitType.clear();
-    //     goodsTotalShipment.clear();
-    //     for (var goodItem in orderData!.goods!) {
-    //       selectedThrough(goodItem.through == 'unit_type' ? 1 : 0);
-    //       if (goodItem.through == 'unit_type') {
-    //         File image = File('');
-    //         await _downloadFile(
-    //           goodItem.image!,
-    //           onSuccess: (String filePath) => image = File(filePath),
-    //         );
-    //         goodsUnitType.add(GoodsUnitTypeMarineShipmentModel(
-    //           length: TextEditingController(text: goodItem.length),
-    //           width: TextEditingController(text: goodItem.width),
-    //           height: TextEditingController(text: goodItem.height),
-    //           image: image.obs,
-    //           quantity: TextEditingController(text: goodItem.quantity),
-    //           cm: TextEditingController(text: goodItem.cm),
-    //           unitType: (goodItem.unitType == 'pallet' ? 1 : 0).obs,
-    //           weightPerUnit:
-    //               TextEditingController(text: goodItem.weightPerUnit),
-    //         ));
-    //       } else {
-    //         goodsTotalShipment.add(GoodsTotalShipmentMarineShipmentModel(
-    //           totalWeight: TextEditingController(text: goodItem.totalWeight),
-    //           overallSize: TextEditingController(text: goodItem.overallSize),
-    //           quantity: TextEditingController(text: goodItem.quantity),
-    //         ));
-    //       }
-    //     }
-    //   }
-    // } else {
-    //   if (orderData!.containers!.isNotEmpty) {
-    //     containers.clear();
-    //     for (var containerItem in orderData!.containers!) {
-    //       late File image;
-    //       await _downloadFile(
-    //         containerItem.image!,
-    //         onSuccess: (String filePath) => image = File(filePath),
-    //       );
-    //       containers.add(
-    //         ContainerMarineShipmentModel(
-    //           containerCount: containerItem.containerCount!.obs,
-    //           file: image.obs,
-    //           containerType: containerItem.containerType!.obs,
-    //           containerContent:
-    //               TextEditingController(text: containerItem.content),
-    //         ),
-    //       );
-    //     }
-    //   }
-    // }
+    if (orderData == null) {
+      loading(false);
+      return;
+    }
+
+    final order = orderData as MarineShipmentOrder;
+    name.text = orderData!.title;
+    content.text = order.content;
+    selectedShippingType(order.shipmentTypeId);
+    fromShipmentLocation(order.fromShipmentLocation);
+    fromShipmentOther.text = order.fromShipmentOtherLocation.toString();
+    fromCountryId(order.fromCountryId.toString());
+    fromCity.text = order.fromCity;
+    fromCityLocationDetails = LocationDetails(
+      name: order.fromCity,
+      lat: double.tryParse(order.fromCityLat) ?? 0.0,
+      long: double.tryParse(order.fromCityLng) ?? 0.0,
+    );
+    toShipmentLocation(order.toShipmentLocation);
+    toShipmentOther.text = order.toShipmentOtherLocation.toString();
+    toCountryId(order.toCountryId.toString());
+    toCity.text = order.toCity;
+    toCityLocationDetails = LocationDetails(
+      name: order.toCity,
+      lat: double.tryParse(order.toCityLat) ?? 0.0,
+      long: double.tryParse(order.toCityLng) ?? 0.0,
+    );
+    price.text = order.total;
+    selectedCurrencyId(order.currencyId.toString());
+    selectedShipmentReady(order.shipmentReady);
+    enableInsurance(order.insurance == 'yes' ? true : false);
+    enableCustomsClearance(order.customsClearance == 'yes' ? true : false);
+    for (var e in order.certificates) {
+      final item =
+          certificates.firstWhereOrNull((element) => element.id == e.id);
+      if (item == null) continue;
+      item.selected(true);
+      if (item.selected.value) enableCertificate(true);
+    }
+    selectedShipmentSize(order.shipmentSizesId);
+    if (order.shipmentSizes == 'goods') {
+      if (order.goods.isNotEmpty) {
+        goodsUnitType.clear();
+        goodsTotalShipment.clear();
+        for (var goodItem in order.goods) {
+          selectedThrough(goodItem.through == 'unit_type' ? 1 : 0);
+          if (goodItem.through == 'unit_type') {
+            File image = File('');
+            await _downloadFile(
+              goodItem.image!,
+              onSuccess: (String filePath) => image = File(filePath),
+            );
+            goodsUnitType.add(GoodsUnitTypeMarineShipmentModel(
+              length: TextEditingController(text: goodItem.length),
+              width: TextEditingController(text: goodItem.width),
+              height: TextEditingController(text: goodItem.height),
+              image: image.obs,
+              quantity: TextEditingController(text: goodItem.quantity),
+              cm: TextEditingController(text: goodItem.cm),
+              unitType: (goodItem.unitType == 'pallet' ? 1 : 0).obs,
+              weightPerUnit:
+                  TextEditingController(text: goodItem.weightPerUnit),
+            ));
+          } else {
+            goodsTotalShipment.add(GoodsTotalShipmentMarineShipmentModel(
+              totalWeight: TextEditingController(text: goodItem.totalWeight),
+              overallSize: TextEditingController(text: goodItem.overallSize),
+              quantity: TextEditingController(text: goodItem.quantity),
+            ));
+          }
+        }
+      }
+    } else {
+      if (order.containers.isNotEmpty) {
+        containers.clear();
+        for (var containerItem in order.containers) {
+          File image = File('');
+          await _downloadFile(
+            containerItem.image!,
+            onSuccess: (String filePath) => image = File(filePath),
+          );
+          containers.add(
+            ContainerMarineShipmentModel(
+              containerCount: containerItem.containerCount.obs,
+              file: image.obs,
+              containerType: containerItem.containerType.obs,
+              containerContent:
+                  TextEditingController(text: containerItem.content),
+            ),
+          );
+        }
+      }
+    }
 
     loading(false);
   }
@@ -238,11 +240,11 @@ class AddEditMarineShippingServiceController extends GetxController {
 
   void onTapNext() {
     if (currentStep.value == children.length - 1) {
-      // if (isAdd) {
-      _createOrder();
-      // return;
-      // }
-      // _updateOrder();
+      if (isAdd) {
+        _createOrder();
+        return;
+      }
+      _updateOrder();
       return;
     }
 
@@ -257,7 +259,7 @@ class AddEditMarineShippingServiceController extends GetxController {
   }
 
   MarineShipmentData get _marineShipmentData => MarineShipmentData(
-        id: 0, //isAdd ? 0 : orderData!.id,
+        id: isAdd ? 0 : orderData!.id,
         title: name.text,
         shipmentType: selectedShippingType.value == 0 ? 'import' : 'export',
         fromShipmentLocation: fromShipmentLocation.value,

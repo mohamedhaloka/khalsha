@@ -12,9 +12,10 @@ class OrdersRepositoryImpl extends OrdersRepository {
   OrdersRepositoryImpl(this._ordersRemoteDataSource);
 
   @override
-  Future<Either<Failure, List<OrderModel>>> getOrders(String type) async {
+  Future<Either<Failure, List<OrderModel>>> getOrders(
+      String type, int page) async {
     try {
-      final result = await _ordersRemoteDataSource.getOrders(type);
+      final result = await _ordersRemoteDataSource.getOrders(type, page);
       return right(result);
     } on ServerException catch (e) {
       return left(ServerFailure(statusMessage: e.errorMessage));

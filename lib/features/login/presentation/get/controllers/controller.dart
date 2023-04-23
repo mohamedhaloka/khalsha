@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:khalsha/core/presentation/themes/colors_manager.dart';
 import 'package:khalsha/core/utils.dart';
 import 'package:khalsha/features/login/domain/use_cases/login_use_case.dart';
 
@@ -33,6 +34,7 @@ class LoginController extends GetxController {
       showAlertMessage('جميع الحقول مطلوبة');
       return;
     }
+    FocusScope.of(Get.context!).requestFocus(FocusNode());
     final params = LoginParams(
       loading: loading,
       password: password.text,
@@ -43,6 +45,15 @@ class LoginController extends GetxController {
     result.fold(
       (Failure failure) => showAlertMessage(failure.statusMessage),
       (UserData userData) {
+        if (userData.user?.userType != 'importer_exporter') {
+          showDialog(
+            'يمكنك تحميل تطبيق مقدم الخدمة والإستفاده بكافة مميزاته',
+            doneText: 'تحميل',
+            onDoneTapped: () {},
+            backColor: ColorManager.secondaryColor,
+          );
+          return;
+        }
         UserDataLocal.instance.save(userData.toJson());
         Get.offAllNamed(Routes.root);
       },

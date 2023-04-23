@@ -5,6 +5,7 @@ import 'package:khalsha/features/orders/presentation/widgets/filter.dart';
 import 'package:khalsha/features/orders/presentation/widgets/order_item.dart';
 import 'package:khalsha/features/service_intro/presentation/get/controllers/controller.dart';
 import 'package:khalsha/features/widgets/custom_app_bar.dart';
+import 'package:khalsha/features/widgets/smart_refresh.dart';
 
 import '../../../injection_container.dart';
 import '../../widgets/headline_bottom_sheet.dart';
@@ -47,43 +48,49 @@ class _OrdersBodyState extends State<OrdersBody> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.all(20),
-      children: [
-        Filter(
-          onTap: () => Get.bottomSheet(
-            HeadLineBottomSheet(
-              bottomSheetTitle: 'فلترة عروضي',
-              body: ServicesFiltrationSheet(
-                'الخدمة المقدمة',
-                selectedService: controller.selectedService,
-                onDoneTapped: () {
-                  Get.back();
-                  controller.getOrders();
-                },
+    return SmartRefresh(
+      controller: controller.refreshController,
+      onRefresh: controller.onRefresh,
+      onLoading: controller.onLoading,
+      footer: true,
+      child: ListView(
+        padding: const EdgeInsets.all(20),
+        children: [
+          Filter(
+            onTap: () => Get.bottomSheet(
+              HeadLineBottomSheet(
+                bottomSheetTitle: 'فلترة عروضي',
+                body: ServicesFiltrationSheet(
+                  'الخدمة المقدمة',
+                  selectedService: controller.selectedService,
+                  onDoneTapped: () {
+                    Get.back();
+                    controller.onRefresh();
+                  },
+                ),
+                height: Get.height / 3,
               ),
-              height: Get.height / 3,
             ),
           ),
-        ),
-        Obx(() => controller.loading.value
-            ? const Center(
-                child: CircularProgressIndicator(
-                  color: ColorManager.secondaryColor,
-                ),
-              )
-            : ListView.separated(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (_, int index) => OrderItem(
-                      controller.orders[index],
-                      route: controller.route,
-                      serviceType:
-                          ServiceTypes.values[controller.selectedService.value],
-                    ),
-                separatorBuilder: (_, __) => const SizedBox(height: 20),
-                itemCount: controller.orders.length)),
-      ],
+          Obx(() => controller.loading.value
+              ? const Center(
+                  child: CircularProgressIndicator(
+                    color: ColorManager.secondaryColor,
+                  ),
+                )
+              : ListView.separated(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (_, int index) => OrderItem(
+                        controller.orders[index],
+                        route: controller.route,
+                        serviceType: ServiceTypes
+                            .values[controller.selectedService.value],
+                      ),
+                  separatorBuilder: (_, __) => const SizedBox(height: 20),
+                  itemCount: controller.orders.length)),
+        ],
+      ),
     );
   }
 }

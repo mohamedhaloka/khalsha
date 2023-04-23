@@ -15,6 +15,12 @@ abstract class OrderDetailsRemoteDataSource {
     String status,
     String note,
   );
+
+  Future<String> acceptRejectOffer(
+    String type,
+    String status,
+    String orderId,
+  );
 }
 
 class OrderDetailsRemoteDataSourceImpl extends OrderDetailsRemoteDataSource {
@@ -55,6 +61,26 @@ class OrderDetailsRemoteDataSourceImpl extends OrderDetailsRemoteDataSource {
       throw ServerException(errorMessage: response.data['message'].toString());
     }
   }
+
+  @override
+  Future<String> acceptRejectOffer(
+    String type,
+    String status,
+    String orderId,
+  ) async {
+    final formData = dio.FormData.fromMap({
+      'status': status,
+    });
+    final response = await _httpService.post(
+      'importer/$type/action/offer/$orderId',
+      formData,
+    );
+    if (response.statusCode == 200) {
+      return response.data['message'];
+    } else {
+      throw ServerException(errorMessage: response.data['message'].toString());
+    }
+  }
 }
 
 extension ServiceTypesToModel on ServiceTypes {
@@ -67,11 +93,11 @@ extension ServiceTypesToModel on ServiceTypes {
       case ServiceTypes.stores:
         return WareHouseOrder.fromJson(json);
       case ServiceTypes.marineShipping:
-        return CustomsClearanceOrder.fromJson(json);
+        return MarineShipmentOrder.fromJson(json);
       case ServiceTypes.airFreight:
         return CustomsClearanceOrder.fromJson(json);
       case ServiceTypes.laboratoryAndStandards:
-        return CustomsClearanceOrder.fromJson(json);
+        return LaboratoryOrder.fromJson(json);
       default:
         return CustomsClearanceOrder.fromJson(json);
     }

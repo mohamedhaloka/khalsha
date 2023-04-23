@@ -12,8 +12,8 @@ class AddEditLaboratoryAndStandardsServiceController extends GetxController {
     this._updateLaboratoryUseCase,
   );
 
-  // final OrderModel? orderData = Get.arguments;
-  // bool get isAdd => orderData == null;
+  final OrderModel? orderData = Get.arguments;
+  bool get isAdd => orderData == null;
 
   PageController pageController = PageController();
 
@@ -69,54 +69,56 @@ class AddEditLaboratoryAndStandardsServiceController extends GetxController {
       'importer/laboratories/item/services',
       onSuccess: (data) => services.addAll(data),
     );
-    // if (orderData == null) {
-    //   loading(false);
-    //   return;
-    // }
-    // name.text = orderData!.title;
-    // // notes.text = orderData!.notes!;
-    // if (orderData!.testReport == 'yes') {
-    //   _downloadFile(
-    //     orderData!.testReportPhoto!,
-    //     onSuccess: (String filePath) => testReportPhoto(File(filePath)),
-    //   );
-    // }
-    // if (orderData!.factoryAudit == 'yes') {
-    //   _downloadFile(
-    //     orderData!.factoryAuditPhoto!,
-    //     onSuccess: (String filePath) => factoryAduitReport(File(filePath)),
-    //   );
-    // }
-    // for (var e in orderData!.certificates!) {
-    //   final item =
-    //       certificates.firstWhereOrNull((element) => element.id == e.id);
-    //   item?.selected(true);
-    // }
-    //
-    // if (orderData!.items!.isNotEmpty) {
-    //   for (var item in orderData!.items!) {
-    //     File photoCard = File(''), photoItem = File('');
-    //     await _downloadFile(
-    //       item.photoCard!,
-    //       onSuccess: (String filePath) => photoCard = File(filePath),
-    //     );
-    //     await _downloadFile(
-    //       item.photoItem!,
-    //       onSuccess: (String filePath) => photoItem = File(filePath),
-    //     );
-    //     orderItems.add(
-    //       OrderItemModel(
-    //         customsCode: TextEditingController(text: item.customsCode),
-    //         factoryName: TextEditingController(text: item.factoryName),
-    //         itemServiceId: item.itemServiceId.toString().obs,
-    //         nameAr: TextEditingController(text: item.name),
-    //         nameEn: TextEditingController(text: item.name),
-    //         photoCard: photoCard.obs,
-    //         photoItem: photoItem.obs,
-    //       ),
-    //     );
-    //   }
-    // }
+    if (orderData == null) {
+      loading(false);
+      return;
+    }
+    final order = orderData as LaboratoryOrder;
+    name.text = order.title;
+    notes.text = order.notes ?? '';
+    if (order.testReport == 'yes') {
+      _downloadFile(
+        order.testReportPhoto!,
+        onSuccess: (String filePath) => testReportPhoto(File(filePath)),
+      );
+    }
+    if (order.factoryAudit == 'yes') {
+      _downloadFile(
+        order.factoryAuditPhoto!,
+        onSuccess: (String filePath) => factoryAduitReport(File(filePath)),
+      );
+    }
+    for (var e in order.certificates) {
+      final item =
+          certificates.firstWhereOrNull((element) => element.id == e.id);
+      item?.selected(true);
+    }
+
+    if (order.items.isNotEmpty) {
+      orderItems.clear();
+      for (var item in order.items) {
+        File photoCard = File(''), photoItem = File('');
+        await _downloadFile(
+          item.photoCard,
+          onSuccess: (String filePath) => photoCard = File(filePath),
+        );
+        await _downloadFile(
+          item.photoItem,
+          onSuccess: (String filePath) => photoItem = File(filePath),
+        );
+        orderItems.add(
+          OrderItemModel(
+            customsCode: TextEditingController(text: item.customsCode),
+            factoryName: TextEditingController(text: item.factoryName),
+            itemServiceId: item.itemServiceId.toString().obs,
+            nameAr: TextEditingController(text: item.name),
+            nameEn: TextEditingController(text: item.name),
+            photoCard: photoCard.obs,
+            photoItem: photoItem.obs,
+          ),
+        );
+      }
+    }
     loading(false);
   }
 
@@ -155,12 +157,12 @@ class AddEditLaboratoryAndStandardsServiceController extends GetxController {
 
   void onTapNext() {
     if (currentStep.value == children.length - 1) {
-      // if (isAdd) {
-      _createOrder();
+      if (isAdd) {
+        _createOrder();
+        return;
+      }
+      _updateOrder();
       return;
-      // }
-      // _updateOrder();
-      // return;
     }
     formKey.currentState?.save();
 
@@ -173,7 +175,7 @@ class AddEditLaboratoryAndStandardsServiceController extends GetxController {
   }
 
   LaboratoryData get _laboratoryData => LaboratoryData(
-        id: 0, // isAdd ? 0 : orderData!.id,
+        id: isAdd ? 0 : orderData!.id,
         notes: notes.text,
         photoItem:
             orderItems.map((element) => element.photoItem.value.path).toList(),
@@ -192,7 +194,9 @@ class AddEditLaboratoryAndStandardsServiceController extends GetxController {
             .toList(),
         factoryName:
             orderItems.map((element) => element.factoryName.text).toList(),
-        certificates: certificates.isEmpty ? 'no' : 'yes',
+        certificates: certificates.any((element) => element.selected.value)
+            ? 'yes'
+            : 'no',
         factoryAudit: factoryAduitReport.value.path,
         testReport: testReportPhoto.value.path,
       );

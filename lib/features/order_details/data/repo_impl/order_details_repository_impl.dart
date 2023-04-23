@@ -50,4 +50,24 @@ class OrderDetailsRepositoryImpl extends OrderDetailsRepository {
       return left(ServerFailure(statusMessage: e.response!.data.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, String>> acceptRejectOffer({
+    required String type,
+    required String status,
+    required String orderId,
+  }) async {
+    try {
+      final result = await _orderDetailsRemoteDataSource.acceptRejectOffer(
+        type,
+        status,
+        orderId,
+      );
+      return right(result);
+    } on ServerException catch (e) {
+      return left(ServerFailure(statusMessage: e.errorMessage));
+    } on DioError catch (e) {
+      return left(ServerFailure(statusMessage: e.response!.data.toString()));
+    }
+  }
 }
