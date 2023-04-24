@@ -8,15 +8,18 @@ class AddEditLaboratoryAndStandardsServiceView
   Widget build(BuildContext context) {
     return FormBuilder(
       key: controller.formKey,
-      child: ServiceContent(
-        onTapBack: controller.onTapBack,
-        onPageChanged: controller.onPageChanged,
-        pageViewController: controller.pageController,
-        pageTitle: controller.pageTitle,
-        onTapNext: controller.onTapNext,
-        currentStep: controller.currentStep,
-        btnLoading: controller.loading,
-        children: controller.children,
+      child: Obx(
+        () => ServiceContent(
+          onTapBack: controller.onTapBack,
+          onPageChanged: controller.onPageChanged,
+          pageViewController: controller.pageController,
+          pageTitle: controller.pageTitle,
+          onTapNext: controller.onTapNext,
+          currentStep: controller.currentStep,
+          btnLoading: controller.loading,
+          nextTitle: controller.nextTitle,
+          children: controller.children,
+        ),
       ),
     );
   }
@@ -43,21 +46,27 @@ class _FillData
               errorText: field.errorText,
             ),
             validator: FormBuilderValidators.required(),
-            name: 'name',
+            name: LaboratoryInputsKeys.title.name,
           ),
-          FormBuilderField(
-            initialValue: controller.factoryAduitReport,
-            builder: (FormFieldState<dynamic> field) => AttachFileWithHolder(
+          FormBuilderField<String>(
+            initialValue: controller.factoryAduitReport.value.path,
+            builder: (FormFieldState<String> field) => AttachFileWithHolder(
               title: 'متوفر لدي المورد Factory aduit report',
               file: controller.factoryAduitReport,
               onChooseFile: (String path) => field.didChange(path),
               errorMsg: field.errorText,
             ),
             validator: FormBuilderValidators.required(),
-            name: 'factory_report',
+            name: LaboratoryInputsKeys.factoryAdultReport.name,
+            onSaved: (_) {
+              final value = controller.factoryAduitReport.value.path;
+              controller.didFieldChanged(
+                LaboratoryInputsKeys.factoryAdultReport.name,
+                value: value,
+              );
+            },
           ),
           FormBuilderField(
-            initialValue: controller.testReportPhoto,
             builder: (FormFieldState<dynamic> field) => AttachFileWithHolder(
               title: 'متوفر لدي المورد Test report',
               file: controller.testReportPhoto,
@@ -65,10 +74,16 @@ class _FillData
               errorMsg: field.errorText,
             ),
             validator: FormBuilderValidators.required(),
-            name: 'test_report',
+            name: LaboratoryInputsKeys.testReport.name,
+            onSaved: (_) {
+              final value = controller.testReportPhoto.value.path;
+              controller.didFieldChanged(
+                LaboratoryInputsKeys.testReport.name,
+                value: value,
+              );
+            },
           ),
           FormBuilderField(
-            initialValue: controller.isAdd ? null : 'x',
             builder: (FormFieldState<dynamic> field) => Obx(
               () => ServiceItemWithHolder(
                 title: 'أصناف الطلب',
@@ -82,7 +97,23 @@ class _FillData
               ),
             ),
             validator: FormBuilderValidators.required(),
-            name: 'order_items',
+            name: LaboratoryInputsKeys.orderItems.name,
+            onSaved: (_) {
+              final hasEmptyInputs = controller.orderItems.any(
+                (element) =>
+                    element.photoItem.value.path.isEmpty ||
+                    element.photoCard.value.path.isEmpty ||
+                    element.itemServiceId.value.isEmpty ||
+                    element.factoryName.text.isEmpty ||
+                    element.nameAr.text.isEmpty ||
+                    element.nameEn.text.isEmpty ||
+                    element.customsCode.text.isEmpty,
+              );
+              controller.didFieldChanged(
+                LaboratoryInputsKeys.orderItems.name,
+                value: hasEmptyInputs ? '' : 'x',
+              );
+            },
           ),
           TextFieldInputWithHolder(
             hint: 'ملاحظات',
@@ -116,4 +147,11 @@ class _AdditionalServices
       ),
     );
   }
+}
+
+enum LaboratoryInputsKeys {
+  title,
+  factoryAdultReport,
+  testReport,
+  orderItems,
 }

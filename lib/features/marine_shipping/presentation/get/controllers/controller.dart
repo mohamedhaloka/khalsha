@@ -96,6 +96,10 @@ class AddEditMarineShippingServiceController extends GetxController {
       enableCustomsClearance = false.obs,
       enableCertificate = false.obs;
 
+  String? get nextTitle => currentStep.value == children.length - 1
+      ? (isAdd ? 'إضافة' : 'تعديل')
+      : null;
+
   @override
   void onInit() {
     _fillData();
@@ -112,7 +116,6 @@ class AddEditMarineShippingServiceController extends GetxController {
       loading(false);
       return;
     }
-
     final order = orderData as MarineShipmentOrder;
     name.text = orderData!.title;
     content.text = order.content;
@@ -226,6 +229,9 @@ class AddEditMarineShippingServiceController extends GetxController {
     result.fold((_) => _, (r) => onSuccess(r));
   }
 
+  void didFieldChanged(String fieldName, {required String value}) =>
+      formKey.currentState?.fields[fieldName]!.didChange(value);
+
   void onPageChanged(int index) => currentStep(index);
   void onTapBack() {
     if (currentStep.value == 0) {
@@ -250,6 +256,7 @@ class AddEditMarineShippingServiceController extends GetxController {
 
     formKey.currentState?.save();
 
+    print(formKey.currentState!.validate());
     if (!formKey.currentState!.validate()) return;
 
     pageController.nextPage(

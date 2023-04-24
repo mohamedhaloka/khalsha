@@ -21,6 +21,13 @@ abstract class OrderDetailsRemoteDataSource {
     String status,
     String orderId,
   );
+
+  Future<void> rateOrder(
+    double rate,
+    String feedback,
+    String orderId,
+    String module,
+  );
 }
 
 class OrderDetailsRemoteDataSourceImpl extends OrderDetailsRemoteDataSource {
@@ -78,6 +85,28 @@ class OrderDetailsRemoteDataSourceImpl extends OrderDetailsRemoteDataSource {
     if (response.statusCode == 200) {
       return response.data['message'];
     } else {
+      throw ServerException(errorMessage: response.data['message'].toString());
+    }
+  }
+
+  @override
+  Future<void> rateOrder(
+    double rate,
+    String feedback,
+    String orderId,
+    String module,
+  ) async {
+    final formData = dio.FormData.fromMap({
+      'rate': rate,
+      'feedback': feedback,
+      'module_id': orderId,
+      'module': module,
+    });
+    final response = await _httpService.post(
+      'auth/add/rate',
+      formData,
+    );
+    if (response.statusCode != 200) {
       throw ServerException(errorMessage: response.data['message'].toString());
     }
   }

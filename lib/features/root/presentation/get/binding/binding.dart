@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:khalsha/features/home/presentation/get/controllers/controller.dart';
+import 'package:khalsha/features/my_bills/presentation/get/controllers/controller.dart';
 import 'package:khalsha/features/notifications/presentation/get/controllers/controller.dart';
 import 'package:khalsha/features/orders/presentation/get/controllers/controller.dart';
 import 'package:khalsha/features/profile/presentation/get/controllers/controller.dart';
@@ -23,5 +24,7 @@ class RootBinding extends Bindings {
     Get.lazyPut<NotificationsController>(() => NotificationsController());
     Get.lazyPut<OrdersController>(
         () => OrdersController(InjectionContainer.sl()));
+    Get.lazyPut<MyBillsController>(
+        () => MyBillsController(InjectionContainer.sl()));
   }
 }

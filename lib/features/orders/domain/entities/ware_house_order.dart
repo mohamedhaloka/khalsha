@@ -95,22 +95,22 @@ class WareHouseOrder extends OrderModel {
         invoiceUrl: json["invoice_url"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
-        user: User.fromJson(json["user"]),
+        user: User.fromJson(json["user"] ?? {}),
         feedback: json["feedback"] == null
             ? null
             : FeedbackObj.fromJson(json["feedback"]),
-        item: DataModel.fromJson(json["item"]),
+        item: DataModel.fromJson(json["item"] ?? {}),
         certificates: List<DataModel>.from(
-            json["get_certificates"].map((x) => DataModel.fromJson(x))),
+            (json["get_certificates"] ?? []).map((x) => DataModel.fromJson(x))),
         offers: List<WareHouseOffer>.from(
-            json["offers"].map((x) => WareHouseOffer.fromJson(x))),
+            (json["offers"] ?? []).map((x) => WareHouseOffer.fromJson(x))),
         invoice: json['invoice'] is List
             ? null
             : json['invoice'] == null
                 ? null
                 : WareHouseInvoice.fromJson(json['invoice']),
         offersNum: List<WareHouseOffer>.from(
-          json["offers"].map((x) => WareHouseOffer.fromJson(x)),
+          (json["offers"] ?? []).map((x) => WareHouseOffer.fromJson(x)),
         ).length,
         offer: json['offer'] == null
             ? null

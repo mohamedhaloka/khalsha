@@ -17,9 +17,10 @@ class ServiceContent extends StatelessWidget {
     required this.children,
     required this.currentStep,
     required this.btnLoading,
-    this.nextTitle = 'التالي',
+    this.nextTitle,
   }) : super(key: key);
-  final String pageTitle, nextTitle;
+  final String pageTitle;
+  final String? nextTitle;
   final void Function() onTapBack, onTapNext;
   final void Function(int index) onPageChanged;
   final List<Widget> children;
@@ -44,11 +45,34 @@ class ServiceContent extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(20.0),
-              child: PageView(
-                controller: pageViewController,
-                physics: const NeverScrollableScrollPhysics(),
-                onPageChanged: onPageChanged,
-                children: children,
+              child: Obx(
+                () => Stack(
+                  children: [
+                    PageView(
+                      controller: pageViewController,
+                      physics: const NeverScrollableScrollPhysics(),
+                      onPageChanged: onPageChanged,
+                      children: children,
+                    ),
+                    if (btnLoading.value)
+                      Container(
+                        width: Get.width,
+                        height: Get.height,
+                        color: Colors.white70,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            CircularProgressIndicator(
+                              color: ColorManager.secondaryColor,
+                            ),
+                            SizedBox(height: 8),
+                            Text('أنتظر قليلاً')
+                          ],
+                        ),
+                      )
+                  ],
+                ),
               ),
             ),
           ),
@@ -59,7 +83,7 @@ class ServiceContent extends StatelessWidget {
               loading: btnLoading,
               width: Get.width,
               height: 60,
-              text: nextTitle,
+              text: nextTitle ?? 'التالي',
             ),
           )
         ],

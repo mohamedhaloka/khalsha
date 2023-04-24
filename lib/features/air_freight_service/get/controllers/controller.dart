@@ -21,6 +21,7 @@ class AddEditAirFreightServiceController extends GetxController {
     return '';
   }
 
+  RxBool loading = false.obs;
   RxInt selectedShippingType = 0.obs;
 
   Rx<ItemModel> selectedShippingPlace = ItemModel.empty().obs;

@@ -78,6 +78,10 @@ class AddEditStoresServiceController extends GetxController {
 
   DateTime contractDate = DateTime.now();
 
+  String? get nextTitle => currentStep.value == children.length - 1
+      ? (isAdd ? 'إضافة' : 'تعديل')
+      : null;
+
   @override
   void onInit() {
     _fillData();
@@ -97,7 +101,6 @@ class AddEditStoresServiceController extends GetxController {
       loading(false);
       return;
     }
-
     final order = orderData as WareHouseOrder;
     name.text = orderData!.title;
     selectedShippingField(order.storingPurposeId);

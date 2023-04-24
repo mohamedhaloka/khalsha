@@ -16,6 +16,7 @@ class AddEditMarineShippingServiceView
         onTapNext: controller.onTapNext,
         currentStep: controller.currentStep,
         btnLoading: controller.loading,
+        nextTitle: controller.nextTitle,
         children: controller.children,
       ),
     );
@@ -32,17 +33,16 @@ class _FillData extends GetView<AddEditMarineShippingServiceController> {
       body: Column(
         children: [
           FormBuilderField(
-            initialValue: controller.name,
             builder: (FormFieldState<dynamic> field) =>
                 TextFieldInputWithHolder(
               title: 'عنوان الطلب',
               hint: 'أضف عنوان',
               controller: controller.name,
-              onChanged: (String value) => field.didChange(value),
+              onSaved: (String? value) => field.didChange(value),
               errorText: field.errorText,
             ),
             validator: FormBuilderValidators.required(),
-            name: 'name',
+            name: MarineShipmentInputsKeys.title.name,
           ),
           ToggleItemWithHolder(
             title: 'نوع الشحنة',
@@ -50,7 +50,6 @@ class _FillData extends GetView<AddEditMarineShippingServiceController> {
             selectedItem: controller.selectedShippingType,
           ),
           FormBuilderField(
-            initialValue: '_',
             builder: (FormFieldState<dynamic> field) => ChooseItemWithHolder(
               title: 'الشحن من',
               height: Get.height / 1.6,
@@ -69,10 +68,23 @@ class _FillData extends GetView<AddEditMarineShippingServiceController> {
               errorMsg: field.errorText,
             ),
             validator: FormBuilderValidators.required(),
-            name: 'shipment_from',
+            name: MarineShipmentInputsKeys.shipmentFrom.name,
+            onSaved: (_) {
+              final hasEmptyInputs =
+                  controller.fromShipmentLocation.value.isEmpty ||
+                      (controller.fromShipmentLocation.value ==
+                              PlaceOfShipment.other.value
+                          ? controller.fromShipmentOther.text.isEmpty
+                          : false) ||
+                      controller.fromCountryId.value.isEmpty ||
+                      controller.fromCity.text.isEmpty;
+              controller.didFieldChanged(
+                MarineShipmentInputsKeys.shipmentFrom.name,
+                value: hasEmptyInputs ? '' : '_',
+              );
+            },
           ),
           FormBuilderField(
-            initialValue: '_',
             builder: (FormFieldState<dynamic> field) => ChooseItemWithHolder(
               title: 'الشحن من',
               height: Get.height / 1.6,
@@ -91,7 +103,21 @@ class _FillData extends GetView<AddEditMarineShippingServiceController> {
               errorMsg: field.errorText,
             ),
             validator: FormBuilderValidators.required(),
-            name: 'shipment_to',
+            name: MarineShipmentInputsKeys.shipmentTo.name,
+            onSaved: (_) {
+              final hasEmptyInputs =
+                  controller.toShipmentLocation.value.isEmpty ||
+                      (controller.toShipmentLocation.value ==
+                              PlaceOfShipment.other.value
+                          ? controller.toShipmentOther.text.isEmpty
+                          : false) ||
+                      controller.toCountryId.value.isEmpty ||
+                      controller.toCity.text.isEmpty;
+              controller.didFieldChanged(
+                MarineShipmentInputsKeys.shipmentTo.name,
+                value: hasEmptyInputs ? '' : '_',
+              );
+            },
           ),
           ToggleItemWithHolder(
             title: 'حجم الشحنة',
@@ -115,7 +141,6 @@ class _FillData extends GetView<AddEditMarineShippingServiceController> {
             },
           ),
           FormBuilderField(
-            initialValue: controller.selectedShipmentReady,
             builder: (FormFieldState<dynamic> field) => DropDownInputWithHolder(
               title: 'هل الشحنة جاهزة',
               dropValue: controller.selectedShipmentReady,
@@ -131,7 +156,11 @@ class _FillData extends GetView<AddEditMarineShippingServiceController> {
               errorText: field.errorText,
             ),
             validator: FormBuilderValidators.required(),
-            name: 'shipment_ready',
+            name: MarineShipmentInputsKeys.shipmentReady.name,
+            onSaved: (_) => controller.didFieldChanged(
+              MarineShipmentInputsKeys.shipmentReady.name,
+              value: controller.selectedShipmentReady.value,
+            ),
           ),
           Obx(
             () => TextFieldInputWithDropDownWithHolder(
@@ -195,4 +224,11 @@ enum ShipmentReadyPeriods {
 
   final String value;
   const ShipmentReadyPeriods(this.value);
+}
+
+enum MarineShipmentInputsKeys {
+  title,
+  shipmentFrom,
+  shipmentTo,
+  shipmentReady;
 }

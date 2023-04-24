@@ -1,26 +1,26 @@
 import 'package:get/get.dart';
 import 'package:khalsha/core/data/services/http_service.dart';
 import 'package:khalsha/features/order_details/data/data_source/order_details_remote_data_source.dart';
-import 'package:khalsha/features/service_intro/presentation/get/controllers/controller.dart';
+import 'package:khalsha/features/orders/domain/entities/order_model.dart';
 
 import '../../../../core/domain/error/exceptions.dart';
-import '../../domain/entities/order_model.dart';
+import '../../../service_intro/presentation/get/controllers/controller.dart';
 
-abstract class OrdersRemoteDataSource {
-  Future<List<OrderModel>> getOrders(String type, int page);
+abstract class MyBillsRemoteDataSource {
+  Future<List<OrderModel>> getBills(String type, int pageIndex);
 }
 
-class OrdersRemoteDataSourceImpl extends OrdersRemoteDataSource {
+class MyBillsRemoteDataSourceImpl extends MyBillsRemoteDataSource {
   final HttpService _httpService;
-  OrdersRemoteDataSourceImpl(this._httpService);
+  MyBillsRemoteDataSourceImpl(this._httpService);
 
   @override
-  Future<List<OrderModel>> getOrders(String type, int page) async {
-    final response = await _httpService.get('importer/$type?page=$page');
+  Future<List<OrderModel>> getBills(String type, int pageIndex) async {
+    final response =
+        await _httpService.get('importer/billing?type=$type&page=$pageIndex');
 
     if (response.statusCode == 200) {
-      print(response.data);
-      final data = response.data['result']['data'];
+      final data = response.data['data']['billings']['data'];
       List<OrderModel> orders = <OrderModel>[];
       ServiceTypes? serviceTypes = ServiceTypes.values
           .firstWhereOrNull((element) => element.value == type);

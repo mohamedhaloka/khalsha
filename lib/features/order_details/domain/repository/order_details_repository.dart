@@ -18,4 +18,11 @@ abstract class OrderDetailsRepository {
     required String status,
     required String orderId,
   });
+
+  Future<Either<Failure, Unit>> rateOrder(
+    double rate,
+    String feedback,
+    String orderId,
+    String module,
+  );
 }

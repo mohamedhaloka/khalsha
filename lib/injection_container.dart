@@ -33,6 +33,10 @@ import 'package:khalsha/features/marine_shipping/data/repository_impl/marine_shi
 import 'package:khalsha/features/marine_shipping/domain/repository/marine_shipment_repository.dart';
 import 'package:khalsha/features/marine_shipping/domain/use_cases/add_marine_shipment_use_case.dart';
 import 'package:khalsha/features/marine_shipping/domain/use_cases/update_marine_shipment_use_case.dart';
+import 'package:khalsha/features/my_bills/data/data_source/my_bills_remote_data_source.dart';
+import 'package:khalsha/features/my_bills/data/repo_impl/my_bills_repository_impl.dart';
+import 'package:khalsha/features/my_bills/domain/repository/my_bills_repository.dart';
+import 'package:khalsha/features/my_bills/domain/use_cases/get_my_bills_use_case.dart';
 import 'package:khalsha/features/new_orders/data/data_source/new_orders_remote_data_source.dart';
 import 'package:khalsha/features/new_orders/data/repo_impl/new_orders_repository_impl.dart';
 import 'package:khalsha/features/new_orders/domain/repository/new_orders_repository.dart';
@@ -41,6 +45,7 @@ import 'package:khalsha/features/order_details/data/repo_impl/order_details_repo
 import 'package:khalsha/features/order_details/domain/repository/order_details_repository.dart';
 import 'package:khalsha/features/order_details/domain/use_cases/accept_reject_offer_use_case.dart';
 import 'package:khalsha/features/order_details/domain/use_cases/get_order_details_use_case.dart';
+import 'package:khalsha/features/order_details/domain/use_cases/rate_order_use_case.dart';
 import 'package:khalsha/features/order_details/domain/use_cases/update_order_status_use_case.dart';
 import 'package:khalsha/features/orders/data/data_source/orders_remote_data_source.dart';
 import 'package:khalsha/features/orders/data/repo_impl/orders_repository_impl.dart';
@@ -230,6 +235,7 @@ class InjectionContainer {
         () => UpdateOrderStatusUseCase(sl()));
     sl.registerLazySingleton<AcceptRejectOfferUseCase>(
         () => AcceptRejectOfferUseCase(sl()));
+    sl.registerLazySingleton<RateOrderUseCase>(() => RateOrderUseCase(sl()));
 
     //Map
     sl.registerLazySingleton<Location>(() => Location());
@@ -246,5 +252,12 @@ class InjectionContainer {
         () => GetPlacesFromSearchUseCase(sl()));
     sl.registerLazySingleton<GetPlaceDetailsUseCase>(
         () => GetPlaceDetailsUseCase(sl()));
+
+    //My Bills
+    sl.registerLazySingleton<MyBillsRemoteDataSource>(
+        () => MyBillsRemoteDataSourceImpl(dioService));
+    sl.registerLazySingleton<MyBillsRepository>(
+        () => MyBillsRepositoryImpl(sl()));
+    sl.registerLazySingleton<GetMyBillsUseCase>(() => GetMyBillsUseCase(sl()));
   }
 }

@@ -16,6 +16,7 @@ class AddEditStoresServiceView extends GetView<AddEditStoresServiceController> {
           onTapNext: controller.onTapNext,
           currentStep: controller.currentStep,
           btnLoading: controller.loading,
+          nextTitle: controller.nextTitle,
           children: controller.children,
         ),
       ),

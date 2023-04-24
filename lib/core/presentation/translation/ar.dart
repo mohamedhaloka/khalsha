@@ -1,4 +1,13 @@
 Map<String, String> ar = {
+  //Shared
+  'refresh-complete': 'اكتمال التحديث',
+  'refresh-failed': 'فشل التحديث',
+  'pull_up_load': "سحب للتحميل",
+  'load_failed_click_try': 'فشل التحميل ، انقر فوق المحاولة',
+  'release_load_more': 'حرر لتحميل المزيد',
+  'no_more_data': 'لا مزيد من البيانات',
+  'error-occurred': 'حدث خطأ، يرجي إعادة المحاولة',
+
   //Service Intro
   'customsclearance': 'التخليص الجمركي',
   'landshippings': 'الشحن البري',

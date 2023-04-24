@@ -70,4 +70,22 @@ class OrderDetailsRepositoryImpl extends OrderDetailsRepository {
       return left(ServerFailure(statusMessage: e.response!.data.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, Unit>> rateOrder(
+      double rate, String feedback, String orderId, String module) async {
+    try {
+      await _orderDetailsRemoteDataSource.rateOrder(
+        rate,
+        feedback,
+        orderId,
+        module,
+      );
+      return right(unit);
+    } on ServerException catch (e) {
+      return left(ServerFailure(statusMessage: e.errorMessage));
+    } on DioError catch (e) {
+      return left(ServerFailure(statusMessage: e.response!.data.toString()));
+    }
+  }
 }

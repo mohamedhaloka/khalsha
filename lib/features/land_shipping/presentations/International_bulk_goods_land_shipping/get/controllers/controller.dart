@@ -25,6 +25,8 @@ class InternationalBulkGoodsLandShippingServiceController
     return '';
   }
 
+  RxBool loading = false.obs;
+
   void onPageChanged(int index) => currentIndex(index);
   void onTapBack() {
     if (currentIndex.value == 0) {

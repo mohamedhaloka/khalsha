@@ -39,7 +39,7 @@ class LaboratoryOrder extends OrderModel {
         id: json["id"],
         title: json["title"],
         userId: json["user_id"],
-        user: User.fromJson(json["user"]),
+        user: User.fromJson(json["user"] ?? {}),
         testReport: json["test_report"],
         testReportPhoto: json["test_report_photo"],
         factoryAudit: json["factory_audit"],
@@ -52,7 +52,7 @@ class LaboratoryOrder extends OrderModel {
             ? null
             : FeedbackObj.fromJson(json["feedback"]),
         certificates: List<DataModel>.from(
-            json["get_certificates"].map((x) => DataModel.fromJson(x))),
+            (json["get_certificates"] ?? []).map((x) => DataModel.fromJson(x))),
         offers: List<LaboratoryOffer>.from(
             (json["offers"] ?? []).map((x) => LaboratoryOffer.fromJson(x))),
         items: List<LaboratoryOrderItem>.from(

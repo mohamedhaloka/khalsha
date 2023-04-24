@@ -8,11 +8,13 @@ import 'package:khalsha/injection_container.dart';
 
 import 'core/data/services/http_service.dart';
 import 'core/data/source/local/user_local.dart';
+import 'core/presentation/error_view.dart';
 import 'core/presentation/routes/app_routes.dart';
 import 'core/presentation/themes/theme_manager.dart';
 import 'core/presentation/translation/app_translation.dart';
 
 void main() async {
+  ErrorWidget.builder = (FlutterErrorDetails details) => ErrorView(details);
   await _initData();
   runApp(const MyApp());
 }

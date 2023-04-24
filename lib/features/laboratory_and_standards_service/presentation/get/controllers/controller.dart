@@ -53,6 +53,10 @@ class AddEditLaboratoryAndStandardsServiceController extends GetxController {
 
   RxInt currentStep = 0.obs;
 
+  String? get nextTitle => currentStep.value == children.length - 1
+      ? (isAdd ? 'إضافة' : 'تعديل')
+      : null;
+
   @override
   void onInit() {
     _fillData();
@@ -119,6 +123,7 @@ class AddEditLaboratoryAndStandardsServiceController extends GetxController {
         );
       }
     }
+    update();
     loading(false);
   }
 
@@ -138,10 +143,13 @@ class AddEditLaboratoryAndStandardsServiceController extends GetxController {
     String url, {
     required void Function(String filePath) onSuccess,
   }) async {
-    final params = DownloadFileUseCaseParams(loading: loading, url: url);
+    final params = DownloadFileUseCaseParams(loading: false.obs, url: url);
     final result = await _downloadFileUseCase.execute(params);
     result.fold((_) => _, (r) => onSuccess(r));
   }
+
+  void didFieldChanged(String fieldName, {required String value}) =>
+      formKey.currentState?.fields[fieldName]!.didChange(value);
 
   void onPageChanged(int index) => currentStep(index);
   void onTapBack() {
@@ -229,5 +237,6 @@ class AddEditLaboratoryAndStandardsServiceController extends GetxController {
         Get.back(result: true);
       },
     );
+    print(pageController.page);
   }
 }

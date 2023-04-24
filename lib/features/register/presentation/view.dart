@@ -7,6 +7,7 @@ import 'package:khalsha/features/widgets/custom_text_field.dart';
 import '../../../core/data/models/item_model.dart';
 import '../../../core/presentation/routes/app_routes.dart';
 import '../../../core/presentation/themes/colors_manager.dart';
+import '../../../core/utils.dart' as util;
 import '../../widgets/custom_button.dart';
 import 'get/controllers/controller.dart';
 
@@ -58,11 +59,12 @@ class RegisterView extends GetView<RegisterController> {
             inputType: Input.phone,
             controller: controller.phone,
           ),
-          ChooseFile(
-            title: 'السجل التجاري',
-            hint: 'في حال كنت شركة أو مؤسسة',
-            file: controller.commercialRegisterFile,
-          ),
+          if (controller.currentTab.value == 1)
+            ChooseFile(
+              title: 'السجل التجاري',
+              hint: 'في حال كنت شركة أو مؤسسة',
+              file: controller.commercialRegisterFile,
+            ),
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 35, 0, 35),
             child: CustomButton.fillBlue(
@@ -137,7 +139,19 @@ class _RegisterTabs extends StatelessWidget {
               children: data.map((item) {
                 bool selected = currentTab.value == item.id;
                 return InkWell(
-                  onTap: () => currentTab(item.id),
+                  onTap: () {
+                    if (item.id == 1) {
+                      util.showDialog(
+                        'يمكنك تحميل تطبيق مقدم الخدمة والإستفاده بكافة مميزاته',
+                        doneText: 'تحميل',
+                        onDoneTapped: () {},
+                        backColor: ColorManager.secondaryColor,
+                      );
+                      return;
+                    }
+
+                    currentTab(item.id);
+                  },
                   child: Container(
                     height: 40,
                     margin: const EdgeInsets.symmetric(horizontal: 1),

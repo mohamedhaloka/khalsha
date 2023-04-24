@@ -6,21 +6,26 @@ class OrderDetailsController extends GetxController {
   final UploadImageUseCase _uploadImageUseCase;
   final DeleteFileUseCase _deleteFileUseCase;
   final AcceptRejectOfferUseCase _acceptRejectOfferUseCase;
+  final RateOrderUseCase _rateOrderUseCase;
   OrderDetailsController(
     this._getOrderDetailsUseCase,
     this._updateOrderStatusUseCase,
     this._uploadImageUseCase,
     this._deleteFileUseCase,
     this._acceptRejectOfferUseCase,
+    this._rateOrderUseCase,
   );
 
-  int orderId = Get.arguments[0];
-  ServiceTypes serviceType = Get.arguments[1];
+  int orderId = Get.arguments['orderId'];
+  ServiceTypes serviceType = Get.arguments['serviceType'];
+  bool isBill = Get.arguments['isBill'];
 
   RxInt currentTab = 0.obs;
   PageController pageViewController = PageController();
 
-  RxBool loading = true.obs, offerActionLoading = false.obs;
+  RxBool loading = true.obs,
+      offerActionLoading = false.obs,
+      rateOrderLoading = false.obs;
 
   late OrderModel orderModel;
 
@@ -66,18 +71,30 @@ class OrderDetailsController extends GetxController {
       orderId: orderId,
     );
     final result = await _getOrderDetailsUseCase.execute(params);
-    result.fold((_) => _, (r) {
-      orderModel = r;
-      currentTab(0);
+    result.fold(
+      (_) => _,
+      _onGetOrderDetailsSuccess,
+    );
+  }
 
-      if (orderModel.offer != null || orderModel.invoice != null) {
-        pages.removeWhere((element) => element.id == 1);
-      }
+  void _onGetOrderDetailsSuccess(OrderModel orderData) async {
+    orderModel = orderData;
+    currentTab(0);
 
-      if (serviceType != ServiceTypes.customsClearance) {
-        pages.removeWhere((element) => element.id == 2);
-      }
-    });
+    if (orderModel.offer != null || orderModel.invoice != null) {
+      pages.removeWhere((element) => element.id == 1);
+    }
+
+    if (serviceType != ServiceTypes.customsClearance) {
+      pages.removeWhere((element) => element.id == 2);
+    }
+
+    await Future.delayed(const Duration(milliseconds: 300));
+    if (isBill) {
+      int indexOfLaseTab =
+          pages.indexWhere((element) => element.id == pages.last.id);
+      goToParticularPage(indexOfLaseTab);
+    }
   }
 
   Future<void> updateOrderStatus({
@@ -151,5 +168,24 @@ class OrderDetailsController extends GetxController {
         getOrderDetails();
       },
     );
+  }
+
+  Future<void> rateOrder({
+    required double rate,
+    required String feedback,
+  }) async {
+    final params = RateOrderUseCaseParams(
+      loading: rateOrderLoading,
+      rate: rate,
+      feedback: feedback,
+      module: serviceType.value,
+      orderId: orderId.toString(),
+    );
+    final result = await _rateOrderUseCase.execute(params);
+    result.fold((failure) => showAlertMessage(failure.statusMessage), (_) {
+      showAlertMessage('تم تقييم الطلب بنجاح');
+      Get.back();
+      getOrderDetails();
+    });
   }
 }

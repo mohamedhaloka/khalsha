@@ -89,16 +89,16 @@ class MarineShipmentOrder extends OrderModel {
         fromShipmentLocation: json["fromshipment_location"],
         fromShipmentOtherLocation: json["fromshipment_other_location"],
         fromCountryId: json["fromcountry_id"],
-        fromCity: json["fromcity"],
-        fromCityLat: json["fromcity_lat"],
-        fromCityLng: json["fromcity_lng"],
-        toShipmentLocation: json["toshipment_location"],
-        toShipmentOtherLocation: json["toshipment_other_location"],
-        toCountryId: json["tocountry_id"],
-        toCity: json["tocity"],
-        toCityLat: json["tocity_lat"],
-        toCityLng: json["tocity_lng"],
-        total: json["total"],
+        fromCity: json["fromcity"] ?? '',
+        fromCityLat: json["fromcity_lat"] ?? '',
+        fromCityLng: json["fromcity_lng"] ?? '',
+        toShipmentLocation: json["toshipment_location"] ?? '',
+        toShipmentOtherLocation: json["toshipment_other_location"] ?? '',
+        toCountryId: json["tocountry_id"] ??0,
+        toCity: json["tocity"] ?? '',
+        toCityLat: json["tocity_lat"] ?? '',
+        toCityLng: json["tocity_lng"] ?? '',
+        total: json["total"] ?? '',
         currencyId: json["currency_id"],
         shipmentReady: json["shipment_ready"],
         content: json["content"],
@@ -110,31 +110,31 @@ class MarineShipmentOrder extends OrderModel {
         userId: json["user_id"],
         status: json["status"],
         invoiceUrl: json["invoice_url"],
-        user: User.fromJson(json["user"]),
+        user: User.fromJson(json["user"] ?? {}),
         feedback: json['feedback'] == null
             ? null
             : FeedbackObj.fromJson(json['feedback']),
         certificates: List<DataModel>.from(
-            json["get_certificates"].map((x) => DataModel.fromJson(x))),
+            (json["get_certificates"] ?? []).map((x) => DataModel.fromJson(x))),
         offers: List<MarineShipmentOffer>.from(
-            json["offers"].map((x) => MarineShipmentOffer.fromJson(x))),
+            (json["offers"] ?? []).map((x) => MarineShipmentOffer.fromJson(x))),
         invoice: json['invoice'] is List
             ? null
             : json['invoice'] == null
                 ? null
                 : MarineShipmentInvoice.fromJson(json['invoice']),
         offersNum: List<MarineShipmentOffer>.from(
-          json["offers"].map((x) => MarineShipmentOffer.fromJson(x)),
+          (json["offers"] ?? []).map((x) => MarineShipmentOffer.fromJson(x)),
         ).length,
         offer: json['offer'] == null
             ? null
             : MarineShipmentOffer.fromJson(json['offer']),
         containers: List<MarineContainer>.from(
-            json["containers"].map((x) => MarineContainer.fromJson(x))),
-        fromCountry: DataModel.fromJson(json['fromcountry']),
+            (json["containers"] ?? []).map((x) => MarineContainer.fromJson(x))),
+        fromCountry: DataModel.fromJson(json['fromcountry'] ?? {}),
         goods: List<MarineGoods>.from(
-            json["goods"].map((x) => MarineGoods.fromJson(x))),
-        toCountry: DataModel.fromJson(json['tocountry']),
+            (json["goods"] ?? []).map((x) => MarineGoods.fromJson(x))),
+        toCountry: DataModel.fromJson(json['tocountry'] ?? {}),
       );
 
   Map<String, dynamic> toJson() => {

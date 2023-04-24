@@ -52,7 +52,7 @@ class CustomButton extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(radius ?? 12)),
             ),
-            backgroundColor: backgroundColor ?? Colors.transparent,
+            backgroundColor: backgroundColor ?? ColorManager.bgColor,
             foregroundColor: ColorManager.primaryColor,
             side: BorderSide(
               color: borderColor ?? ColorManager.greyColor,

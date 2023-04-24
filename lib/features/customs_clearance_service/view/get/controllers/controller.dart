@@ -18,7 +18,7 @@ class AddEditCustomsClearanceController extends GetxController {
 
   final OrderModel? orderModel = Get.arguments;
 
-  bool get isAddMode => orderModel == null;
+  bool get isAdd => orderModel == null;
 
   List<Widget> children = const [
     _FillData(),
@@ -45,13 +45,9 @@ class AddEditCustomsClearanceController extends GetxController {
     return '';
   }
 
-  String get btnTxt {
-    if (currentStep.value == 3) {
-      if (isAddMode) return 'اطلب';
-      return 'تعديل';
-    }
-    return 'التالي';
-  }
+  String? get nextTitle => currentStep.value == children.length - 1
+      ? (isAdd ? 'إضافة' : 'تعديل')
+      : null;
 
   RxInt selectedShippingField = 0.obs;
 
@@ -169,7 +165,7 @@ class AddEditCustomsClearanceController extends GetxController {
 
   Future<void> _downloadFile(OrderFile orderFile) async {
     final params = DownloadFileUseCaseParams(
-      loading: loading,
+      loading: false.obs,
       url: orderFile.fullPath!,
     );
     final result = await _downloadFileUseCase.execute(params);
@@ -197,7 +193,7 @@ class AddEditCustomsClearanceController extends GetxController {
 
   void onTapNext() {
     if (currentStep.value == children.length - 1) {
-      if (isAddMode) {
+      if (isAdd) {
         _createOrder();
         return;
       }
@@ -266,7 +262,7 @@ class AddEditCustomsClearanceController extends GetxController {
   }
 
   CustomsClearanceData get _customsClearanceData => CustomsClearanceData(
-        orderId: isAddMode ? null : orderModel!.id,
+        orderId: isAdd ? null : orderModel!.id,
         shippingMethod:
             selectedShippingMethod.value == 0 ? 'parcel' : 'container',
         parcelType: selectedShippingMethod.value == 0
@@ -302,7 +298,7 @@ class AddEditCustomsClearanceController extends GetxController {
             .where((e) => e.selected.value)
             .map((e) => e.id.toString())
             .toList(),
-        method: isAddMode ? null : 'PUT',
+        method: isAdd ? null : 'PUT',
         total: total.text,
         title: name.text,
         chargeField:

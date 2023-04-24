@@ -6,17 +6,19 @@ class AddEditCustomsClearanceServiceView
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => ServiceContent(
-          onTapBack: controller.onTapBack,
-          onPageChanged: controller.onPageChanged,
-          pageViewController: controller.pageController,
-          pageTitle: controller.pageTitle,
-          onTapNext: controller.onTapNext,
-          nextTitle: controller.btnTxt,
-          currentStep: controller.currentStep,
-          btnLoading: controller.loading,
-          children: controller.children,
-        ));
+    return Obx(
+      () => ServiceContent(
+        onTapBack: controller.onTapBack,
+        onPageChanged: controller.onPageChanged,
+        pageViewController: controller.pageController,
+        pageTitle: controller.pageTitle,
+        onTapNext: controller.onTapNext,
+        nextTitle: controller.nextTitle,
+        currentStep: controller.currentStep,
+        btnLoading: controller.loading,
+        children: controller.children,
+      ),
+    );
   }
 }
 

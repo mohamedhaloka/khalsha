@@ -29,10 +29,11 @@ class OrderItem extends StatelessWidget {
     return InkWell(
       onTap: () => Get.toNamed(
         Routes.orderDetails,
-        arguments: [
-          order.id,
-          serviceType,
-        ],
+        arguments: {
+          'orderId': order.id,
+          'serviceType': serviceType,
+          'isBill': false,
+        },
       ),
       child: Container(
         height: 110,

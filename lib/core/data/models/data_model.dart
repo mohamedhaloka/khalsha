@@ -5,8 +5,8 @@ class DataModel {
     required this.id,
     required this.status,
     this.deletedAt,
-    required this.createdAt,
-    required this.updatedAt,
+    this.createdAt,
+    this.updatedAt,
     required this.name,
     required this.selected,
   });
@@ -14,8 +14,8 @@ class DataModel {
   int id;
   String status;
   dynamic deletedAt;
-  DateTime createdAt;
-  DateTime updatedAt;
+  DateTime? createdAt;
+  DateTime? updatedAt;
   String name;
   RxBool selected;
 
@@ -23,10 +23,12 @@ class DataModel {
         id: json["id"] ?? 0,
         status: json["status"] ?? '',
         deletedAt: json["deleted_at"],
-        createdAt:
-            DateTime.parse(json["created_at"] ?? DateTime.now().toString()),
-        updatedAt:
-            DateTime.parse(json["updated_at"] ?? DateTime.now().toString()),
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
         name: json["name"] ?? '',
         selected: false.obs,
       );
@@ -45,8 +47,8 @@ class DataModel {
         "id": id,
         "status": status,
         "deleted_at": deletedAt,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
         "name": name,
       };
 
