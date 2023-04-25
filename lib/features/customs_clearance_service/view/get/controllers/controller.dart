@@ -169,13 +169,16 @@ class AddEditCustomsClearanceController extends GetxController {
       url: orderFile.fullPath!,
     );
     final result = await _downloadFileUseCase.execute(params);
-    result.fold((_) => _, (r) {
-      files.add(FileModel(
-        id: orderFile.id,
-        file: File(r),
-        type: orderFile.mimtype!,
-      ));
-    });
+    result.fold(
+      (_) => _,
+      (r) => files.add(
+        FileModel(
+          id: orderFile.id,
+          file: File(r),
+          type: orderFile.mimtype!,
+        ),
+      ),
+    );
   }
 
   void onPageChanged(int index) => currentStep(index);
