@@ -21,6 +21,10 @@ import 'package:khalsha/features/forget_password/data/repo_impl/forget_password_
 import 'package:khalsha/features/forget_password/data/source/forget_password_remote_data_source.dart';
 import 'package:khalsha/features/forget_password/domain/repository/forget_password_repository.dart';
 import 'package:khalsha/features/forget_password/domain/use_cases/forget_password_use_case.dart';
+import 'package:khalsha/features/home/data/data_source/home_remote_data_source.dart';
+import 'package:khalsha/features/home/data/repo_impl/home_repository_impl.dart';
+import 'package:khalsha/features/home/domain/repository/home_repository.dart';
+import 'package:khalsha/features/home/domain/use_cases/get_statistics_use_case.dart';
 import 'package:khalsha/features/laboratory_and_standards_service/data/data_source/laboratory_remote_data_source.dart';
 import 'package:khalsha/features/laboratory_and_standards_service/data/repository_impl/laboratory_repository_impl.dart';
 import 'package:khalsha/features/laboratory_and_standards_service/domain/repository/laboratory_repository.dart';
@@ -44,7 +48,6 @@ import 'package:khalsha/features/order_details/data/data_source/order_details_re
 import 'package:khalsha/features/order_details/data/repo_impl/order_details_repository_impl.dart';
 import 'package:khalsha/features/order_details/domain/repository/order_details_repository.dart';
 import 'package:khalsha/features/order_details/domain/use_cases/accept_reject_offer_use_case.dart';
-import 'package:khalsha/features/order_details/domain/use_cases/get_order_details_use_case.dart';
 import 'package:khalsha/features/order_details/domain/use_cases/rate_order_use_case.dart';
 import 'package:khalsha/features/order_details/domain/use_cases/update_order_status_use_case.dart';
 import 'package:khalsha/features/orders/data/data_source/orders_remote_data_source.dart';
@@ -161,6 +164,13 @@ class InjectionContainer {
         () => RefreshTokenUseCase(sl()));
     sl.registerLazySingleton<LogOutUseCase>(() => LogOutUseCase(sl()));
 
+    //Home
+    sl.registerLazySingleton<HomeRemoteDataSource>(
+        () => HomeRemoteDataSourceImpl(dioService));
+    sl.registerLazySingleton<HomeRepository>(() => HomeRepositoryImpl(sl()));
+    sl.registerLazySingleton<GetStatisticsUseCase>(
+        () => GetStatisticsUseCase(sl()));
+
     //Settlements
     sl.registerLazySingleton<SettlementRemoteDataSource>(
         () => SettlementRemoteDataSourceImpl(dioService));
@@ -229,8 +239,6 @@ class InjectionContainer {
         () => OrderDetailsRemoteDataSourceImpl(dioService));
     sl.registerLazySingleton<OrderDetailsRepository>(
         () => OrderDetailsRepositoryImpl(sl()));
-    sl.registerLazySingleton<GetOrderDetailsUseCase>(
-        () => GetOrderDetailsUseCase(sl()));
     sl.registerLazySingleton<UpdateOrderStatusUseCase>(
         () => UpdateOrderStatusUseCase(sl()));
     sl.registerLazySingleton<AcceptRejectOfferUseCase>(

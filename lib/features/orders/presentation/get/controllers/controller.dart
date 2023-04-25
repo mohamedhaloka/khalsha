@@ -9,7 +9,9 @@ import '../../../domain/entities/order_model.dart';
 
 class OrdersController extends GetxController {
   final GetOrdersUseCase _getOrdersUseCase;
-  OrdersController(this._getOrdersUseCase);
+  OrdersController(
+    this._getOrdersUseCase,
+  );
 
   RxInt selectedService = 0.obs;
   int currentPage = 1;

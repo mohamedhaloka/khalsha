@@ -256,7 +256,6 @@ class AddEditMarineShippingServiceController extends GetxController {
 
     formKey.currentState?.save();
 
-    print(formKey.currentState!.validate());
     if (!formKey.currentState!.validate()) return;
 
     pageController.nextPage(

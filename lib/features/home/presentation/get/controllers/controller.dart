@@ -1,11 +1,19 @@
 import 'package:get/get.dart';
+import 'package:khalsha/core/domain/use_cases/use_case.dart';
+import 'package:khalsha/features/home/data/models/statistics_model.dart';
+import 'package:khalsha/features/home/domain/use_cases/get_statistics_use_case.dart';
 import 'package:khalsha/features/service_intro/presentation/get/controllers/controller.dart';
 
 import '../../../../../core/data/models/item_model.dart';
+import '../../../../../core/utils.dart';
 
 class HomeController extends GetxController {
+  final GetStatisticsUseCase _getStatisticsUseCase;
+  HomeController(this._getStatisticsUseCase);
+
   List<ItemModel> services = <ItemModel>[];
 
+  Rx<StatisticsModel> statisticsModel = StatisticsModel().obs;
   @override
   void onInit() {
     services = const [
@@ -46,6 +54,18 @@ class HomeController extends GetxController {
         arguments: ServiceTypes.airFreight,
       ),
     ];
+    _getStatistics();
     super.onInit();
+  }
+
+  Future<void> _getStatistics() async {
+    final params = Params(
+      loading: false.obs,
+    );
+    final result = await _getStatisticsUseCase.execute(params);
+    result.fold(
+      (failure) => showAlertMessage(failure.statusMessage),
+      (data) => statisticsModel(data),
+    );
   }
 }

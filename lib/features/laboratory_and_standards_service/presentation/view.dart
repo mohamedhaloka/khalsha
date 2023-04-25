@@ -48,72 +48,19 @@ class _FillData
             validator: FormBuilderValidators.required(),
             name: LaboratoryInputsKeys.title.name,
           ),
-          FormBuilderField<String>(
-            initialValue: controller.factoryAduitReport.value.path,
-            builder: (FormFieldState<String> field) => AttachFileWithHolder(
-              title: 'متوفر لدي المورد Factory aduit report',
-              file: controller.factoryAduitReport,
-              onChooseFile: (String path) => field.didChange(path),
-              errorMsg: field.errorText,
-            ),
-            validator: FormBuilderValidators.required(),
-            name: LaboratoryInputsKeys.factoryAdultReport.name,
-            onSaved: (_) {
-              final value = controller.factoryAduitReport.value.path;
-              controller.didFieldChanged(
-                LaboratoryInputsKeys.factoryAdultReport.name,
-                value: value,
-              );
-            },
+          AttachFileWithHolder(
+            title: 'متوفر لدي المورد Factory aduit report',
+            file: controller.factoryAduitReport,
           ),
-          FormBuilderField(
-            builder: (FormFieldState<dynamic> field) => AttachFileWithHolder(
-              title: 'متوفر لدي المورد Test report',
-              file: controller.testReportPhoto,
-              onChooseFile: (String path) => field.didChange(path),
-              errorMsg: field.errorText,
-            ),
-            validator: FormBuilderValidators.required(),
-            name: LaboratoryInputsKeys.testReport.name,
-            onSaved: (_) {
-              final value = controller.testReportPhoto.value.path;
-              controller.didFieldChanged(
-                LaboratoryInputsKeys.testReport.name,
-                value: value,
-              );
-            },
+          AttachFileWithHolder(
+            title: 'متوفر لدي المورد Test report',
+            file: controller.testReportPhoto,
           ),
-          FormBuilderField(
-            builder: (FormFieldState<dynamic> field) => Obx(
-              () => ServiceItemWithHolder(
-                title: 'أصناف الطلب',
-                height: Get.height / 1.2,
-                text: controller.orderItems.isNotEmpty ? 'تم' : null,
-                body: const OrderItemsSheet(),
-                onBack: (bool hasEmptyData) => field.didChange(
-                  hasEmptyData ? '' : 'x',
-                ),
-                errorMsg: field.errorText,
-              ),
-            ),
-            validator: FormBuilderValidators.required(),
-            name: LaboratoryInputsKeys.orderItems.name,
-            onSaved: (_) {
-              final hasEmptyInputs = controller.orderItems.any(
-                (element) =>
-                    element.photoItem.value.path.isEmpty ||
-                    element.photoCard.value.path.isEmpty ||
-                    element.itemServiceId.value.isEmpty ||
-                    element.factoryName.text.isEmpty ||
-                    element.nameAr.text.isEmpty ||
-                    element.nameEn.text.isEmpty ||
-                    element.customsCode.text.isEmpty,
-              );
-              controller.didFieldChanged(
-                LaboratoryInputsKeys.orderItems.name,
-                value: hasEmptyInputs ? '' : 'x',
-              );
-            },
+          ServiceItemWithHolder(
+            title: 'أصناف الطلب',
+            height: Get.height / 1.2,
+            text: controller.orderItems.isNotEmpty ? 'تم' : null,
+            body: const OrderItemsSheet(),
           ),
           TextFieldInputWithHolder(
             hint: 'ملاحظات',
@@ -151,7 +98,4 @@ class _AdditionalServices
 
 enum LaboratoryInputsKeys {
   title,
-  factoryAdultReport,
-  testReport,
-  orderItems,
 }

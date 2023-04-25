@@ -1,4 +1,14 @@
 class OrderDetailsItemModel {
   final String? title, description;
-  OrderDetailsItemModel({required this.title, this.description});
+  final OrderDetailsTypes? type;
+  OrderDetailsItemModel({
+    required this.title,
+    this.description,
+    this.type = OrderDetailsTypes.none,
+  });
+}
+
+enum OrderDetailsTypes {
+  none,
+  file,
 }

@@ -94,7 +94,7 @@ class MarineShipmentOrder extends OrderModel {
         fromCityLng: json["fromcity_lng"] ?? '',
         toShipmentLocation: json["toshipment_location"] ?? '',
         toShipmentOtherLocation: json["toshipment_other_location"] ?? '',
-        toCountryId: json["tocountry_id"] ??0,
+        toCountryId: json["tocountry_id"] ?? 0,
         toCity: json["tocity"] ?? '',
         toCityLat: json["tocity_lat"] ?? '',
         toCityLng: json["tocity_lng"] ?? '',
@@ -271,6 +271,7 @@ class MarineShipmentOrder extends OrderModel {
                 OrderDetailsItemModel(
                   title: 'صورة الشحنة',
                   description: container.image,
+                  type: OrderDetailsTypes.file,
                 ),
                 OrderDetailsItemModel(
                   title: 'تفاصيل الشحنة',

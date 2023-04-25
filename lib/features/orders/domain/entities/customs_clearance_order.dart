@@ -193,23 +193,47 @@ class CustomsClearanceOrder extends OrderModel {
         OrderSectionItemModel(
           title: 'معلومات الطلب',
           data: [
-            OrderDetailsItemModel(title: 'عنوان الطلب', description: title),
-            OrderDetailsItemModel(title: 'وصف البضاعة', description: content),
             OrderDetailsItemModel(
-                title: 'منفذ الشحنة', description: shippingPort.name),
+              title: 'عنوان الطلب',
+              description: title,
+            ),
             OrderDetailsItemModel(
-                title: 'نوع الشحنة', description: shipmentType),
-            OrderDetailsItemModel(title: 'الإجمالي', description: total),
+              title: 'وصف البضاعة',
+              description: content,
+            ),
             OrderDetailsItemModel(
-                title: 'نوع الشحن', description: shippingMethod),
-            OrderDetailsItemModel(title: 'توصيل إلي', description: deliveryTo),
+              title: 'منفذ الشحنة',
+              description: shippingPort.name,
+            ),
             OrderDetailsItemModel(
-                title: 'مجال الشحنة', description: chargeField),
+              title: 'نوع الشحنة',
+              description: shipmentType,
+            ),
             OrderDetailsItemModel(
-                title: 'هل يوجد بند جمزكي', description: customsItem),
+              title: 'الإجمالي',
+              description: total,
+            ),
+            OrderDetailsItemModel(
+              title: 'نوع الشحن',
+              description: shippingMethod,
+            ),
+            OrderDetailsItemModel(
+              title: 'توصيل إلي',
+              description: deliveryTo,
+            ),
+            OrderDetailsItemModel(
+              title: 'مجال الشحنة',
+              description: chargeField,
+            ),
+            OrderDetailsItemModel(
+              title: 'هل يوجد بند جمزكي',
+              description: customsItem,
+            ),
             for (var item in items) ...[
               OrderDetailsItemModel(
-                  title: 'رقم البند الجمركي', description: item.name),
+                title: 'رقم البند الجمركي',
+                description: item.name,
+              ),
             ]
           ],
         ),
@@ -219,18 +243,25 @@ class CustomsClearanceOrder extends OrderModel {
             data: [
               for (var item in shippingMethods) ...[
                 OrderDetailsItemModel(
-                    title: 'نوع البضاعة',
-                    description: item.goodTypeId.toString()),
+                  title: 'نوع البضاعة',
+                  description: item.goodTypeId.toString(),
+                ),
                 OrderDetailsItemModel(
-                    title: 'نوع الطرد', description: item.parcelType),
+                  title: 'نوع الطرد',
+                  description: item.parcelType,
+                ),
                 OrderDetailsItemModel(
-                    title: 'إجمالي الحجم (متر مكعب)',
-                    description: item.totalSize),
+                  title: 'إجمالي الحجم (متر مكعب)',
+                  description: item.totalSize,
+                ),
                 OrderDetailsItemModel(
-                    title: 'إجمالي الوزن (كيلوجرام)',
-                    description: item.totalWeight),
+                  title: 'إجمالي الوزن (كيلوجرام)',
+                  description: item.totalWeight,
+                ),
                 OrderDetailsItemModel(
-                    title: 'الكمية', description: item.quantity),
+                  title: 'الكمية',
+                  description: item.quantity,
+                ),
               ]
             ],
           ),
@@ -240,14 +271,21 @@ class CustomsClearanceOrder extends OrderModel {
             data: [
               for (var item in shippingMethods) ...[
                 OrderDetailsItemModel(
-                    title: 'نوع البضاعة',
-                    description: item.goodTypeId.toString()),
+                  title: 'نوع البضاعة',
+                  description: item.goodTypeId.toString(),
+                ),
                 OrderDetailsItemModel(
-                    title: 'نوع الحاوية', description: item.containerType),
+                  title: 'نوع الحاوية',
+                  description: item.containerType,
+                ),
                 OrderDetailsItemModel(
-                    title: 'حجم الحاوية', description: item.containerSize),
+                  title: 'حجم الحاوية',
+                  description: item.containerSize,
+                ),
                 OrderDetailsItemModel(
-                    title: 'عدد الحاويات', description: item.containerCount),
+                  title: 'عدد الحاويات',
+                  description: item.containerCount,
+                ),
               ]
             ],
           ),
@@ -256,21 +294,35 @@ class CustomsClearanceOrder extends OrderModel {
           title: 'خدمات إضافية',
           data: [
             OrderDetailsItemModel(
-                title: 'هل تريد التخزين',
-                description: storageDaysNumber > 0 ? 'yes' : 'no'),
+              title: 'هل تريد التخزين',
+              description: storageDaysNumber > 0 ? 'yes' : 'no',
+            ),
             OrderDetailsItemModel(
-                title: 'عدد أيام التخزين', description: storageDays),
+              title: 'عدد أيام التخزين',
+              description: storageDays,
+            ),
             for (var item in certificates) ...[
-              OrderDetailsItemModel(title: item.name),
+              OrderDetailsItemModel(
+                title: item.name,
+              ),
             ]
           ],
         ),
         OrderSectionItemModel(
           title: 'التواصل',
           data: [
-            OrderDetailsItemModel(title: 'صاحب الطلب', description: user.name),
-            OrderDetailsItemModel(title: 'الجوال', description: ''),
-            OrderDetailsItemModel(title: 'البريد الإلكتروني', description: ''),
+            OrderDetailsItemModel(
+              title: 'صاحب الطلب',
+              description: user.name,
+            ),
+            OrderDetailsItemModel(
+              title: 'الجوال',
+              description: '',
+            ),
+            OrderDetailsItemModel(
+              title: 'البريد الإلكتروني',
+              description: '',
+            ),
           ],
         ),
       ];

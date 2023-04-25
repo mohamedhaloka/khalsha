@@ -19,7 +19,6 @@ class OrdersRemoteDataSourceImpl extends OrdersRemoteDataSource {
     final response = await _httpService.get('importer/$type?page=$page');
 
     if (response.statusCode == 200) {
-      print(response.data);
       final data = response.data['result']['data'];
       List<OrderModel> orders = <OrderModel>[];
       ServiceTypes? serviceTypes = ServiceTypes.values

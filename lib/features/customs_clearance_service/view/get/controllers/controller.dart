@@ -293,7 +293,9 @@ class AddEditCustomsClearanceController extends GetxController {
             ? []
             : container.map((element) => element.containerSize.value).toList(),
         notes: note.text,
-        certificates: certificates.isEmpty ? 'no' : 'yes',
+        certificates: certificates.any((element) => element.selected.value)
+            ? 'yes'
+            : 'no',
         certificate: certificates
             .where((e) => e.selected.value)
             .map((e) => e.id.toString())

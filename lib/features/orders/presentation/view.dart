@@ -34,13 +34,14 @@ class OrdersBody extends StatefulWidget {
 }
 
 class _OrdersBodyState extends State<OrdersBody> {
-  late OrdersController controller = Get.find<OrdersController>();
+  OrdersController controller = Get.find<OrdersController>();
 
   @override
   void initState() {
     if (!Get.isRegistered<OrdersController>()) {
-      Get.lazyPut<OrdersController>(
-          () => OrdersController(InjectionContainer.sl()));
+      Get.lazyPut<OrdersController>(() => OrdersController(
+            InjectionContainer.sl(),
+          ));
       controller = Get.find<OrdersController>();
     }
     super.initState();

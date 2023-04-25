@@ -103,14 +103,18 @@ class LaboratoryOrder extends OrderModel {
               title: 'عنوان الطلب',
               description: title,
             ),
-            OrderDetailsItemModel(
-              title: 'هل يتوفر Test Report',
-              description: testReport,
-            ),
-            OrderDetailsItemModel(
-              title: 'هل يتوفر Factory Audit Report',
-              description: factoryAudit,
-            ),
+            if (testReport == 'yes')
+              OrderDetailsItemModel(
+                title: 'هل يتوفر Test Report',
+                description: testReportPhoto,
+                type: OrderDetailsTypes.file,
+              ),
+            if (factoryAudit == 'yes')
+              OrderDetailsItemModel(
+                title: 'هل يتوفر Factory Audit Report',
+                description: factoryAuditPhoto,
+                type: OrderDetailsTypes.file,
+              ),
             OrderDetailsItemModel(
               title: 'استخراج الشهادات المطلوبة لهذه الشحنة ؟',
               description: certificate,
@@ -122,41 +126,44 @@ class LaboratoryOrder extends OrderModel {
               ),
           ],
         ),
-        OrderSectionItemModel(
-          title: 'أصناف الطلب',
-          data: [
-            for (var item in items) ...[
-              OrderDetailsItemModel(
-                title: 'اسم الصنف بالعربي',
-                description: item.name,
-              ),
-              OrderDetailsItemModel(
-                title: 'اسم الصنف بالانجليزي',
-                description: item.name,
-              ),
-              OrderDetailsItemModel(
-                title: 'الرمز الجمركي',
-                description: item.customsCode,
-              ),
-              OrderDetailsItemModel(
-                title: 'اسم المصنع / المورد',
-                description: item.factoryName,
-              ),
-              OrderDetailsItemModel(
-                title: 'الغرض من الخدمة',
-                description: item.itemServiceId.toString(),
-              ),
-              OrderDetailsItemModel(
-                title: 'صورة من البطاقة الايضاحية',
-                description: item.photoCard,
-              ),
-              OrderDetailsItemModel(
-                title: 'صورة الصنف',
-                description: item.photoItem,
-              ),
-            ]
-          ],
-        ),
+        if (items.isNotEmpty)
+          OrderSectionItemModel(
+            title: 'أصناف الطلب',
+            data: [
+              for (var item in items) ...[
+                OrderDetailsItemModel(
+                  title: 'اسم الصنف بالعربي',
+                  description: item.name,
+                ),
+                OrderDetailsItemModel(
+                  title: 'اسم الصنف بالانجليزي',
+                  description: item.name,
+                ),
+                OrderDetailsItemModel(
+                  title: 'الرمز الجمركي',
+                  description: item.customsCode,
+                ),
+                OrderDetailsItemModel(
+                  title: 'اسم المصنع / المورد',
+                  description: item.factoryName,
+                ),
+                OrderDetailsItemModel(
+                  title: 'الغرض من الخدمة',
+                  description: item.itemServiceId.toString(),
+                ),
+                OrderDetailsItemModel(
+                  title: 'صورة من البطاقة الايضاحية',
+                  description: item.photoCard,
+                  type: OrderDetailsTypes.file,
+                ),
+                OrderDetailsItemModel(
+                  title: 'صورة الصنف',
+                  description: item.photoItem,
+                  type: OrderDetailsTypes.file,
+                ),
+              ]
+            ],
+          ),
         if (certificates.isNotEmpty)
           OrderSectionItemModel(
             title: 'الشهادات',

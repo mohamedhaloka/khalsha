@@ -21,7 +21,10 @@ class GridServices extends GetView<HomeController> {
               mainAxisSpacing: 35.0,
               height: 180),
       itemCount: controller.services.length,
-      itemBuilder: (_, int index) => ServiceItem(controller.services[index]),
+      itemBuilder: (_, int index) => ServiceItem(
+        controller.services[index],
+        statistics: controller.statisticsModel,
+      ),
     );
   }
 }

@@ -7,6 +7,14 @@ Map<String, String> ar = {
   'release_load_more': 'حرر لتحميل المزيد',
   'no_more_data': 'لا مزيد من البيانات',
   'error-occurred': 'حدث خطأ، يرجي إعادة المحاولة',
+  'yes': 'نعم',
+  'no': 'لا',
+
+  //Home
+  'all': 'الكل',
+  'open': 'مفتوح',
+  'closed': 'مغلق',
+  'invoices': 'الفواتير',
 
   //Service Intro
   'customsclearance': 'التخليص الجمركي',
@@ -41,4 +49,44 @@ Map<String, String> ar = {
   //Offer
   'offers': 'عروض',
   'offer': 'عرض',
+
+  //Customs Clearance
+  'import': 'إستيراد',
+  'export': 'تصدير',
+  'personal': 'شخصية',
+  'commercial': 'تجارية',
+  'refrigerated': 'مبردة',
+  'dry': 'جافة',
+  'open_roof': 'أسقف مفتوحة',
+  'flat': 'مسطحة',
+  'collapsible': 'قابل للطي',
+  '20_feet': '٢٠ قدم',
+  '40_feet': '٤٠ قدم',
+  'wood': 'صندوق خشبي',
+  'carton': 'كرتون',
+  'roll': 'رول',
+  'other': 'أخرى',
+
+  //Marine Shipment
+  'port': 'ميناء',
+  'factory': 'مصنع',
+  'storehouse': 'مستودع',
+  'work_site': 'موقع العمل',
+  'ready': 'جاهز',
+  'one_week_or_less': 'أسبوع أو آقل',
+  'two_weeks_or_less': 'أسبوعين أو أقل',
+  '40_hc': '40 HC',
+  '45_hc': '45 HC',
+
+  //Ware Houses (Stores)
+  'conditioner_25_20': 'تخزين المكيف من ٢٠ ل ٢٥ درجة مئوية',
+  'cold_2_10': 'تخزين المبرد من ٢ ل ١٠ درجة مئوية',
+  'frozen_minus_18': 'التخزين المجمد -١٨ درجة',
+  'dry_storage': 'تخزين جاف',
+  'full': 'كاملة',
+  'pallet': 'طبلية',
+  'all_space': 'كل المساحة',
+  'custom': 'مساحة مخصصة',
+  'per_day': 'يومي',
+  'per_month': 'شهري',
 };

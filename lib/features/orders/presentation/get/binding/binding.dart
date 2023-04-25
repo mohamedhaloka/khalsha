@@ -5,7 +5,8 @@ import 'package:khalsha/injection_container.dart';
 class OrdersBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<OrdersController>(
-        () => OrdersController(InjectionContainer.sl()));
+    Get.lazyPut<OrdersController>(() => OrdersController(
+          InjectionContainer.sl(),
+        ));
   }
 }

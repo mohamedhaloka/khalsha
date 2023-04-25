@@ -45,8 +45,8 @@ class _ContainerSheetBody extends GetView<AddEditCustomsClearanceController> {
                     isExpanded: true,
                     source: ContainerType.values
                         .map((e) => DropdownMenuItem(
-                              value: e.name,
-                              child: Text(e.name.tr),
+                              value: e.value,
+                              child: Text(e.value.tr),
                             ))
                         .toList(),
                   ),
@@ -59,7 +59,7 @@ class _ContainerSheetBody extends GetView<AddEditCustomsClearanceController> {
                     source: ContainerSize.values
                         .map((e) => DropdownMenuItem(
                               value: e.value,
-                              child: Text(e.name.tr),
+                              child: Text(e.value.tr),
                             ))
                         .toList(),
                   ),

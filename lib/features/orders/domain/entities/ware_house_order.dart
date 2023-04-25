@@ -239,6 +239,14 @@ class WareHouseOrder extends OrderModel {
               ]
             ],
           ),
+        OrderSectionItemModel(
+          title: 'التواصل',
+          data: [
+            OrderDetailsItemModel(title: 'صاحب الطلب', description: user.name),
+            OrderDetailsItemModel(title: 'الجوال', description: ''),
+            OrderDetailsItemModel(title: 'البريد الإلكتروني', description: ''),
+          ],
+        ),
       ];
 }
 

@@ -6,6 +6,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:khalsha/core/data/models/item_model.dart';
+import 'package:khalsha/core/data/services/http_service.dart';
 import 'package:khalsha/core/domain/use_cases/upload_image_use_case.dart';
 import 'package:khalsha/features/order_details/data/models/order_details_item_model.dart';
 import 'package:khalsha/features/order_details/domain/use_cases/accept_reject_offer_use_case.dart';
@@ -20,6 +21,7 @@ import 'package:khalsha/features/service_intro/presentation/get/controllers/cont
 import 'package:khalsha/features/widgets/custom_button.dart';
 import 'package:khalsha/features/widgets/custom_rich_text.dart';
 import 'package:khalsha/features/widgets/headline_bottom_sheet.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../core/domain/use_cases/delete_file_use_case.dart';
 import '../../../../../core/utils.dart';

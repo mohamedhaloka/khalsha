@@ -57,7 +57,7 @@ class OrderItem extends StatelessWidget {
             Expanded(
               child: Row(
                 children: [
-                  _detail(order.title),
+                  _detail('#${order.id} ${order.title}'),
                   _detail('${'offers'.tr}   ${order.offersNum}'),
                 ],
               ),

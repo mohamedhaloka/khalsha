@@ -90,10 +90,29 @@ class _DetailsGroupItem extends StatelessWidget {
                       width: 50,
                     ),
                     Expanded(
-                        child: Text(
-                      details[index].description ?? '',
-                      textAlign: TextAlign.right,
-                    )),
+                      child: details[index].type == OrderDetailsTypes.none
+                          ? Text(
+                              (details[index].description ?? '').tr,
+                              textAlign: TextAlign.right,
+                            )
+                          : InkWell(
+                              onTap: () {
+                                String url = HttpService.imageBaseURL +
+                                    (details[index].description ?? '');
+                                launchUrl(
+                                  Uri.parse(url),
+                                  mode: LaunchMode.externalApplication,
+                                );
+                              },
+                              child: const Text(
+                                'أضغط هنا لتحميل الملف',
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                    color: Colors.blue,
+                                    decoration: TextDecoration.underline),
+                              ),
+                            ),
+                    ),
                   ]
                 ],
               ),

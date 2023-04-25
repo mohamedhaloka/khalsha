@@ -18,12 +18,13 @@ class RootBinding extends Bindings {
         ));
     Get.lazyPut<SettlementController>(
         () => SettlementController(InjectionContainer.sl()));
-    Get.lazyPut<HomeController>(() => HomeController());
+    Get.lazyPut<HomeController>(() => HomeController(InjectionContainer.sl()));
     Get.lazyPut<ProfileController>(
         () => ProfileController(InjectionContainer.sl()));
     Get.lazyPut<NotificationsController>(() => NotificationsController());
-    Get.lazyPut<OrdersController>(
-        () => OrdersController(InjectionContainer.sl()));
+    Get.lazyPut<OrdersController>(() => OrdersController(
+          InjectionContainer.sl(),
+        ));
     Get.lazyPut<MyBillsController>(
         () => MyBillsController(InjectionContainer.sl()));
   }
