@@ -56,11 +56,37 @@ class _FillData
             title: 'متوفر لدي المورد Test report',
             file: controller.testReportPhoto,
           ),
-          ServiceItemWithHolder(
-            title: 'أصناف الطلب',
-            height: Get.height / 1.2,
-            text: controller.orderItems.isNotEmpty ? 'تم' : null,
-            body: const OrderItemsSheet(),
+          FormBuilderField(
+            builder: (FormFieldState<dynamic> field) => Obx(
+              () => ServiceItemWithHolder(
+                title: 'أصناف الطلب',
+                height: Get.height / 1.2,
+                text: controller.orderItems.isNotEmpty ? 'تم' : null,
+                body: const OrderItemsSheet(),
+                onBack: (bool hasEmptyData) => field.didChange(
+                  hasEmptyData ? '' : 'x',
+                ),
+                errorMsg: field.errorText,
+              ),
+            ),
+            validator: FormBuilderValidators.required(),
+            name: LaboratoryInputsKeys.orderItems.name,
+            onSaved: (_) {
+              final hasEmptyInputs = controller.orderItems.any(
+                (element) =>
+                    element.photoItem.value.path.isEmpty ||
+                    element.photoCard.value.path.isEmpty ||
+                    element.itemServiceId.value.isEmpty ||
+                    element.factoryName.text.isEmpty ||
+                    element.nameAr.text.isEmpty ||
+                    element.nameEn.text.isEmpty ||
+                    element.customsCode.text.isEmpty,
+              );
+              controller.didFieldChanged(
+                LaboratoryInputsKeys.orderItems.name,
+                value: hasEmptyInputs ? '' : 'x',
+              );
+            },
           ),
           TextFieldInputWithHolder(
             hint: 'ملاحظات',
@@ -98,4 +124,5 @@ class _AdditionalServices
 
 enum LaboratoryInputsKeys {
   title,
+  orderItems,
 }

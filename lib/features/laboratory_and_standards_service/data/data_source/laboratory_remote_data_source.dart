@@ -104,14 +104,16 @@ class LaboratoryRemoteDataSourceImpl extends LaboratoryRemoteDataSource {
     );
 
     formData.files.addAll([
-      MapEntry(
-        "test_report_photo",
-        await MultipartFile.fromFile(laboratoryData.testReport),
-      ),
-      MapEntry(
-        "factory_audit_photo",
-        await MultipartFile.fromFile(laboratoryData.factoryAudit),
-      ),
+      if (laboratoryData.testReport.isNotEmpty)
+        MapEntry(
+          "test_report_photo",
+          await MultipartFile.fromFile(laboratoryData.testReport),
+        ),
+      if (laboratoryData.factoryAudit.isNotEmpty)
+        MapEntry(
+          "factory_audit_photo",
+          await MultipartFile.fromFile(laboratoryData.factoryAudit),
+        ),
     ]);
 
     return formData;
