@@ -35,7 +35,7 @@ class _PricingOfferDetailsSheetState extends State<PricingOfferDetailsSheet> {
             child: ListView(
               children: [
                 CachedImage(
-                  imgUrl: HttpService.imageBaseURL +
+                  imgUrl: HttpService.fileBaseURL +
                       (widget.offer.user?.photoProfile ?? ''),
                   height: 110,
                   width: Get.width,

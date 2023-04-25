@@ -9,6 +9,8 @@ Map<String, String> ar = {
   'error-occurred': 'حدث خطأ، يرجي إعادة المحاولة',
   'yes': 'نعم',
   'no': 'لا',
+  'all-fields-required': 'جميع الحقول مطلوبة',
+  'file': 'ملف',
 
   //Home
   'all': 'الكل',
@@ -66,6 +68,9 @@ Map<String, String> ar = {
   'carton': 'كرتون',
   'roll': 'رول',
   'other': 'أخرى',
+  'you-should-fill-parcel-fields': 'جميع حقول الطرد مطلوبة',
+  'you-should-fill-container-fields': 'جميع حقول الحاوية مطلوبة',
+  'add-at-least-one-file': 'أضف ملف واحد علي الأقل',
 
   //Marine Shipment
   'port': 'ميناء',

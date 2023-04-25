@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:khalsha/core/presentation/routes/app_routes.dart';
 import 'package:khalsha/core/presentation/themes/colors_manager.dart';
+import 'package:mime/mime.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 import 'data/source/local/user_local.dart';
@@ -80,3 +83,10 @@ void showLoginFirstDialog() => showDialog(
       backColor: ColorManager.darkTobyColor,
       onDoneTapped: () => Get.offAllNamed(Routes.login),
     );
+
+String getFileType(String assetName) {
+  String mimeStr = lookupMimeType(assetName) ?? '';
+  final fileType = mimeStr.split('/')[0];
+  log(fileType.toString(), name: 'FILE TYPE');
+  return fileType;
+}

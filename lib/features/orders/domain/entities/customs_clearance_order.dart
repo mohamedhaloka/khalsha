@@ -237,6 +237,19 @@ class CustomsClearanceOrder extends OrderModel {
             ]
           ],
         ),
+        if (files.isNotEmpty)
+          OrderSectionItemModel(
+            title: 'الملفات',
+            data: [
+              for (var file in files) ...[
+                OrderDetailsItemModel(
+                  title: 'ملف',
+                  description: file.fullPath,
+                  type: OrderDetailsTypes.file,
+                ),
+              ]
+            ],
+          ),
         if (shippingMethod == 'parcel') ...[
           OrderSectionItemModel(
             title: 'طرد',

@@ -97,7 +97,7 @@ class _DetailsGroupItem extends StatelessWidget {
                             )
                           : InkWell(
                               onTap: () {
-                                String url = HttpService.imageBaseURL +
+                                String url = HttpService.fileBaseURL +
                                     (details[index].description ?? '');
                                 launchUrl(
                                   Uri.parse(url),

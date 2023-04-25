@@ -19,7 +19,7 @@ class HttpService extends GetxService {
   }
 
   static const baseURL = 'https://khalshaa.asdevsop.com/api/';
-  static const imageBaseURL = 'https://khalshaa.asdevsop.com/storage/';
+  static const fileBaseURL = 'https://khalshaa.asdevsop.com/storage/';
 
   late Dio _dio;
 
@@ -84,7 +84,7 @@ class HttpService extends GetxService {
       return File(fullPath);
     }
     var response = await _dio.get(
-      imageBaseURL + url,
+      fileBaseURL + url,
       options: dio.Options(
           responseType: dio.ResponseType.bytes, followRedirects: false),
     );

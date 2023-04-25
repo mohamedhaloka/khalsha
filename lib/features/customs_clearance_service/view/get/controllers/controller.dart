@@ -170,7 +170,6 @@ class AddEditCustomsClearanceController extends GetxController {
     );
     final result = await _downloadFileUseCase.execute(params);
     result.fold((_) => _, (r) {
-      log(r, name: 'FILE PATH');
       files.add(FileModel(
         id: orderFile.id,
         file: File(r),
@@ -208,7 +207,7 @@ class AddEditCustomsClearanceController extends GetxController {
     );
   }
 
-  bool get _validateFieldInputsIsEmpty {
+  bool get _anyFieldInputsIsEmpty {
     return name.text.isEmpty ||
         deliverTo.text.isEmpty ||
         total.text.isEmpty ||
@@ -216,24 +215,24 @@ class AddEditCustomsClearanceController extends GetxController {
         description.text.isEmpty;
   }
 
-  bool get _validateParcelFieldInputsIsEmpty {
+  bool get _anyParcelFieldInputsIsEmpty {
     if (selectedShippingMethod.value == 1) return false;
     if (selectedShippingMethod.value == 0 && parcel.isEmpty) {
       return true;
     } else {
       bool hasEmptyData = false;
       for (var section in parcel) {
-        if (section.quantity.text.isEmpty ||
+        if (section.totalWeight.text.isEmpty ||
+            section.totalSize.text.isEmpty ||
             section.quantity.text.isEmpty ||
-            section.quantity.text.isEmpty ||
-            section.parcelType.value == '' ||
-            section.parcelType.value == '') hasEmptyData = true;
+            section.parcelType.value.isEmpty ||
+            section.goodsType.value.isEmpty) hasEmptyData = true;
       }
       return hasEmptyData;
     }
   }
 
-  bool get _validateContainerFieldInputsIsEmpty {
+  bool get _anyContainerFieldInputsIsEmpty {
     if (selectedShippingMethod.value == 0) return false;
     if (selectedShippingMethod.value == 1 && container.isEmpty) {
       return true;
@@ -241,9 +240,9 @@ class AddEditCustomsClearanceController extends GetxController {
       bool hasEmptyData = false;
       for (var section in container) {
         if (section.containerCount.text.isEmpty ||
-            section.goodsType.value == '' ||
-            section.containerSize.value == '' ||
-            section.containerType.value == '') hasEmptyData = true;
+            section.goodsType.value.isEmpty ||
+            section.containerSize.value.isEmpty ||
+            section.containerType.value.isEmpty) hasEmptyData = true;
       }
       return hasEmptyData;
     }
@@ -252,10 +251,20 @@ class AddEditCustomsClearanceController extends GetxController {
   bool get _anyInputsIsEmpty {
     switch (currentStep.value) {
       case 0:
-        return _validateFieldInputsIsEmpty ||
-            _validateParcelFieldInputsIsEmpty ||
-            _validateContainerFieldInputsIsEmpty;
+        if (_anyFieldInputsIsEmpty) {
+          showAlertMessage('all-fields-required');
+        } else if (_anyParcelFieldInputsIsEmpty) {
+          showAlertMessage('you-should-fill-parcel-fields');
+        } else if (_anyContainerFieldInputsIsEmpty) {
+          showAlertMessage('you-should-fill-container-fields');
+        }
+        return _anyFieldInputsIsEmpty ||
+            _anyParcelFieldInputsIsEmpty ||
+            _anyContainerFieldInputsIsEmpty;
       case 2:
+        if (files.isEmpty) {
+          showAlertMessage('add-at-least-one-file');
+        }
         return files.isEmpty;
     }
     return false;

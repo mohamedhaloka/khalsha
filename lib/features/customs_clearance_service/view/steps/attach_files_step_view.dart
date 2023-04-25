@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:khalsha/core/utils.dart';
 
 import '../../../../core/data/models/file_model.dart';
 import '../../../../core/presentation/themes/colors_manager.dart';
@@ -61,7 +63,11 @@ class AttachFilesStepView extends GetView<AddEditCustomsClearanceController> {
                 final files = await pickFiles();
                 if (files == null) return;
                 for (var file in files) {
-                  controller.files.add(FileModel(file: File(file.path!)));
+                  final fileMimeType = getFileType(file.path!);
+                  controller.files.add(FileModel(
+                    file: File(file.path!),
+                    type: fileMimeType,
+                  ));
                   controller.newFilesPath.add(file.path!);
                 }
               },
@@ -85,7 +91,23 @@ class AttachFilesStepView extends GetView<AddEditCustomsClearanceController> {
                           fit: BoxFit.cover,
                         ),
                       ] else ...[
-                        SvgPicture.asset('assets/images/icons/pdf-file.svg')
+                        Container(
+                          width: Get.width,
+                          height: Get.height,
+                          decoration: BoxDecoration(
+                            color: Colors.grey[300],
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(4)),
+                          ),
+                          padding: const EdgeInsets.all(15),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(CupertinoIcons.doc),
+                              Text('file'.tr)
+                            ],
+                          ),
+                        )
                       ],
                       Positioned(
                           child: InkWell(

@@ -110,7 +110,7 @@ class _OrderStep extends StatelessWidget {
                             const BorderRadius.all(Radius.circular(22)),
                         image: DecorationImage(
                           image: NetworkImage(
-                              '${HttpService.imageBaseURL}${stepModel.files![index].fullPath}'),
+                              '${HttpService.fileBaseURL}${stepModel.files![index].fullPath}'),
                           fit: BoxFit.fill,
                         ),
                       ),
