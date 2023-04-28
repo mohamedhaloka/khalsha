@@ -8,16 +8,18 @@ class AddEditMarineShippingServiceView
   Widget build(BuildContext context) {
     return FormBuilder(
       key: controller.formKey,
-      child: ServiceContent(
-        onTapBack: controller.onTapBack,
-        onPageChanged: controller.onPageChanged,
-        pageViewController: controller.pageController,
-        pageTitle: controller.pageTitle,
-        onTapNext: controller.onTapNext,
-        currentStep: controller.currentStep,
-        btnLoading: controller.loading,
-        nextTitle: controller.nextTitle,
-        children: controller.children,
+      child: Obx(
+        () => ServiceContent(
+          onTapBack: controller.onTapBack,
+          onPageChanged: controller.onPageChanged,
+          pageViewController: controller.pageController,
+          pageTitle: controller.pageTitle,
+          onTapNext: controller.onTapNext,
+          currentStep: controller.currentStep,
+          btnLoading: controller.loading,
+          nextTitle: controller.nextTitle,
+          children: controller.children,
+        ),
       ),
     );
   }
@@ -36,7 +38,7 @@ class _FillData extends GetView<AddEditMarineShippingServiceController> {
             builder: (FormFieldState<dynamic> field) =>
                 TextFieldInputWithHolder(
               title: 'عنوان الطلب',
-              hint: 'أضف عنوان',
+              hint: 'مثال: شحن سيارة شخصية',
               controller: controller.name,
               onSaved: (String? value) => field.didChange(value),
               errorText: field.errorText,
@@ -86,7 +88,7 @@ class _FillData extends GetView<AddEditMarineShippingServiceController> {
           ),
           FormBuilderField(
             builder: (FormFieldState<dynamic> field) => ChooseItemWithHolder(
-              title: 'الشحن من',
+              title: 'الشحن إلى',
               height: Get.height / 1.6,
               selectedItem: DataModel.empty().obs,
               body: ChooseShippingPlace(

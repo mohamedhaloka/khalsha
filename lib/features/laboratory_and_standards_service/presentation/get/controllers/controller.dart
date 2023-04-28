@@ -70,7 +70,7 @@ class AddEditLaboratoryAndStandardsServiceController extends GetxController {
       onSuccess: (data) => certificates.addAll(data),
     );
     await _getData(
-      'importer/laboratories/item/services',
+      '${HttpService.userType}/laboratories/item/services',
       onSuccess: (data) => services.addAll(data),
     );
     if (orderData == null) {
@@ -237,6 +237,5 @@ class AddEditLaboratoryAndStandardsServiceController extends GetxController {
         Get.back(result: true);
       },
     );
-    print(pageController.page);
   }
 }

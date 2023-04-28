@@ -18,6 +18,19 @@ class _OrderDataTab extends GetView<OrderDetailsController> {
             itemBuilder: (_, int index) => _DetailsGroupItem(
                   text: controller.orderModel.data[index].title,
                   details: controller.orderModel.data[index].data,
+                  onTap: (action) async {
+                    print(action.name);
+                    switch (action) {
+                      case OrderDetailsAction.uploadFile:
+                        final pickedImage = await ImagePicker()
+                            .pickImage(source: ImageSource.gallery);
+                        if (pickedImage == null) return;
+                        controller.showFileChooseDialog(pickedImage.path);
+                        break;
+                      default:
+                        break;
+                    }
+                  },
                 ),
             itemCount: controller.orderModel.data.length),
         // if (!UserDataLocal.instance.isImporterExporter &&
@@ -43,9 +56,11 @@ class _DetailsGroupItem extends StatelessWidget {
     Key? key,
     required this.details,
     required this.text,
+    required this.onTap,
   }) : super(key: key);
   final String text;
   final List<OrderDetailsItemModel> details;
+  final void Function(OrderDetailsAction) onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -70,51 +85,56 @@ class _DetailsGroupItem extends StatelessWidget {
           ListView.separated(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (_, int index) => SizedBox(
-              height: 40,
-              child: Row(
-                children: [
-                  Expanded(
-                      child: Text(
-                    details[index].title ?? '',
-                    textAlign: details[index].description != null
-                        ? TextAlign.left
-                        : TextAlign.center,
-                    style: Get.textTheme.titleSmall!.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  )),
-                  if (details[index].description != null) ...[
-                    const VerticalDivider(
-                      color: ColorManager.lightGreyColor,
-                      width: 50,
-                    ),
+            itemBuilder: (_, int index) => InkWell(
+              onTap: details[index].enableGesture
+                  ? () => onTap(details[index].action)
+                  : null,
+              child: SizedBox(
+                height: 40,
+                child: Row(
+                  children: [
                     Expanded(
-                      child: details[index].type == OrderDetailsTypes.none
-                          ? Text(
-                              (details[index].description ?? '').tr,
-                              textAlign: TextAlign.right,
-                            )
-                          : InkWell(
-                              onTap: () {
-                                String url = HttpService.fileBaseURL +
-                                    (details[index].description ?? '');
-                                launchUrl(
-                                  Uri.parse(url),
-                                  mode: LaunchMode.externalApplication,
-                                );
-                              },
-                              child: const Text(
-                                'أضغط هنا لتحميل الملف',
+                        child: Text(
+                      details[index].title ?? '',
+                      textAlign: details[index].description != null
+                          ? TextAlign.left
+                          : TextAlign.center,
+                      style: Get.textTheme.titleSmall!.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )),
+                    if (details[index].description != null) ...[
+                      const VerticalDivider(
+                        color: ColorManager.lightGreyColor,
+                        width: 50,
+                      ),
+                      Expanded(
+                        child: details[index].type == OrderDetailsTypes.none
+                            ? Text(
+                                (details[index].description ?? '').tr,
                                 textAlign: TextAlign.right,
-                                style: TextStyle(
-                                    color: Colors.blue,
-                                    decoration: TextDecoration.underline),
+                              )
+                            : InkWell(
+                                onTap: () {
+                                  String url = HttpService.fileBaseURL +
+                                      (details[index].description ?? '');
+                                  launchUrl(
+                                    Uri.parse(url),
+                                    mode: LaunchMode.externalApplication,
+                                  );
+                                },
+                                child: const Text(
+                                  'أضغط هنا لتحميل الملف',
+                                  textAlign: TextAlign.right,
+                                  style: TextStyle(
+                                      color: Colors.blue,
+                                      decoration: TextDecoration.underline),
+                                ),
                               ),
-                            ),
-                    ),
-                  ]
-                ],
+                      ),
+                    ]
+                  ],
+                ),
               ),
             ),
             separatorBuilder: (_, __) => const Divider(

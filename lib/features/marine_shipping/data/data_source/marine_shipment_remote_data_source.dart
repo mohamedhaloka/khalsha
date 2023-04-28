@@ -25,7 +25,7 @@ class MarineShipmentRemoteDataSourceImpl
       MarineShipmentData marineShipmentData) async {
     final formData = _prepareFormData(marineShipmentData);
     final response = await _httpService.post(
-      'importer/seashippings',
+      '${HttpService.userType}/seashippings',
       formData,
     );
 
@@ -44,7 +44,7 @@ class MarineShipmentRemoteDataSourceImpl
       MarineShipmentData marineShipmentData) async {
     final formData = _prepareFormData(marineShipmentData);
     final response = await _httpService.post(
-      'importer/seashippings/${marineShipmentData.id}',
+      '${HttpService.userType}/seashippings/${marineShipmentData.id}',
       formData,
     );
 

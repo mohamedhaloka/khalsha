@@ -38,7 +38,7 @@ class _FillData extends GetView<AddEditStoresServiceController> {
             builder: (FormFieldState<dynamic> field) =>
                 TextFieldInputWithHolder(
               title: 'عنوان الطلب',
-              hint: 'أضف عنوان',
+              hint: 'مثال: طلب مستودع',
               controller: controller.name,
               onChanged: (String value) => field.didChange(value),
               errorText: field.errorText,
@@ -119,15 +119,15 @@ class _AdditionalServices extends GetView<AddEditStoresServiceController> {
             active: controller.needPackaging,
           ),
           CheckerWithHolder(
-            title: 'المساعدة بتسجيل المنتجات بالهيئة',
+            title: 'خدمة تسجيل المنتجات بالهيئة',
             active: controller.importCertificates,
           ),
           CheckerWithHolder(
-            title: 'المساعة في إستخراج تراخيص الشركات و المؤسسات للاستيراد',
+            title: 'خدمة إستخراج التراخيص اللازمة للاستيراد',
             active: controller.exportCertificates,
           ),
           CheckerWithHolder(
-            title: 'المساعة في إجراءات وزارة الزراعة',
+            title: 'خدمة تخليص إجراءات وزارة الزراعة',
             active: controller.farmingProcedures,
           ),
           CheckerWithHolder(

@@ -16,7 +16,7 @@ class OrdersRemoteDataSourceImpl extends OrdersRemoteDataSource {
 
   @override
   Future<List<OrderModel>> getOrders(String type, int page) async {
-    final response = await _httpService.get('importer/$type?page=$page');
+    final response = await _httpService.get('${HttpService.userType}/$type?page=$page');
 
     if (response.statusCode == 200) {
       final data = response.data['result']['data'];

@@ -24,7 +24,7 @@ class LaboratoryRemoteDataSourceImpl extends LaboratoryRemoteDataSource {
       LaboratoryData laboratoryData) async {
     final formData = await _prepareFormData(laboratoryData);
     final response = await _httpService.post(
-      'importer/laboratories',
+      '${HttpService.userType}/laboratories',
       formData,
     );
 
@@ -43,7 +43,7 @@ class LaboratoryRemoteDataSourceImpl extends LaboratoryRemoteDataSource {
       LaboratoryData laboratoryData) async {
     final formData = await _prepareFormData(laboratoryData);
     final response = await _httpService.post(
-      'importer/laboratories/${laboratoryData.id}',
+      '${HttpService.userType}/laboratories/${laboratoryData.id}',
       formData,
     );
 

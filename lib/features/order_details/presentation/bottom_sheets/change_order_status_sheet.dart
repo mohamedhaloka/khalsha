@@ -75,7 +75,7 @@ class _ChangeOrderStatusSheetState extends State<ChangeOrderStatusSheet> {
                 loading(false);
                 return;
               }
-              await orderDetailsController.uploadImages(
+              await orderDetailsController.uploadStepImages(
                 statusId: widget.stepModel.id!,
                 images: images,
               );

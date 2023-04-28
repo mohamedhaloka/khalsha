@@ -22,7 +22,7 @@ class WareHouseRemoteDataSourceImpl extends WareHouseRemoteDataSource {
   Future<Map<String, dynamic>> createOrder(WareHouseData wareHouseData) async {
     final formData = _prepareFormData(wareHouseData);
     final response = await _httpService.post(
-      'importer/warehouses',
+      '${HttpService.userType}/warehouses',
       formData,
     );
 
@@ -44,7 +44,7 @@ class WareHouseRemoteDataSourceImpl extends WareHouseRemoteDataSource {
       data[element.key] = element.value;
     }
     final response = await _httpService.put(
-      'importer/warehouses/${wareHouseData.id}',
+      '${HttpService.userType}/warehouses/${wareHouseData.id}',
       data,
     );
 

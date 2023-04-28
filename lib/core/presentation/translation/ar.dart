@@ -90,8 +90,8 @@ Map<String, String> ar = {
   'dry_storage': 'تخزين جاف',
   'full': 'كاملة',
   'pallet': 'طبلية',
-  'all_space': 'كل المساحة',
-  'custom': 'مساحة مخصصة',
+  'all_space': 'مساحة غير محددة',
+  'custom': 'مساحة محددة',
   'per_day': 'يومي',
   'per_month': 'شهري',
 };

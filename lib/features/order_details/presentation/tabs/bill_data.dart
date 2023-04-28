@@ -46,7 +46,7 @@ class _BillDataTab extends GetView<OrderDetailsController> {
             padding: const EdgeInsets.symmetric(vertical: 12),
             child: CustomButton(
               onTap: () {
-                log(
+                dev.log(
                   orderData.invoiceUrl.toString(),
                   name: 'Invoice Url',
                 );

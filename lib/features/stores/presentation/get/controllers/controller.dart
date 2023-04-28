@@ -91,7 +91,7 @@ class AddEditStoresServiceController extends GetxController {
   void _fillData() async {
     loading(true);
     await _getData(
-      'importer/warehouse/items',
+      '${HttpService.userType}/warehouse/items',
       onSuccess: (data) => items.addAll(data),
     );
     await _getData('certificates',
@@ -114,7 +114,7 @@ class AddEditStoresServiceController extends GetxController {
     location.text = order.address;
     selectedSpaceType(order.spaceType);
     selectedWareHouseSpace(order.warehouseSpace);
-    customWareHouseSpace.text = order.customWarehouseSpace!;
+    customWareHouseSpace.text = order.customWarehouseSpace ?? '';
     selectedContactType(order.contractType);
     contractDays(order.contractCount);
     notes.text = order.notes;
@@ -145,6 +145,9 @@ class AddEditStoresServiceController extends GetxController {
     final result = await _getParticularEnvDataUseCase.execute(params);
     result.fold((_) => _, onSuccess);
   }
+
+  void didFieldChanged(String fieldName, {required String value}) =>
+      formKey.currentState?.fields[fieldName]!.didChange(value);
 
   void chooseLocation() async {
     final result = await Get.toNamed(Routes.map, arguments: locationDetails);

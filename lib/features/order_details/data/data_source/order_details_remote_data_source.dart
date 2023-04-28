@@ -59,7 +59,7 @@ class OrderDetailsRemoteDataSourceImpl extends OrderDetailsRemoteDataSource {
       'note': note,
     });
     final response = await _httpService.post(
-      'importer/$type/action/step/$statusId',
+      '${HttpService.userType}/$type/action/step/$statusId',
       formData,
     );
     if (response.statusCode == 200) {
@@ -79,7 +79,7 @@ class OrderDetailsRemoteDataSourceImpl extends OrderDetailsRemoteDataSource {
       'status': status,
     });
     final response = await _httpService.post(
-      'importer/$type/action/offer/$orderId',
+      '${HttpService.userType}/$type/action/offer/$orderId',
       formData,
     );
     if (response.statusCode == 200) {

@@ -11,7 +11,7 @@ class _BundledGoodsMarineShippingSheet
       child: Obx(() => Column(
             children: [
               ToggleItemWithHolder(
-                title: 'نوع الطرد',
+                title: 'أحسب من خلال',
                 items: controller.throughOptions,
                 selectedItem: controller.selectedThrough,
                 onChooseItem: (ItemModel item) {
@@ -67,6 +67,7 @@ class _GoodsTotalShipment
                         title: 'الحجم الكلي',
                         controller:
                             controller.goodsTotalShipment[index].overallSize,
+                        keyboardType: TextInputType.number,
                       ),
                       const Divider(
                         color: ColorManager.greyColor,
@@ -75,6 +76,7 @@ class _GoodsTotalShipment
                         title: 'الوزن الكلي',
                         controller:
                             controller.goodsTotalShipment[index].totalWeight,
+                        keyboardType: TextInputType.number,
                       ),
                       const Divider(
                         color: ColorManager.greyColor,
@@ -83,6 +85,7 @@ class _GoodsTotalShipment
                         title: 'الكمية',
                         controller:
                             controller.goodsTotalShipment[index].quantity,
+                        keyboardType: TextInputType.number,
                       ),
                       if (controller.goodsTotalShipment.length > 1)
                         Align(
@@ -152,6 +155,7 @@ class _GoodsUnitTypeShipment
                       TextFieldInputWithHolder(
                         title: 'الطول',
                         controller: controller.goodsUnitType[index].length,
+                        keyboardType: TextInputType.number,
                       ),
                       const Divider(
                         color: ColorManager.greyColor,
@@ -159,6 +163,7 @@ class _GoodsUnitTypeShipment
                       TextFieldInputWithHolder(
                         title: 'العرض',
                         controller: controller.goodsUnitType[index].width,
+                        keyboardType: TextInputType.number,
                       ),
                       const Divider(
                         color: ColorManager.greyColor,
@@ -181,6 +186,7 @@ class _GoodsUnitTypeShipment
                         title: 'الوزن لكل وحدة',
                         controller:
                             controller.goodsUnitType[index].weightPerUnit,
+                        keyboardType: TextInputType.number,
                       ),
                       const Divider(
                         color: ColorManager.greyColor,
@@ -188,6 +194,7 @@ class _GoodsUnitTypeShipment
                       TextFieldInputWithHolder(
                         title: 'الكمية',
                         controller: controller.goodsUnitType[index].quantity,
+                        keyboardType: TextInputType.number,
                       ),
                       const Divider(
                         color: ColorManager.greyColor,

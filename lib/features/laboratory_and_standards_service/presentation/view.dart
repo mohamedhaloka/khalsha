@@ -40,21 +40,13 @@ class _FillData
             builder: (FormFieldState<dynamic> field) =>
                 TextFieldInputWithHolder(
               title: 'عنوان الطلب',
-              hint: 'أضف عنوان',
+              hint: 'مثال: فحص مواد أولية',
               controller: controller.name,
               onSaved: (String? value) => field.didChange(value),
               errorText: field.errorText,
             ),
             validator: FormBuilderValidators.required(),
             name: LaboratoryInputsKeys.title.name,
-          ),
-          AttachFileWithHolder(
-            title: 'متوفر لدي المورد Factory aduit report',
-            file: controller.factoryAduitReport,
-          ),
-          AttachFileWithHolder(
-            title: 'متوفر لدي المورد Test report',
-            file: controller.testReportPhoto,
           ),
           FormBuilderField(
             builder: (FormFieldState<dynamic> field) => Obx(
@@ -88,6 +80,14 @@ class _FillData
               );
             },
           ),
+          AttachFileWithHolder(
+            title: 'متوفر لدي المورد Factory aduit report',
+            file: controller.factoryAduitReport,
+          ),
+          AttachFileWithHolder(
+            title: 'متوفر لدي المورد Test report',
+            file: controller.testReportPhoto,
+          ),
           TextFieldInputWithHolder(
             hint: 'ملاحظات',
             controller: controller.notes,
@@ -108,7 +108,7 @@ class _AdditionalServices
       body: Column(
         children: [
           CheckerWithHolder(
-            title: 'خدمة إستخراج الشهادات اللازمة',
+            title: 'خدمة إستخراج الشهادات المطلوبة',
             active: controller.certificates
                 .any((element) => element.selected.value)
                 .obs,

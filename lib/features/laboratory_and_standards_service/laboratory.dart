@@ -12,6 +12,7 @@ import 'package:khalsha/features/service_intro/presentation/get/controllers/cont
 import 'package:khalsha/injection_container.dart';
 
 import '../../core/data/models/data_model.dart';
+import '../../core/data/services/http_service.dart';
 import '../../core/domain/use_cases/download_file_use_case.dart';
 import '../../core/domain/use_cases/get_particular_env_data_use_case.dart';
 import '../../core/presentation/routes/app_routes.dart';

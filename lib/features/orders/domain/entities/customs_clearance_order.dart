@@ -247,7 +247,12 @@ class CustomsClearanceOrder extends OrderModel {
                   description: file.fullPath,
                   type: OrderDetailsTypes.file,
                 ),
-              ]
+              ],
+              OrderDetailsItemModel(
+                title: 'أضف ملف',
+                enableGesture: true,
+                action: OrderDetailsAction.uploadFile,
+              ),
             ],
           ),
         if (shippingMethod == 'parcel') ...[
@@ -310,10 +315,11 @@ class CustomsClearanceOrder extends OrderModel {
               title: 'هل تريد التخزين',
               description: storageDaysNumber > 0 ? 'yes' : 'no',
             ),
-            OrderDetailsItemModel(
-              title: 'عدد أيام التخزين',
-              description: storageDays,
-            ),
+            if (storageDaysNumber > 0)
+              OrderDetailsItemModel(
+                title: 'عدد أيام التخزين',
+                description: storageDays,
+              ),
             for (var item in certificates) ...[
               OrderDetailsItemModel(
                 title: item.name,

@@ -13,7 +13,7 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
 
   @override
   Future<StatisticsModel> getStatistics() async {
-    final response = await _httpService.get('importer/statistics');
+    final response = await _httpService.get('${HttpService.userType}/statistics');
 
     if (response.statusCode == 200) {
       return StatisticsModel.fromJson(response.data['data']);

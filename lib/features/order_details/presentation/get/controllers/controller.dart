@@ -111,12 +111,12 @@ class OrderDetailsController extends GetxController {
     );
     final result = await _updateOrderStatusUseCase.execute(params);
     result.fold(
-      (l) => showAlertMessage(l.statusMessage),
-      (r) => showAlertMessage(r),
+      (l) => util.showAlertMessage(l.statusMessage),
+      (r) => util.showAlertMessage(r),
     );
   }
 
-  Future<void> uploadImages({
+  Future<void> uploadStepImages({
     required int statusId,
     required List<File> images,
   }) async {
@@ -132,9 +132,36 @@ class OrderDetailsController extends GetxController {
       final result = await _uploadImageUseCase.execute(params);
       result.fold(
         (_) => _,
-        (r) => showAlertMessage(r),
+        (r) => util.showAlertMessage(r),
       );
     }
+  }
+
+  Future<void> showFileChooseDialog(String filePath) => util.showDialog(
+        'تم إختيار الملف',
+        doneText: 'رفع الملف',
+        onDoneTapped: () => _uploadOrderFiles(filePath),
+      );
+
+  Future<void> _uploadOrderFiles(String filePath) async {
+    final params = UploadImageUseCaseParams(
+      loading: false.obs,
+      pageName: 'customsclearance',
+      path: 'customclearancestep',
+      orderId: orderId.toString(),
+      field: 'customclearancestep_file',
+      filePath: filePath,
+    );
+
+    final result = await _uploadImageUseCase.execute(params);
+    result.fold(
+      (failure) => util.showAlertMessage(failure.statusMessage),
+      (successMsg) {
+        util.showAlertMessage(successMsg);
+        getOrderDetails();
+      },
+    );
+    Get.back();
   }
 
   Future<void> deleteImage(int imageId) async {
@@ -144,9 +171,9 @@ class OrderDetailsController extends GetxController {
         id: imageId);
     final result = await _deleteFileUseCase.execute(params);
     result.fold(
-      (l) => showAlertMessage(l.statusMessage),
+      (l) => util.showAlertMessage(l.statusMessage),
       (r) {
-        showAlertMessage(r);
+        util.showAlertMessage(r);
         getOrderDetails();
       },
     );
@@ -163,7 +190,7 @@ class OrderDetailsController extends GetxController {
     result.fold(
       (_) => _,
       (msg) {
-        showAlertMessage(msg);
+        util.showAlertMessage(msg);
         Get.back();
         getOrderDetails();
       },
@@ -182,8 +209,8 @@ class OrderDetailsController extends GetxController {
       orderId: orderId.toString(),
     );
     final result = await _rateOrderUseCase.execute(params);
-    result.fold((failure) => showAlertMessage(failure.statusMessage), (_) {
-      showAlertMessage('تم تقييم الطلب بنجاح');
+    result.fold((failure) => util.showAlertMessage(failure.statusMessage), (_) {
+      util.showAlertMessage('تم تقييم الطلب بنجاح');
       Get.back();
       getOrderDetails();
     });

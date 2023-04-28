@@ -8,7 +8,6 @@ class ShippingDetailsStepView extends GetView<AddEditStoresServiceController> {
     return Obx(() => ListView(
           children: [
             FormBuilderField(
-              initialValue: controller.selectedSpaceType,
               builder: (FormFieldState<dynamic> field) =>
                   DropDownInputWithHolder(
                 title: 'المساحة المطلوبة',
@@ -21,25 +20,28 @@ class ShippingDetailsStepView extends GetView<AddEditStoresServiceController> {
                         ))
                     .toList()
                     .obs,
-                onTap: (int id) {
-                  field.didChange(id.toString());
-                },
+                onTap: (int id) => field.didChange(id.toString()),
                 errorText: field.errorText,
               ),
               validator: FormBuilderValidators.required(),
+              onSaved: (_) {
+                final value = controller.selectedSpaceType.value;
+                controller.didFieldChanged(
+                  'space_type',
+                  value: value,
+                );
+              },
               name: 'space_type',
             ),
             if (controller.selectedSpaceType.value ==
                 SpaceTypes.pallet.value) ...[
               FormBuilderField(
-                initialValue: controller.palletNumber,
                 builder: (FormFieldState<dynamic> field) =>
                     TextFieldInputWithHolder(
                   title: 'عدد الطبليات',
                   controller: controller.palletNumber,
-                  onChanged: (String value) {
-                    field.didChange(value);
-                  },
+                  onChanged: (String value) => field.didChange(value),
+                  onSaved: (String? value) => field.didChange(value),
                   errorText: field.errorText,
                 ),
                 validator: FormBuilderValidators.required(),
@@ -47,7 +49,6 @@ class ShippingDetailsStepView extends GetView<AddEditStoresServiceController> {
               ),
             ] else ...[
               FormBuilderField(
-                initialValue: controller.selectedWareHouseSpace,
                 builder: (FormFieldState<dynamic> field) {
                   return DropDownInputWithHolder(
                     title: 'المساحة التي تحتاجها',
@@ -65,17 +66,21 @@ class ShippingDetailsStepView extends GetView<AddEditStoresServiceController> {
                   );
                 },
                 validator: FormBuilderValidators.required(),
+                onSaved: (String? value) => controller.didFieldChanged(
+                  'ware_house_space',
+                  value: value ?? '',
+                ),
                 name: 'ware_house_space',
               ),
               if (controller.selectedWareHouseSpace.value ==
                   WareHouseTypes.custom.value) ...[
                 FormBuilderField(
-                  initialValue: controller.customWareHouseSpace,
                   builder: (FormFieldState<dynamic> field) =>
                       TextFieldInputWithHolder(
                     title: 'المساحة بالمتر المربع',
                     controller: controller.customWareHouseSpace,
                     onChanged: (String value) => field.didChange(value),
+                    onSaved: (String? value) => field.didChange(value),
                     errorText: field.errorText,
                   ),
                   validator: FormBuilderValidators.required(),
@@ -84,7 +89,6 @@ class ShippingDetailsStepView extends GetView<AddEditStoresServiceController> {
               ],
             ],
             FormBuilderField(
-              initialValue: controller.selectedContactType,
               builder: (FormFieldState<dynamic> field) =>
                   DropDownInputWithHolder(
                 title: 'نوع التعاقد',
@@ -101,6 +105,13 @@ class ShippingDetailsStepView extends GetView<AddEditStoresServiceController> {
                 errorText: field.errorText,
               ),
               validator: FormBuilderValidators.required(),
+              onSaved: (_) {
+                final value = controller.selectedContactType.value;
+                controller.didFieldChanged(
+                  'contract_type',
+                  value: value,
+                );
+              },
               name: 'contract_type',
             ),
             InputHolderBox(

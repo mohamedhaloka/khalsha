@@ -24,7 +24,7 @@ class CustomsClearanceRemoteDataSourceImpl
       CustomsClearanceData customsClearanceData) async {
     final formData = _prepareFormData(customsClearanceData);
     final response = await _httpService.post(
-      'importer/customsclearance',
+      '${HttpService.userType}/customsclearance',
       formData,
     );
 
@@ -47,7 +47,7 @@ class CustomsClearanceRemoteDataSourceImpl
       data[element.key] = element.value;
     }
     final response = await _httpService.put(
-      'importer/customsclearance/${customsClearanceData.orderId}',
+      '${HttpService.userType}/customsclearance/${customsClearanceData.orderId}',
       data,
     );
 

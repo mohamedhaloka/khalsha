@@ -19,6 +19,7 @@ class TextFieldInputWithHolder extends StatelessWidget {
     this.enabled,
     this.onSaved,
     this.onChanged,
+    this.keyboardType,
     this.onTap,
   }) : super(key: key);
   final String? title, hint, errorText;
@@ -29,6 +30,7 @@ class TextFieldInputWithHolder extends StatelessWidget {
   final int? maxLines;
   final void Function(String value)? onChanged;
   final void Function(String? value)? onSaved;
+  final TextInputType? keyboardType;
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +65,7 @@ class TextFieldInputWithHolder extends StatelessWidget {
               textAlign: TextAlign.center,
               enabled: enabled,
               onTap: onTap,
+              keyboardType: keyboardType,
               contentPadding: contentPadding,
               borderSide: inputBorderSide,
               contentColor: contentColor,
