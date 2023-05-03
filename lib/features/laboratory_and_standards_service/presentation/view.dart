@@ -36,7 +36,6 @@ class _FillData
       body: Column(
         children: [
           FormBuilderField(
-            initialValue: controller.name.text,
             builder: (FormFieldState<dynamic> field) =>
                 TextFieldInputWithHolder(
               title: 'عنوان الطلب',

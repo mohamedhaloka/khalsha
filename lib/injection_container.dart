@@ -12,6 +12,11 @@ import 'package:khalsha/core/domain/use_cases/get_profile_use_case.dart';
 import 'package:khalsha/core/domain/use_cases/update_profile_photo_use_case.dart';
 import 'package:khalsha/core/domain/use_cases/update_profile_use_case.dart';
 import 'package:khalsha/core/domain/use_cases/upload_image_use_case.dart';
+import 'package:khalsha/features/air_freight_service/data/data_source/air_freight_remote_data_source.dart';
+import 'package:khalsha/features/air_freight_service/data/repository_impl/air_freight_repository_impl.dart';
+import 'package:khalsha/features/air_freight_service/domain/repository/air_freight_repository.dart';
+import 'package:khalsha/features/air_freight_service/domain/use_cases/add_air_freight_use_case.dart';
+import 'package:khalsha/features/air_freight_service/domain/use_cases/update_air_freight_use_case.dart';
 import 'package:khalsha/features/customs_clearance_service/data/data_source/custom_clearance_remote_data_source.dart';
 import 'package:khalsha/features/customs_clearance_service/data/repository_impl/customs_clearance_repository_impl.dart';
 import 'package:khalsha/features/customs_clearance_service/domain/repository/customs_clearance_repository.dart';
@@ -226,6 +231,16 @@ class InjectionContainer {
         () => AddMarineShipmentUseCase(sl()));
     sl.registerLazySingleton<UpdateMarineShipmentUseCase>(
         () => UpdateMarineShipmentUseCase(sl()));
+
+    //Air Freight
+    sl.registerLazySingleton<AirFreightRemoteDataSource>(
+        () => AirFreightRemoteDataSourceImpl(dioService));
+    sl.registerLazySingleton<AirFreightRepository>(
+        () => AirFreightRepositoryImpl(sl()));
+    sl.registerLazySingleton<AddAirFreightUseCase>(
+        () => AddAirFreightUseCase(sl()));
+    sl.registerLazySingleton<UpdateAirFreightUseCase>(
+        () => UpdateAirFreightUseCase(sl()));
 
     //New Orders
     sl.registerLazySingleton<NewOrdersRemoteDataSource>(

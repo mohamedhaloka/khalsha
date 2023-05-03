@@ -45,8 +45,7 @@ import 'package:khalsha/features/statistics/presentation/get/binding/binding.dar
 import 'package:khalsha/features/statistics/presentation/view.dart';
 
 import '../../../features/account_settings/presentation/get/binding/binding.dart';
-import '../../../features/air_freight_service/get/bindings/binding.dart';
-import '../../../features/air_freight_service/view.dart';
+import '../../../features/air_freight_service/air_freight_service.dart';
 import '../../../features/choose_shipping_service/presentation/get/bindings/binding.dart';
 import '../../../features/customs_clearance_service/customs_clearance.dart';
 import '../../../features/customs_clearance_service/view/get/bindings/binding.dart';
