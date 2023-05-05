@@ -1,62 +1,77 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:khalsha/core/data/services/http_service.dart';
+import 'package:khalsha/core/presentation/routes/app_routes.dart';
+import 'package:khalsha/features/notifications/data/models/notification_model.dart';
+import 'package:khalsha/features/service_intro/presentation/get/controllers/controller.dart';
+import 'package:khalsha/features/widgets/cached_image.dart';
 
-import '../../../../core/data/models/item_model.dart';
 import '../../../../core/presentation/themes/colors_manager.dart';
 
 class NotificationItem extends StatelessWidget {
   const NotificationItem(this.index, this.notification, {Key? key})
       : super(key: key);
-  final ItemModel notification;
+  final NotificationModel notification;
   final int index;
 
   bool get isOdd => index.isOdd;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 90,
-      color: isOdd ? Colors.grey[200] : Colors.grey[100],
-      padding: const EdgeInsets.symmetric(horizontal: 35),
-      child: Row(
-        children: [
-          Container(
-            width: 2,
-            height: 90,
-            color: isOdd
-                ? ColorManager.darkTobyColor
-                : ColorManager.lightTobyColor,
-          ),
-          const SizedBox(width: 10),
-          Expanded(
-              child: Row(
-            children: [
-              SvgPicture.asset('assets/images/icons/support.svg'),
-              const SizedBox(width: 10),
-              Expanded(
-                  child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    notification.text,
-                    style: Get.textTheme.titleSmall!.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+    return InkWell(
+      onTap: () {
+        ServiceTypes? serviceType = ServiceTypes.values.firstWhereOrNull(
+          (element) =>
+              element.name.toUpperCase() ==
+              notification.moduleKey.toUpperCase(),
+        );
+        if (serviceType == null) return;
+
+        Get.toNamed(
+          Routes.orderDetails,
+          arguments: {
+            'orderId': notification.moduleId,
+            'serviceType': serviceType,
+            'isBill': false,
+          },
+        );
+      },
+      child: Container(
+        height: 90,
+        color: isOdd ? Colors.grey[200] : Colors.grey[100],
+        padding: const EdgeInsets.symmetric(horizontal: 35),
+        child: Row(
+          children: [
+            Container(
+              width: 2,
+              height: 90,
+              color: isOdd
+                  ? ColorManager.darkTobyColor
+                  : ColorManager.lightTobyColor,
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+                child: Row(
+              children: [
+                CachedImage(
+                  imgUrl:
+                      HttpService.fileBaseURL + notification.from.photoProfile,
+                  width: 35,
+                  height: 35,
+                  borderRadius: const BorderRadius.all(Radius.circular(60)),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                    child: Text(
+                  notification.text,
+                  style: Get.textTheme.titleSmall!.copyWith(
+                    fontWeight: FontWeight.bold,
                   ),
-                  Text(
-                    notification.description ?? '',
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style:
-                        Get.textTheme.bodySmall!.copyWith(color: Colors.black),
-                  )
-                ],
-              ))
-            ],
-          ))
-        ],
+                ))
+              ],
+            ))
+          ],
+        ),
       ),
     );
   }

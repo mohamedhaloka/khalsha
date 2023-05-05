@@ -53,6 +53,10 @@ import 'package:khalsha/features/my_bills/domain/use_cases/get_my_bills_use_case
 import 'package:khalsha/features/new_orders/data/data_source/new_orders_remote_data_source.dart';
 import 'package:khalsha/features/new_orders/data/repo_impl/new_orders_repository_impl.dart';
 import 'package:khalsha/features/new_orders/domain/repository/new_orders_repository.dart';
+import 'package:khalsha/features/notifications/data/data_source/notifications_remote_data_source.dart';
+import 'package:khalsha/features/notifications/data/repo_impl/notifications_repository_impl.dart';
+import 'package:khalsha/features/notifications/domain/repository/notifications_repository.dart';
+import 'package:khalsha/features/notifications/domain/use_cases/get_notifications_use_case.dart';
 import 'package:khalsha/features/order_details/data/data_source/order_details_remote_data_source.dart';
 import 'package:khalsha/features/order_details/data/repo_impl/order_details_repository_impl.dart';
 import 'package:khalsha/features/order_details/domain/repository/order_details_repository.dart';
@@ -300,5 +304,13 @@ class InjectionContainer {
     sl.registerLazySingleton<MyBillsRepository>(
         () => MyBillsRepositoryImpl(sl()));
     sl.registerLazySingleton<GetMyBillsUseCase>(() => GetMyBillsUseCase(sl()));
+
+    //Notifications
+    sl.registerLazySingleton<NotificationsRemoteDataSource>(
+        () => NotificationsRemoteDataSourceImpl(dioService));
+    sl.registerLazySingleton<NotificationsRepository>(
+        () => NotificationsRepositoryImpl(sl()));
+    sl.registerLazySingleton<GetNotificationsUseCase>(
+        () => GetNotificationsUseCase(sl()));
   }
 }

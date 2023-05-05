@@ -78,6 +78,11 @@ dependencies:
   mime: ^1.0.4
   # for choose date and time together
   flutter_datetime_picker: ^1.5.1
+  #for notifications
+  firebase_messaging: ^14.2.1
+  flutter_local_notifications: ^11.0.1
+  # for send otp
+  firebase_auth: ^4.2.5
 
 dev_dependencies:
   flutter_test:

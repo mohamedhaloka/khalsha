@@ -1,34 +1,60 @@
 import 'package:get/get.dart';
+import 'package:khalsha/features/notifications/data/models/notification_model.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-import '../../../../../core/data/models/item_model.dart';
+import '../../../../../core/utils.dart';
+import '../../../domain/use_cases/get_notifications_use_case.dart';
 
 class NotificationsController extends GetxController {
-  List<ItemModel> notifications = <ItemModel>[];
+  final GetNotificationsUseCase _getNotificationsUseCase;
+  NotificationsController(this._getNotificationsUseCase);
 
+  List<NotificationModel> notifications = <NotificationModel>[];
+
+  int currentPage = 1;
+
+  RxBool loading = true.obs;
+
+  RefreshController refreshController = RefreshController();
   @override
   void onInit() {
-    notifications = const [
-      ItemModel(
-        text: 'تمت بنجاح',
-        description:
-            'تمت عملية التفاوض مع مقدم الخدمة بنجاح انتقل إلي طلباتك لتصفح العرض للعلم بآخر التطورات.',
-      ),
-      ItemModel(
-        text: 'خطأ',
-        description:
-            'تم رفض عملية التفاوض مع مقدم الخدمة انتقل إلي طلباتك لتعرف سبب عملية الرفض.',
-      ),
-      ItemModel(
-        text: 'تنبيه',
-        description:
-            'يرجي العلم أن ميعاد تسديد الفواتير لمقدم الخدمة سيكون يوم 12 شهر نوفمبر.',
-      ),
-      ItemModel(
-        text: 'لمعلوماتك',
-        description:
-            'الوزارة الخارجية لدولة الصين ستقوم بإعداد مؤتمر في مدينة الرياض بالسعودية يوم الإثنين القادم.',
-      ),
-    ];
+    _getNotifications();
     super.onInit();
+  }
+
+  Future<void> _getNotifications() async {
+    final params = GetNotificationsUseCaseParams(
+      loading: loading,
+      pageIndex: currentPage,
+      status: 'all',
+    );
+    final result = await _getNotificationsUseCase.execute(params);
+    result.fold(
+      (failure) {
+        showAlertMessage(failure.statusMessage);
+        currentPage = currentPage - 1;
+      },
+      (data) {
+        if (data.isEmpty) {
+          currentPage = currentPage - 1;
+          return;
+        }
+        notifications.addAll(data);
+      },
+    );
+  }
+
+  Future<void> onRefresh() async {
+    notifications.clear();
+    currentPage = 1;
+    loading(true);
+    await _getNotifications();
+    refreshController.refreshCompleted();
+  }
+
+  Future<void> onLoading() async {
+    currentPage++;
+    await _getNotifications();
+    refreshController.loadComplete();
   }
 }

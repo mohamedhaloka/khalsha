@@ -7,6 +7,7 @@ import 'package:khalsha/firebase_options.dart';
 import 'package:khalsha/injection_container.dart';
 
 import 'core/data/services/http_service.dart';
+import 'core/data/services/notification_service.dart';
 import 'core/data/source/local/user_local.dart';
 import 'core/presentation/error_view.dart';
 import 'core/presentation/routes/app_routes.dart';
@@ -57,6 +58,7 @@ Future<void> _initData() async {
   await UserDataLocal.instance.init();
 
   Get.lazyPut<HttpService>(() => HttpService(Dio()));
+  Get.lazyPut<NotificationsService>(() => NotificationsService());
 
   await InjectionContainer.init();
 }
