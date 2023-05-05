@@ -10,10 +10,8 @@ class AddLocationSheet extends StatelessWidget {
   const AddLocationSheet({
     Key? key,
     required this.items,
-    this.allowMulti = false,
   }) : super(key: key);
   final RxList<int> items;
-  final bool allowMulti;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +23,15 @@ class AddLocationSheet extends StatelessWidget {
             child: Obx(() => ListView.separated(
                   itemBuilder: (_, int index) => Column(
                     children: [
+                      const TextFieldInputWithHolder(
+                        title: 'الموقع',
+                      ),
+                      const Divider(
+                        color: ColorManager.greyColor,
+                      ),
+                      const TextFieldInputWithHolder(
+                        title: 'وصف الموقع',
+                      ),
                       if (items.length > 1)
                         Align(
                           alignment: Alignment.centerLeft,
@@ -36,15 +43,6 @@ class AddLocationSheet extends StatelessWidget {
                             backgroundColor: ColorManager.errorColor,
                           ),
                         ),
-                      const TextFieldInputWithHolder(
-                        title: 'الموقع',
-                      ),
-                      const Divider(
-                        color: ColorManager.greyColor,
-                      ),
-                      const TextFieldInputWithHolder(
-                        title: 'وصف الموقع',
-                      ),
                     ],
                   ),
                   separatorBuilder: (_, __) => const Divider(
@@ -55,27 +53,26 @@ class AddLocationSheet extends StatelessWidget {
                   itemCount: items.length,
                 )),
           ),
-          if (allowMulti)
-            Row(
-              children: [
-                const Expanded(
-                  child: Divider(color: ColorManager.greyColor),
-                ),
-                InkWell(
-                  onTap: () => items.add(0),
-                  child: const Chip(
-                    backgroundColor: ColorManager.primaryColor,
-                    label: Text(
-                      'إضافة موقع جديد  +',
-                      style: TextStyle(color: Colors.white),
-                    ),
+          Row(
+            children: [
+              const Expanded(
+                child: Divider(color: ColorManager.greyColor),
+              ),
+              InkWell(
+                onTap: () => items.add(0),
+                child: const Chip(
+                  backgroundColor: ColorManager.primaryColor,
+                  label: Text(
+                    'إضافة موقع جديد  +',
+                    style: TextStyle(color: Colors.white),
                   ),
                 ),
-                const Expanded(
-                  child: Divider(color: ColorManager.greyColor),
-                ),
-              ],
-            ),
+              ),
+              const Expanded(
+                child: Divider(color: ColorManager.greyColor),
+              ),
+            ],
+          ),
           Center(
             child: CustomButton(
               height: inputHeight,

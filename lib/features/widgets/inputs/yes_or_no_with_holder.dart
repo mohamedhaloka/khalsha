@@ -5,8 +5,6 @@ import 'package:khalsha/features/widgets/custom_button.dart';
 
 import '../../../../../core/presentation/themes/colors_manager.dart';
 import '../../../core/inputs_style.dart';
-import '../bottom_sheet_content/add_notes_sheet.dart';
-import '../headline_bottom_sheet.dart';
 import 'input_holder_box.dart';
 
 class YesOrNoWithHolder extends StatelessWidget {
@@ -53,19 +51,19 @@ class YesOrNoWithHolder extends StatelessWidget {
                   children: [
                     CustomButton(
                       onTap: () async {
-                        final result = await Get.bottomSheet(
-                          HeadLineBottomSheet(
-                            height: Get.height / 2,
-                            body: const AddNotesSheet(
-                              text:
-                                  'اذكر المواد القابلة للإشتعال الموودة بشحنتك',
-                            ),
-                            bottomSheetTitle: 'قابل للإشتعال',
-                          ),
-                          isScrollControlled: true,
-                        );
-                        if (result == null) return;
-                        active(result);
+                        // final result = await Get.bottomSheet(
+                        //   HeadLineBottomSheet(
+                        //     height: Get.height / 2,
+                        //     body: const AddNotesSheet(
+                        //       text:
+                        //           'اذكر المواد القابلة للإشتعال الموودة بشحنتك',
+                        //     ),
+                        //     bottomSheetTitle: 'قابل للإشتعال',
+                        //   ),
+                        //   isScrollControlled: true,
+                        // );
+                        // if (result == null) return;
+                        active(!active.value);
                       },
                       width: inputHeight,
                       height: inputHeight,

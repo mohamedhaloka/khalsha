@@ -7,7 +7,13 @@ import '../../../core/inputs_style.dart';
 import '../custom_button.dart';
 
 class ChooseDateTimeSheet extends StatefulWidget {
-  const ChooseDateTimeSheet({Key? key}) : super(key: key);
+  final DateTime initialDate;
+  final void Function(DateTime) onDateChanged;
+  const ChooseDateTimeSheet({
+    Key? key,
+    required this.onDateChanged,
+    required this.initialDate,
+  }) : super(key: key);
 
   @override
   State<ChooseDateTimeSheet> createState() => _ChooseDateTimeSheetState();
@@ -38,11 +44,12 @@ class _ChooseDateTimeSheetState extends State<ChooseDateTimeSheet> {
                 currentStep = index;
                 setState(() {});
               },
-              children: const [
-                // CalenderView(
-                //   onDateChanged: (_) => _,
-                // ),
-                _TimeView(),
+              children: [
+                CalenderView(
+                  onDateChanged: widget.onDateChanged,
+                  initialDate: widget.initialDate,
+                ),
+                const _TimeView(),
               ],
             ),
           ),

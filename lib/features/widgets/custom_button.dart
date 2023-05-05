@@ -71,6 +71,7 @@ class CustomButton extends StatelessWidget {
                       children: [
                         Text(
                           (text ?? '').tr,
+                          textAlign: TextAlign.center,
                           style: Get.textTheme.bodyMedium!.copyWith(
                             color: contentColor ?? Colors.black,
                           ),
@@ -85,6 +86,7 @@ class CustomButton extends StatelessWidget {
                         )
                       : Text(
                           (text ?? '').tr,
+                          textAlign: TextAlign.center,
                           style: Get.textTheme.bodyMedium!.copyWith(
                             color: contentColor ?? Colors.black,
                             fontWeight: FontWeight.w700,

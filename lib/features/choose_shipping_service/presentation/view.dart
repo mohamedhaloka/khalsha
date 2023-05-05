@@ -57,15 +57,13 @@ class ChooseShippingServiceView
                                   selectedItem: (-1).obs,
                                   onChooseItem: (ItemModel item) {
                                     Get.back();
-                                    if (item.id == 0) {
-                                      Get.toNamed(
-                                        Routes.personalDomesticLandShipping,
-                                      );
-                                    } else {
-                                      Get.toNamed(
-                                        Routes.commercialDomesticLandShipping,
-                                      );
-                                    }
+                                    Get.toNamed(
+                                      Routes.landShipping,
+                                      arguments: {
+                                        'shippingType': item.id,
+                                        'isInternationalShipping': false,
+                                      },
+                                    );
                                   },
                                 ),
                               ),
@@ -77,21 +75,17 @@ class ChooseShippingServiceView
                                 height: 150,
                                 body: ToggleItemWithHolder(
                                   title: 'حدد نوع البضاعة',
-                                  items: controller.itemsType,
+                                  items: internationalItemsType,
                                   selectedItem: (-1).obs,
                                   onChooseItem: (ItemModel item) {
                                     Get.back();
-                                    if (item.id == 0) {
-                                      Get.toNamed(
-                                        Routes
-                                            .internationalBulkGoodsLandShipping,
-                                      );
-                                    } else {
-                                      Get.toNamed(
-                                        Routes
-                                            .internationalPrivateTransferLandShipping,
-                                      );
-                                    }
+                                    Get.toNamed(
+                                      Routes.landShipping,
+                                      arguments: {
+                                        'goodsType': item.id,
+                                        'isInternationalShipping': true,
+                                      },
+                                    );
                                   },
                                 ),
                               ),

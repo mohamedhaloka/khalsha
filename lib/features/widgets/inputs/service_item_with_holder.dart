@@ -20,11 +20,12 @@ class ServiceItemWithHolder extends StatelessWidget {
     this.onBack,
     this.onDelete,
     this.body,
+    this.btnHeight,
   }) : super(key: key);
   final String title;
   final String? bottomSheetTitle, text, errorMsg;
   final Widget? body;
-  final double? height;
+  final double? height, btnHeight;
   final void Function()? onTap, onDelete;
   final void Function(bool)? onBack;
 
@@ -59,7 +60,7 @@ class ServiceItemWithHolder extends StatelessWidget {
           Row(
             children: [
               CustomButton(
-                height: inputHeight,
+                height: btnHeight ?? inputHeight,
                 width: inputHeight + 50,
                 onTap: () async {
                   if (onTap != null) {

@@ -35,6 +35,10 @@ import 'package:khalsha/features/laboratory_and_standards_service/data/repositor
 import 'package:khalsha/features/laboratory_and_standards_service/domain/repository/laboratory_repository.dart';
 import 'package:khalsha/features/laboratory_and_standards_service/domain/use_case/add_laboratory_use_case.dart';
 import 'package:khalsha/features/laboratory_and_standards_service/domain/use_case/update_laboratory_use_case.dart';
+import 'package:khalsha/features/land_shipping/data/data_source/land_shipping_remote_data_source.dart';
+import 'package:khalsha/features/land_shipping/data/repository_impl/land_shipping_repository_impl.dart';
+import 'package:khalsha/features/land_shipping/domain/use_cases/add_land_shipping_use_case.dart';
+import 'package:khalsha/features/land_shipping/domain/use_cases/update_land_shipping_use_case.dart';
 import 'package:khalsha/features/login/domain/use_cases/login_use_case.dart';
 import 'package:khalsha/features/map/data/data_source/map_remote_data_source.dart';
 import 'package:khalsha/features/marine_shipping/data/data_source/marine_shipment_remote_data_source.dart';
@@ -91,6 +95,7 @@ import 'package:location/location.dart';
 import 'core/data/services/http_service.dart';
 import 'core/domain/repository/core_repository.dart';
 import 'core/utils.dart';
+import 'features/land_shipping/domain/repository/land_shipping_repository.dart';
 import 'features/login/data/repository_impl/login_repository_impl.dart';
 import 'features/login/data/source/login_remote_data_source.dart';
 import 'features/login/domain/repository/login_repository.dart';
@@ -241,6 +246,16 @@ class InjectionContainer {
         () => AddAirFreightUseCase(sl()));
     sl.registerLazySingleton<UpdateAirFreightUseCase>(
         () => UpdateAirFreightUseCase(sl()));
+
+    //Land Shipping
+    sl.registerLazySingleton<LandShippingRemoteDataSource>(
+        () => LandShippingRemoteDataSourceImpl(dioService));
+    sl.registerLazySingleton<LandShippingRepository>(
+        () => LandShippingRepositoryImpl(sl()));
+    sl.registerLazySingleton<AddLandShippingUseCase>(
+        () => AddLandShippingUseCase(sl()));
+    sl.registerLazySingleton<UpdateLandShippingUseCase>(
+        () => UpdateLandShippingUseCase(sl()));
 
     //New Orders
     sl.registerLazySingleton<NewOrdersRemoteDataSource>(

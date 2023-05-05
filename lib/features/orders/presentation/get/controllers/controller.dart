@@ -55,7 +55,7 @@ class OrdersController extends GetxController {
       case 0:
         return Routes.customsClearanceService;
       case 1:
-        return Routes.personalDomesticLandShipping;
+        return Routes.landShipping;
       case 2:
         return Routes.stores;
       case 3:

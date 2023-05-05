@@ -14,7 +14,23 @@
       },
       "oauth_client": [
         {
-          "client_id": "949672352683-894g4kbfjm0ircv97rr3geu8r9menne1.apps.googleusercontent.com",
+          "client_id": "949672352683-3ogo46qmgrcipcqtvs441mi0p5j8fehs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.khalsha",
+            "certificate_hash": "229f55ddf2edca1935760d4967503d7708e6c683"
+          }
+        },
+        {
+          "client_id": "949672352683-dve697800v8f9hqnlmt7nciprclq9i8m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.khalsha",
+            "certificate_hash": "0b09ee4130e4009771f91e9d2256be94dba7c45d"
+          }
+        },
+        {
+          "client_id": "949672352683-m9eikqvr6p9rmqrbukgvdq7uaonvo7l0.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -29,6 +45,49 @@
             {
               "client_id": "949672352683-894g4kbfjm0ircv97rr3geu8r9menne1.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "949672352683-2kmd8rpqcivrrskkd20vukhhur0q6i3r.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.app.khalsha"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:949672352683:android:92daaf7dc7e5f6c07cd0ee",
+        "android_client_info": {
+          "package_name": "com.app.khalsha.provider"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "949672352683-m9eikqvr6p9rmqrbukgvdq7uaonvo7l0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQC2FPMiLYHKtzkQjdyp3S3hjUTbrJ0u8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "949672352683-894g4kbfjm0ircv97rr3geu8r9menne1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "949672352683-2kmd8rpqcivrrskkd20vukhhur0q6i3r.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.app.khalsha"
+              }
             }
           ]
         }

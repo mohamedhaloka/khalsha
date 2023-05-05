@@ -56,8 +56,6 @@ class ChooseItemWithHolder extends StatelessWidget {
                     bottomSheetTitle: bottomSheetTitle ?? title,
                   ),
                   isScrollControlled: true,
-                  enableDrag: false,
-                  isDismissible: false,
                 ) as bool?;
 
                 if (result == null) return;

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:khalsha/features/land_shipping/land_shipping.dart';
 
 import '../inputs/text_field_input_with_holder.dart';
 
-class ConfirmOrderStepView extends StatelessWidget {
+class ConfirmOrderStepView
+    extends GetView<AddEditLandShippingServiceController> {
   const ConfirmOrderStepView({Key? key}) : super(key: key);
 
   @override
@@ -14,14 +17,14 @@ class ConfirmOrderStepView extends StatelessWidget {
           'assets/images/fill_service_steps/confirm-service.svg',
         ),
         const SizedBox(height: 20),
-        const TextFieldInputWithHolder(
+        TextFieldInputWithHolder(
           hint: 'اسم الشخص المستلم',
+          controller: controller.recipientName,
         ),
-        const TextFieldInputWithHolder(
+        TextFieldInputWithHolder(
           hint: 'رقم الجوال',
-        ),
-        const TextFieldInputWithHolder(
-          hint: 'الإيميل',
+          controller: controller.recipientMobile,
+          keyboardType: TextInputType.number,
         ),
       ],
     );

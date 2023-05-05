@@ -91,6 +91,7 @@ class AirFreightData {
         'insurance': insurance,
         'customs_clearance': customsClearance,
         'certificates': certificates,
+        'unit_type': through,
         'through': through,
       };
 }

@@ -13,10 +13,7 @@ import 'package:khalsha/features/forget_password/presentation/view.dart';
 import 'package:khalsha/features/how_to_use/presentation/view.dart';
 import 'package:khalsha/features/intro/presentation/get/binding/binding.dart';
 import 'package:khalsha/features/intro/presentation/view.dart';
-import 'package:khalsha/features/land_shipping/presentations/International_bulk_goods_land_shipping/view.dart';
-import 'package:khalsha/features/land_shipping/presentations/International_private_transfer_land_shipping/view.dart';
-import 'package:khalsha/features/land_shipping/presentations/commercial_domestic_land_shipping/view.dart';
-import 'package:khalsha/features/land_shipping/presentations/personal_domestic_land_shipping/view.dart';
+import 'package:khalsha/features/land_shipping/land_shipping.dart';
 import 'package:khalsha/features/login/presentation/get/bindings/binding.dart';
 import 'package:khalsha/features/login/presentation/view.dart';
 import 'package:khalsha/features/map/presentation/getx/bindings/binding.dart';
@@ -52,10 +49,6 @@ import '../../../features/customs_clearance_service/view/get/bindings/binding.da
 import '../../../features/forget_password/presentation/get/binding/binding.dart';
 import '../../../features/how_to_use/presentation/get/binding/binding.dart';
 import '../../../features/laboratory_and_standards_service/laboratory.dart';
-import '../../../features/land_shipping/presentations/International_bulk_goods_land_shipping/get/bindings/binding.dart';
-import '../../../features/land_shipping/presentations/International_private_transfer_land_shipping/get/bindings/binding.dart';
-import '../../../features/land_shipping/presentations/commercial_domestic_land_shipping/get/bindings/binding.dart';
-import '../../../features/land_shipping/presentations/personal_domestic_land_shipping/get/bindings/binding.dart';
 import '../../../features/marine_shipping/marine_shipping.dart';
 import '../../../features/new_orders/presentation/get/binding/binding.dart';
 import '../../../features/order_details/presentation/get/binding/binding.dart';
@@ -200,24 +193,9 @@ class AppPages {
       binding: AddEditMarineShippingServiceBinding(),
     ),
     GetPage(
-      name: _Paths.personalDomesticLandShipping,
-      page: () => const PersonalDomesticLandShippingServiceView(),
-      binding: PersonalDomesticLandShippingServiceBinding(),
-    ),
-    GetPage(
-      name: _Paths.commercialDomesticLandShipping,
-      page: () => const CommercialDomesticLandShippingServiceView(),
-      binding: CommercialDomesticLandShippingServiceBinding(),
-    ),
-    GetPage(
-      name: _Paths.internationalBulkGoodsLandShipping,
-      page: () => const InternationalBulkGoodsLandShippingServiceView(),
-      binding: InternationalBulkGoodsLandShippingServiceBinding(),
-    ),
-    GetPage(
-      name: _Paths.internationalPrivateTransferLandShipping,
-      page: () => const InternationalPrivateTransferLandShippingServiceView(),
-      binding: InternationalPrivateTransferLandShippingServiceBinding(),
+      name: _Paths.landShipping,
+      page: () => const AdEditLandShippingServiceView(),
+      binding: AddEditLandShippingServiceBinding(),
     ),
     GetPage(
       name: _Paths.stores,

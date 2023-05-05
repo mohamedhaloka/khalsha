@@ -29,6 +29,16 @@ class DefaultFirebaseOptions {
           'DefaultFirebaseOptions have not been configured for macos - '
           'you can reconfigure this by running the FlutterFire CLI again.',
         );
+      case TargetPlatform.windows:
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for windows - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
+      case TargetPlatform.linux:
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for linux - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       default:
         throw UnsupportedError(
           'DefaultFirebaseOptions are not supported for this platform.',
@@ -60,8 +70,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '949672352683',
     projectId: 'khalsha-54b3c',
     storageBucket: 'khalsha-54b3c.appspot.com',
-    iosClientId:
-        '949672352683-2kmd8rpqcivrrskkd20vukhhur0q6i3r.apps.googleusercontent.com',
+    androidClientId: '949672352683-3ogo46qmgrcipcqtvs441mi0p5j8fehs.apps.googleusercontent.com',
+    iosClientId: '949672352683-2kmd8rpqcivrrskkd20vukhhur0q6i3r.apps.googleusercontent.com',
     iosBundleId: 'com.app.khalsha',
   );
 }

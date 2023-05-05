@@ -94,4 +94,9 @@ Map<String, String> ar = {
   'custom': 'مساحة محددة',
   'per_day': 'يومي',
   'per_month': 'شهري',
+
+  //Land Shipping
+  'pack': 'تركيب',
+  'unpack': 'فك',
+  'packaging': 'تغليف',
 };

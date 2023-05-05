@@ -11,6 +11,17 @@ List<ItemModel> shippingFieldOptions = const <ItemModel>[
   )
 ];
 
+List<ItemModel> internationalItemsType = const <ItemModel>[
+  ItemModel(
+    text: 'بضائع مجمعة',
+    id: 0,
+  ),
+  ItemModel(
+    text: 'نقل خاص',
+    id: 1,
+  )
+];
+
 List<ItemModel> shippingTypeOptions = const <ItemModel>[
   ItemModel(
     text: 'إستيراد',
