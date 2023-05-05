@@ -40,20 +40,23 @@ class _BillDataTab extends GetView<OrderDetailsController> {
             billCreatedDate: invoice.createdAt.toString(),
             userBio: invoice.user!.bio!,
           ),
+          if (orderData.status == kClosed)
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              child: CustomButton(
+                onTap: () {
+                  String url =
+                      '${HttpService.baseURL}${HttpService.userType}/${controller.serviceType.value}/download/invoice/${controller.orderId}';
 
-          // if (orderData.invoiceUrl != null)
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 12),
-            child: CustomButton(
-              onTap: () {
-                dev.log(
-                  orderData.invoiceUrl.toString(),
-                  name: 'Invoice Url',
-                );
-              },
-              text: 'مشاركة',
+                  launchUrl(Uri.parse(url),
+                      mode: LaunchMode.inAppWebView,
+                      webViewConfiguration: WebViewConfiguration(
+                        headers: HttpService.header,
+                      ));
+                },
+                text: 'مشاركة',
+              ),
             ),
-          ),
         ],
       ],
     );

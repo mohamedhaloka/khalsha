@@ -24,7 +24,7 @@ class _BundledGoodsInputsView
                     errorText: field.errorText,
                   ),
                   validator: FormBuilderValidators.required(),
-                  name: LandShipmentInputsKeys.bundledName.name,
+                  name: '${LandShipmentInputsKeys.bundledName.name}_$index',
                 ),
                 FormBuilderField(
                   builder: (FormFieldState<dynamic> field) =>
@@ -35,7 +35,7 @@ class _BundledGoodsInputsView
                     errorText: field.errorText,
                   ),
                   validator: FormBuilderValidators.required(),
-                  name: LandShipmentInputsKeys.bundledQunatity.name,
+                  name: '${LandShipmentInputsKeys.bundledQuantity.name}_$index',
                 ),
                 FormBuilderField(
                   builder: (FormFieldState<dynamic> field) =>
@@ -51,11 +51,11 @@ class _BundledGoodsInputsView
                         .toList(),
                   ),
                   onSaved: (_) => controller.didFieldChanged(
-                    LandShipmentInputsKeys.bundledUnit.name,
+                    '${LandShipmentInputsKeys.bundledUnit.name}_$index',
                     value: controller.bundledGoodsItems[index].unit.value,
                   ),
                   validator: FormBuilderValidators.required(),
-                  name: LandShipmentInputsKeys.bundledUnit.name,
+                  name: '${LandShipmentInputsKeys.bundledUnit.name}_$index',
                 ),
                 FormBuilderField(
                   builder: (FormFieldState<dynamic> field) =>
@@ -66,7 +66,8 @@ class _BundledGoodsInputsView
                     errorText: field.errorText,
                   ),
                   validator: FormBuilderValidators.required(),
-                  name: LandShipmentInputsKeys.bundledTotalWeight.name,
+                  name:
+                      '${LandShipmentInputsKeys.bundledTotalWeight.name}_$index',
                 ),
                 FormBuilderField(
                   builder: (FormFieldState<dynamic> field) =>
@@ -76,22 +77,25 @@ class _BundledGoodsInputsView
                     errorMsg: field.errorText,
                   ),
                   onSaved: (_) => controller.didFieldChanged(
-                    LandShipmentInputsKeys.bundledImage.name,
+                    '${LandShipmentInputsKeys.bundledImage.name}_$index',
                     value: controller.bundledGoodsItems[index].image.value.path,
                   ),
                   validator: FormBuilderValidators.required(),
-                  name: LandShipmentInputsKeys.bundledImage.name,
+                  name: '${LandShipmentInputsKeys.bundledImage.name}_$index',
                 ),
                 if (controller.bundledGoodsItems.length > 1)
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: CustomButton(
-                      width: 40,
-                      height: 40,
-                      onTap: () => controller.bundledGoodsItems
-                          .remove(controller.bundledGoodsItems[index]),
-                      imgName: 'delete',
-                      backgroundColor: ColorManager.errorColor,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: CustomButton(
+                        width: 40,
+                        height: 40,
+                        onTap: () => controller.bundledGoodsItems
+                            .remove(controller.bundledGoodsItems[index]),
+                        imgName: 'delete',
+                        backgroundColor: ColorManager.errorColor,
+                      ),
                     ),
                   ),
               ],

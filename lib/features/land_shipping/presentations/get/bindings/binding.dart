@@ -8,6 +8,7 @@ class AddEditLandShippingServiceBinding extends Bindings {
         InjectionContainer.sl(),
         InjectionContainer.sl(),
         InjectionContainer.sl(),
+        InjectionContainer.sl(),
       ),
     );
   }

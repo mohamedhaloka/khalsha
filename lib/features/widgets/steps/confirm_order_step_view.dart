@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get/get.dart';
 import 'package:khalsha/features/land_shipping/land_shipping.dart';
 
@@ -17,14 +19,26 @@ class ConfirmOrderStepView
           'assets/images/fill_service_steps/confirm-service.svg',
         ),
         const SizedBox(height: 20),
-        TextFieldInputWithHolder(
-          hint: 'اسم الشخص المستلم',
-          controller: controller.recipientName,
+        FormBuilderField(
+          builder: (FormFieldState<dynamic> field) => TextFieldInputWithHolder(
+            hint: 'اسم الشخص المستلم',
+            controller: controller.recipientName,
+            onSaved: (String? value) => field.didChange(value),
+            errorText: field.errorText,
+          ),
+          validator: FormBuilderValidators.required(),
+          name: LandShipmentInputsKeys.recipientName.name,
         ),
-        TextFieldInputWithHolder(
-          hint: 'رقم الجوال',
-          controller: controller.recipientMobile,
-          keyboardType: TextInputType.number,
+        FormBuilderField(
+          builder: (FormFieldState<dynamic> field) => TextFieldInputWithHolder(
+            hint: 'رقم الجوال',
+            controller: controller.recipientMobile,
+            keyboardType: TextInputType.number,
+            onSaved: (String? value) => field.didChange(value),
+            errorText: field.errorText,
+          ),
+          validator: FormBuilderValidators.required(),
+          name: LandShipmentInputsKeys.recipientMobile.name,
         ),
       ],
     );

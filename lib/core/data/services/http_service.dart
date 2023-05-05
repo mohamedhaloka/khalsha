@@ -33,7 +33,7 @@ class HttpService extends GetxService {
     var response = await _dio.post(
       baseURL + endPoint,
       data: data,
-      options: Options(headers: _header),
+      options: Options(headers: header),
     );
     if (response.data['type'] == 'need_verify_email') {
       final userData = UserDataLocal.instance.data.value.toJson();
@@ -58,7 +58,7 @@ class HttpService extends GetxService {
       data: data,
       options: Options(
         contentType: 'application/x-www-form-urlencoded',
-        headers: _header,
+        headers: header,
       ),
     );
     if (response.data['type'] == 'need_verify_email') {
@@ -101,12 +101,12 @@ class HttpService extends GetxService {
     log('URL ${baseURL + endPoint}');
     var response = await _dio.get(
       baseURL + endPoint,
-      options: Options(headers: _header),
+      options: Options(headers: header),
     );
     return response;
   }
 
-  Map<String, String> get _header => {
+  static Map<String, String> get header => {
         'Authorization': 'Bearer ${UserDataLocal.instance.token}',
         'lang': Lang.instance.langCode,
         'Accept': 'application/json',

@@ -10,6 +10,7 @@ import '../../../order_details/data/models/order_section_item_model.dart';
 
 part 'customs_clearance_order.dart';
 part 'laboratory_order.dart';
+part 'land_shipping_order.dart';
 part 'marine_shipment_order.dart';
 part 'ware_house_order.dart';
 

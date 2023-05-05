@@ -85,16 +85,6 @@ class LandShippingRemoteDataSourceImpl extends LandShippingRemoteDataSource {
       dataList: data.deliveryLng,
       key: 'delivery_lng',
     );
-    _fillDataOfList(
-      formData,
-      dataList: data.descLoading,
-      key: 'desc_loading',
-    );
-    _fillDataOfList(
-      formData,
-      dataList: data.descDelivery,
-      key: 'desc_delivery',
-    );
 
     if (data.goodsType == 'bundled_goods') {
       _fillDataOfList(
@@ -124,6 +114,16 @@ class LandShippingRemoteDataSourceImpl extends LandShippingRemoteDataSource {
         type: kFile,
       );
     } else {
+      _fillDataOfList(
+        formData,
+        dataList: data.descLoading,
+        key: 'desc_loading',
+      );
+      _fillDataOfList(
+        formData,
+        dataList: data.descDelivery,
+        key: 'desc_delivery',
+      );
       _fillDataOfList(
         formData,
         dataList: data.name,

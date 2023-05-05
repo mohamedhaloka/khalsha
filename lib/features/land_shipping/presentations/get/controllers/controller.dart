@@ -4,14 +4,18 @@ class AddEditLandShippingServiceController extends GetxController {
   final GetParticularEnvDataUseCase _getParticularEnvDataUseCase;
   final AddLandShippingUseCase _addLandShippingUseCase;
   final UpdateLandShippingUseCase _updateLandShippingUseCase;
+  final DownloadFileUseCase _downloadFileUseCase;
+
   AddEditLandShippingServiceController(
     this._getParticularEnvDataUseCase,
     this._addLandShippingUseCase,
     this._updateLandShippingUseCase,
+    this._downloadFileUseCase,
   );
 
   RxBool isInternationalShipping =
       (Get.arguments['isInternationalShipping'] as bool).obs;
+  final OrderModel? orderData = (Get.arguments['orderData'] as OrderModel?);
 
   final formKey = GlobalKey<FormBuilderState>();
 
@@ -23,7 +27,7 @@ class AddEditLandShippingServiceController extends GetxController {
     OrderSendSuccessfullyStepView(),
   ];
 
-  bool get isAdd => true;
+  bool get isAdd => orderData == null;
 
   RxInt currentStep = 0.obs;
 
@@ -84,24 +88,115 @@ class AddEditLandShippingServiceController extends GetxController {
     LandShippingServiceModel.newItem(),
   ].obs;
 
-  RxList<LoadingUnLoadingLocationsModel> loadingUnloadingData = [
+  RxList<LoadingUnLoadingLocationsModel> locationsData = [
     LoadingUnLoadingLocationsModel.newItem(),
   ].obs;
 
   @override
   void onInit() {
+    _fillData();
+    super.onInit();
+  }
+
+  void _fillData() async {
+    loading(true);
     shippingType(getValue('shippingType', defaultValue: 0));
     goodsType(getValue('goodsType', defaultValue: 1));
     _getData('countries', onSuccess: (data) => countries.addAll(data));
     _getData('shipmenttypes', onSuccess: (data) => shipmentTypes.addAll(data));
     _getData('trucks', onSuccess: (data) => trucks.addAll(data));
-    super.onInit();
+    if (orderData == null) {
+      loading(false);
+      return;
+    }
+    final order = orderData as LandShippingOrder;
+    name.text = order.title;
+    fromCountry(order.fromCountry);
+    toCountry(order.toCountry);
+    goodsType(order.goodsTypeId);
+    content.text = order.content;
+    truck(order.truck);
+    shipmentType(order.shipmentType);
+
+    if (order.bundledGoods.isNotEmpty) {
+      bundledGoodsItems.clear();
+    }
+    for (var item in order.bundledGoods) {
+      File imageFile = File('');
+      await _downloadFile(
+        item.image,
+        onSuccess: (String filePath) => imageFile = File(filePath),
+      );
+      bundledGoodsItems.add(
+        BundledGoodsModel(
+          image: imageFile.obs,
+          name: TextEditingController(text: item.name),
+          totalWeight: TextEditingController(text: item.totalWeight),
+          unit: item.unit.obs,
+          quantity: TextEditingController(text: item.quantity.toString()),
+        ),
+      );
+    }
+
+    if (order.locations.isNotEmpty) {
+      locationsData.clear();
+    }
+    for (var location in order.locations) {
+      locationsData.add(
+        LoadingUnLoadingLocationsModel(
+          loadingLocation: TextEditingController(text: location.loading),
+          unloadingLocation: TextEditingController(text: location.delivery),
+          loadingLocationDetails: LocationDetails(
+            long: double.tryParse(location.loadingLng) ?? 0.0,
+            lat: double.tryParse(location.loadingLat) ?? 0.0,
+            name: location.loading,
+          ),
+          unloadingLocationDetails: LocationDetails(
+            long: double.tryParse(location.deliveryLng) ?? 0.0,
+            lat: double.tryParse(location.deliveryLat) ?? 0.0,
+            name: location.delivery,
+          ),
+          loading: location.descLoading.obs,
+          unloading: location.descDelivery.obs,
+        ),
+      );
+    }
+
+    if (order.extraServices.isNotEmpty) {
+      serviceData.clear();
+    }
+    for (var service in order.extraServices) {
+      serviceData.add(
+        LandShippingServiceModel(
+          item: TextEditingController(text: service.name),
+          quantity: TextEditingController(text: service.quantity.toString()),
+          packaging: (service.packaging == 'yes' ? true : false).obs,
+          pack: (service.pack == 'yes' ? true : false).obs,
+          unpack: (service.unpack == 'yes' ? true : false).obs,
+        ),
+      );
+    }
+    loadingDate = order.loadingDate;
+    deliveryDate = order.deliveryDate;
+    recipientName.text = order.recipientName;
+    recipientMobile.text = order.recipientMobile;
+
+    loading(false);
   }
 
   int getValue(String key, {required int defaultValue}) {
     final data = Get.arguments as Map<String, dynamic>;
     if (data.containsKey(key)) return data[key];
     return defaultValue;
+  }
+
+  Future<void> _downloadFile(
+    String url, {
+    required void Function(String filePath) onSuccess,
+  }) async {
+    final params = DownloadFileUseCaseParams(loading: false.obs, url: url);
+    final result = await _downloadFileUseCase.execute(params);
+    result.fold((_) => _, (r) => onSuccess(r));
   }
 
   Future<void> _getData(
@@ -152,7 +247,7 @@ class AddEditLandShippingServiceController extends GetxController {
   }
 
   LandShippingData get _landShippingData => LandShippingData(
-        orderId: '',
+        orderId: isAdd ? '0' : orderData!.id.toString(),
         recipientMobile: recipientMobile.text,
         recipientName: recipientName.text,
         goodsType: goodsType.value == 0 ? 'bundled_goods' : 'private_transfer',
@@ -170,30 +265,28 @@ class AddEditLandShippingServiceController extends GetxController {
         workers: workersType.value,
         loadingDate: loadingDate.toString(),
         deliveryDate: deliveryDate.toString(),
-        loading: loadingUnloadingData
+        loading: locationsData
             .map((element) => element.loadingLocation.text)
             .toList(),
-        loadingLat: loadingUnloadingData
+        loadingLat: locationsData
             .map((element) => element.loadingLocationDetails.lat.toString())
             .toList(),
-        loadingLng: loadingUnloadingData
+        loadingLng: locationsData
             .map((element) => element.loadingLocationDetails.long.toString())
             .toList(),
-        descLoading: loadingUnloadingData
-            .map((element) => element.loading.value)
-            .toList(),
-        delivery: loadingUnloadingData
+        descLoading:
+            locationsData.map((element) => element.loading.value).toList(),
+        delivery: locationsData
             .map((element) => element.unloadingLocation.text)
             .toList(),
-        deliveryLat: loadingUnloadingData
+        deliveryLat: locationsData
             .map((element) => element.unloadingLocationDetails.lat.toString())
             .toList(),
-        deliveryLng: loadingUnloadingData
+        deliveryLng: locationsData
             .map((element) => element.unloadingLocationDetails.long.toString())
             .toList(),
-        descDelivery: loadingUnloadingData
-            .map((element) => element.unloading.value)
-            .toList(),
+        descDelivery:
+            locationsData.map((element) => element.unloading.value).toList(),
         bundleUnit:
             bundledGoodsItems.map((element) => element.unit.value).toList(),
         bundleTotalWeight: bundledGoodsItems

@@ -141,22 +141,45 @@ class _AdditionalServices
               ),
             )
           ],
-          ServiceItemWithHolder(
-            title: 'خدمات الفك و التركيب و التغليف',
-            height: Get.height / 1.5,
-            onDelete: () {},
-            body: const DismantlingAndInstallationService(),
-          ),
           if (controller.goodsType.value == 1) ...[
-            DropDownInputWithHolder(
-              title: 'تريد عمال تحميل وتنزيل',
-              dropValue: controller.workersType,
-              source: LoadTypes.values
-                  .map((e) => DropdownMenuItem(
-                        value: e.name,
-                        child: Text(e.name.tr),
-                      ))
-                  .toList(),
+            FormBuilderField(
+              builder: (FormFieldState<dynamic> field) => ServiceItemWithHolder(
+                title: 'خدمات الفك و التركيب و التغليف',
+                height: Get.height / 1.5,
+                onDelete: () {},
+                errorMsg: field.errorText,
+                body: const DismantlingAndInstallationService(),
+              ),
+              onSaved: (_) {
+                final hasEmptyInputs = controller.serviceData.any((element) =>
+                    element.quantity.text.isEmpty || element.item.text.isEmpty);
+                controller.didFieldChanged(
+                  LandShipmentInputsKeys.packUnPackPackaging.name,
+                  value: hasEmptyInputs ? '' : 'xx',
+                );
+              },
+              validator: FormBuilderValidators.required(),
+              name: LandShipmentInputsKeys.packUnPackPackaging.name,
+            ),
+            FormBuilderField(
+              builder: (FormFieldState<dynamic> field) =>
+                  DropDownInputWithHolder(
+                title: 'تريد عمال تحميل وتنزيل',
+                dropValue: controller.workersType,
+                source: LoadTypes.values
+                    .map((e) => DropdownMenuItem(
+                          value: e.name,
+                          child: Text(e.name.tr),
+                        ))
+                    .toList(),
+                errorText: field.errorText,
+              ),
+              onSaved: (_) => controller.didFieldChanged(
+                LandShipmentInputsKeys.workers.name,
+                value: controller.workersType.value,
+              ),
+              validator: FormBuilderValidators.required(),
+              name: LandShipmentInputsKeys.workers.name,
             ),
           ],
           YesOrNoWithHolder(
@@ -237,10 +260,18 @@ enum LandShipmentInputsKeys {
   toCountry,
   content,
   bundledName,
-  bundledQunatity,
+  bundledQuantity,
   bundledUnit,
   bundledTotalWeight,
   bundledImage,
   truck,
-  shipmentType;
+  shipmentType,
+  packUnPackPackaging,
+  workers,
+  loadingLocation,
+  loadingLocationType,
+  unloadingLocation,
+  unloadingLocationType,
+  recipientName,
+  recipientMobile;
 }

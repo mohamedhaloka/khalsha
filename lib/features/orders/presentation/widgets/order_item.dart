@@ -73,14 +73,30 @@ class OrderItem extends StatelessWidget {
                     Expanded(
                       child: IconButton(
                           onPressed: () async {
-                            final result = await Get.toNamed(
-                              route,
-                              arguments: order,
-                            );
-                            if (result == null) return;
-                            final ordersController =
-                                Get.find<OrdersController>();
-                            ordersController.onRefresh();
+                            if (serviceType == ServiceTypes.landShipping) {
+                              final result = await Get.toNamed(
+                                route,
+                                arguments: {
+                                  'orderData': order,
+                                  'isInternationalShipping':
+                                      (order as LandShippingOrder)
+                                          .internationalShippingBooleanValue,
+                                },
+                              );
+                              if (result == null) return;
+                              final ordersController =
+                                  Get.find<OrdersController>();
+                              ordersController.onRefresh();
+                            } else {
+                              final result = await Get.toNamed(
+                                route,
+                                arguments: order,
+                              );
+                              if (result == null) return;
+                              final ordersController =
+                                  Get.find<OrdersController>();
+                              ordersController.onRefresh();
+                            }
                           },
                           icon: const Icon(Icons.edit)),
                     )

@@ -71,6 +71,7 @@ class _RateOrderSheetState extends State<RateOrderSheet> {
                   title: 'أكتب رئيك (أجباري)',
                   maxLines: 4,
                   radius: radius,
+                  controller: rateFieldController,
                 ),
               ],
             ),
