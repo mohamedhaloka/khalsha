@@ -95,7 +95,7 @@ class AddEditAirFreightServiceController extends GetxController {
       loading(false);
       return;
     }
-    final order = orderData as MarineShipmentOrder;
+    final order = orderData as AirFreightOrder;
     name.text = orderData!.title;
     content.text = order.content;
     selectedShippingType(order.shipmentTypeId);
@@ -120,6 +120,7 @@ class AddEditAirFreightServiceController extends GetxController {
     price.text = order.total;
     selectedCurrencyId(order.currencyId.toString());
     selectedShipmentReady(order.shipmentReady);
+    selectedThrough(order.through == 'pallet' ? 0 : 1);
     enableInsurance(order.insurance == 'yes' ? true : false);
     enableCustomsClearance(order.customsClearance == 'yes' ? true : false);
     for (var e in order.certificates) {
@@ -132,7 +133,6 @@ class AddEditAirFreightServiceController extends GetxController {
     if (order.goods.isNotEmpty) {
       items.clear();
       for (var goodItem in order.goods) {
-        selectedThrough(goodItem.through == 'pallet' ? 0 : 1);
         File image = File('');
         await _downloadFile(
           goodItem.image!,

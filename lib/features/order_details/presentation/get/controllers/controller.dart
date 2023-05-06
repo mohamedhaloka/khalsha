@@ -18,14 +18,15 @@ class OrderDetailsController extends GetxController {
 
   int orderId = Get.arguments['orderId'];
   ServiceTypes serviceType = Get.arguments['serviceType'];
-  bool isBill = Get.arguments['isBill'];
+  bool fromBill = Get.arguments['isBill'];
 
   RxInt currentTab = 0.obs;
   PageController pageViewController = PageController();
 
   RxBool loading = true.obs,
       offerActionLoading = false.obs,
-      rateOrderLoading = false.obs;
+      rateOrderLoading = false.obs,
+      downloadInvoiceLoading = false.obs;
 
   late OrderModel orderModel;
 
@@ -90,7 +91,7 @@ class OrderDetailsController extends GetxController {
     }
 
     await Future.delayed(const Duration(milliseconds: 300));
-    if (isBill) {
+    if (fromBill) {
       int indexOfLaseTab =
           pages.indexWhere((element) => element.id == pages.last.id);
       goToParticularPage(indexOfLaseTab);
@@ -179,12 +180,15 @@ class OrderDetailsController extends GetxController {
     );
   }
 
-  Future<void> acceptReject(String status) async {
+  Future<void> acceptOrReject(
+    String status, {
+    required int? offerId,
+  }) async {
     final params = AcceptRejectOfferUseCaseParams(
       loading: offerActionLoading,
       type: serviceType.value,
       status: status,
-      orderId: orderId.toString(),
+      orderId: offerId.toString(),
     );
     final result = await _acceptRejectOfferUseCase.execute(params);
     result.fold(
@@ -201,11 +205,19 @@ class OrderDetailsController extends GetxController {
     required double rate,
     required String feedback,
   }) async {
+    final modulesList = [
+      "CustomClearance",
+      "LandShipping",
+      "Warehouse",
+      "SeaShipping",
+      "AirShipping",
+      "Laboratory",
+    ];
     final params = RateOrderUseCaseParams(
       loading: rateOrderLoading,
       rate: rate,
       feedback: feedback,
-      module: serviceType.value,
+      module: modulesList[serviceType.index],
       orderId: orderId.toString(),
     );
     final result = await _rateOrderUseCase.execute(params);
@@ -214,5 +226,25 @@ class OrderDetailsController extends GetxController {
       Get.back();
       getOrderDetails();
     });
+  }
+
+  Future<void> downloadInvoiceAndOpen(String url) async {
+    downloadInvoiceLoading(true);
+    var tempDir = await getTemporaryDirectory();
+    String fullPath = '${tempDir.path}/invoice_${url.split('/').last}.pdf';
+
+    if (await File(fullPath).exists()) {
+      await OpenFile.open(fullPath);
+      downloadInvoiceLoading(false);
+      return;
+    }
+    final response = await http.get(
+      Uri.parse(url),
+      headers: HttpService.header,
+    );
+    final file = await File(fullPath).writeAsBytes(response.bodyBytes);
+    await Permission.manageExternalStorage.request();
+    await OpenFile.open(file.path);
+    downloadInvoiceLoading(false);
   }
 }

@@ -97,7 +97,7 @@ class OrderDetailsRemoteDataSourceImpl extends OrderDetailsRemoteDataSource {
     String module,
   ) async {
     final formData = dio.FormData.fromMap({
-      'rate': rate,
+      'rating': rate.toInt(),
       'feedback': feedback,
       'module_id': orderId,
       'module': module,
@@ -124,7 +124,7 @@ extension ServiceTypesToModel on ServiceTypes {
       case ServiceTypes.marineShipping:
         return MarineShipmentOrder.fromJson(json);
       case ServiceTypes.airFreight:
-        return CustomsClearanceOrder.fromJson(json);
+        return AirFreightOrder.fromJson(json);
       case ServiceTypes.laboratoryAndStandards:
         return LaboratoryOrder.fromJson(json);
       default:

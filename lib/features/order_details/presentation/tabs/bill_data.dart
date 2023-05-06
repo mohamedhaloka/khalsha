@@ -44,17 +44,15 @@ class _BillDataTab extends GetView<OrderDetailsController> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 12),
               child: CustomButton(
-                onTap: () {
+                onTap: () async {
                   String url =
-                      '${HttpService.baseURL}${HttpService.userType}/${controller.serviceType.value}/download/invoice/${controller.orderId}';
+                      '${HttpService.baseURL}${HttpService.userType}/${controller.serviceType.value}/download/invoice/${orderData.id}';
+                  log(url, name: 'INVOICE URL');
 
-                  launchUrl(Uri.parse(url),
-                      mode: LaunchMode.inAppWebView,
-                      webViewConfiguration: WebViewConfiguration(
-                        headers: HttpService.header,
-                      ));
+                  controller.downloadInvoiceAndOpen(url);
                 },
-                text: 'مشاركة',
+                loading: controller.downloadInvoiceLoading,
+                text: 'تحميل الفاتورة',
               ),
             ),
         ],

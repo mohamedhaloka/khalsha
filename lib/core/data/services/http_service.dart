@@ -18,6 +18,7 @@ class HttpService extends GetxService {
     _dio.options.baseUrl = baseURL;
   }
 
+  static const websiteURL = 'https://khalshaa.asdevsop.com/';
   static const baseURL = 'https://khalshaa.asdevsop.com/api/';
   static const fileBaseURL = 'https://khalshaa.asdevsop.com/storage/';
   static const userType = 'importer';
@@ -87,7 +88,9 @@ class HttpService extends GetxService {
     var response = await _dio.get(
       fileBaseURL + url,
       options: dio.Options(
-          responseType: dio.ResponseType.bytes, followRedirects: false),
+        responseType: dio.ResponseType.bytes,
+        followRedirects: false,
+      ),
     );
     File file = File(fullPath);
     var raf = file.openSync(mode: FileMode.write);

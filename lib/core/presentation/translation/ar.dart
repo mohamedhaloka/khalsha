@@ -73,6 +73,7 @@ Map<String, String> ar = {
   'add-at-least-one-file': 'أضف ملف واحد علي الأقل',
 
   //Marine Shipment
+  'airport': 'مطار',
   'port': 'ميناء',
   'factory': 'مصنع',
   'storehouse': 'مستودع',

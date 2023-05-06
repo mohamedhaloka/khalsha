@@ -75,7 +75,7 @@ class _FillData extends GetView<AddEditMarineShippingServiceController> {
               final hasEmptyInputs =
                   controller.fromShipmentLocation.value.isEmpty ||
                       (controller.fromShipmentLocation.value ==
-                              PlaceOfShipment.other.value
+                              MarinePlacesOfShipment.other.value
                           ? controller.fromShipmentOther.text.isEmpty
                           : false) ||
                       controller.fromCountryId.value.isEmpty ||
@@ -110,7 +110,7 @@ class _FillData extends GetView<AddEditMarineShippingServiceController> {
               final hasEmptyInputs =
                   controller.toShipmentLocation.value.isEmpty ||
                       (controller.toShipmentLocation.value ==
-                              PlaceOfShipment.other.value
+                              MarinePlacesOfShipment.other.value
                           ? controller.toShipmentOther.text.isEmpty
                           : false) ||
                       controller.toCountryId.value.isEmpty ||

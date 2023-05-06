@@ -183,8 +183,9 @@ class _PricingOfferDetailsSheetState extends State<PricingOfferDetailsSheet> {
                           text: 'قبول الطلب',
                           onTap: () {
                             if (!acceptTerms) return;
-                            orderDetailsController.acceptReject(
+                            orderDetailsController.acceptOrReject(
                               _OfferActionStatus.accepted.name,
+                              offerId: widget.offer.id,
                             );
                           },
                         ),
@@ -195,8 +196,9 @@ class _PricingOfferDetailsSheetState extends State<PricingOfferDetailsSheet> {
                           text: 'رفض الطلب',
                           onTap: () {
                             if (!acceptTerms) return;
-                            orderDetailsController.acceptReject(
+                            orderDetailsController.acceptOrReject(
                               _OfferActionStatus.rejected.name,
+                              offerId: widget.offer.id,
                             );
                           },
                         ),

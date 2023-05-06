@@ -19,7 +19,9 @@ class ChooseShippingPlace extends StatelessWidget {
     required this.selectedCountry,
     required this.shipmentLocation,
     required this.otherLocation,
+    this.forSeaShipment = true,
   }) : super(key: key);
+  final bool forSeaShipment;
   final RxString shipmentLocation;
   final RxString selectedCountry;
   final List<DataModel> countries;
@@ -37,16 +39,26 @@ class ChooseShippingPlace extends StatelessWidget {
             DropDownInputWithHolder(
               title: 'مكان الشحن',
               dropValue: shipmentLocation,
-              source: PlaceOfShipment.values
-                  .map(
-                    (e) => DropdownMenuItem(
-                      value: e.value,
-                      child: Text(e.value.tr),
-                    ),
-                  )
-                  .toList(),
+              source: forSeaShipment
+                  ? MarinePlacesOfShipment.values
+                      .map(
+                        (e) => DropdownMenuItem(
+                          value: e.value,
+                          child: Text(e.value.tr),
+                        ),
+                      )
+                      .toList()
+                  : AirPlacesOfShipment.values
+                      .map(
+                        (e) => DropdownMenuItem(
+                          value: e.value,
+                          child: Text(e.value.tr),
+                        ),
+                      )
+                      .toList(),
             ),
-            if (shipmentLocation.value == PlaceOfShipment.other.value) ...[
+            if (shipmentLocation.value ==
+                MarinePlacesOfShipment.other.value) ...[
               const Divider(
                 color: ColorManager.greyColor,
               ),
@@ -92,7 +104,8 @@ class ChooseShippingPlace extends StatelessWidget {
                   bool hasEmptyInputs = false;
 
                   if (shipmentLocation.value == '' ||
-                      (shipmentLocation.value == PlaceOfShipment.other.value
+                      (shipmentLocation.value ==
+                              MarinePlacesOfShipment.other.value
                           ? otherLocation.text.isEmpty
                           : false) ||
                       selectedCountry.value == '' ||
@@ -119,7 +132,7 @@ class ChooseShippingPlace extends StatelessWidget {
   }
 }
 
-enum PlaceOfShipment {
+enum MarinePlacesOfShipment {
   port('port'),
   factory('factory'),
   storeHouse('storehouse'),
@@ -127,5 +140,16 @@ enum PlaceOfShipment {
   other('other');
 
   final String value;
-  const PlaceOfShipment(this.value);
+  const MarinePlacesOfShipment(this.value);
+}
+
+enum AirPlacesOfShipment {
+  airport('airport'),
+  factory('factory'),
+  storeHouse('storehouse'),
+  workSite('work_site'),
+  other('other');
+
+  final String value;
+  const AirPlacesOfShipment(this.value);
 }

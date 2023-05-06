@@ -1,9 +1,11 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:khalsha/core/data/models/item_model.dart';
 import 'package:khalsha/core/data/services/http_service.dart';
@@ -21,6 +23,9 @@ import 'package:khalsha/features/service_intro/presentation/get/controllers/cont
 import 'package:khalsha/features/widgets/custom_button.dart';
 import 'package:khalsha/features/widgets/custom_rich_text.dart';
 import 'package:khalsha/features/widgets/headline_bottom_sheet.dart';
+import 'package:open_file/open_file.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../core/domain/use_cases/delete_file_use_case.dart';

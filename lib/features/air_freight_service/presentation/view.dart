@@ -63,6 +63,7 @@ class _FillData extends GetView<AddEditAirFreightServiceController> {
                 cityLocationDetails: controller.fromCityLocationDetails,
                 countries: controller.countries,
                 otherLocation: controller.fromShipmentOther,
+                forSeaShipment: false,
               ),
               onBack: (bool hasEmptyData) => field.didChange(
                 hasEmptyData ? '' : '_',
@@ -75,7 +76,7 @@ class _FillData extends GetView<AddEditAirFreightServiceController> {
               final hasEmptyInputs =
                   controller.fromShipmentLocation.value.isEmpty ||
                       (controller.fromShipmentLocation.value ==
-                              PlaceOfShipment.other.value
+                              MarinePlacesOfShipment.other.value
                           ? controller.fromShipmentOther.text.isEmpty
                           : false) ||
                       controller.fromCountryId.value.isEmpty ||
@@ -98,6 +99,7 @@ class _FillData extends GetView<AddEditAirFreightServiceController> {
                 cityLocationDetails: controller.toCityLocationDetails,
                 countries: controller.countries,
                 otherLocation: controller.toShipmentOther,
+                forSeaShipment: false,
               ),
               onBack: (bool hasEmptyData) => field.didChange(
                 hasEmptyData ? '' : '_',
@@ -110,7 +112,7 @@ class _FillData extends GetView<AddEditAirFreightServiceController> {
               final hasEmptyInputs =
                   controller.toShipmentLocation.value.isEmpty ||
                       (controller.toShipmentLocation.value ==
-                              PlaceOfShipment.other.value
+                              MarinePlacesOfShipment.other.value
                           ? controller.toShipmentOther.text.isEmpty
                           : false) ||
                       controller.toCountryId.value.isEmpty ||

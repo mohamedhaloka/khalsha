@@ -8,6 +8,7 @@ import '../../../customs_clearance_service/view/get/models/parcel_data_model.dar
 import '../../../order_details/data/models/order_details_item_model.dart';
 import '../../../order_details/data/models/order_section_item_model.dart';
 
+part 'air_freight_order.dart';
 part 'customs_clearance_order.dart';
 part 'laboratory_order.dart';
 part 'land_shipping_order.dart';
