@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:khalsha/core/presentation/routes/app_routes.dart';
 
 class RootAppBar extends StatelessWidget {
   const RootAppBar({
@@ -18,19 +20,19 @@ class RootAppBar extends StatelessWidget {
         style: const TextStyle(fontWeight: FontWeight.bold),
       ),
       centerTitle: true,
-      leading: IconButton(
-          onPressed: scaffoldKey.currentState!.openEndDrawer,
-          icon: Directionality(
-              textDirection: TextDirection.ltr,
-              child: SvgPicture.asset('assets/images/icons/drawer-icon.svg'))),
+      leading: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: InkWell(
+          onTap: () => Get.toNamed(Routes.accountSettings),
+          child: SvgPicture.asset('assets/images/icons/profile.svg'),
+        ),
+      ),
       actions: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: InkWell(
-            onTap: () {},
-            child: SvgPicture.asset('assets/images/icons/profile.svg'),
-          ),
-        )
+        IconButton(
+            onPressed: scaffoldKey.currentState!.openEndDrawer,
+            icon: Directionality(
+                textDirection: TextDirection.ltr,
+                child: SvgPicture.asset('assets/images/icons/drawer-icon.svg')))
       ],
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(

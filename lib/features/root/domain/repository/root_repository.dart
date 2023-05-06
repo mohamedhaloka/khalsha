@@ -6,4 +6,5 @@ import '../../../../core/domain/error/failures.dart';
 abstract class RootRepository {
   Future<Either<Failure, UserData>> refreshToken();
   Future<Either<Failure, String>> logOut();
+  Future<Either<Failure, String>> updateFCMToken(String fcmToken);
 }

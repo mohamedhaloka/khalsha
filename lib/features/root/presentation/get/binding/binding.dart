@@ -15,6 +15,7 @@ class RootBinding extends Bindings {
     Get.lazyPut<RootController>(() => RootController(
           InjectionContainer.sl(),
           InjectionContainer.sl(),
+          InjectionContainer.sl(),
         ));
     Get.lazyPut<SettlementController>(
         () => SettlementController(InjectionContainer.sl()));

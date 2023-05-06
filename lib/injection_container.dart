@@ -12,6 +12,9 @@ import 'package:khalsha/core/domain/use_cases/get_profile_use_case.dart';
 import 'package:khalsha/core/domain/use_cases/update_profile_photo_use_case.dart';
 import 'package:khalsha/core/domain/use_cases/update_profile_use_case.dart';
 import 'package:khalsha/core/domain/use_cases/upload_image_use_case.dart';
+import 'package:khalsha/features/account_settings/data/data_source/account_settings_remote_data_source.dart';
+import 'package:khalsha/features/account_settings/data/repo_impl/account_settings_repository_impl.dart';
+import 'package:khalsha/features/account_settings/domain/use_cases/change_password_use_case.dart';
 import 'package:khalsha/features/air_freight_service/data/data_source/air_freight_remote_data_source.dart';
 import 'package:khalsha/features/air_freight_service/data/repository_impl/air_freight_repository_impl.dart';
 import 'package:khalsha/features/air_freight_service/domain/repository/air_freight_repository.dart';
@@ -85,6 +88,7 @@ import 'package:khalsha/features/root/data/source/root_remote_data_source.dart';
 import 'package:khalsha/features/root/domain/repository/root_repository.dart';
 import 'package:khalsha/features/root/domain/use_cases/log_out_use_case.dart';
 import 'package:khalsha/features/root/domain/use_cases/refresh_token_use_case.dart';
+import 'package:khalsha/features/root/domain/use_cases/update_fcm_token_use_case.dart';
 import 'package:khalsha/features/settlement/data/data_source/settlement_remote_data_source.dart';
 import 'package:khalsha/features/settlement/data/repo_impl/settlement_repository_impl.dart';
 import 'package:khalsha/features/settlement/domain/repo/settlement_repository.dart';
@@ -99,6 +103,7 @@ import 'package:location/location.dart';
 import 'core/data/services/http_service.dart';
 import 'core/domain/repository/core_repository.dart';
 import 'core/utils.dart';
+import 'features/account_settings/domain/repository/account_settings_repository.dart';
 import 'features/land_shipping/domain/repository/land_shipping_repository.dart';
 import 'features/login/data/repository_impl/login_repository_impl.dart';
 import 'features/login/data/source/login_remote_data_source.dart';
@@ -178,6 +183,8 @@ class InjectionContainer {
     sl.registerLazySingleton<RefreshTokenUseCase>(
         () => RefreshTokenUseCase(sl()));
     sl.registerLazySingleton<LogOutUseCase>(() => LogOutUseCase(sl()));
+    sl.registerLazySingleton<UpdateFCMTokenUseCase>(
+        () => UpdateFCMTokenUseCase(sl()));
 
     //Home
     sl.registerLazySingleton<HomeRemoteDataSource>(
@@ -312,5 +319,13 @@ class InjectionContainer {
         () => NotificationsRepositoryImpl(sl()));
     sl.registerLazySingleton<GetNotificationsUseCase>(
         () => GetNotificationsUseCase(sl()));
+
+    //Account Settings
+    sl.registerLazySingleton<AccountSettingsRemoteDataSource>(
+        () => AccountSettingsRemoteDataSourceImpl(dioService));
+    sl.registerLazySingleton<AccountSettingsRepository>(
+        () => AccountSettingsRepositoryImpl(sl()));
+    sl.registerLazySingleton<ChangePasswordUseCase>(
+        () => ChangePasswordUseCase(sl()));
   }
 }

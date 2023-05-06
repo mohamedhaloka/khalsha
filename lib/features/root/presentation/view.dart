@@ -31,7 +31,7 @@ class RootView extends GetView<RootController> {
       ),
       body: Column(
         children: [
-          const _NeedVerifyEmail(),
+          const _NeedVerifyAccount(),
           Expanded(
             child: Stack(
               alignment: Alignment.bottomCenter,
@@ -129,8 +129,8 @@ class _BottomTabs extends GetView<RootController> {
   }
 }
 
-class _NeedVerifyEmail extends GetView<RootController> {
-  const _NeedVerifyEmail({Key? key}) : super(key: key);
+class _NeedVerifyAccount extends GetView<RootController> {
+  const _NeedVerifyAccount({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

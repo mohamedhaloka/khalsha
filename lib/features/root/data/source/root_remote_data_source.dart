@@ -6,6 +6,7 @@ import '../../../../core/data/models/user_data_model.dart';
 
 abstract class RootRemoteDataSource {
   Future<UserData> refreshToken();
+  Future<String> updateFCMToken(String fcmToken);
   Future<String> logOut();
 }
 
@@ -30,6 +31,19 @@ class RootRemoteDataSourceImpl extends RootRemoteDataSource {
     final response = await _httpService.post('auth/logout', formData);
     if (response.statusCode == 200 && response.data['status']) {
       return response.data['message'];
+    } else {
+      throw ServerException(errorMessage: response.data.toString());
+    }
+  }
+
+  @override
+  Future<String> updateFCMToken(String fcmToken) async {
+    final formData = FormData.fromMap({
+      'token': fcmToken,
+    });
+    final response = await _httpService.post('auth/fcm-token', formData);
+    if (response.statusCode == 200 && response.data['status']) {
+      return response.data['token'];
     } else {
       throw ServerException(errorMessage: response.data.toString());
     }

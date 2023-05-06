@@ -36,4 +36,16 @@ class RootRepositoryImpl extends RootRepository {
       return left(ServerFailure(statusMessage: json.encode(e.response!.data)));
     }
   }
+
+  @override
+  Future<Either<Failure, String>> updateFCMToken(String fcmToken) async {
+    try {
+      final result = await _rootRemoteDataSource.updateFCMToken(fcmToken);
+      return right(result);
+    } on ServerException catch (e) {
+      return left(ServerFailure(statusMessage: e.errorMessage));
+    } on DioError catch (e) {
+      return left(ServerFailure(statusMessage: json.encode(e.response!.data)));
+    }
+  }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:khalsha/core/presentation/themes/colors_manager.dart';
 import 'package:khalsha/features/notifications/presentation/widgets/notification_item.dart';
 import 'package:khalsha/features/widgets/smart_refresh.dart';
 
@@ -11,7 +12,10 @@ class NotificationsView extends GetView<NotificationsController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() => controller.loading.value
-        ? const Center(child: CircularProgressIndicator())
+        ? const Center(
+            child: CircularProgressIndicator(
+            color: ColorManager.secondaryColor,
+          ))
         : SmartRefresh(
             controller: controller.refreshController,
             footer: true,

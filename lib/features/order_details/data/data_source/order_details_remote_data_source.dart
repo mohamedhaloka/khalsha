@@ -79,7 +79,7 @@ class OrderDetailsRemoteDataSourceImpl extends OrderDetailsRemoteDataSource {
       'status': status,
     });
     final response = await _httpService.post(
-      '${HttpService.userType}/$type/action/offer/$orderId',
+      '${HttpService.userType}/${type.toLowerCase()}/action/offer/$orderId',
       formData,
     );
     if (response.statusCode == 200) {
