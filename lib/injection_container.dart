@@ -15,6 +15,8 @@ import 'package:khalsha/core/domain/use_cases/upload_image_use_case.dart';
 import 'package:khalsha/features/account_settings/data/data_source/account_settings_remote_data_source.dart';
 import 'package:khalsha/features/account_settings/data/repo_impl/account_settings_repository_impl.dart';
 import 'package:khalsha/features/account_settings/domain/use_cases/change_password_use_case.dart';
+import 'package:khalsha/features/account_settings/domain/use_cases/update_account_use_case.dart';
+import 'package:khalsha/features/account_settings/domain/use_cases/upload_profile_photo_use_case.dart';
 import 'package:khalsha/features/air_freight_service/data/data_source/air_freight_remote_data_source.dart';
 import 'package:khalsha/features/air_freight_service/data/repository_impl/air_freight_repository_impl.dart';
 import 'package:khalsha/features/air_freight_service/domain/repository/air_freight_repository.dart';
@@ -327,5 +329,9 @@ class InjectionContainer {
         () => AccountSettingsRepositoryImpl(sl()));
     sl.registerLazySingleton<ChangePasswordUseCase>(
         () => ChangePasswordUseCase(sl()));
+    sl.registerLazySingleton<UpdateAccountUseCase>(
+        () => UpdateAccountUseCase(sl()));
+    sl.registerLazySingleton<UploadProfilePhotoUseCase>(
+        () => UploadProfilePhotoUseCase(sl()));
   }
 }

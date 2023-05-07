@@ -92,9 +92,7 @@ class AddEditMarineShippingServiceController extends GetxController {
     GoodsUnitTypeMarineShipmentModel.nexItem(),
   ].obs;
 
-  RxBool enableInsurance = false.obs,
-      enableCustomsClearance = false.obs,
-      enableCertificate = false.obs;
+  RxBool enableInsurance = false.obs, enableCustomsClearance = false.obs;
 
   String? get nextTitle => currentStep.value == children.length - 1
       ? (isAdd ? 'إضافة' : 'تعديل')
@@ -148,7 +146,6 @@ class AddEditMarineShippingServiceController extends GetxController {
           certificates.firstWhereOrNull((element) => element.id == e.id);
       if (item == null) continue;
       item.selected(true);
-      if (item.selected.value) enableCertificate(true);
     }
     selectedShipmentSize(order.shipmentSizesId);
     if (order.shipmentSizes == 'goods') {
@@ -286,7 +283,9 @@ class AddEditMarineShippingServiceController extends GetxController {
         content: content.text,
         insurance: enableInsurance.value ? 'yes' : 'no',
         customsClearance: enableCustomsClearance.value ? 'yes' : 'no',
-        certificates: enableCertificate.value ? 'yes' : 'no',
+        certificates: certificates.any((element) => element.selected.value)
+            ? 'yes'
+            : 'no',
         shipmentSizes: selectedShipmentSize.value == 0 ? 'container' : 'goods',
         through: selectedShipmentSize.value == 0
             ? null

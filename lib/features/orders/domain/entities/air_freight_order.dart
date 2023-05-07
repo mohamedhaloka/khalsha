@@ -108,7 +108,7 @@ class AirFreightOrder extends OrderModel {
         shipmentSizes: json["shipment_sizes"],
         insurance: json["insurance"],
         customsClearance: json["customs_clearance"],
-        certificate: json["certificate"] ?? 'no',
+        certificate: json["certificates"] ?? 'no',
         title: json["title"],
         userId: json["user_id"],
         status: json["status"],

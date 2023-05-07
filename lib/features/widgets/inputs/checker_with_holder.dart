@@ -13,11 +13,12 @@ class CheckerWithHolder extends StatelessWidget {
     Key? key,
     required this.title,
     required this.active,
+    this.errotText,
     this.bottomSheetTitle,
     this.body,
     this.height,
   }) : super(key: key);
-  final String? title;
+  final String? title, errotText;
   final RxBool active;
   final String? bottomSheetTitle;
   final Widget? body;
@@ -69,6 +70,7 @@ class CheckerWithHolder extends StatelessWidget {
           )
         ],
       ),
+      errorText: errotText,
     );
   }
 }

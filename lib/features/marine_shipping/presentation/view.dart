@@ -164,25 +164,44 @@ class _FillData extends GetView<AddEditMarineShippingServiceController> {
               value: controller.selectedShipmentReady.value,
             ),
           ),
-          Obx(
-            () => TextFieldInputWithDropDownWithHolder(
-              title: 'قيمة الشحنة',
-              firstInputHint: '2000',
-              firstInputFlex: 2,
-              firstInputController: controller.price,
-              selectedDropDownValue: controller.selectedCurrencyId,
-              source: controller.currency
-                  .map((e) => DropdownMenuItem(
-                        value: e.id.toString(),
-                        child: Text(e.name),
-                      ))
-                  .toList(),
-            ),
+          FormBuilderField(
+            builder: (FormFieldState<dynamic> field) =>
+                Obx(() => TextFieldInputWithDropDownWithHolder(
+                      title: 'قيمة الشحنة',
+                      firstInputHint: '2000',
+                      firstInputFlex: 2,
+                      firstInputController: controller.price,
+                      selectedDropDownValue: controller.selectedCurrencyId,
+                      source: controller.currency
+                          .map((e) => DropdownMenuItem(
+                                value: e.id.toString(),
+                                child: Text(e.name),
+                              ))
+                          .toList(),
+                      errorMsg: field.errorText,
+                    )),
+            onSaved: (_) {
+              bool hasEmptyInputs = controller.price.text.isEmpty ||
+                  controller.selectedCurrencyId.value.isEmpty;
+              controller.didFieldChanged(
+                MarineShipmentInputsKeys.price.name,
+                value: hasEmptyInputs ? '' : 'xx',
+              );
+            },
+            validator: FormBuilderValidators.required(),
+            name: MarineShipmentInputsKeys.price.name,
           ),
-          TextFieldInputWithHolder(
-            hint: 'وصف الشحنة',
-            controller: controller.content,
-          )
+          FormBuilderField(
+            builder: (FormFieldState<dynamic> field) =>
+                TextFieldInputWithHolder(
+              hint: 'وصف الشحنة',
+              controller: controller.content,
+              onSaved: (String? value) => field.didChange(value),
+              errorText: field.errorText,
+            ),
+            validator: FormBuilderValidators.required(),
+            name: MarineShipmentInputsKeys.content.name,
+          ),
         ],
       ),
     );
@@ -206,12 +225,27 @@ class _AdditionalServices
             title: 'خدمة التخليص الجمركي',
             active: controller.enableCustomsClearance,
           ),
-          CheckerWithHolder(
-            title: 'خدمة إستخراج الشهادات اللازمة',
-            active: controller.enableCertificate,
-            bottomSheetTitle: 'الشهادات',
-            body: ChooseCertificates(controller.certificates),
-            height: Get.height / 1.6,
+          FormBuilderField(
+            builder: (FormFieldState<dynamic> field) => CheckerWithHolder(
+              title: 'خدمة إستخراج الشهادات اللازمة',
+              active: controller.certificates
+                  .any((element) => element.selected.value)
+                  .obs,
+              bottomSheetTitle: 'الشهادات',
+              body: ChooseCertificates(controller.certificates),
+              height: Get.height / 1.6,
+              errotText: field.errorText,
+            ),
+            onSaved: (_) {
+              bool hasCertificatesSelected = controller.certificates
+                  .any((element) => element.selected.value);
+              controller.didFieldChanged(
+                MarineShipmentInputsKeys.certificates.name,
+                value: hasCertificatesSelected ? 'xx' : '',
+              );
+            },
+            validator: FormBuilderValidators.required(),
+            name: MarineShipmentInputsKeys.certificates.name,
           ),
         ],
       ),
@@ -230,7 +264,10 @@ enum ShipmentReadyPeriods {
 
 enum MarineShipmentInputsKeys {
   title,
+  content,
   shipmentFrom,
   shipmentTo,
-  shipmentReady;
+  shipmentReady,
+  certificates,
+  price;
 }

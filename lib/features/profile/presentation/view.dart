@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:khalsha/core/presentation/routes/app_routes.dart';
@@ -16,54 +18,72 @@ class ProfileView extends GetView<ProfileController> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        const ChangeProfilePhoto(),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 20),
-          child: Column(
-            children: [
-              CustomTextField(
-                title: 'الإسم',
-                contentPadding: _contentPadding,
-                borderSide: _borderColor,
-                enabled: false,
-                controller: controller.name,
-              ),
-              CustomTextField(
-                title: 'البريد الإلكتروني',
-                contentPadding: _contentPadding,
-                borderSide: _borderColor,
-                enabled: false,
-                controller: controller.email,
-              ),
-              CustomTextField(
-                title: 'رقم الهاتف',
-                contentPadding: _contentPadding,
-                borderSide: _borderColor,
-                enabled: false,
-                controller: controller.phone,
-              ),
-              CustomTextField(
-                title: 'السجل التجاري',
-                contentPadding: _contentPadding,
-                borderSide: _borderColor,
-                enabled: false,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 60),
-                child: CustomButton(
-                  width: Get.width,
-                  height: 36,
-                  radius: 6,
-                  onTap: () => Get.toNamed(Routes.accountSettings),
-                  text: 'تعديل',
+    return Obx(() => Stack(
+          children: [
+            ListView(
+              children: [
+                const ChangeProfilePhoto(),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 35, vertical: 20),
+                  child: Column(
+                    children: [
+                      CustomTextField(
+                        title: 'الإسم',
+                        contentPadding: _contentPadding,
+                        borderSide: _borderColor,
+                        enabled: false,
+                        controller: controller.name,
+                      ),
+                      CustomTextField(
+                        title: 'البريد الإلكتروني',
+                        contentPadding: _contentPadding,
+                        borderSide: _borderColor,
+                        enabled: false,
+                        controller: controller.email,
+                      ),
+                      CustomTextField(
+                        title: 'رقم الهاتف',
+                        contentPadding: _contentPadding,
+                        borderSide: _borderColor,
+                        enabled: false,
+                        controller: controller.phone,
+                      ),
+                      CustomTextField(
+                        title: 'السجل التجاري',
+                        contentPadding: _contentPadding,
+                        borderSide: _borderColor,
+                        enabled: false,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 60),
+                        child: CustomButton(
+                          width: Get.width,
+                          height: 36,
+                          radius: 6,
+                          onTap: () => Get.toNamed(Routes.accountSettings),
+                          text: 'تعديل',
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+            if (controller.loading.value)
+              BackdropFilter(
+                filter: ImageFilter.blur(
+                  sigmaX: 5.0,
+                  sigmaY: 5.0,
+                ),
+                child: Container(
+                  color: Colors.transparent,
+                  child: const Center(
+                    child: CircularProgressIndicator(),
+                  ),
                 ),
               )
-            ],
-          ),
-        )
-      ],
-    );
+          ],
+        ));
   }
 }

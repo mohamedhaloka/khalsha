@@ -71,9 +71,7 @@ class AddEditAirFreightServiceController extends GetxController {
     AirFreightItemModel.nexItem(),
   ].obs;
 
-  RxBool enableInsurance = false.obs,
-      enableCustomsClearance = false.obs,
-      enableCertificate = false.obs;
+  RxBool enableInsurance = false.obs, enableCustomsClearance = false.obs;
 
   String? get nextTitle => currentStep.value == children.length - 1
       ? (isAdd ? 'إضافة' : 'تعديل')
@@ -128,7 +126,6 @@ class AddEditAirFreightServiceController extends GetxController {
           certificates.firstWhereOrNull((element) => element.id == e.id);
       if (item == null) continue;
       item.selected(true);
-      if (item.selected.value) enableCertificate(true);
     }
     if (order.goods.isNotEmpty) {
       items.clear();
@@ -147,7 +144,7 @@ class AddEditAirFreightServiceController extends GetxController {
           cm: TextEditingController(text: goodItem.cm),
           unitType: (goodItem.unitType == 'pallet' ? 1 : 0).obs,
           weightPerUnit: TextEditingController(text: goodItem.weightPerUnit),
-          name: TextEditingController(text: goodItem.weightPerUnit),
+          name: TextEditingController(text: goodItem.name),
         ));
       }
     }
@@ -233,7 +230,9 @@ class AddEditAirFreightServiceController extends GetxController {
         content: content.text,
         insurance: enableInsurance.value ? 'yes' : 'no',
         customsClearance: enableCustomsClearance.value ? 'yes' : 'no',
-        certificates: enableCertificate.value ? 'yes' : 'no',
+        certificates: certificates.any((element) => element.selected.value)
+            ? 'yes'
+            : 'no',
         through: selectedThrough.value == 0 ? 'pallet' : 'cartoon',
         certificate: certificates
             .where((e) => e.selected.value)

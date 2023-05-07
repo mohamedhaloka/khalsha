@@ -8,4 +8,15 @@ abstract class AccountSettingsRepository {
     required String newPassword,
     required String confirmNewPassword,
   });
+
+  Future<Either<Failure, String>> updateAccount({
+    required String name,
+    required String email,
+    required String mobile,
+    required String commercialCert,
+    required String bio,
+  });
+
+  Future<Either<Failure, String>> uploadProfilePhoto(
+      {required String imagePath});
 }

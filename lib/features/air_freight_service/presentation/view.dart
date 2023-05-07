@@ -44,7 +44,7 @@ class _FillData extends GetView<AddEditAirFreightServiceController> {
               errorText: field.errorText,
             ),
             validator: FormBuilderValidators.required(),
-            name: MarineShipmentInputsKeys.title.name,
+            name: AirFreightInputsKeys.title.name,
           ),
           ToggleItemWithHolder(
             title: 'نوع الشحنة',
@@ -71,7 +71,7 @@ class _FillData extends GetView<AddEditAirFreightServiceController> {
               errorMsg: field.errorText,
             ),
             validator: FormBuilderValidators.required(),
-            name: MarineShipmentInputsKeys.shipmentFrom.name,
+            name: AirFreightInputsKeys.shipmentFrom.name,
             onSaved: (_) {
               final hasEmptyInputs =
                   controller.fromShipmentLocation.value.isEmpty ||
@@ -82,7 +82,7 @@ class _FillData extends GetView<AddEditAirFreightServiceController> {
                       controller.fromCountryId.value.isEmpty ||
                       controller.fromCity.text.isEmpty;
               controller.didFieldChanged(
-                MarineShipmentInputsKeys.shipmentFrom.name,
+                AirFreightInputsKeys.shipmentFrom.name,
                 value: hasEmptyInputs ? '' : '_',
               );
             },
@@ -107,7 +107,7 @@ class _FillData extends GetView<AddEditAirFreightServiceController> {
               errorMsg: field.errorText,
             ),
             validator: FormBuilderValidators.required(),
-            name: MarineShipmentInputsKeys.shipmentTo.name,
+            name: AirFreightInputsKeys.shipmentTo.name,
             onSaved: (_) {
               final hasEmptyInputs =
                   controller.toShipmentLocation.value.isEmpty ||
@@ -118,7 +118,7 @@ class _FillData extends GetView<AddEditAirFreightServiceController> {
                       controller.toCountryId.value.isEmpty ||
                       controller.toCity.text.isEmpty;
               controller.didFieldChanged(
-                MarineShipmentInputsKeys.shipmentTo.name,
+                AirFreightInputsKeys.shipmentTo.name,
                 value: hasEmptyInputs ? '' : '_',
               );
             },
@@ -152,31 +152,50 @@ class _FillData extends GetView<AddEditAirFreightServiceController> {
               errorText: field.errorText,
             ),
             validator: FormBuilderValidators.required(),
-            name: MarineShipmentInputsKeys.shipmentReady.name,
+            name: AirFreightInputsKeys.shipmentReady.name,
             onSaved: (_) => controller.didFieldChanged(
-              MarineShipmentInputsKeys.shipmentReady.name,
+              AirFreightInputsKeys.shipmentReady.name,
               value: controller.selectedShipmentReady.value,
             ),
           ),
-          Obx(
-            () => TextFieldInputWithDropDownWithHolder(
-              title: 'قيمة الشحنة',
-              firstInputHint: '2000',
-              firstInputFlex: 2,
-              firstInputController: controller.price,
-              selectedDropDownValue: controller.selectedCurrencyId,
-              source: controller.currency
-                  .map((e) => DropdownMenuItem(
-                        value: e.id.toString(),
-                        child: Text(e.name),
-                      ))
-                  .toList(),
-            ),
+          FormBuilderField(
+            builder: (FormFieldState<dynamic> field) =>
+                Obx(() => TextFieldInputWithDropDownWithHolder(
+                      title: 'قيمة الشحنة',
+                      firstInputHint: '2000',
+                      firstInputFlex: 2,
+                      firstInputController: controller.price,
+                      selectedDropDownValue: controller.selectedCurrencyId,
+                      source: controller.currency
+                          .map((e) => DropdownMenuItem(
+                                value: e.id.toString(),
+                                child: Text(e.name),
+                              ))
+                          .toList(),
+                      errorMsg: field.errorText,
+                    )),
+            onSaved: (_) {
+              bool hasEmptyInputs = controller.price.text.isEmpty ||
+                  controller.selectedCurrencyId.value.isEmpty;
+              controller.didFieldChanged(
+                AirFreightInputsKeys.price.name,
+                value: hasEmptyInputs ? '' : 'xx',
+              );
+            },
+            validator: FormBuilderValidators.required(),
+            name: AirFreightInputsKeys.price.name,
           ),
-          TextFieldInputWithHolder(
-            hint: 'وصف الشحنة',
-            controller: controller.content,
-          )
+          FormBuilderField(
+            builder: (FormFieldState<dynamic> field) =>
+                TextFieldInputWithHolder(
+              hint: 'وصف الشحنة',
+              controller: controller.content,
+              onSaved: (String? value) => field.didChange(value),
+              errorText: field.errorText,
+            ),
+            validator: FormBuilderValidators.required(),
+            name: AirFreightInputsKeys.content.name,
+          ),
         ],
       ),
     );
@@ -199,12 +218,27 @@ class _AdditionalServices extends GetView<AddEditAirFreightServiceController> {
             title: 'خدمة التخليص الجمركي',
             active: controller.enableCustomsClearance,
           ),
-          CheckerWithHolder(
-            title: 'خدمة إستخراج الشهادات اللازمة',
-            active: controller.enableCertificate,
-            bottomSheetTitle: 'الشهادات',
-            body: ChooseCertificates(controller.certificates),
-            height: Get.height / 1.6,
+          FormBuilderField(
+            builder: (FormFieldState<dynamic> field) => CheckerWithHolder(
+              title: 'خدمة إستخراج الشهادات اللازمة',
+              active: controller.certificates
+                  .any((element) => element.selected.value)
+                  .obs,
+              bottomSheetTitle: 'الشهادات',
+              body: ChooseCertificates(controller.certificates),
+              height: Get.height / 1.6,
+              errotText: field.errorText,
+            ),
+            onSaved: (_) {
+              bool hasCertificatesSelected = controller.certificates
+                  .any((element) => element.selected.value);
+              controller.didFieldChanged(
+                AirFreightInputsKeys.certificates.name,
+                value: hasCertificatesSelected ? 'xx' : '',
+              );
+            },
+            validator: FormBuilderValidators.required(),
+            name: AirFreightInputsKeys.certificates.name,
           ),
         ],
       ),
@@ -212,9 +246,12 @@ class _AdditionalServices extends GetView<AddEditAirFreightServiceController> {
   }
 }
 
-enum MarineShipmentInputsKeys {
+enum AirFreightInputsKeys {
   title,
+  content,
   shipmentFrom,
   shipmentTo,
-  shipmentReady;
+  shipmentReady,
+  price,
+  certificates;
 }

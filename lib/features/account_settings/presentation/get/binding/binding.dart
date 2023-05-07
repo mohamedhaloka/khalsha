@@ -9,6 +9,9 @@ class AccountSettingsBinding extends Bindings {
     Get.lazyPut<AccountSettingsController>(() => AccountSettingsController(
           InjectionContainer.sl(),
           InjectionContainer.sl(),
+          InjectionContainer.sl(),
+          InjectionContainer.sl(),
+          InjectionContainer.sl(),
         ));
   }
 }

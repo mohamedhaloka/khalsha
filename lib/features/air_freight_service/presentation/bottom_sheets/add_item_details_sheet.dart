@@ -17,6 +17,13 @@ class _AddItemDetailsSheet extends GetView<AddEditAirFreightServiceController> {
                         itemBuilder: (_, int index) => Column(
                           children: [
                             TextFieldInputWithHolder(
+                              title: 'اسم الصنف',
+                              controller: controller.items[index].name,
+                            ),
+                            const Divider(
+                              color: ColorManager.greyColor,
+                            ),
+                            TextFieldInputWithHolder(
                               title: 'الطول',
                               controller: controller.items[index].length,
                               keyboardType: TextInputType.number,

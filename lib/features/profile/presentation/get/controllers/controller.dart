@@ -15,7 +15,7 @@ class ProfileController extends GetxController {
       email = TextEditingController(),
       phone = TextEditingController();
 
-  RxBool loading = false.obs;
+  RxBool loading = true.obs;
 
   @override
   void onInit() {

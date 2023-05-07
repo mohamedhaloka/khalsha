@@ -20,7 +20,6 @@ import '../../core/presentation/themes/colors_manager.dart';
 import '../../core/utils.dart';
 import '../../injection_container.dart';
 import '../map/data/model/location_details.dart';
-import '../marine_shipping/data/models/goods_marine_shipment_model.dart';
 import '../marine_shipping/marine_shipping.dart';
 import '../orders/domain/entities/order_model.dart';
 import '../widgets/bottom_sheet_content/choose_certificates.dart';

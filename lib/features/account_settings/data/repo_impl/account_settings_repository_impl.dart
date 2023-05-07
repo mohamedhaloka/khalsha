@@ -31,4 +31,43 @@ class AccountSettingsRepositoryImpl extends AccountSettingsRepository {
       return left(ServerFailure(statusMessage: json.encode(e.response!.data)));
     }
   }
+
+  @override
+  Future<Either<Failure, String>> updateAccount({
+    required String name,
+    required String email,
+    required String mobile,
+    required String commercialCert,
+    required String bio,
+  }) async {
+    try {
+      final result = await _accountSettingsRemoteDataSource.updateAccount(
+        name: name,
+        email: email,
+        mobile: mobile,
+        commercialCert: commercialCert,
+        bio: bio,
+      );
+      return right(result);
+    } on ServerException catch (e) {
+      return left(ServerFailure(statusMessage: e.errorMessage));
+    } on DioError catch (e) {
+      return left(ServerFailure(statusMessage: json.encode(e.response!.data)));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> uploadProfilePhoto(
+      {required String imagePath}) async {
+    try {
+      final result = await _accountSettingsRemoteDataSource.uploadProfilePhoto(
+        imagePath: imagePath,
+      );
+      return right(result);
+    } on ServerException catch (e) {
+      return left(ServerFailure(statusMessage: e.errorMessage));
+    } on DioError catch (e) {
+      return left(ServerFailure(statusMessage: json.encode(e.response!.data)));
+    }
+  }
 }
