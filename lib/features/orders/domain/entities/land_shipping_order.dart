@@ -105,7 +105,7 @@ class LandShippingOrder extends OrderModel {
         status: json["status"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
-        user: User.fromJson(json["user"]),
+        user: User.fromJson(json["user"] ?? {}),
         feedback: json["feedback"] == null
             ? null
             : FeedbackObj.fromJson(json["feedback"]),
@@ -119,22 +119,24 @@ class LandShippingOrder extends OrderModel {
             ? null
             : DataModel.fromJson(json["shipmenttype"]),
         truck: json["truck"] == null ? null : DataModel.fromJson(json["truck"]),
-        locations: List<LandShippingLocation>.from(
-            json["locations"].map((x) => LandShippingLocation.fromJson(x))),
-        bundledGoods: List<LandShippingBundledGood>.from(json["bundled_goods"]
-            .map((x) => LandShippingBundledGood.fromJson(x))),
+        locations: List<LandShippingLocation>.from((json["locations"] ?? [])
+            .map((x) => LandShippingLocation.fromJson(x))),
+        bundledGoods: List<LandShippingBundledGood>.from(
+            (json["bundled_goods"] ?? [])
+                .map((x) => LandShippingBundledGood.fromJson(x))),
         extraServices: List<ExtraServiceModel>.from(
-            json["extraservices"].map((x) => ExtraServiceModel.fromJson(x))),
+            (json["extraservices"] ?? [])
+                .map((x) => ExtraServiceModel.fromJson(x))),
         offers: List<LandShippingOffer>.from(
-            json["offers"].map((x) => LandShippingOffer.fromJson(x))),
+            (json["offers"] ?? []).map((x) => LandShippingOffer.fromJson(x))),
         invoice: json['invoice'] is List
             ? null
             : json['invoice'] == null
                 ? null
                 : LandShippingInvoice.fromJson(json['invoice']),
         invoiceUrl: json["invoice_url"],
-        offersNum: List<LandShippingOffer>.from(
-            json["offers"].map((x) => LandShippingOffer.fromJson(x))).length,
+        offersNum: List<LandShippingOffer>.from((json["offers"] ?? [])
+            .map((x) => LandShippingOffer.fromJson(x))).length,
         offer: json['offer'] == null
             ? null
             : LandShippingOffer.fromJson(json['offer']),
