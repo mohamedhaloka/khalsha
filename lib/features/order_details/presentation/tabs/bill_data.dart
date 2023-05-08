@@ -35,7 +35,7 @@ class _BillDataTab extends GetView<OrderDetailsController> {
           Bill(
             items: invoice.items,
             total: invoice.total.toString(),
-            orderId: invoice.id.toString(),
+            orderId: controller.orderId.toString(),
             userName: invoice.user!.name!,
             billCreatedDate: invoice.createdAt.toString(),
             userBio: invoice.user!.bio!,

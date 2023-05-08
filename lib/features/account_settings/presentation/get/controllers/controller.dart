@@ -50,18 +50,20 @@ class AccountSettingsController extends GetxController {
   Future<void> _getData() async {
     loading(true);
     await _getProfileData();
-    await _downloadProfilePhoto();
     loading(false);
   }
 
-  Future<void> _downloadProfilePhoto() async {
-    final String? url = UserDataLocal.instance.data.value.user?.photoProfile;
-    if (url == null) return;
-    final params = DownloadFileUseCaseParams(loading: false.obs, url: url);
+  Future<void> _downloadProfilePhoto(String profilePhoto) async {
+    final params = DownloadFileUseCaseParams(
+      loading: false.obs,
+      url: profilePhoto,
+    );
     final result = await _downloadFileUseCase.execute(params);
     result.fold(
-      (Failure failure) => showAlertMessage(failure.statusMessage),
-      (String imagePath) => profilePhoto(File(imagePath)),
+      (Failure failure) {
+        showAlertMessage(failure.statusMessage);
+      },
+      (String imagePath) => this.profilePhoto(File(imagePath)),
     );
   }
 
@@ -70,11 +72,12 @@ class AccountSettingsController extends GetxController {
     final result = await _getProfileUseCase.execute(params);
     result.fold(
       (Failure failure) => showAlertMessage(failure.statusMessage),
-      (ProfileDataModel profileData) {
+      (ProfileDataModel profileData) async {
         name.text = profileData.name ?? '';
         email.text = profileData.email ?? '';
         phone.text = profileData.mobile ?? '';
         bio.text = profileData.bio ?? '';
+        await _downloadProfilePhoto(profileData.photoProfile!);
       },
     );
   }

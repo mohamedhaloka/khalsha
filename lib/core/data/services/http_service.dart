@@ -85,6 +85,7 @@ class HttpService extends GetxService {
     if (isExist) {
       return File(fullPath);
     }
+    log(fileBaseURL + url, name: 'FILE URL');
     var response = await _dio.get(
       fileBaseURL + url,
       options: dio.Options(
