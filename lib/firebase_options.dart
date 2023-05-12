@@ -47,31 +47,30 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBGBlDWegvh-P_I2UJEIChRgbxJgVc-Qhg',
-    appId: '1:949672352683:web:90d2d5f3202486f17cd0ee',
-    messagingSenderId: '949672352683',
-    projectId: 'khalsha-54b3c',
-    authDomain: 'khalsha-54b3c.firebaseapp.com',
-    storageBucket: 'khalsha-54b3c.appspot.com',
-    measurementId: 'G-KPE7MN7QNP',
+    apiKey: 'AIzaSyB0AgcaZKk3j2x1Lwraoffut1HLXVG4y98',
+    appId: '1:440607721662:web:4909e2dc3789094992f6ef',
+    messagingSenderId: '440607721662',
+    projectId: 'khalasha-53a85',
+    authDomain: 'khalasha-53a85.firebaseapp.com',
+    storageBucket: 'khalasha-53a85.appspot.com',
+    measurementId: 'G-K6F6HLSQ3Z',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCQC2FPMiLYHKtzkQjdyp3S3hjUTbrJ0u8',
-    appId: '1:949672352683:android:0afaeb6bfa0ae9d57cd0ee',
-    messagingSenderId: '949672352683',
-    projectId: 'khalsha-54b3c',
-    storageBucket: 'khalsha-54b3c.appspot.com',
+    apiKey: 'AIzaSyCz94HV6LXsSw3rdMSMnGFKvKJ82ZgiNmk',
+    appId: '1:440607721662:android:76b1d78e61d6747e92f6ef',
+    messagingSenderId: '440607721662',
+    projectId: 'khalasha-53a85',
+    storageBucket: 'khalasha-53a85.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAXWtSyt_mIhXdAGdHledoj72w_jfC0WJ0',
-    appId: '1:949672352683:ios:840f26de7a1c8bdc7cd0ee',
-    messagingSenderId: '949672352683',
-    projectId: 'khalsha-54b3c',
-    storageBucket: 'khalsha-54b3c.appspot.com',
-    androidClientId: '949672352683-3ogo46qmgrcipcqtvs441mi0p5j8fehs.apps.googleusercontent.com',
-    iosClientId: '949672352683-2kmd8rpqcivrrskkd20vukhhur0q6i3r.apps.googleusercontent.com',
+    apiKey: 'AIzaSyBGoECGoLFjC7HAPnZRlfhh6dNXKuI_OK0',
+    appId: '1:440607721662:ios:5c19e8640cfe264192f6ef',
+    messagingSenderId: '440607721662',
+    projectId: 'khalasha-53a85',
+    storageBucket: 'khalasha-53a85.appspot.com',
+    iosClientId: '440607721662-imkbrst638is9msabl88sbpsega9irik.apps.googleusercontent.com',
     iosBundleId: 'com.app.khalsha',
   );
 }

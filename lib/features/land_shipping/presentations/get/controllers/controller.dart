@@ -322,7 +322,7 @@ class AddEditLandShippingServiceController extends GetxController {
       (failure) => showAlertMessage(failure.statusMessage),
       (data) async {
         showAlertMessage(data['message']);
-        // Get.offAllNamed(Routes.root);
+        Get.offAllNamed(Routes.root);
       },
     );
   }

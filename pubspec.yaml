@@ -81,8 +81,7 @@ dependencies:
   #for notifications
   firebase_messaging: ^14.2.1
   flutter_local_notifications: ^11.0.1
-  # for send otp
-  firebase_auth: ^4.2.5
+  #get the permission of open external files and open it
   open_file: ^3.3.1
   permission_handler: ^10.2.0
 

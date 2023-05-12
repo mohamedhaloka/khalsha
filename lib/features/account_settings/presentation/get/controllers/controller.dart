@@ -53,7 +53,8 @@ class AccountSettingsController extends GetxController {
     loading(false);
   }
 
-  Future<void> _downloadProfilePhoto(String profilePhoto) async {
+  Future<void> _downloadImage(String profilePhoto,
+      {required void Function(String) onSuccess}) async {
     final params = DownloadFileUseCaseParams(
       loading: false.obs,
       url: profilePhoto,
@@ -63,7 +64,7 @@ class AccountSettingsController extends GetxController {
       (Failure failure) {
         showAlertMessage(failure.statusMessage);
       },
-      (String imagePath) => this.profilePhoto(File(imagePath)),
+      (String imagePath) => onSuccess(imagePath),
     );
   }
 
@@ -77,7 +78,15 @@ class AccountSettingsController extends GetxController {
         email.text = profileData.email ?? '';
         phone.text = profileData.mobile ?? '';
         bio.text = profileData.bio ?? '';
-        await _downloadProfilePhoto(profileData.photoProfile!);
+        await _downloadImage(
+          profileData.commercialCert!,
+          onSuccess: (imagePath) => commercialCertificate(File(imagePath)),
+        );
+        if (profileData.photoProfile == null) return;
+        await _downloadImage(
+          profileData.photoProfile!,
+          onSuccess: (imagePath) => profilePhoto(File(imagePath)),
+        );
       },
     );
   }

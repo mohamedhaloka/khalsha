@@ -50,7 +50,7 @@ class ProfileDataModel {
   dynamic mobileCode;
   String? taxNumber;
   String? bio;
-  dynamic commercialCert;
+  String? commercialCert;
   String? userType;
   dynamic facebookId;
   dynamic facebookToken;

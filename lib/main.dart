@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
 
 Future<void> _initData() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await GetStorage.init();
 
   await UserDataLocal.instance.init();

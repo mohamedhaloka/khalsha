@@ -31,6 +31,7 @@ class _BundledGoodsInputsView
                       TextFieldInputWithHolder(
                     title: 'الكمية',
                     controller: controller.bundledGoodsItems[index].quantity,
+                    keyboardType: TextInputType.number,
                     onSaved: (String? value) => field.didChange(value),
                     errorText: field.errorText,
                   ),
@@ -62,6 +63,7 @@ class _BundledGoodsInputsView
                       TextFieldInputWithHolder(
                     title: 'إجمالي الوزن',
                     controller: controller.bundledGoodsItems[index].totalWeight,
+                    keyboardType: TextInputType.number,
                     onSaved: (String? value) => field.didChange(value),
                     errorText: field.errorText,
                   ),

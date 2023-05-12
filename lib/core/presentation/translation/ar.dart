@@ -11,6 +11,7 @@ Map<String, String> ar = {
   'no': 'لا',
   'all-fields-required': 'جميع الحقول مطلوبة',
   'file': 'ملف',
+  'back': 'رجوع',
 
   //Home
   'all': 'الكل',
@@ -100,4 +101,6 @@ Map<String, String> ar = {
   'pack': 'تركيب',
   'unpack': 'فك',
   'packaging': 'تغليف',
+  'unit': 'وحدة',
+  'piece': 'قطعة',
 };

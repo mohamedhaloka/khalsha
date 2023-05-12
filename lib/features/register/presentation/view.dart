@@ -59,12 +59,11 @@ class RegisterView extends GetView<RegisterController> {
             inputType: Input.phone,
             controller: controller.phone,
           ),
-          if (controller.currentTab.value == 1)
-            ChooseFile(
-              title: 'السجل التجاري',
-              hint: 'في حال كنت شركة أو مؤسسة',
-              file: controller.commercialRegisterFile,
-            ),
+          ChooseFile(
+            title: 'السجل التجاري',
+            hint: 'في حال كنت شركة أو مؤسسة',
+            file: controller.commercialRegisterFile,
+          ),
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 35, 0, 35),
             child: CustomButton.fillBlue(
