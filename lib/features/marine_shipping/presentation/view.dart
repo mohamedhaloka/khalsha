@@ -18,6 +18,7 @@ class AddEditMarineShippingServiceView
           currentStep: controller.currentStep,
           btnLoading: controller.loading,
           nextTitle: controller.nextTitle,
+          icon: 'marine_shipment_icon',
           children: controller.children,
         ),
       ),
@@ -121,27 +122,6 @@ class _FillData extends GetView<AddEditMarineShippingServiceController> {
               );
             },
           ),
-          ToggleItemWithHolder(
-            title: 'حجم الشحنة',
-            items: marineOrderSizeOptions,
-            selectedItem: controller.selectedShipmentSize,
-            onChooseItem: (ItemModel item) {
-              late Widget bottomSheetBody;
-              if (item.id == 0) {
-                bottomSheetBody = const _AddContainerMarineShippingSheet();
-              } else {
-                bottomSheetBody = const _BundledGoodsMarineShippingSheet();
-              }
-              Get.bottomSheet(
-                HeadLineBottomSheet(
-                  bottomSheetTitle: item.text,
-                  body: bottomSheetBody,
-                  height: Get.height / 1.2,
-                ),
-                isScrollControlled: true,
-              );
-            },
-          ),
           FormBuilderField(
             builder: (FormFieldState<dynamic> field) => DropDownInputWithHolder(
               title: 'هل الشحنة جاهزة',
@@ -164,12 +144,60 @@ class _FillData extends GetView<AddEditMarineShippingServiceController> {
               value: controller.selectedShipmentReady.value,
             ),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class _OrderDetails extends GetView<AddEditMarineShippingServiceController> {
+  const _OrderDetails({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AdditionalServiceStepView(
+      body: Column(
+        children: [
+          ToggleItemWithHolder(
+            title: 'حجم الشحنة',
+            items: marineOrderSizeOptions,
+            selectedItem: controller.selectedShipmentSize,
+            onChooseItem: (ItemModel item) {
+              late Widget bottomSheetBody;
+              if (item.id == 0) {
+                bottomSheetBody = const _AddContainerMarineShippingSheet();
+              } else {
+                bottomSheetBody = const _BundledGoodsMarineShippingSheet();
+              }
+              Get.bottomSheet(
+                HeadLineBottomSheet(
+                  bottomSheetTitle: item.text,
+                  body: bottomSheetBody,
+                  height: Get.height / 1.2,
+                ),
+                isScrollControlled: true,
+              );
+            },
+          ),
+          FormBuilderField(
+            builder: (FormFieldState<dynamic> field) =>
+                TextFieldInputWithHolder(
+              hint: 'الملاحظات',
+              maxLines: 4,
+              controller: controller.content,
+              onSaved: (String? value) => field.didChange(value),
+              errorText: field.errorText,
+            ),
+            validator: FormBuilderValidators.required(),
+            name: MarineShipmentInputsKeys.content.name,
+          ),
           FormBuilderField(
             builder: (FormFieldState<dynamic> field) =>
                 Obx(() => TextFieldInputWithDropDownWithHolder(
                       title: 'قيمة الشحنة',
                       firstInputHint: '2000',
                       firstInputFlex: 2,
+                      secondInputHint: 'العملة',
                       firstInputController: controller.price,
                       selectedDropDownValue: controller.selectedCurrencyId,
                       source: controller.currency
@@ -190,17 +218,6 @@ class _FillData extends GetView<AddEditMarineShippingServiceController> {
             },
             validator: FormBuilderValidators.required(),
             name: MarineShipmentInputsKeys.price.name,
-          ),
-          FormBuilderField(
-            builder: (FormFieldState<dynamic> field) =>
-                TextFieldInputWithHolder(
-              hint: 'وصف الشحنة',
-              controller: controller.content,
-              onSaved: (String? value) => field.didChange(value),
-              errorText: field.errorText,
-            ),
-            validator: FormBuilderValidators.required(),
-            name: MarineShipmentInputsKeys.content.name,
           ),
         ],
       ),

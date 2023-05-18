@@ -21,7 +21,7 @@ class ConfirmOrderStepView
         const SizedBox(height: 20),
         FormBuilderField(
           builder: (FormFieldState<dynamic> field) => TextFieldInputWithHolder(
-            hint: 'اسم الشخص المستلم',
+            hint: recipientNameTitle,
             controller: controller.recipientName,
             onSaved: (String? value) => field.didChange(value),
             errorText: field.errorText,
@@ -42,5 +42,10 @@ class ConfirmOrderStepView
         ),
       ],
     );
+  }
+
+  String get recipientNameTitle {
+    if (controller.shippingType.value == 0) return 'اسم المستلم';
+    return 'اسم الشخص المسئول';
   }
 }

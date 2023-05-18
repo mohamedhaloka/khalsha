@@ -103,4 +103,12 @@ Map<String, String> ar = {
   'packaging': 'تغليف',
   'unit': 'وحدة',
   'piece': 'قطعة',
+  'load': 'عمال تحميل',
+  'unload': 'عمال تنزيل',
+  'both': 'عمال تحميل و تنزيل',
+  'ground_floor': 'منزل-الدور الارضي',
+  'first_floor': 'منزل-الدور الاول',
+  'loft': 'منزل الدور العلوي',
+  'warehouse': 'مستودع',
+  'market': 'محل تجاري',
 };

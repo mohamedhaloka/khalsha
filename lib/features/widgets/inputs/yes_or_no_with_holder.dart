@@ -23,7 +23,9 @@ class YesOrNoWithHolder extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
+            flex: 2,
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Expanded(
                   flex: 2,
@@ -50,21 +52,7 @@ class YesOrNoWithHolder extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     CustomButton(
-                      onTap: () async {
-                        // final result = await Get.bottomSheet(
-                        //   HeadLineBottomSheet(
-                        //     height: Get.height / 2,
-                        //     body: const AddNotesSheet(
-                        //       text:
-                        //           'اذكر المواد القابلة للإشتعال الموودة بشحنتك',
-                        //     ),
-                        //     bottomSheetTitle: 'قابل للإشتعال',
-                        //   ),
-                        //   isScrollControlled: true,
-                        // );
-                        // if (result == null) return;
-                        active(!active.value);
-                      },
+                      onTap: () => active(!active.value),
                       width: inputHeight,
                       height: inputHeight,
                       radius: radius,

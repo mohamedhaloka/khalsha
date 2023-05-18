@@ -34,7 +34,7 @@ class AddEditLandShippingServiceController extends GetxController {
   PageController pageController = PageController();
 
   String? get nextTitle => currentStep.value == children.length - 1
-      ? (isAdd ? 'إضافة' : 'تعديل')
+      ? (isAdd ? 'إرسال الطلب' : 'تعديل')
       : null;
 
   RxBool loading = false.obs;
@@ -44,7 +44,7 @@ class AddEditLandShippingServiceController extends GetxController {
       case 0:
         return 'تعبئة الطلب';
       case 1:
-        return 'خدمات إضافية';
+        return 'الخدمات الإضافية';
       case 2:
         return 'تحديد الموقع';
       case 3:

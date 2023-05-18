@@ -17,7 +17,7 @@ class InputHolderBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding:
-          padding ?? const EdgeInsets.symmetric(vertical: 16, horizontal: 30),
+          padding ?? const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
       margin: const EdgeInsets.symmetric(vertical: 5),
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(4)),

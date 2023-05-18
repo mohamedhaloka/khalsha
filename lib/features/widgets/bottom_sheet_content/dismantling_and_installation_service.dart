@@ -25,6 +25,7 @@ class DismantlingAndInstallationService
               children: [
                 TextFieldInputWithHolder(
                   title: 'اسم الصنف',
+                  hint: itemTitle,
                   controller: controller.serviceData[index].item,
                 ),
                 const Divider(color: ColorManager.greyColor),
@@ -85,6 +86,11 @@ class DismantlingAndInstallationService
         )
       ],
     );
+  }
+
+  String get itemTitle {
+    if (controller.shippingType.value == 0) return 'مثال مطبخ ٦ متر وطني';
+    return 'مثال تركيب مكيفات للعملاء';
   }
 }
 

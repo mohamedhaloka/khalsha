@@ -22,6 +22,7 @@ class AddEditCustomsClearanceController extends GetxController {
 
   List<Widget> children = const [
     _FillData(),
+    _OrderDetails(),
     _AdditionalServices(),
     AttachFilesStepView(),
     OrderSendSuccessfullyStepView(),
@@ -36,17 +37,19 @@ class AddEditCustomsClearanceController extends GetxController {
       case 0:
         return 'تعبئة الطلب';
       case 1:
-        return 'خدمات إضافية';
+        return 'تفاصيل البضاعة';
       case 2:
-        return 'رفع الملفات';
+        return 'خدمات إضافية';
       case 3:
+        return 'رفع الملفات';
+      case 4:
         return 'إرسال الطلب';
     }
     return '';
   }
 
   String? get nextTitle => currentStep.value == children.length - 1
-      ? (isAdd ? 'إضافة' : 'تعديل')
+      ? (isAdd ? 'إرسال الطلب' : 'تعديل')
       : null;
 
   RxInt selectedShippingField = 0.obs;
@@ -211,11 +214,7 @@ class AddEditCustomsClearanceController extends GetxController {
   }
 
   bool get _anyFieldInputsIsEmpty {
-    return name.text.isEmpty ||
-        deliverTo.text.isEmpty ||
-        total.text.isEmpty ||
-        selectedCurrency.value == '' ||
-        description.text.isEmpty;
+    return name.text.isEmpty || deliverTo.text.isEmpty;
   }
 
   bool get _anyParcelFieldInputsIsEmpty {
@@ -256,15 +255,24 @@ class AddEditCustomsClearanceController extends GetxController {
       case 0:
         if (_anyFieldInputsIsEmpty) {
           showAlertMessage('all-fields-required');
-        } else if (_anyParcelFieldInputsIsEmpty) {
+        }
+        return _anyFieldInputsIsEmpty;
+      case 1:
+        if (_anyParcelFieldInputsIsEmpty) {
           showAlertMessage('you-should-fill-parcel-fields');
         } else if (_anyContainerFieldInputsIsEmpty) {
           showAlertMessage('you-should-fill-container-fields');
+        } else if (description.text.isEmpty ||
+            total.text.isEmpty ||
+            selectedCurrency.value.isEmpty) {
+          showAlertMessage('all-fields-required');
         }
-        return _anyFieldInputsIsEmpty ||
-            _anyParcelFieldInputsIsEmpty ||
-            _anyContainerFieldInputsIsEmpty;
-      case 2:
+        return _anyParcelFieldInputsIsEmpty ||
+            _anyContainerFieldInputsIsEmpty ||
+            description.text.isEmpty ||
+            total.text.isEmpty ||
+            selectedCurrency.value.isEmpty;
+      case 3:
         if (files.isEmpty) {
           showAlertMessage('add-at-least-one-file');
         }

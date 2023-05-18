@@ -30,10 +30,12 @@ class AddEditAirFreightServiceController extends GetxController {
       case 0:
         return 'تعبئة الطلب';
       case 1:
-        return 'خدمات إضافية';
+        return 'تفاصيل البضاعة';
       case 2:
-        return 'تأكيد الطلب';
+        return 'خدمات إضافية';
       case 3:
+        return 'تأكيد الطلب';
+      case 4:
         return 'إرسال الطلب';
     }
     return '';
@@ -41,6 +43,7 @@ class AddEditAirFreightServiceController extends GetxController {
 
   List<Widget> children = const [
     _FillData(),
+    _OrderDetails(),
     _AdditionalServices(),
     OrderSendSuccessfullyStepView(),
   ];
@@ -74,7 +77,7 @@ class AddEditAirFreightServiceController extends GetxController {
   RxBool enableInsurance = false.obs, enableCustomsClearance = false.obs;
 
   String? get nextTitle => currentStep.value == children.length - 1
-      ? (isAdd ? 'إضافة' : 'تعديل')
+      ? (isAdd ? 'إرسال الطلب' : 'تعديل')
       : null;
 
   @override

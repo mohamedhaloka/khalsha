@@ -18,6 +18,7 @@ class AddEditAirFreightServiceView
           currentStep: controller.currentStep,
           btnLoading: controller.loading,
           nextTitle: controller.nextTitle,
+          icon: 'air-flight-shipment',
           children: controller.children,
         ),
       ),
@@ -38,7 +39,7 @@ class _FillData extends GetView<AddEditAirFreightServiceController> {
             builder: (FormFieldState<dynamic> field) =>
                 TextFieldInputWithHolder(
               title: 'عنوان الطلب',
-              hint: 'مثال: شحن سيارة شخصية',
+              hint: 'مثال: شحن قطع غيار',
               controller: controller.name,
               onSaved: (String? value) => field.didChange(value),
               errorText: field.errorText,
@@ -123,19 +124,6 @@ class _FillData extends GetView<AddEditAirFreightServiceController> {
               );
             },
           ),
-          ToggleItemWithHolder(
-            title: 'احسب من خلال',
-            items: marinePackageTypeOptions,
-            selectedItem: controller.selectedThrough,
-            onChooseItem: (ItemModel item) => Get.bottomSheet(
-              HeadLineBottomSheet(
-                bottomSheetTitle: item.text,
-                body: const _AddItemDetailsSheet(),
-                height: Get.height / 1.2,
-              ),
-              isScrollControlled: true,
-            ),
-          ),
           FormBuilderField(
             builder: (FormFieldState<dynamic> field) => DropDownInputWithHolder(
               title: 'هل الشحنة جاهزة',
@@ -158,11 +146,51 @@ class _FillData extends GetView<AddEditAirFreightServiceController> {
               value: controller.selectedShipmentReady.value,
             ),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class _OrderDetails extends GetView<AddEditAirFreightServiceController> {
+  const _OrderDetails({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AdditionalServiceStepView(
+      body: Column(
+        children: [
+          ToggleItemWithHolder(
+            title: 'احسب من خلال',
+            items: marinePackageTypeOptions,
+            selectedItem: controller.selectedThrough,
+            onChooseItem: (ItemModel item) => Get.bottomSheet(
+              HeadLineBottomSheet(
+                bottomSheetTitle: item.text,
+                body: const _AddItemDetailsSheet(),
+                height: Get.height / 1.2,
+              ),
+              isScrollControlled: true,
+            ),
+          ),
+          FormBuilderField(
+            builder: (FormFieldState<dynamic> field) =>
+                TextFieldInputWithHolder(
+              hint: 'الملاحظات',
+              maxLines: 4,
+              controller: controller.content,
+              onSaved: (String? value) => field.didChange(value),
+              errorText: field.errorText,
+            ),
+            validator: FormBuilderValidators.required(),
+            name: AirFreightInputsKeys.content.name,
+          ),
           FormBuilderField(
             builder: (FormFieldState<dynamic> field) =>
                 Obx(() => TextFieldInputWithDropDownWithHolder(
                       title: 'قيمة الشحنة',
                       firstInputHint: '2000',
+                      secondInputHint: 'العملة',
                       firstInputFlex: 2,
                       firstInputController: controller.price,
                       selectedDropDownValue: controller.selectedCurrencyId,
@@ -184,17 +212,6 @@ class _FillData extends GetView<AddEditAirFreightServiceController> {
             },
             validator: FormBuilderValidators.required(),
             name: AirFreightInputsKeys.price.name,
-          ),
-          FormBuilderField(
-            builder: (FormFieldState<dynamic> field) =>
-                TextFieldInputWithHolder(
-              hint: 'وصف الشحنة',
-              controller: controller.content,
-              onSaved: (String? value) => field.didChange(value),
-              errorText: field.errorText,
-            ),
-            validator: FormBuilderValidators.required(),
-            name: AirFreightInputsKeys.content.name,
           ),
         ],
       ),

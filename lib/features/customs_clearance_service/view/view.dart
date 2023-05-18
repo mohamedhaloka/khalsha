@@ -16,6 +16,7 @@ class AddEditCustomsClearanceServiceView
         nextTitle: controller.nextTitle,
         currentStep: controller.currentStep,
         btnLoading: controller.loading,
+        icon: 'customs_clearance_icon',
         children: controller.children,
       ),
     );
@@ -27,8 +28,7 @@ class _FillData extends GetView<AddEditCustomsClearanceController> {
 
   @override
   Widget build(BuildContext context) {
-    return FillDataStepView(
-      serviceName: ServiceTypes.customsClearance.value,
+    return AdditionalServiceStepView(
       body: Column(
         children: [
           TextFieldInputWithHolder(
@@ -42,7 +42,7 @@ class _FillData extends GetView<AddEditCustomsClearanceController> {
             selectedItem: controller.selectedShippingField,
           ),
           ToggleItemWithHolder(
-            title: 'نوع الشحنة',
+            title: 'نوع المعاملة',
             items: shippingTypeOptions,
             selectedItem: controller.selectedShippingType,
           ),
@@ -62,28 +62,22 @@ class _FillData extends GetView<AddEditCustomsClearanceController> {
             enabled: false,
             onTap: controller.chooseLocation,
           ),
-          TextFieldInputWithHolder(
-            hint: 'وصف البضاعة مثل: أجهزة إلكترونية للإستخدام الشخصي',
-            controller: controller.description,
-          ),
-          Obx(
-            () => TextFieldInputWithDropDownWithHolder(
-              title: 'قيمة الفاتورة',
-              firstInputHint: 'السعر',
-              firstInputFlex: 2,
-              secondInputHint: 'العملة',
-              firstInputController: controller.total,
-              selectedDropDownValue: controller.selectedCurrency,
-              source: controller.currencies
-                  .map((e) => DropdownMenuItem(
-                        value: e.id.toString(),
-                        child: Text(e.name),
-                      ))
-                  .toList(),
-            ),
-          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _OrderDetails extends GetView<AddEditCustomsClearanceController> {
+  const _OrderDetails({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AdditionalServiceStepView(
+      body: Column(
+        children: [
           ToggleItemWithHolder(
-            title: 'نوع الشحن',
+            title: 'حجم الشحنة',
             items: shipTypeOptions,
             selectedItem: controller.selectedShippingMethod,
             onChooseItem: (ItemModel item) {
@@ -102,6 +96,27 @@ class _FillData extends GetView<AddEditCustomsClearanceController> {
                   isScrollControlled: true);
             },
           ),
+          TextFieldInputWithHolder(
+            hint: 'وصف البضاعة مثل: أجهزة إلكترونية للإستخدام الشخصي',
+            controller: controller.description,
+            maxLines: 3,
+          ),
+          Obx(
+            () => TextFieldInputWithDropDownWithHolder(
+              title: 'قيمة الفاتورة',
+              firstInputHint: 'السعر',
+              firstInputFlex: 2,
+              secondInputHint: 'العملة',
+              firstInputController: controller.total,
+              selectedDropDownValue: controller.selectedCurrency,
+              source: controller.currencies
+                  .map((e) => DropdownMenuItem(
+                        value: e.id.toString(),
+                        child: Text(e.name),
+                      ))
+                  .toList(),
+            ),
+          ),
         ],
       ),
     );
@@ -117,8 +132,7 @@ class _AdditionalServices extends GetView<AddEditCustomsClearanceController> {
       body: Obx(() => Column(
             children: [
               ServiceItemWithHolder(
-                title: 'هل تريد خدمة التخزين',
-                bottomSheetTitle: 'خدمة التخزين',
+                title: 'خدمة التخزين',
                 height: Get.height / 3,
                 text: controller.numberOfStorage.value > 0 ? 'تم' : null,
                 onDelete: () => controller.numberOfStorage(0),
@@ -149,6 +163,7 @@ class _AdditionalServices extends GetView<AddEditCustomsClearanceController> {
               TextFieldInputWithHolder(
                 hint: 'الملاحضات',
                 controller: controller.note,
+                maxLines: 3,
               )
             ],
           )),

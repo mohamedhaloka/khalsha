@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:khalsha/core/utils.dart';
+import 'package:khalsha/features/widgets/stylish_text.dart';
 
 import '../../../../core/data/models/file_model.dart';
 import '../../../../core/presentation/themes/colors_manager.dart';
@@ -15,6 +16,13 @@ import '../../customs_clearance.dart';
 class AttachFilesStepView extends GetView<AddEditCustomsClearanceController> {
   const AttachFilesStepView({Key? key}) : super(key: key);
 
+  List<String> get requirementsFiles => [
+        'الفاتورة التجارية',
+        'قائمة التعبئة',
+        'شهادة المنشأ',
+        'بوليصة الشحن',
+      ];
+
   @override
   Widget build(BuildContext context) {
     return Obx(() => ListView(
@@ -23,28 +31,18 @@ class AttachFilesStepView extends GetView<AddEditCustomsClearanceController> {
               'assets/images/fill_service_steps/attach-files.svg',
             ),
             const SizedBox(height: 20),
-            Text(
-              'رجاء ارفاق الملفات الاتية',
-              textAlign: TextAlign.center,
-              style: Get.textTheme.titleLarge!.copyWith(
-                color: ColorManager.secondaryColor,
-                fontWeight: FontWeight.bold,
-              ),
+            TextUnderline(
+              'الرجاء إرفاق الملفات التاليه',
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 20),
               child: Wrap(
-                children: [
-                  'الفاتورة التجارية',
-                  'قائمة التعبئة',
-                  'شهادة المنشأ',
-                  'بوليصة الشحن',
-                ]
+                children: requirementsFiles
                     .map((e) => SizedBox(
                           width: Get.width / 2.3,
                           height: 40,
                           child: Text(
-                            e,
+                            '${requirementsFiles.indexOf(e) + 1}- $e',
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                               color: ColorManager.greyColor,
@@ -54,6 +52,15 @@ class AttachFilesStepView extends GetView<AddEditCustomsClearanceController> {
                     .toList(),
               ),
             ),
+            Text(
+              '*ملاحظة هذه الملفات مطلوبة من قبل الهيئة العامة للجمارك و الذكاة والضريبة*',
+              // textAlign: TextAlign.center,
+              style: Get.textTheme.bodySmall!.copyWith(
+                color: ColorManager.secondaryColor,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 12),
             ServiceItemWithHolder(
               height: 200,
               title: 'أضف الملفات',

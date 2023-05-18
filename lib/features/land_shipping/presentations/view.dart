@@ -38,7 +38,7 @@ class _FillData extends GetView<AddEditLandShippingServiceController> {
                 builder: (FormFieldState<dynamic> field) =>
                     TextFieldInputWithHolder(
                   title: 'عنوان الطلب',
-                  hint: 'مثال: شحن سيارة شخصية',
+                  hint: orderTitle,
                   controller: controller.name,
                   onSaved: (String? value) => field.didChange(value),
                   errorText: field.errorText,
@@ -96,25 +96,32 @@ class _FillData extends GetView<AddEditLandShippingServiceController> {
                   selectedItem: controller.goodsType,
                 ),
               ],
+              if (controller.goodsType.value == 1) ...[
+                const _PrivateTransferInputsView(),
+              ] else ...[
+                const _BundledGoodsInputsView()
+              ],
               FormBuilderField(
                 builder: (FormFieldState<dynamic> field) =>
                     TextFieldInputWithHolder(
-                  hint: 'وصف الشحنة',
+                  hint:
+                      'وصف الشحنة مثال: اثاث منزلي يتكون من غرفة نوم و ثلاث مكيفات و مطبخ أمريكي',
                   controller: controller.content,
+                  maxLines: 4,
                   onSaved: (String? value) => field.didChange(value),
                   errorText: field.errorText,
                 ),
                 validator: FormBuilderValidators.required(),
                 name: LandShipmentInputsKeys.content.name,
               ),
-              if (controller.goodsType.value == 1) ...[
-                const _PrivateTransferInputsView(),
-              ] else ...[
-                const _BundledGoodsInputsView()
-              ],
             ],
           )),
     );
+  }
+
+  String get orderTitle {
+    if (controller.shippingType.value == 0) return 'مثال: شحن عفش منزلي';
+    return 'مثال: نقل أخشاب / حديد';
   }
 }
 
@@ -127,10 +134,31 @@ class _AdditionalServices
     return AdditionalServiceStepView(
       body: Column(
         children: [
+          if (controller.goodsType.value == 1)
+            // FormBuilderField(
+            // builder: (FormFieldState<dynamic> field) =>
+            ServiceItemWithHolder(
+              title: 'خدمة الفك والتركيب والتغليف',
+              height: Get.height / 1.5,
+              onDelete: () {},
+              // errorMsg: field.errorText,
+              body: const DismantlingAndInstallationService(),
+            ),
+          //   onSaved: (_) {
+          //     final hasEmptyInputs = controller.serviceData.any((element) =>
+          //         element.quantity.text.isEmpty || element.item.text.isEmpty);
+          //     controller.didFieldChanged(
+          //       LandShipmentInputsKeys.packUnPackPackaging.name,
+          //       value: hasEmptyInputs ? '' : 'xx',
+          //     );
+          //   },
+          //   validator: FormBuilderValidators.required(),
+          //   name: LandShipmentInputsKeys.packUnPackPackaging.name,
+          // ),
           if (!controller.isInternationalShipping.value) ...[
             Obx(
               () => ServiceItemWithHolder(
-                title: 'هل تريد خدمة التخزين',
+                title: 'خدمة التخزين',
                 height: Get.height / 3,
                 onDelete: () => controller.storageDays(0),
                 text: controller.storageDays.value > 0 ? 'تم' : null,
@@ -141,30 +169,11 @@ class _AdditionalServices
               ),
             )
           ],
-          if (controller.goodsType.value == 1) ...[
-            FormBuilderField(
-              builder: (FormFieldState<dynamic> field) => ServiceItemWithHolder(
-                title: 'خدمات الفك و التركيب و التغليف',
-                height: Get.height / 1.5,
-                onDelete: () {},
-                errorMsg: field.errorText,
-                body: const DismantlingAndInstallationService(),
-              ),
-              onSaved: (_) {
-                final hasEmptyInputs = controller.serviceData.any((element) =>
-                    element.quantity.text.isEmpty || element.item.text.isEmpty);
-                controller.didFieldChanged(
-                  LandShipmentInputsKeys.packUnPackPackaging.name,
-                  value: hasEmptyInputs ? '' : 'xx',
-                );
-              },
-              validator: FormBuilderValidators.required(),
-              name: LandShipmentInputsKeys.packUnPackPackaging.name,
-            ),
+          if (controller.goodsType.value == 1)
             FormBuilderField(
               builder: (FormFieldState<dynamic> field) =>
                   DropDownInputWithHolder(
-                title: 'تريد عمال تحميل وتنزيل',
+                title: 'عمال تحميل/تنزيل',
                 dropValue: controller.workersType,
                 source: LoadTypes.values
                     .map((e) => DropdownMenuItem(
@@ -181,10 +190,9 @@ class _AdditionalServices
               validator: FormBuilderValidators.required(),
               name: LandShipmentInputsKeys.workers.name,
             ),
-          ],
           YesOrNoWithHolder(
             active: controller.hasFlammable,
-            title: 'هل توجد مواد قابلة للإشتعال',
+            title: 'هل تحتوي الشحنة علي مواد قابلة للإشتعال',
           ),
         ],
       ),
@@ -209,9 +217,10 @@ class _PickLocations extends GetView<AddEditLandShippingServiceController> {
         const _LoadingUnLoadingLocationsInputs(),
         StatefulBuilder(
           builder: (_, setState) => ServiceItemWithHolder(
-            title: 'تاريخ/وقت التحميل',
+            title: 'تاريخ / وقت التحميل',
             text: controller.loadingDate.formatTime('dd-mm-yyyy'),
             btnHeight: inputHeight + 20,
+            btnWidth: inputHeight + 50,
             onTap: () => _chooseDateTime(
               controller.loadingDate,
               minTime: DateTime.now(),
@@ -224,9 +233,10 @@ class _PickLocations extends GetView<AddEditLandShippingServiceController> {
         ),
         StatefulBuilder(
           builder: (_, setState) => ServiceItemWithHolder(
-            title: 'تاريخ/وقت التسليم',
+            title: 'تاريخ / وقت التسليم',
             text: controller.deliveryDate.formatTime('dd-MM-yyyy'),
             btnHeight: inputHeight + 20,
+            btnWidth: inputHeight + 50,
             onTap: () => _chooseDateTime(
               controller.deliveryDate,
               minTime: DateTime.now().add(const Duration(days: 1)),

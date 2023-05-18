@@ -3,6 +3,11 @@ part of '../../air_freight_service.dart';
 class _AddItemDetailsSheet extends GetView<AddEditAirFreightServiceController> {
   const _AddItemDetailsSheet({Key? key}) : super(key: key);
 
+  String get itemHint {
+    if (controller.selectedThrough.value == 0) return 'مثال: قطع غيار';
+    return 'مثال: مواد غذائية';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -18,53 +23,121 @@ class _AddItemDetailsSheet extends GetView<AddEditAirFreightServiceController> {
                           children: [
                             TextFieldInputWithHolder(
                               title: 'اسم الصنف',
+                              hint: itemHint,
                               controller: controller.items[index].name,
                             ),
                             const Divider(
                               color: ColorManager.greyColor,
                             ),
-                            TextFieldInputWithHolder(
-                              title: 'الطول',
-                              controller: controller.items[index].length,
-                              keyboardType: TextInputType.number,
+                            Text(
+                              'ابعاد الشحنة بالسم',
+                              style: Get.textTheme.bodyMedium!.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: ColorManager.greyColor,
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: TextFieldInputWithHolder(
+                                    hint: 'طول',
+                                    controller: controller.items[index].length,
+                                    keyboardType: TextInputType.number,
+                                    onChanged: (String value) {
+                                      int lengthNumber = int.tryParse(controller
+                                              .items[index].length.text) ??
+                                          0;
+                                      int widthNumber = int.tryParse(controller
+                                              .items[index].width.text) ??
+                                          0;
+                                      int heightNumber = int.tryParse(controller
+                                              .items[index].height.text) ??
+                                          0;
+                                      controller.items[index].cm.text =
+                                          (lengthNumber *
+                                                  widthNumber *
+                                                  heightNumber)
+                                              .toString();
+                                    },
+                                  ),
+                                ),
+                                Expanded(
+                                  child: TextFieldInputWithHolder(
+                                    hint: 'عرض',
+                                    controller: controller.items[index].width,
+                                    keyboardType: TextInputType.number,
+                                    onChanged: (String value) {
+                                      int lengthNumber = int.tryParse(controller
+                                              .items[index].length.text) ??
+                                          0;
+                                      int widthNumber = int.tryParse(controller
+                                              .items[index].width.text) ??
+                                          0;
+                                      int heightNumber = int.tryParse(controller
+                                              .items[index].height.text) ??
+                                          0;
+                                      controller.items[index].cm.text =
+                                          (lengthNumber *
+                                                  widthNumber *
+                                                  heightNumber)
+                                              .toString();
+                                    },
+                                  ),
+                                ),
+                                Expanded(
+                                  child: TextFieldInputWithHolder(
+                                    hint: 'ارتفاع',
+                                    controller: controller.items[index].height,
+                                    keyboardType: TextInputType.number,
+                                    onChanged: (String value) {
+                                      int lengthNumber = int.tryParse(controller
+                                              .items[index].length.text) ??
+                                          0;
+                                      int widthNumber = int.tryParse(controller
+                                              .items[index].width.text) ??
+                                          0;
+                                      int heightNumber = int.tryParse(controller
+                                              .items[index].height.text) ??
+                                          0;
+                                      controller.items[index].cm.text =
+                                          (lengthNumber *
+                                                  widthNumber *
+                                                  heightNumber)
+                                              .toString();
+                                    },
+                                  ),
+                                ),
+                                Expanded(
+                                  child: TextFieldInputWithHolder(
+                                    hint: 'الحجم',
+                                    controller: controller.items[index].cm,
+                                    keyboardType: TextInputType.number,
+                                  ),
+                                ),
+                              ],
                             ),
                             const Divider(
                               color: ColorManager.greyColor,
                             ),
-                            TextFieldInputWithHolder(
-                              title: 'العرض',
-                              controller: controller.items[index].width,
-                              keyboardType: TextInputType.number,
-                            ),
-                            const Divider(
-                              color: ColorManager.greyColor,
-                            ),
-                            TextFieldInputWithHolder(
-                              title: 'الإرتفاع',
-                              controller: controller.items[index].height,
-                            ),
-                            const Divider(
-                              color: ColorManager.greyColor,
-                            ),
-                            TextFieldInputWithHolder(
-                              title: 'سم',
-                              controller: controller.items[index].cm,
-                            ),
-                            const Divider(
-                              color: ColorManager.greyColor,
-                            ),
-                            TextFieldInputWithHolder(
-                              title: 'الوزن لكل وحدة',
-                              controller: controller.items[index].weightPerUnit,
-                              keyboardType: TextInputType.number,
-                            ),
-                            const Divider(
-                              color: ColorManager.greyColor,
-                            ),
-                            TextFieldInputWithHolder(
-                              title: 'الكمية',
-                              controller: controller.items[index].quantity,
-                              keyboardType: TextInputType.number,
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: TextFieldInputWithHolder(
+                                    title: 'الوزن',
+                                    controller:
+                                        controller.items[index].weightPerUnit,
+                                    keyboardType: TextInputType.number,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: TextFieldInputWithHolder(
+                                    title: 'الكمية',
+                                    controller:
+                                        controller.items[index].quantity,
+                                    keyboardType: TextInputType.number,
+                                  ),
+                                ),
+                              ],
                             ),
                             const Divider(
                               color: ColorManager.greyColor,

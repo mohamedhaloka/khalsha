@@ -49,7 +49,7 @@ class _LoadingUnLoadingLocationsInputs
                         DropDownInputWithHolder(
                       title: 'وصف موقع التحميل',
                       dropValue: controller.locationsData[index].loading,
-                      source: DeliveryDescTypes.values
+                      source: locations
                           .map((e) => DropdownMenuItem(
                                 value: e.value,
                                 child: Text(e.value.tr),
@@ -102,7 +102,7 @@ class _LoadingUnLoadingLocationsInputs
                         DropDownInputWithHolder(
                       title: 'وصف موقع التسليم',
                       dropValue: controller.locationsData[index].unloading,
-                      source: DeliveryDescTypes.values
+                      source: locations
                           .map((e) => DropdownMenuItem(
                                 value: e.value,
                                 child: Text(e.value.tr),
@@ -140,6 +140,7 @@ class _LoadingUnLoadingLocationsInputs
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Expanded(child: Divider()),
               Container(
@@ -148,9 +149,20 @@ class _LoadingUnLoadingLocationsInputs
                 child: InkWell(
                     onTap: () => controller.locationsData
                         .add(LoadingUnLoadingLocationsModel.newItem()),
-                    child: const Icon(
-                      Icons.add,
-                      color: Colors.white,
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.add,
+                          color: Colors.white,
+                        ),
+                        Text(
+                          'إضافة موقع أخر',
+                          style: Get.textTheme.bodyLarge!.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
+                      ],
                     )),
               ),
               const Expanded(child: Divider()),
@@ -160,15 +172,28 @@ class _LoadingUnLoadingLocationsInputs
       ],
     );
   }
+
+  List<DeliveryDescTypes> get locations {
+    if (controller.shippingType.value == 0) return DeliveryDescTypes.values;
+    return [
+      DeliveryDescTypes.market,
+      DeliveryDescTypes.factory,
+      DeliveryDescTypes.warehouse,
+      DeliveryDescTypes.groundFloor,
+      DeliveryDescTypes.firstFloor,
+      DeliveryDescTypes.loft,
+      DeliveryDescTypes.other,
+    ];
+  }
 }
 
 enum DeliveryDescTypes {
   groundFloor('ground_floor'),
   firstFloor('first_floor'),
   loft('loft'),
-  factory('factory'),
-  warehouse('warehouse'),
   market('market'),
+  warehouse('warehouse'),
+  factory('factory'),
   other('other');
 
   final String value;

@@ -17,10 +17,11 @@ class ServiceContent extends StatelessWidget {
     required this.children,
     required this.currentStep,
     required this.btnLoading,
+    this.icon,
     this.nextTitle,
   }) : super(key: key);
   final String pageTitle;
-  final String? nextTitle;
+  final String? nextTitle, icon;
   final void Function() onTapBack, onTapNext;
   final void Function(int index) onPageChanged;
   final List<Widget> children;
@@ -41,6 +42,7 @@ class ServiceContent extends StatelessWidget {
           StepsProgressIndicator(
             pagesLength: children.length,
             currentStep: currentStep,
+            icon: icon,
           ),
           Expanded(
             child: Padding(
@@ -117,10 +119,12 @@ class DynamicServiceAppBar extends StatelessWidget with PreferredSizeWidget {
 class StepsProgressIndicator extends StatelessWidget {
   const StepsProgressIndicator({
     Key? key,
+    this.icon,
     required this.pagesLength,
     required this.currentStep,
   }) : super(key: key);
   final int pagesLength;
+  final String? icon;
   final RxInt currentStep;
 
   double get progressWidth =>
@@ -134,7 +138,7 @@ class StepsProgressIndicator extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           SvgPicture.asset(
-            'assets/images/icons/truck.svg',
+            'assets/images/icons/${icon ?? 'truck'}.svg',
             color: ColorManager.secondaryColor,
             width: 30,
           ),

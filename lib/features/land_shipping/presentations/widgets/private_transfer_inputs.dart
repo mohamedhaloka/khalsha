@@ -10,6 +10,24 @@ class _PrivateTransferInputsView
       children: [
         FormBuilderField(
           builder: (FormFieldState<dynamic> field) => ChooseItemWithHolder(
+            title: 'نوع البضاعة',
+            selectedItem: controller.shipmentType,
+            height: Get.height / 2,
+            errorMsg: field.errorText,
+            body: MultiItemsList(
+              items: controller.shipmentTypes,
+              selectedItem: controller.shipmentType,
+            ),
+          ),
+          onSaved: (_) => controller.didFieldChanged(
+            LandShipmentInputsKeys.shipmentType.name,
+            value: controller.shipmentType.value.name,
+          ),
+          validator: FormBuilderValidators.required(),
+          name: LandShipmentInputsKeys.shipmentType.name,
+        ),
+        FormBuilderField(
+          builder: (FormFieldState<dynamic> field) => ChooseItemWithHolder(
             title: 'نوع الشاحنة',
             selectedItem: controller.truck,
             height: Get.height / 2,
@@ -25,24 +43,6 @@ class _PrivateTransferInputsView
           ),
           validator: FormBuilderValidators.required(),
           name: LandShipmentInputsKeys.truck.name,
-        ),
-        FormBuilderField(
-          builder: (FormFieldState<dynamic> field) => ChooseItemWithHolder(
-            title: 'نوع الشحنة',
-            selectedItem: controller.shipmentType,
-            height: Get.height / 2,
-            errorMsg: field.errorText,
-            body: MultiItemsList(
-              items: controller.shipmentTypes,
-              selectedItem: controller.shipmentType,
-            ),
-          ),
-          onSaved: (_) => controller.didFieldChanged(
-            LandShipmentInputsKeys.shipmentType.name,
-            value: controller.shipmentType.value.name,
-          ),
-          validator: FormBuilderValidators.required(),
-          name: LandShipmentInputsKeys.shipmentType.name,
         ),
       ],
     );

@@ -33,14 +33,20 @@ class MultiItemsList extends StatelessWidget {
                 ? ColorManager.primaryColor
                 : null,
             alignment: Alignment.center,
-            child: Text(
-              items[index].name,
-              textAlign: TextAlign.center,
-              style: Get.textTheme.titleSmall!.copyWith(
-                color: selectedItem.value.id == items[index].id
-                    ? Colors.white
-                    : null,
-              ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    items[index].name,
+                    textAlign: TextAlign.center,
+                    style: Get.textTheme.titleSmall!.copyWith(
+                      color: selectedItem.value.id == items[index].id
+                          ? Colors.white
+                          : null,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),

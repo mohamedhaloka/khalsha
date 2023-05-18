@@ -17,6 +17,7 @@ class _AddContainerMarineShippingSheet
                         children: [
                           TextFieldInputWithHolder(
                             title: 'وصف البضاعة',
+                            hint: 'مثال: سيارة',
                             controller:
                                 controller.containers[index].containerContent,
                           ),
