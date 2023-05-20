@@ -14,6 +14,7 @@ class CustomDropDown extends StatelessWidget {
       this.onTap,
       this.border,
       this.height,
+      this.itemHeight,
       this.radius,
       this.fontSize,
       this.icon,
@@ -28,7 +29,7 @@ class CustomDropDown extends StatelessWidget {
   final List<DropdownMenuItem> source;
   final ValueChanged<int>? onTap;
   final Color? hintColor, iconColor;
-  final double? radius, fontSize;
+  final double? radius, fontSize,itemHeight;
   final Border? border;
   final bool? isExpanded;
   final Function()? onTapUpper;
@@ -75,6 +76,7 @@ class CustomDropDown extends StatelessWidget {
                         onTap!.call(int.tryParse(value.toString()) ?? 0);
                       }
                     },
+                    itemHeight: itemHeight ?? 60,
                     isExpanded: isExpanded ?? false,
                     items: source,
                   ),

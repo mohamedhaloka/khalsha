@@ -51,7 +51,7 @@ class ShippingDetailsStepView extends GetView<AddEditStoresServiceController> {
               FormBuilderField(
                 builder: (FormFieldState<dynamic> field) {
                   return DropDownInputWithHolder(
-                    title: 'المساحة التي تحتاجها',
+                    title: 'نوع المساحة',
                     hint: 'أختر',
                     dropValue: controller.selectedWareHouseSpace,
                     source: WareHouseTypes.values

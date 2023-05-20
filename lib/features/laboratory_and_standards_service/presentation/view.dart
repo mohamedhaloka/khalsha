@@ -18,6 +18,7 @@ class AddEditLaboratoryAndStandardsServiceView
           currentStep: controller.currentStep,
           btnLoading: controller.loading,
           nextTitle: controller.nextTitle,
+          icon: 'laboratory_icon',
           children: controller.children,
         ),
       ),
@@ -89,6 +90,7 @@ class _FillData
           ),
           TextFieldInputWithHolder(
             hint: 'ملاحظات',
+            maxLines: 4,
             controller: controller.notes,
           ),
         ],

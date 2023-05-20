@@ -27,20 +27,25 @@ class AttachFileWithHolder extends StatelessWidget {
       Column(
         children: [
           if (title != null) ...[
-            Text(
-              title ?? '',
-              style: Get.textTheme.bodyMedium!.copyWith(
-                fontWeight: FontWeight.bold,
-                color: ColorManager.greyColor,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 12, 0),
-              child: InkWell(
-                onTap: () {},
-                child: SvgPicture.asset('assets/images/icons/info.svg'),
-              ),
-            ),
+           Row(
+             mainAxisAlignment: MainAxisAlignment.center,
+             children: [
+               Text(
+                 title ?? '',
+                 style: Get.textTheme.bodyMedium!.copyWith(
+                   fontWeight: FontWeight.bold,
+                   color: ColorManager.greyColor,
+                 ),
+               ),
+               Padding(
+                 padding: const EdgeInsets.fromLTRB(20, 0, 12, 0),
+                 child: InkWell(
+                   onTap: () {},
+                   child: SvgPicture.asset('assets/images/icons/info.svg'),
+                 ),
+               ),
+             ],
+           )
           ],
           const SizedBox(height: 5),
           InkWell(

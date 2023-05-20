@@ -46,7 +46,7 @@ class OrderItemsSheet
                       source: controller.services
                           .map((element) => DropdownMenuItem(
                                 value: element.id.toString(),
-                                child: Text(element.name),
+                                child: Text('إصدار ${element.name}'),
                               ))
                           .toList(),
                     ),

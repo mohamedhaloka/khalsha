@@ -79,7 +79,7 @@ class AddEditStoresServiceController extends GetxController {
   DateTime contractDate = DateTime.now();
 
   String? get nextTitle => currentStep.value == children.length - 1
-      ? (isAdd ? 'إضافة' : 'تعديل')
+      ? (isAdd ? 'إرسال الطلب' : 'تعديل')
       : null;
 
   @override

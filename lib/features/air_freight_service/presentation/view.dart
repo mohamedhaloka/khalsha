@@ -235,27 +235,15 @@ class _AdditionalServices extends GetView<AddEditAirFreightServiceController> {
             title: 'خدمة التخليص الجمركي',
             active: controller.enableCustomsClearance,
           ),
-          FormBuilderField(
-            builder: (FormFieldState<dynamic> field) => CheckerWithHolder(
-              title: 'خدمة إستخراج الشهادات اللازمة',
-              active: controller.certificates
-                  .any((element) => element.selected.value)
-                  .obs,
-              bottomSheetTitle: 'الشهادات',
-              body: ChooseCertificates(controller.certificates),
-              height: Get.height / 1.6,
-              errotText: field.errorText,
-            ),
-            onSaved: (_) {
-              bool hasCertificatesSelected = controller.certificates
-                  .any((element) => element.selected.value);
-              controller.didFieldChanged(
-                AirFreightInputsKeys.certificates.name,
-                value: hasCertificatesSelected ? 'xx' : '',
-              );
-            },
-            validator: FormBuilderValidators.required(),
-            name: AirFreightInputsKeys.certificates.name,
+          CheckerWithHolder(
+            title: 'خدمة إستخراج الشهادات اللازمة',
+            active: controller.certificates
+                .any((element) => element.selected.value)
+                .obs,
+            bottomSheetTitle: 'الشهادات',
+            body: ChooseCertificates(controller.certificates),
+            height: Get.height / 1.6,
+            // errotText: field.errorText,
           ),
         ],
       ),

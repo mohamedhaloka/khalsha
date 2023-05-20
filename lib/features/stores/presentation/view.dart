@@ -17,6 +17,7 @@ class AddEditStoresServiceView extends GetView<AddEditStoresServiceController> {
           currentStep: controller.currentStep,
           btnLoading: controller.loading,
           nextTitle: controller.nextTitle,
+          icon: 'warehouse_icon',
           children: controller.children,
         ),
       ),
@@ -57,6 +58,7 @@ class _FillData extends GetView<AddEditStoresServiceController> {
               title: 'نوع التخزين',
               hint: 'أختر',
               dropValue: controller.selectedStorageType,
+                itemHeight: 70,
               source: StorageTypes.values
                   .map((e) => DropdownMenuItem(
                         value: e.value.toString(),
@@ -115,7 +117,7 @@ class _AdditionalServices extends GetView<AddEditStoresServiceController> {
       body: Column(
         children: [
           CheckerWithHolder(
-            title: 'هل تريد خدمة التغليف',
+            title: 'خدمة التغليف',
             active: controller.needPackaging,
           ),
           CheckerWithHolder(

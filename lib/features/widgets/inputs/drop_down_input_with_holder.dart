@@ -13,6 +13,7 @@ class DropDownInputWithHolder extends StatelessWidget {
     this.hint,
     this.title,
     this.errorText,
+    this.itemHeight,
     this.onTap,
     required this.dropValue,
     required this.source,
@@ -21,6 +22,7 @@ class DropDownInputWithHolder extends StatelessWidget {
   final List<DropdownMenuItem> source;
   final RxString dropValue;
   final void Function(int)? onTap;
+  final double? itemHeight;
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +59,7 @@ class DropDownInputWithHolder extends StatelessWidget {
               height: inputHeight,
               hint: hint ?? 'إختر',
               dropVal: dropValue,
+              itemHeight: itemHeight,
               onTap: onTap,
               isExpanded: true,
               source: source,
