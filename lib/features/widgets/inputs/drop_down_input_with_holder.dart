@@ -33,7 +33,7 @@ class DropDownInputWithHolder extends StatelessWidget {
             Expanded(
               child: Row(
                 children: [
-                  Expanded(
+                  Flexible(
                     child: Text(
                       title ?? '',
                       style: Get.textTheme.bodyMedium!.copyWith(
@@ -54,6 +54,7 @@ class DropDownInputWithHolder extends StatelessWidget {
             ),
           ],
           Expanded(
+            flex: 2,
             child: CustomDropDown(
               radius: radius,
               height: inputHeight,

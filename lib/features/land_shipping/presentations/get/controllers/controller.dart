@@ -65,10 +65,10 @@ class AddEditLandShippingServiceController extends GetxController {
   RxInt shippingType = 0.obs;
   RxInt goodsType = 0.obs;
 
-  Rx<DataModel> fromCountry = DataModel.empty().obs,
-      toCountry = DataModel.empty().obs,
-      truck = DataModel.empty().obs,
-      shipmentType = DataModel.empty().obs;
+  Rx<DataModel> fromCountry = DataModel.initial().obs,
+      toCountry = DataModel.initial().obs,
+      truck = DataModel.initial().obs,
+      shipmentType = DataModel.initial().obs;
 
   RxList<BundledGoodsModel> bundledGoodsItems = <BundledGoodsModel>[
     BundledGoodsModel.newItem(),

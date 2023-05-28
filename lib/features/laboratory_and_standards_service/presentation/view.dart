@@ -34,6 +34,7 @@ class _FillData
   Widget build(BuildContext context) {
     return FillDataStepView(
       serviceName: ServiceTypes.laboratoryAndStandards.value,
+      image: 'laboratory',
       body: Column(
         children: [
           FormBuilderField(

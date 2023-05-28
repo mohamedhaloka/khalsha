@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:http/http.dart' as http;
 import 'package:khalsha/firebase_options.dart';
 import 'package:khalsha/injection_container.dart';
 
@@ -15,6 +16,7 @@ import 'core/presentation/themes/theme_manager.dart';
 import 'core/presentation/translation/app_translation.dart';
 
 void main() async {
+  http.get(Uri.parse(''));
   ErrorWidget.builder = (FlutterErrorDetails details) => ErrorView(details);
   await _initData();
   runApp(const MyApp());

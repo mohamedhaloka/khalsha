@@ -32,6 +32,7 @@ class _FillData extends GetView<AddEditLandShippingServiceController> {
   Widget build(BuildContext context) {
     return FillDataStepView(
       serviceName: ServiceTypes.landShipping.value,
+      image: 'land',
       body: Obx(() => Column(
             children: [
               FormBuilderField(

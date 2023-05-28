@@ -10,12 +10,13 @@ import 'input_holder_box.dart';
 class ToggleItemWithHolder extends StatelessWidget {
   const ToggleItemWithHolder({
     Key? key,
+    this.errorMsg,
     this.title,
     this.onChooseItem,
     required this.items,
     required this.selectedItem,
   }) : super(key: key);
-  final String? title;
+  final String? title, errorMsg;
   final RxInt selectedItem;
   final List<ItemModel> items;
   final void Function(ItemModel itemModel)? onChooseItem;
@@ -60,6 +61,7 @@ class ToggleItemWithHolder extends StatelessWidget {
           ),
         ],
       ),
+      errorText: errorMsg,
     );
   }
 }

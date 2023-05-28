@@ -103,9 +103,7 @@ flutter_icons:
   image_path: "assets/images/app-icon.png"
   adaptive_icon_background: "#4F7284"
 
-
 flutter:
-
   uses-material-design: true
 
   assets:
@@ -120,6 +118,7 @@ flutter:
     - assets/images/how_to_use/
     - assets/images/order_details/
     - assets/images/order_details/status/
+    - assets/images/intro_services/
 
   fonts:
     - family: bahji

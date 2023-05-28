@@ -33,14 +33,14 @@ class DataModel {
         selected: false.obs,
       );
 
-  factory DataModel.empty() => DataModel(
+  factory DataModel.initial([String? text]) => DataModel(
         id: 0,
         selected: false.obs,
         status: '',
         deletedAt: '',
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
-        name: '',
+        name: text ?? '',
       );
 
   Map<String, dynamic> toJson() => {

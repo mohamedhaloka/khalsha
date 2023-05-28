@@ -28,7 +28,9 @@ class _FillData extends GetView<AddEditCustomsClearanceController> {
 
   @override
   Widget build(BuildContext context) {
-    return AdditionalServiceStepView(
+    return FillDataStepView(
+      serviceName: ServiceTypes.laboratoryAndStandards.value,
+      image: 'customs',
       body: Column(
         children: [
           TextFieldInputWithHolder(
@@ -74,6 +76,7 @@ class _OrderDetails extends GetView<AddEditCustomsClearanceController> {
   @override
   Widget build(BuildContext context) {
     return AdditionalServiceStepView(
+      imagePath: 'assets/images/intro_services/customs.svg',
       body: Column(
         children: [
           ToggleItemWithHolder(

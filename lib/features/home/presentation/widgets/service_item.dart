@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:khalsha/features/home/data/models/statistics_model.dart';
-import 'package:khalsha/features/home/presentation/bottom_sheets/statistics_data_sheet.dart';
 import 'package:khalsha/features/service_intro/presentation/get/controllers/controller.dart';
-import 'package:khalsha/features/widgets/headline_bottom_sheet.dart';
 
 import '../../../../core/data/models/item_model.dart';
 import '../../../../core/presentation/routes/app_routes.dart';
@@ -34,43 +32,41 @@ class ServiceItem extends StatelessWidget {
           child: Column(
             children: [
               Expanded(
-                child: Obx(
-                  () => Stack(
-                    children: [
-                      Positioned(
-                        top: 0,
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
-                        child: Container(
-                          color: Colors.white,
-                          child: Image.asset(
-                            'assets/images/services/${service.image}.png',
-                            fit: BoxFit.fill,
-                          ),
+                child: Stack(
+                  children: [
+                    Positioned(
+                      top: 0,
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      child: Container(
+                        color: Colors.white,
+                        child: Image.asset(
+                          'assets/images/services/${service.image}.png',
+                          fit: BoxFit.fill,
                         ),
                       ),
-                      if (statisticModel != null)
-                        Positioned(
-                          left: 0,
-                          child: IconButton(
-                            onPressed: () {
-                              if (statisticModel == null) return;
-                              Get.bottomSheet(
-                                HeadLineBottomSheet(
-                                  bottomSheetTitle:
-                                      'إحصائيات طلبات خدمة ${service.text.toString().tr}',
-                                  body: StatisticsDataSheet(statisticModel!),
-                                  height: Get.height / 1.5,
-                                ),
-                                isScrollControlled: true,
-                              );
-                            },
-                            icon: const Icon(Icons.info_outline),
-                          ),
-                        )
-                    ],
-                  ),
+                    ),
+                    // if (statisticModel != null)
+                    //   Positioned(
+                    //     left: 0,
+                    //     child: IconButton(
+                    //       onPressed: () {
+                    //         if (statisticModel == null) return;
+                    //         Get.bottomSheet(
+                    //           HeadLineBottomSheet(
+                    //             bottomSheetTitle:
+                    //             'إحصائيات طلبات خدمة ${service.text.toString().tr}',
+                    //             body: StatisticsDataSheet(statisticModel!),
+                    //             height: Get.height / 1.5,
+                    //           ),
+                    //           isScrollControlled: true,
+                    //         );
+                    //       },
+                    //       icon: const Icon(Icons.info_outline),
+                    //     ),
+                    //   )
+                  ],
                 ),
               ),
               Padding(

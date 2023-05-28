@@ -16,6 +16,8 @@ class ChooseItemWithHolder extends StatelessWidget {
     this.bottomSheetTitle,
     this.hint,
     this.onBack,
+    this.boxColor,
+    this.textColor,
     this.errorMsg,
     required this.selectedItem,
     required this.body,
@@ -25,6 +27,7 @@ class ChooseItemWithHolder extends StatelessWidget {
   final Rx<DataModel> selectedItem;
   final Widget body;
   final double? height;
+  final Color? boxColor, textColor;
   final void Function(bool)? onBack;
 
   @override
@@ -66,6 +69,7 @@ class ChooseItemWithHolder extends StatelessWidget {
                 height: inputHeight,
                 padding: const EdgeInsets.all(6),
                 decoration: BoxDecoration(
+                  color: boxColor,
                   borderRadius: const BorderRadius.all(Radius.circular(radius)),
                   border: Border.all(color: ColorManager.lightGreyColor),
                 ),
@@ -75,7 +79,9 @@ class ChooseItemWithHolder extends StatelessWidget {
                         ? hint ?? 'اختر'
                         : selectedItem.value.name,
                     textAlign: TextAlign.center,
-                    style: Get.textTheme.bodyLarge,
+                    style: Get.textTheme.bodyLarge!.copyWith(
+                      color: textColor,
+                    ),
                   ),
                 ),
               ),

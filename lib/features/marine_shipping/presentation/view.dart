@@ -33,6 +33,7 @@ class _FillData extends GetView<AddEditMarineShippingServiceController> {
   Widget build(BuildContext context) {
     return FillDataStepView(
       serviceName: ServiceTypes.marineShipping.value,
+      image: 'marine',
       body: Column(
         children: [
           FormBuilderField(
@@ -56,7 +57,13 @@ class _FillData extends GetView<AddEditMarineShippingServiceController> {
             builder: (FormFieldState<dynamic> field) => ChooseItemWithHolder(
               title: 'الشحن من',
               height: Get.height / 1.6,
-              selectedItem: DataModel.empty().obs,
+              boxColor: (field.value ?? '').isEmpty
+                  ? null
+                  : ColorManager.primaryColor,
+              textColor: (field.value ?? '').isEmpty ? null : Colors.white,
+              selectedItem:
+                  DataModel.initial((field.value ?? '').isEmpty ? null : 'تم')
+                      .obs,
               body: ChooseShippingPlace(
                 shipmentLocation: controller.fromShipmentLocation,
                 selectedCountry: controller.fromCountryId,
@@ -91,7 +98,13 @@ class _FillData extends GetView<AddEditMarineShippingServiceController> {
             builder: (FormFieldState<dynamic> field) => ChooseItemWithHolder(
               title: 'الشحن إلى',
               height: Get.height / 1.6,
-              selectedItem: DataModel.empty().obs,
+              boxColor: (field.value ?? '').isEmpty
+                  ? null
+                  : ColorManager.primaryColor,
+              textColor: (field.value ?? '').isEmpty ? null : Colors.white,
+              selectedItem:
+                  DataModel.initial((field.value ?? '').isEmpty ? null : 'تم')
+                      .obs,
               body: ChooseShippingPlace(
                 shipmentLocation: controller.toShipmentLocation,
                 selectedCountry: controller.toCountryId,
@@ -158,26 +171,62 @@ class _OrderDetails extends GetView<AddEditMarineShippingServiceController> {
     return AdditionalServiceStepView(
       body: Column(
         children: [
-          ToggleItemWithHolder(
-            title: 'حجم الشحنة',
-            items: marineOrderSizeOptions,
-            selectedItem: controller.selectedShipmentSize,
-            onChooseItem: (ItemModel item) {
-              late Widget bottomSheetBody;
-              if (item.id == 0) {
-                bottomSheetBody = const _AddContainerMarineShippingSheet();
+          FormBuilderField(
+            builder: (FormFieldState<dynamic> field) => ToggleItemWithHolder(
+              title: 'حجم الشحنة',
+              items: marineOrderSizeOptions,
+              errorMsg: field.errorText,
+              selectedItem: controller.selectedShipmentSize,
+              onChooseItem: (ItemModel item) {
+                late Widget bottomSheetBody;
+                if (item.id == 0) {
+                  bottomSheetBody = const _AddContainerMarineShippingSheet();
+                } else {
+                  bottomSheetBody = const _BundledGoodsMarineShippingSheet();
+                }
+                Get.bottomSheet(
+                  HeadLineBottomSheet(
+                    bottomSheetTitle: item.text,
+                    body: bottomSheetBody,
+                    height: Get.height / 1.2,
+                  ),
+                  isScrollControlled: true,
+                );
+              },
+            ),
+            onSaved: (_) {
+              bool hasEmptyInputs = false;
+              if (controller.selectedShipmentSize.value == 0) {
+                hasEmptyInputs = controller.containers.any((element) =>
+                    element.file.value.path.isEmpty ||
+                    element.containerContent.text.isEmpty ||
+                    element.containerType.value.isEmpty ||
+                    element.containerCount.value == 0);
               } else {
-                bottomSheetBody = const _BundledGoodsMarineShippingSheet();
+                if (controller.selectedThrough.value == 0) {
+                  hasEmptyInputs = controller.goodsTotalShipment.any(
+                      (element) =>
+                          element.quantity.text.isEmpty ||
+                          element.totalWeight.text.isEmpty ||
+                          element.overallSize.text.isEmpty);
+                } else {
+                  hasEmptyInputs = controller.goodsUnitType.any((element) =>
+                      element.quantity.text.isEmpty ||
+                      element.image.value.path.isEmpty ||
+                      element.cm.text.isEmpty ||
+                      element.width.text.isEmpty ||
+                      element.height.text.isEmpty ||
+                      element.weightPerUnit.text.isEmpty ||
+                      element.length.text.isEmpty);
+                }
               }
-              Get.bottomSheet(
-                HeadLineBottomSheet(
-                  bottomSheetTitle: item.text,
-                  body: bottomSheetBody,
-                  height: Get.height / 1.2,
-                ),
-                isScrollControlled: true,
+              controller.didFieldChanged(
+                MarineShipmentInputsKeys.orderSize.name,
+                value: hasEmptyInputs ? '' : 'xx',
               );
             },
+            validator: FormBuilderValidators.required(),
+            name: MarineShipmentInputsKeys.orderSize.name,
           ),
           FormBuilderField(
             builder: (FormFieldState<dynamic> field) =>
@@ -273,5 +322,6 @@ enum MarineShipmentInputsKeys {
   shipmentTo,
   shipmentReady,
   certificates,
-  price;
+  price,
+  orderSize;
 }

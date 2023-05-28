@@ -32,10 +32,10 @@ class _FillData extends GetView<AddEditStoresServiceController> {
   Widget build(BuildContext context) {
     return FillDataStepView(
       serviceName: ServiceTypes.stores.value,
+      image: 'stores',
       body: Column(
         children: [
           FormBuilderField(
-            initialValue: controller.name,
             builder: (FormFieldState<dynamic> field) =>
                 TextFieldInputWithHolder(
               title: 'عنوان الطلب',
@@ -45,7 +45,7 @@ class _FillData extends GetView<AddEditStoresServiceController> {
               errorText: field.errorText,
             ),
             validator: FormBuilderValidators.required(),
-            name: 'name',
+            name: StoresInputsKeys.title.name,
           ),
           ToggleItemWithHolder(
             title: 'الغرض من التخزين',
@@ -53,27 +53,36 @@ class _FillData extends GetView<AddEditStoresServiceController> {
             selectedItem: controller.selectedShippingField,
           ),
           FormBuilderField(
-            initialValue: controller.selectedStorageType,
             builder: (FormFieldState<dynamic> field) => DropDownInputWithHolder(
               title: 'نوع التخزين',
               hint: 'أختر',
               dropValue: controller.selectedStorageType,
-                itemHeight: 70,
+              itemHeight: 70,
               source: StorageTypes.values
                   .map((e) => DropdownMenuItem(
                         value: e.value.toString(),
-                        child: Text(e.value.tr),
+                        child: Text(
+                          e.value.tr,
+                          style: const TextStyle(
+                            fontSize: 12,
+                          ),
+                        ),
                       ))
                   .toList()
                   .obs,
               onTap: (int id) => field.didChange(id.toString()),
               errorText: field.errorText,
             ),
+            onSaved: (String? value) {
+              controller.didFieldChanged(
+                StoresInputsKeys.storageType.name,
+                value: controller.selectedStorageType.value,
+              );
+            },
             validator: FormBuilderValidators.required(),
-            name: 'storage_type',
+            name: StoresInputsKeys.storageType.name,
           ),
           FormBuilderField(
-            initialValue: controller.selectedItem.value.id.toString(),
             builder: (FormFieldState<dynamic> field) => ChooseItemWithHolder(
               title: 'نوع الصنف',
               selectedItem: controller.selectedItem,
@@ -85,11 +94,16 @@ class _FillData extends GetView<AddEditStoresServiceController> {
                       field.didChange(data.id.toString())),
               errorMsg: field.errorText,
             ),
+            onSaved: (String? value) {
+              controller.didFieldChanged(
+                StoresInputsKeys.itemType.name,
+                value: controller.selectedItem.value.id == 0 ? '' : 'xx',
+              );
+            },
             validator: FormBuilderValidators.required(),
-            name: 'item_type',
+            name: StoresInputsKeys.itemType.name,
           ),
           FormBuilderField(
-            initialValue: controller.location.text,
             builder: (FormFieldState<dynamic> field) =>
                 TextFieldInputWithHolder(
               title: 'المدينة/الدولة',
@@ -100,7 +114,7 @@ class _FillData extends GetView<AddEditStoresServiceController> {
               errorText: field.errorText,
             ),
             validator: FormBuilderValidators.required(),
-            name: 'location',
+            name: StoresInputsKeys.location.name,
           ),
         ],
       ),
@@ -155,4 +169,21 @@ enum StorageTypes {
 
   final String value;
   const StorageTypes(this.value);
+}
+
+enum StoresInputsKeys {
+  title,
+  storageType,
+  itemType,
+  location,
+  shipmentReady,
+  certificates,
+  price,
+  orderSize,
+  spaceType,
+  palletNumbers,
+  wareHouseSpace,
+  customWareHouseSpace,
+  contractType,
+  contractDays;
 }

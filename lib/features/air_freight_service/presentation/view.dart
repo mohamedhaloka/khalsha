@@ -33,6 +33,7 @@ class _FillData extends GetView<AddEditAirFreightServiceController> {
   Widget build(BuildContext context) {
     return FillDataStepView(
       serviceName: ServiceTypes.marineShipping.value,
+      image: 'air',
       body: Column(
         children: [
           FormBuilderField(
@@ -56,7 +57,13 @@ class _FillData extends GetView<AddEditAirFreightServiceController> {
             builder: (FormFieldState<dynamic> field) => ChooseItemWithHolder(
               title: 'الشحن من',
               height: Get.height / 1.6,
-              selectedItem: DataModel.empty().obs,
+              boxColor: (field.value ?? '').isEmpty
+                  ? null
+                  : ColorManager.primaryColor,
+              textColor: (field.value ?? '').isEmpty ? null : Colors.white,
+              selectedItem:
+                  DataModel.initial((field.value ?? '').isEmpty ? null : 'تم')
+                      .obs,
               body: ChooseShippingPlace(
                 shipmentLocation: controller.fromShipmentLocation,
                 selectedCountry: controller.fromCountryId,
@@ -92,7 +99,13 @@ class _FillData extends GetView<AddEditAirFreightServiceController> {
             builder: (FormFieldState<dynamic> field) => ChooseItemWithHolder(
               title: 'الشحن إلى',
               height: Get.height / 1.6,
-              selectedItem: DataModel.empty().obs,
+              boxColor: (field.value ?? '').isEmpty
+                  ? null
+                  : ColorManager.primaryColor,
+              textColor: (field.value ?? '').isEmpty ? null : Colors.white,
+              selectedItem:
+                  DataModel.initial((field.value ?? '').isEmpty ? null : 'تم')
+                      .obs,
               body: ChooseShippingPlace(
                 shipmentLocation: controller.toShipmentLocation,
                 selectedCountry: controller.toCountryId,
@@ -158,20 +171,42 @@ class _OrderDetails extends GetView<AddEditAirFreightServiceController> {
   @override
   Widget build(BuildContext context) {
     return AdditionalServiceStepView(
+      imagePath: 'assets/images/intro_services/air.svg',
       body: Column(
         children: [
-          ToggleItemWithHolder(
-            title: 'احسب من خلال',
-            items: marinePackageTypeOptions,
-            selectedItem: controller.selectedThrough,
-            onChooseItem: (ItemModel item) => Get.bottomSheet(
-              HeadLineBottomSheet(
-                bottomSheetTitle: item.text,
-                body: const _AddItemDetailsSheet(),
-                height: Get.height / 1.2,
+          FormBuilderField(
+            builder: (FormFieldState<dynamic> field) => ToggleItemWithHolder(
+              title: 'احسب من خلال',
+              items: marinePackageTypeOptions,
+              selectedItem: controller.selectedThrough,
+              onChooseItem: (ItemModel item) => Get.bottomSheet(
+                HeadLineBottomSheet(
+                  bottomSheetTitle: item.text,
+                  body: const _AddItemDetailsSheet(),
+                  height: Get.height / 1.2,
+                ),
+                isScrollControlled: true,
               ),
-              isScrollControlled: true,
+              errorMsg: field.errorText,
             ),
+            onSaved: (String? value) {
+              bool hasEmptyInputs = controller.items.any((element) =>
+                  element.name.text.isEmpty ||
+                  element.length.text.isEmpty ||
+                  element.height.text.isEmpty ||
+                  element.width.text.isEmpty ||
+                  element.cm.text.isEmpty ||
+                  element.weightPerUnit.text.isEmpty ||
+                  element.image.value.path.isEmpty ||
+                  element.quantity.text.isEmpty);
+
+              controller.didFieldChanged(
+                AirFreightInputsKeys.calculateThrough.name,
+                value: hasEmptyInputs ? '' : 'xx',
+              );
+            },
+            validator: FormBuilderValidators.required(),
+            name: AirFreightInputsKeys.calculateThrough.name,
           ),
           FormBuilderField(
             builder: (FormFieldState<dynamic> field) =>
@@ -258,5 +293,5 @@ enum AirFreightInputsKeys {
   shipmentTo,
   shipmentReady,
   price,
-  certificates;
+  calculateThrough;
 }

@@ -50,7 +50,7 @@ class AddEditStoresServiceController extends GetxController {
   RxInt selectedShippingField = 0.obs;
 
   RxList<DataModel> items = <DataModel>[].obs, certificates = <DataModel>[].obs;
-  Rx<DataModel> selectedItem = DataModel.empty().obs;
+  Rx<DataModel> selectedItem = DataModel.initial().obs;
 
   RxString selectedStorageType = ''.obs,
       selectedSpaceType = ''.obs,

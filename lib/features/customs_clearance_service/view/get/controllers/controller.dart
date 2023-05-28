@@ -56,7 +56,7 @@ class AddEditCustomsClearanceController extends GetxController {
 
   RxInt selectedShippingType = 0.obs;
 
-  Rx<DataModel> selectedShippingPort = DataModel.empty().obs;
+  Rx<DataModel> selectedShippingPort = DataModel.initial().obs;
   List<DataModel> shippingPorts = <DataModel>[];
 
   RxString selectedGoodType = ''.obs;

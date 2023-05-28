@@ -5,139 +5,153 @@ class ShippingDetailsStepView extends GetView<AddEditStoresServiceController> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => ListView(
-          children: [
-            FormBuilderField(
-              builder: (FormFieldState<dynamic> field) =>
-                  DropDownInputWithHolder(
-                title: 'المساحة المطلوبة',
-                hint: 'أختر',
-                dropValue: controller.selectedSpaceType,
-                source: SpaceTypes.values
-                    .map((e) => DropdownMenuItem(
-                          value: e.value.toString(),
-                          child: Text(e.value.tr),
-                        ))
-                    .toList()
-                    .obs,
-                onTap: (int id) => field.didChange(id.toString()),
-                errorText: field.errorText,
-              ),
-              validator: FormBuilderValidators.required(),
-              onSaved: (_) {
-                final value = controller.selectedSpaceType.value;
-                controller.didFieldChanged(
-                  'space_type',
-                  value: value,
-                );
-              },
-              name: 'space_type',
-            ),
-            if (controller.selectedSpaceType.value ==
-                SpaceTypes.pallet.value) ...[
+    return AdditionalServiceStepView(
+      imagePath: 'assets/images/intro_services/stores.svg',
+      body: Obx(() => Column(
+            children: [
               FormBuilderField(
                 builder: (FormFieldState<dynamic> field) =>
-                    TextFieldInputWithHolder(
-                  title: 'عدد الطبليات',
-                  controller: controller.palletNumber,
-                  onChanged: (String value) => field.didChange(value),
-                  onSaved: (String? value) => field.didChange(value),
+                    DropDownInputWithHolder(
+                  title: 'المساحة المطلوبة',
+                  hint: 'أختر',
+                  dropValue: controller.selectedSpaceType,
+                  source: SpaceTypes.values
+                      .map((e) => DropdownMenuItem(
+                            value: e.value.toString(),
+                            child: Text(e.value.tr),
+                          ))
+                      .toList()
+                      .obs,
+                  onTap: (int id) => field.didChange(id.toString()),
                   errorText: field.errorText,
                 ),
                 validator: FormBuilderValidators.required(),
-                name: 'pallet_numbers',
-              ),
-            ] else ...[
-              FormBuilderField(
-                builder: (FormFieldState<dynamic> field) {
-                  return DropDownInputWithHolder(
-                    title: 'نوع المساحة',
-                    hint: 'أختر',
-                    dropValue: controller.selectedWareHouseSpace,
-                    source: WareHouseTypes.values
-                        .map((e) => DropdownMenuItem(
-                              value: e.value.toString(),
-                              child: Text(e.value.tr),
-                            ))
-                        .toList()
-                        .obs,
-                    onTap: (int id) => field.didChange(id.toString()),
-                    errorText: field.errorText,
+                onSaved: (_) {
+                  final value = controller.selectedSpaceType.value;
+                  controller.didFieldChanged(
+                    StoresInputsKeys.spaceType.name,
+                    value: value,
                   );
                 },
-                validator: FormBuilderValidators.required(),
-                onSaved: (String? value) => controller.didFieldChanged(
-                  'ware_house_space',
-                  value: value ?? '',
-                ),
-                name: 'ware_house_space',
+                name: StoresInputsKeys.spaceType.name,
               ),
-              if (controller.selectedWareHouseSpace.value ==
-                  WareHouseTypes.custom.value) ...[
+              if (controller.selectedSpaceType.value ==
+                  SpaceTypes.pallet.value) ...[
                 FormBuilderField(
                   builder: (FormFieldState<dynamic> field) =>
                       TextFieldInputWithHolder(
-                    title: 'المساحة بالمتر المربع',
-                    controller: controller.customWareHouseSpace,
+                    title: 'عدد الطبليات',
+                    controller: controller.palletNumber,
                     onChanged: (String value) => field.didChange(value),
                     onSaved: (String? value) => field.didChange(value),
                     errorText: field.errorText,
                   ),
                   validator: FormBuilderValidators.required(),
-                  name: 'custom_ware_house_space',
+                  name: StoresInputsKeys.palletNumbers.name,
                 ),
+              ] else ...[
+                FormBuilderField(
+                  builder: (FormFieldState<dynamic> field) {
+                    return DropDownInputWithHolder(
+                      title: 'نوع المساحة',
+                      hint: 'أختر',
+                      dropValue: controller.selectedWareHouseSpace,
+                      source: WareHouseTypes.values
+                          .map((e) => DropdownMenuItem(
+                                value: e.value.toString(),
+                                child: Text(e.value.tr),
+                              ))
+                          .toList()
+                          .obs,
+                      onTap: (int id) => field.didChange(id.toString()),
+                      errorText: field.errorText,
+                    );
+                  },
+                  validator: FormBuilderValidators.required(),
+                  onSaved: (String? value) => controller.didFieldChanged(
+                    StoresInputsKeys.wareHouseSpace.name,
+                    value: value ?? '',
+                  ),
+                  name: StoresInputsKeys.wareHouseSpace.name,
+                ),
+                if (controller.selectedWareHouseSpace.value ==
+                    WareHouseTypes.custom.value) ...[
+                  FormBuilderField(
+                    builder: (FormFieldState<dynamic> field) =>
+                        TextFieldInputWithHolder(
+                      title: 'المساحة بالمتر المربع',
+                      controller: controller.customWareHouseSpace,
+                      onChanged: (String value) => field.didChange(value),
+                      onSaved: (String? value) => field.didChange(value),
+                      errorText: field.errorText,
+                    ),
+                    validator: FormBuilderValidators.required(),
+                    name: StoresInputsKeys.customWareHouseSpace.name,
+                  ),
+                ],
               ],
-            ],
-            FormBuilderField(
-              builder: (FormFieldState<dynamic> field) =>
-                  DropDownInputWithHolder(
-                title: 'نوع التعاقد',
-                hint: 'أختر',
-                dropValue: controller.selectedContactType,
-                source: ContractTypes.values
-                    .map((e) => DropdownMenuItem(
-                          value: e.value.toString(),
-                          child: Text(e.value.tr),
-                        ))
-                    .toList()
-                    .obs,
-                onTap: (int id) => field.didChange(id.toString()),
-                errorText: field.errorText,
-              ),
-              validator: FormBuilderValidators.required(),
-              onSaved: (_) {
-                final value = controller.selectedContactType.value;
-                controller.didFieldChanged(
-                  'contract_type',
-                  value: value,
-                );
-              },
-              name: 'contract_type',
-            ),
-            InputHolderBox(
-              CounterComponent(
-                number: controller.contractDays,
-                title: 'مدة التعاقد',
-              ),
-            ),
-            ServiceItemWithHolder(
-              title: 'بداية التعاقد',
-              text: 'تم',
-              height: Get.height / 1.8,
-              body: CalenderView(
-                initialDate: controller.contractDate,
-                onDateChanged: (d) {
-                  controller.contractDate = d;
-                  Get.back();
+              FormBuilderField(
+                builder: (FormFieldState<dynamic> field) =>
+                    DropDownInputWithHolder(
+                  title: 'نوع التعاقد',
+                  hint: 'أختر',
+                  dropValue: controller.selectedContactType,
+                  source: ContractTypes.values
+                      .map((e) => DropdownMenuItem(
+                            value: e.value.toString(),
+                            child: Text(e.value.tr),
+                          ))
+                      .toList()
+                      .obs,
+                  onTap: (int id) => field.didChange(id.toString()),
+                  errorText: field.errorText,
+                ),
+                validator: FormBuilderValidators.required(),
+                onSaved: (_) {
+                  final value = controller.selectedContactType.value;
+                  controller.didFieldChanged(
+                    StoresInputsKeys.contractType.name,
+                    value: value,
+                  );
                 },
+                name: StoresInputsKeys.contractType.name,
               ),
-            ),
-            TextFieldInputWithHolder(
-              title: 'ملاحظات',
-              controller: controller.notes,
-            ),
-          ],
-        ));
+              FormBuilderField(
+                builder: (FormFieldState<dynamic> field) => InputHolderBox(
+                  CounterComponent(
+                    number: controller.contractDays,
+                    title: 'مدة التعاقد',
+                  ),
+                  errorText: field.errorText,
+                ),
+                validator: FormBuilderValidators.required(),
+                onSaved: (_) {
+                  controller.didFieldChanged(
+                    StoresInputsKeys.contractDays.name,
+                    value: controller.contractDays.value > 0 ? 'xx' : '',
+                  );
+                },
+                name: StoresInputsKeys.contractDays.name,
+              ),
+              ServiceItemWithHolder(
+                title: 'بداية التعاقد',
+                text: 'تم',
+                height: Get.height / 1.8,
+                body: CalenderView(
+                  initialDate: controller.contractDate,
+                  onDateChanged: (d) {
+                    controller.contractDate = d;
+                    Get.back();
+                  },
+                ),
+              ),
+              TextFieldInputWithHolder(
+                title: 'ملاحظات',
+                controller: controller.notes,
+              ),
+            ],
+          )),
+    );
   }
 }
 
