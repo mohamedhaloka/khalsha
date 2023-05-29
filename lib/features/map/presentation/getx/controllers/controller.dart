@@ -77,23 +77,15 @@ class MapController extends GetxController {
   void _onGetDeviceLocationSuccess(LocationData locationData) async {
     final lat = locationData.latitude ?? 0.0;
     final long = locationData.longitude ?? 0.0;
-    if (await checkPointWithinRegion(lat, long)) {
-      intMapController(lat, long);
-      changeLatLong(lat, long);
-    }
+    intMapController(lat, long);
+    changeLatLong(lat, long);
+
     getLocationString();
   }
 
   void _onGetDeviceLocationFail(Failure failure) {
     log(failure.statusMessage ?? '', name: 'FAILURE');
     intMapController(0, 0);
-  }
-
-  Future<bool> checkPointWithinRegion(double lat, double long) async {
-    GoogleMapController mapController = await myMapController.future;
-    final region = await mapController.getVisibleRegion();
-    final currentPoint = LatLng(lat, long);
-    return region.contains(currentPoint);
   }
 
   GetLocationNameParams get getLocationParams => GetLocationNameParams(
