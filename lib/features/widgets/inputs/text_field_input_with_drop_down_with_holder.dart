@@ -17,11 +17,12 @@ class TextFieldInputWithDropDownWithHolder extends StatelessWidget {
     this.firstInputFlex,
     this.secondInputFlex,
     this.firstInputController,
+    this.toolTipMsg,
     this.errorMsg,
     required this.selectedDropDownValue,
     required this.source,
   }) : super(key: key);
-  final String? title, firstInputHint, secondInputHint, errorMsg;
+  final String? title, firstInputHint, secondInputHint, errorMsg, toolTipMsg;
   final int? firstInputFlex, secondInputFlex;
   final TextEditingController? firstInputController;
   final RxString selectedDropDownValue;
@@ -40,13 +41,14 @@ class TextFieldInputWithDropDownWithHolder extends StatelessWidget {
                 color: ColorManager.greyColor,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 12, 0),
-              child: InkWell(
-                onTap: () {},
-                child: SvgPicture.asset('assets/images/icons/info.svg'),
+            if (toolTipMsg != null)
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 12, 0),
+                child: Tooltip(
+                  message: toolTipMsg,
+                  child: SvgPicture.asset('assets/images/icons/info.svg'),
+                ),
               ),
-            ),
           ],
           Expanded(
             flex: firstInputFlex ?? 1,

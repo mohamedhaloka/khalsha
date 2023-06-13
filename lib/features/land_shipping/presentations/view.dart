@@ -93,6 +93,7 @@ class _FillData extends GetView<AddEditLandShippingServiceController> {
                 ),
                 ToggleItemWithHolder(
                   title: 'نوع البضاعة',
+                  toolTipMsg: '''''',
                   items: internationalItemsType,
                   selectedItem: controller.goodsType,
                 ),

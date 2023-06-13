@@ -19,11 +19,12 @@ class ChooseItemWithHolder extends StatelessWidget {
     this.boxColor,
     this.textColor,
     this.errorMsg,
+    this.toolTipMsg,
     required this.selectedItem,
     required this.body,
   }) : super(key: key);
   final String title;
-  final String? bottomSheetTitle, hint, errorMsg;
+  final String? bottomSheetTitle, hint, errorMsg, toolTipMsg;
   final Rx<DataModel> selectedItem;
   final Widget body;
   final double? height;
@@ -42,13 +43,15 @@ class ChooseItemWithHolder extends StatelessWidget {
               color: ColorManager.greyColor,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20, 0, 12, 0),
-            child: InkWell(
-              onTap: () {},
-              child: SvgPicture.asset('assets/images/icons/info.svg'),
+          const SizedBox(width: 8),
+          if (toolTipMsg != null)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 12, 0),
+              child: Tooltip(
+                message: toolTipMsg,
+                child: SvgPicture.asset('assets/images/icons/info.svg'),
+              ),
             ),
-          ),
           Expanded(
             child: InkWell(
               onTap: () async {

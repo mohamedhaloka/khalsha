@@ -47,6 +47,7 @@ class _FillData extends GetView<AddEditCustomsClearanceController> {
             title: 'نوع المعاملة',
             items: shippingTypeOptions,
             selectedItem: controller.selectedShippingType,
+            toolTipMsg: '''''',
           ),
           ChooseItemWithHolder(
             title: 'منفذ الشحنة',
@@ -110,6 +111,8 @@ class _OrderDetails extends GetView<AddEditCustomsClearanceController> {
               firstInputHint: 'السعر',
               firstInputFlex: 2,
               secondInputHint: 'العملة',
+              toolTipMsg:
+                  'قيمة المبلغ المذكور في الفاتورة التجارية المراد تخليصها',
               firstInputController: controller.total,
               selectedDropDownValue: controller.selectedCurrency,
               source: controller.currencies
@@ -164,7 +167,7 @@ class _AdditionalServices extends GetView<AddEditCustomsClearanceController> {
                 height: Get.height / 1.6,
               ),
               TextFieldInputWithHolder(
-                hint: 'الملاحضات',
+                hint: 'الملاحظات',
                 controller: controller.note,
                 maxLines: 3,
               )

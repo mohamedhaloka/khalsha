@@ -18,7 +18,7 @@ class OrderSendSuccessfullyStepView extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         Text(
-          'تم إرسال الطلب',
+          'إرسال الطلب',
           textAlign: TextAlign.center,
           style: Get.textTheme.titleLarge!.copyWith(
             color: ColorManager.primaryColor,
@@ -34,7 +34,7 @@ class OrderSendSuccessfullyStepView extends StatelessWidget {
           ),
         ),
         Text(
-          "تم إرسال طلبك لمقدم الخدمة\nسوف يتم تزويدك بعرض السعر المناسب في أقرب وقت",
+          "بمجرد إرسالك للطلب سوف يتم تزويدك بعروض أسعار مناسبة لك في أقرب وقت..",
           textAlign: TextAlign.center,
           style: Get.textTheme.titleMedium,
         ),

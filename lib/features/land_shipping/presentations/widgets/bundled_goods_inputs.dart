@@ -77,6 +77,7 @@ class _BundledGoodsInputsView
                     title: 'صورة الشحنة',
                     file: controller.bundledGoodsItems[index].image,
                     errorMsg: field.errorText,
+                    hintTxt: '*إرفاق الصور يساهم في الحصول على أفضل عروض اسعار',
                   ),
                   onSaved: (_) => controller.didFieldChanged(
                     '${LandShipmentInputsKeys.bundledImage.name}_$index',

@@ -42,6 +42,9 @@ class ChooseShippingServiceView
                 ),
               ),
             ),
+            SvgPicture.asset(
+              'assets/images/intro_services/land.svg',
+            ),
             Column(
               children: controller.serviceTypes
                   .map((e) => InkWell(

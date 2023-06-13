@@ -29,7 +29,7 @@ class CustomDropDown extends StatelessWidget {
   final List<DropdownMenuItem> source;
   final ValueChanged<int>? onTap;
   final Color? hintColor, iconColor;
-  final double? radius, fontSize,itemHeight;
+  final double? radius, fontSize, itemHeight;
   final Border? border;
   final bool? isExpanded;
   final Function()? onTapUpper;

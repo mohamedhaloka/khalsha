@@ -85,6 +85,10 @@ class ServiceContent extends StatelessWidget {
               loading: btnLoading,
               width: Get.width,
               height: 60,
+              contentColor: Colors.white,
+              backgroundColor: currentStep.value > 3
+                  ? ColorManager.secondaryColor
+                  : ColorManager.primaryColor,
               text: nextTitle ?? 'التالي',
             ),
           )

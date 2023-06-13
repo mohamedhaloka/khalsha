@@ -13,10 +13,11 @@ class ToggleItemWithHolder extends StatelessWidget {
     this.errorMsg,
     this.title,
     this.onChooseItem,
+    this.toolTipMsg,
     required this.items,
     required this.selectedItem,
   }) : super(key: key);
-  final String? title, errorMsg;
+  final String? title, errorMsg, toolTipMsg;
   final RxInt selectedItem;
   final List<ItemModel> items;
   final void Function(ItemModel itemModel)? onChooseItem;
@@ -34,13 +35,15 @@ class ToggleItemWithHolder extends StatelessWidget {
                 color: ColorManager.greyColor,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 12, 0),
-              child: InkWell(
-                onTap: () {},
-                child: SvgPicture.asset('assets/images/icons/info.svg'),
+            const SizedBox(width: 8),
+            if (toolTipMsg != null)
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 12, 0),
+                child: Tooltip(
+                  message: toolTipMsg,
+                  child: SvgPicture.asset('assets/images/icons/info.svg'),
+                ),
               ),
-            ),
           ],
           Expanded(
             child: Row(

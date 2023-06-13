@@ -14,11 +14,12 @@ class DropDownInputWithHolder extends StatelessWidget {
     this.title,
     this.errorText,
     this.itemHeight,
+    this.toolTipMsg,
     this.onTap,
     required this.dropValue,
     required this.source,
   }) : super(key: key);
-  final String? title, hint, errorText;
+  final String? title, hint, errorText, toolTipMsg;
   final List<DropdownMenuItem> source;
   final RxString dropValue;
   final void Function(int)? onTap;
@@ -30,31 +31,29 @@ class DropDownInputWithHolder extends StatelessWidget {
       Row(
         children: [
           if (title != null) ...[
-            Expanded(
-              child: Row(
-                children: [
-                  Flexible(
-                    child: Text(
-                      title ?? '',
-                      style: Get.textTheme.bodyMedium!.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: ColorManager.greyColor,
-                      ),
-                    ),
+            Row(
+              children: [
+                Text(
+                  title ?? '',
+                  style: Get.textTheme.bodyMedium!.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: ColorManager.greyColor,
                   ),
+                ),
+                if (toolTipMsg != null)
                   Padding(
                     padding: const EdgeInsets.fromLTRB(20, 0, 12, 0),
-                    child: InkWell(
-                      onTap: () {},
+                    child: Tooltip(
+                      message: toolTipMsg,
                       child: SvgPicture.asset('assets/images/icons/info.svg'),
                     ),
                   ),
-                ],
-              ),
+              ],
             ),
           ],
+          const Spacer(),
           Expanded(
-            flex: 2,
+            flex: 3,
             child: CustomDropDown(
               radius: radius,
               height: inputHeight,

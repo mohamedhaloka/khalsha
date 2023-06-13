@@ -20,11 +20,12 @@ class ServiceItemWithHolder extends StatelessWidget {
     this.onBack,
     this.onDelete,
     this.body,
+    this.toolTipMsg,
     this.btnHeight,
     this.btnWidth,
   }) : super(key: key);
   final String title;
-  final String? bottomSheetTitle, text, errorMsg;
+  final String? bottomSheetTitle, text, errorMsg, toolTipMsg;
   final Widget? body;
   final double? height, btnHeight, btnWidth;
   final void Function()? onTap, onDelete;
@@ -48,13 +49,14 @@ class ServiceItemWithHolder extends StatelessWidget {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 12, 0),
-                  child: InkWell(
-                    onTap: () {},
-                    child: SvgPicture.asset('assets/images/icons/info.svg'),
+                if (toolTipMsg != null)
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 0, 12, 0),
+                    child: Tooltip(
+                      message: toolTipMsg,
+                      child: SvgPicture.asset('assets/images/icons/info.svg'),
+                    ),
                   ),
-                ),
               ],
             ),
           ),

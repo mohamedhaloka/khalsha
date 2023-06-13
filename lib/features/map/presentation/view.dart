@@ -99,11 +99,11 @@ class MapView extends GetView<MapController> {
                         onChanged: (_) => controller.getPlacesFromSearch(),
                         controller: controller.searchController,
                         decoration: const InputDecoration(
-                            border: UnderlineInputBorder(
-                                borderSide: BorderSide.none),
-                            hintText: 'ابحث هنا',
-                            contentPadding:
-                                EdgeInsets.symmetric(horizontal: 4)),
+                          border:
+                              UnderlineInputBorder(borderSide: BorderSide.none),
+                          hintText: 'ابحث هنا',
+                          contentPadding: EdgeInsets.symmetric(horizontal: 4),
+                        ),
                       ),
                     ),
                   ),

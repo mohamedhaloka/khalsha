@@ -14,10 +14,12 @@ class AttachFileWithHolder extends StatelessWidget {
     Key? key,
     this.title,
     this.errorMsg,
+    this.toolTipMsg,
+    this.hintTxt,
     this.onChooseFile,
     required this.file,
   }) : super(key: key);
-  final String? title, errorMsg;
+  final String? title, errorMsg, toolTipMsg, hintTxt;
   final Rx<File> file;
   final void Function(String)? onChooseFile;
 
@@ -25,66 +27,83 @@ class AttachFileWithHolder extends StatelessWidget {
   Widget build(BuildContext context) {
     return InputHolderBox(
       Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (title != null) ...[
-           Row(
-             mainAxisAlignment: MainAxisAlignment.center,
-             children: [
-               Text(
-                 title ?? '',
-                 style: Get.textTheme.bodyMedium!.copyWith(
-                   fontWeight: FontWeight.bold,
-                   color: ColorManager.greyColor,
-                 ),
-               ),
-               Padding(
-                 padding: const EdgeInsets.fromLTRB(20, 0, 12, 0),
-                 child: InkWell(
-                   onTap: () {},
-                   child: SvgPicture.asset('assets/images/icons/info.svg'),
-                 ),
-               ),
-             ],
-           )
-          ],
-          const SizedBox(height: 5),
-          InkWell(
-            onTap: chooseFile,
-            child: Center(
-              child: Obx(() {
-                final isSelected = file.value.path != '';
-                return Container(
-                  height: inputHeight,
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  decoration: BoxDecoration(
-                    color: isSelected ? ColorManager.primaryColor : null,
-                    border: Border.all(color: ColorManager.lightGreyColor),
-                    borderRadius:
-                        const BorderRadius.all(Radius.circular(radius)),
-                  ),
-                  alignment: Alignment.center,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(
-                        'assets/images/icons/upload-file.svg',
-                        color: isSelected ? Colors.white : null,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              if (title != null) ...[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      title ?? '',
+                      style: Get.textTheme.bodyMedium!.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: ColorManager.greyColor,
                       ),
-                      const SizedBox(width: 6),
-                      Text(
-                        isSelected ? 'تم' : 'إرفاق',
-                        style: TextStyle(
-                          color: isSelected
-                              ? Colors.white
-                              : ColorManager.greyColor,
+                    ),
+                    if (toolTipMsg != null)
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 0, 12, 0),
+                        child: Tooltip(
+                          message: toolTipMsg,
+                          child:
+                              SvgPicture.asset('assets/images/icons/info.svg'),
                         ),
                       ),
-                    ],
-                  ),
-                );
-              }),
-            ),
+                  ],
+                )
+              ],
+              const SizedBox(height: 5),
+              InkWell(
+                onTap: chooseFile,
+                child: Center(
+                  child: Obx(() {
+                    final isSelected = file.value.path != '';
+                    return Container(
+                      height: inputHeight,
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      decoration: BoxDecoration(
+                        color: isSelected ? ColorManager.primaryColor : null,
+                        border: Border.all(color: ColorManager.lightGreyColor),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(radius)),
+                      ),
+                      alignment: Alignment.center,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(
+                            'assets/images/icons/upload-file.svg',
+                            color: isSelected ? Colors.white : null,
+                          ),
+                          const SizedBox(width: 6),
+                          Text(
+                            isSelected ? 'تم' : 'إرفاق',
+                            style: TextStyle(
+                              color: isSelected
+                                  ? Colors.white
+                                  : ColorManager.greyColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  }),
+                ),
+              ),
+            ],
           ),
+          if (hintTxt != null)
+            Text(
+              hintTxt ?? '',
+              style: const TextStyle(
+                color: ColorManager.secondaryColor,
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+              ),
+            )
         ],
       ),
       errorText: errorMsg,

@@ -17,12 +17,13 @@ class TextFieldInputWithHolder extends StatelessWidget {
     this.maxLines,
     this.errorText,
     this.enabled,
+    this.toolTipMsg,
     this.onSaved,
     this.onChanged,
     this.keyboardType,
     this.onTap,
   }) : super(key: key);
-  final String? title, hint, errorText;
+  final String? title, hint, errorText, toolTipMsg;
   final TextEditingController? controller;
   final EdgeInsets? padding;
   final bool? enabled;
@@ -45,13 +46,15 @@ class TextFieldInputWithHolder extends StatelessWidget {
                 color: ColorManager.greyColor,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 12, 0),
-              child: InkWell(
-                onTap: () {},
-                child: SvgPicture.asset('assets/images/icons/info.svg'),
+            const SizedBox(width: 8),
+            if (toolTipMsg != null)
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 12, 0),
+                child: Tooltip(
+                  message: toolTipMsg,
+                  child: SvgPicture.asset('assets/images/icons/info.svg'),
+                ),
               ),
-            ),
           ],
           Expanded(
             child: CustomTextField(
