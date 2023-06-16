@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:khalsha/features/widgets/custom_button.dart';
+import 'package:khalsha/features/widgets/headline_bottom_sheet.dart';
 
 import '../../../../../core/presentation/themes/colors_manager.dart';
 import '../../../core/inputs_style.dart';
+import '../../land_shipping/presentations/widgets/dangerous_goods_sheet.dart';
 import 'input_holder_box.dart';
 
 class YesOrNoWithHolder extends StatelessWidget {
@@ -40,7 +42,16 @@ class YesOrNoWithHolder extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 0, 12, 0),
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Get.bottomSheet(
+                        HeadLineBottomSheet(
+                          bottomSheetTitle: 'البضائع الخطرة',
+                          body: DangerousGoodsSheet(),
+                          height: Get.height * .8,
+                        ),
+                        isScrollControlled: true,
+                      );
+                    },
                     child: SvgPicture.asset('assets/images/icons/info.svg'),
                   ),
                 ),

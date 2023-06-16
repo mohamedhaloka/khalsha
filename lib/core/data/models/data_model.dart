@@ -4,6 +4,7 @@ class DataModel {
   DataModel({
     required this.id,
     required this.status,
+    required this.icon,
     this.deletedAt,
     this.createdAt,
     this.updatedAt,
@@ -16,12 +17,14 @@ class DataModel {
   dynamic deletedAt;
   DateTime? createdAt;
   DateTime? updatedAt;
+  String icon;
   String name;
   RxBool selected;
 
   factory DataModel.fromJson(Map<String, dynamic> json) => DataModel(
         id: json["id"] ?? 0,
         status: json["status"] ?? '',
+        icon: json["icon"] ?? '',
         deletedAt: json["deleted_at"],
         createdAt: json["created_at"] == null
             ? null
@@ -38,6 +41,7 @@ class DataModel {
         selected: false.obs,
         status: '',
         deletedAt: '',
+        icon: '',
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
         name: text ?? '',
@@ -45,6 +49,7 @@ class DataModel {
 
   Map<String, dynamic> toJson() => {
         "id": id,
+        "icon": icon,
         "status": status,
         "deleted_at": deletedAt,
         "created_at": createdAt?.toIso8601String(),
@@ -55,6 +60,7 @@ class DataModel {
   DataModel copyWith(
           {int? id,
           RxBool? selected,
+          String? icon,
           String? status,
           dynamic deletedAt,
           DateTime? createdAt,
@@ -63,6 +69,7 @@ class DataModel {
       DataModel(
         id: id ?? this.id,
         selected: selected ?? this.selected,
+        icon: icon ?? this.icon,
         status: status ?? this.status,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,

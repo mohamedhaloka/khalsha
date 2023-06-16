@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:khalsha/core/data/services/http_service.dart';
+import 'package:khalsha/features/widgets/cached_image.dart';
 
 import '../../../../core/data/models/data_model.dart';
 import '../../../../core/presentation/themes/colors_manager.dart';
@@ -35,6 +37,13 @@ class MultiItemsList extends StatelessWidget {
             alignment: Alignment.center,
             child: Row(
               children: [
+                if (items[index].icon.isNotEmpty)
+                  CachedImage(
+                    imgUrl: HttpService.fileBaseURL + items[index].icon,
+                    width: 30,
+                    height: 30,
+                    fit: BoxFit.fill,
+                  ),
                 Expanded(
                   child: Text(
                     items[index].name,

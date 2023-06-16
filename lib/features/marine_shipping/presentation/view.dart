@@ -54,29 +54,33 @@ class _FillData extends GetView<AddEditMarineShippingServiceController> {
             selectedItem: controller.selectedShippingType,
           ),
           FormBuilderField(
-            builder: (FormFieldState<dynamic> field) => ChooseItemWithHolder(
-              title: 'الشحن من',
-              height: Get.height / 1.6,
-              boxColor: (field.value ?? '').isEmpty
-                  ? null
-                  : ColorManager.primaryColor,
-              textColor: (field.value ?? '').isEmpty ? null : Colors.white,
-              selectedItem:
-                  DataModel.initial((field.value ?? '').isEmpty ? null : 'تم')
-                      .obs,
-              body: ChooseShippingPlace(
-                shipmentLocation: controller.fromShipmentLocation,
-                selectedCountry: controller.fromCountryId,
-                city: controller.fromCity,
-                cityLocationDetails: controller.fromCityLocationDetails,
-                countries: controller.countries,
-                otherLocation: controller.fromShipmentOther,
-              ),
-              onBack: (bool hasEmptyData) => field.didChange(
-                hasEmptyData ? '' : '_',
-              ),
-              errorMsg: field.errorText,
-            ),
+            builder: (FormFieldState<dynamic> field) {
+              String text =
+                  '${controller.fromShipmentLocation.value.tr},  ${controller.fromCity.text}';
+              return ChooseItemWithHolder(
+                title: 'الشحن من',
+                height: Get.height / 1.6,
+                boxColor: (field.value ?? '').isEmpty
+                    ? null
+                    : ColorManager.primaryColor,
+                textColor: (field.value ?? '').isEmpty ? null : Colors.white,
+                selectedItem:
+                    DataModel.initial((field.value ?? '').isEmpty ? null : text)
+                        .obs,
+                body: ChooseShippingPlace(
+                  shipmentLocation: controller.fromShipmentLocation,
+                  selectedCountry: controller.fromCountryId,
+                  city: controller.fromCity,
+                  cityLocationDetails: controller.fromCityLocationDetails,
+                  countries: controller.countries,
+                  otherLocation: controller.fromShipmentOther,
+                ),
+                onBack: (bool hasEmptyData) => field.didChange(
+                  hasEmptyData ? '' : '_',
+                ),
+                errorMsg: field.errorText,
+              );
+            },
             validator: FormBuilderValidators.required(),
             name: MarineShipmentInputsKeys.shipmentFrom.name,
             onSaved: (_) {
@@ -95,29 +99,33 @@ class _FillData extends GetView<AddEditMarineShippingServiceController> {
             },
           ),
           FormBuilderField(
-            builder: (FormFieldState<dynamic> field) => ChooseItemWithHolder(
-              title: 'الشحن إلى',
-              height: Get.height / 1.6,
-              boxColor: (field.value ?? '').isEmpty
-                  ? null
-                  : ColorManager.primaryColor,
-              textColor: (field.value ?? '').isEmpty ? null : Colors.white,
-              selectedItem:
-                  DataModel.initial((field.value ?? '').isEmpty ? null : 'تم')
-                      .obs,
-              body: ChooseShippingPlace(
-                shipmentLocation: controller.toShipmentLocation,
-                selectedCountry: controller.toCountryId,
-                city: controller.toCity,
-                cityLocationDetails: controller.toCityLocationDetails,
-                countries: controller.countries,
-                otherLocation: controller.toShipmentOther,
-              ),
-              onBack: (bool hasEmptyData) => field.didChange(
-                hasEmptyData ? '' : '_',
-              ),
-              errorMsg: field.errorText,
-            ),
+            builder: (FormFieldState<dynamic> field) {
+              String text =
+                  '${controller.toShipmentLocation.value.tr},  ${controller.toCity.text}';
+              return ChooseItemWithHolder(
+                title: 'الشحن إلى',
+                height: Get.height / 1.6,
+                boxColor: (field.value ?? '').isEmpty
+                    ? null
+                    : ColorManager.primaryColor,
+                textColor: (field.value ?? '').isEmpty ? null : Colors.white,
+                selectedItem:
+                    DataModel.initial((field.value ?? '').isEmpty ? null : text)
+                        .obs,
+                body: ChooseShippingPlace(
+                  shipmentLocation: controller.toShipmentLocation,
+                  selectedCountry: controller.toCountryId,
+                  city: controller.toCity,
+                  cityLocationDetails: controller.toCityLocationDetails,
+                  countries: controller.countries,
+                  otherLocation: controller.toShipmentOther,
+                ),
+                onBack: (bool hasEmptyData) => field.didChange(
+                  hasEmptyData ? '' : '_',
+                ),
+                errorMsg: field.errorText,
+              );
+            },
             validator: FormBuilderValidators.required(),
             name: MarineShipmentInputsKeys.shipmentTo.name,
             onSaved: (_) {
@@ -176,6 +184,7 @@ class _OrderDetails extends GetView<AddEditMarineShippingServiceController> {
               title: 'حجم الشحنة',
               items: marineOrderSizeOptions,
               errorMsg: field.errorText,
+              toolTipMsg: '',
               selectedItem: controller.selectedShipmentSize,
               onChooseItem: (ItemModel item) {
                 late Widget bottomSheetBody;

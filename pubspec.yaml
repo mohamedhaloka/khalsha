@@ -119,6 +119,7 @@ flutter:
     - assets/images/order_details/
     - assets/images/order_details/status/
     - assets/images/intro_services/
+    - assets/images/flammable/
 
   fonts:
     - family: bahji
