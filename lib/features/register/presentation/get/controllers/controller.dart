@@ -23,9 +23,9 @@ class RegisterController extends GetxController {
   ];
 
   List<ItemModel> socials = const <ItemModel>[
-    ItemModel(text: 'Apple', image: 'apple'),
-    ItemModel(text: 'Google', image: 'google'),
-    ItemModel(text: 'Facebook', image: 'facebook'),
+    // ItemModel(text: 'Apple', image: 'apple'),
+    // ItemModel(text: 'Google', image: 'google'),
+    // ItemModel(text: 'Facebook', image: 'facebook'),
   ];
 
   RxInt currentTab = 0.obs;

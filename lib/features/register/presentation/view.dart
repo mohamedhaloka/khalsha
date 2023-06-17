@@ -73,33 +73,33 @@ class RegisterView extends GetView<RegisterController> {
               text: 'تسجيل',
             ),
           ),
-          Row(
-            children: const [
-              Expanded(child: Divider(color: ColorManager.greyColor)),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 4),
-                child: Text('الدخول بواسطة'),
-              ),
-              Expanded(child: Divider(color: ColorManager.greyColor)),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 20, 0, 35),
-            child: Row(
-              children: controller.socials
-                  .map((e) => Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 6),
-                          child: CustomButton(
-                            height: 50,
-                            onTap: () {},
-                            imgName: e.image,
-                          ),
-                        ),
-                      ))
-                  .toList(),
-            ),
-          ),
+          // Row(
+          //   children: const [
+          //     Expanded(child: Divider(color: ColorManager.greyColor)),
+          //     Padding(
+          //       padding: EdgeInsets.symmetric(horizontal: 4),
+          //       child: Text('الدخول بواسطة'),
+          //     ),
+          //     Expanded(child: Divider(color: ColorManager.greyColor)),
+          //   ],
+          // ),
+          // Padding(
+          //   padding: const EdgeInsets.fromLTRB(0, 20, 0, 35),
+          //   child: Row(
+          //     children: controller.socials
+          //         .map((e) => Expanded(
+          //               child: Padding(
+          //                 padding: const EdgeInsets.symmetric(horizontal: 6),
+          //                 child: CustomButton(
+          //                   height: 50,
+          //                   onTap: () {},
+          //                   imgName: e.image,
+          //                 ),
+          //               ),
+          //             ))
+          //         .toList(),
+          //   ),
+          // ),
           CustomRichText(
             text: 'لديك حساب الفعل؟ ',
             subText: 'الدخول',

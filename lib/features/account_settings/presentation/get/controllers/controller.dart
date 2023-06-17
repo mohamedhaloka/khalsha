@@ -61,9 +61,7 @@ class AccountSettingsController extends GetxController {
     );
     final result = await _downloadFileUseCase.execute(params);
     result.fold(
-      (Failure failure) {
-        showAlertMessage(failure.statusMessage);
-      },
+      (_) => _,
       (String imagePath) => onSuccess(imagePath),
     );
   }
