@@ -80,6 +80,9 @@ class ChooseShippingServiceView
                                   title: 'حدد نوع البضاعة',
                                   items: internationalItemsType,
                                   selectedItem: (-1).obs,
+                                  toolTipMsg:
+                                      '''بضائع مجمعة : استئجار مساحة مخصصة داخل الشاحنة.
+نقل خاص : استئجار كامل المساحة داخل الشاحنة.''',
                                   onChooseItem: (ItemModel item) {
                                     Get.back();
                                     Get.toNamed(

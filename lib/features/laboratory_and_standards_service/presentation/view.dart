@@ -84,10 +84,13 @@ class _FillData
           AttachFileWithHolder(
             title: 'متوفر لدي المورد Factory aduit report',
             file: controller.factoryAduitReport,
+            toolTipMsg: 'هو تقرير اختبار لفحص جودة المنتج',
           ),
           AttachFileWithHolder(
             title: 'متوفر لدي المورد Test report',
             file: controller.testReportPhoto,
+            toolTipMsg:
+                '''تدقيق المصنع هو برنامج مصمم خصيصًا في تقييم أنظمة الجودة في المنشأة وبيئة مكان العمل والقدرات وفقًا لمعايير محددة تضمن أن البائعين والموردين لديهم القدرة على إجراء طلب معين وفقًا لمتطلباتك.''',
           ),
           TextFieldInputWithHolder(
             hint: 'ملاحظات',

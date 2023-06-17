@@ -184,7 +184,9 @@ class _OrderDetails extends GetView<AddEditMarineShippingServiceController> {
               title: 'حجم الشحنة',
               items: marineOrderSizeOptions,
               errorMsg: field.errorText,
-              toolTipMsg: '',
+              toolTipMsg:
+                  '''( البضائع مجمعة : استئجار مساحة مخصصة داخل الحاوية لنقل بضاعتك مع بضاعة اخرين.
+حاوية : استئجار كامل المساحة داخل الحاوية.''',
               selectedItem: controller.selectedShipmentSize,
               onChooseItem: (ItemModel item) {
                 late Widget bottomSheetBody;

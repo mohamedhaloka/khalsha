@@ -1,10 +1,12 @@
 Map<String, String> en = {
   //Shared
-  'refresh-complete': 'Refresh Completed',
-  'refresh-failed': 'Refresh Failed',
-  'pull_up_load': "Pull to load",
-  'load_failed_click_try': 'Load failed, click to load again',
-  'release_load_more': 'Release to load more',
-  'no_more_data': 'No more data',
+  'reload': 'Reload',
+  'refresh-completed': 'Refresh completed',
+  'refresh-complete': 'Refresh complete',
+  'refresh-failed': 'Refresh failed',
+  'pull-up-load': 'Pull to load',
+  'load-failed-click-try': 'Load failed, click to try',
+  'release-load-more': 'Release load more',
+  'no-more-data': 'No more data',
   'error-occurred': 'error occurred, please try again later',
 };

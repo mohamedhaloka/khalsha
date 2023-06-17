@@ -45,6 +45,7 @@ import 'package:khalsha/features/land_shipping/data/repository_impl/land_shippin
 import 'package:khalsha/features/land_shipping/domain/use_cases/add_land_shipping_use_case.dart';
 import 'package:khalsha/features/land_shipping/domain/use_cases/update_land_shipping_use_case.dart';
 import 'package:khalsha/features/login/domain/use_cases/login_use_case.dart';
+import 'package:khalsha/features/login/domain/use_cases/social_login_use_case.dart';
 import 'package:khalsha/features/map/data/data_source/map_remote_data_source.dart';
 import 'package:khalsha/features/marine_shipping/data/data_source/marine_shipment_remote_data_source.dart';
 import 'package:khalsha/features/marine_shipping/data/repository_impl/marine_shippment_repository_impl.dart';
@@ -147,6 +148,8 @@ class InjectionContainer {
         () => LoginRemoteDataSourceImpl(dioService));
     sl.registerLazySingleton<LoginRepository>(() => LoginRepositoryImpl(sl()));
     sl.registerLazySingleton<LoginUseCase>(() => LoginUseCase(sl()));
+    sl.registerLazySingleton<SocialLoginUseCase>(
+        () => SocialLoginUseCase(sl()));
 
     //Register
     sl.registerLazySingleton<RegisterRemoteDataSource>(

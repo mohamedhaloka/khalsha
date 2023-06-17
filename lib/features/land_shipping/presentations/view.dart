@@ -93,7 +93,8 @@ class _FillData extends GetView<AddEditLandShippingServiceController> {
                 ),
                 ToggleItemWithHolder(
                   title: 'نوع البضاعة',
-                  toolTipMsg: '''''',
+                  toolTipMsg: '''بضائع مجمعة : استئجار مساحة مخصصة داخل الشاحنة.
+نقل خاص : استئجار كامل المساحة داخل الشاحنة.''',
                   items: internationalItemsType,
                   selectedItem: controller.goodsType,
                 ),

@@ -7,6 +7,7 @@ class LoginBinding extends Bindings {
   void dependencies() {
     Get.lazyPut<LoginController>(() => LoginController(
           InjectionContainer.sl(),
+          InjectionContainer.sl(),
         ));
   }
 }

@@ -21,6 +21,15 @@ class _ChooseCertificatesState extends State<ChooseCertificates> {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       children: [
         const Text(
+          'مجموعة من الشهادات الازمة تتضمن جميع التفاصيل والمتطلبات التي تطلبها المنافذ الجمركية وتتضمن سلامة جودة المنتجات المستوردة او المصدرة',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: ColorManager.secondaryColor,
+          ),
+          textAlign: TextAlign.center,
+        ),
+        Divider(),
+        const Text(
           'حدد الشهادات المراد إستخراجها',
           style: TextStyle(
             fontWeight: FontWeight.bold,

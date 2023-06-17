@@ -33,26 +33,31 @@ class AttachFileWithHolder extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               if (title != null) ...[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      title ?? '',
-                      style: Get.textTheme.bodyMedium!.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: ColorManager.greyColor,
-                      ),
-                    ),
-                    if (toolTipMsg != null)
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(20, 0, 12, 0),
-                        child: Tooltip(
-                          message: toolTipMsg,
-                          child:
-                              SvgPicture.asset('assets/images/icons/info.svg'),
+                Flexible(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Flexible(
+                        child: Text(
+                          title ?? '',
+                          style: Get.textTheme.bodyMedium!.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: ColorManager.greyColor,
+                          ),
                         ),
                       ),
-                  ],
+                      if (toolTipMsg != null)
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(20, 0, 12, 0),
+                          child: Tooltip(
+                            message: toolTipMsg,
+                            margin: const EdgeInsets.symmetric(horizontal: 20),
+                            child: SvgPicture.asset(
+                                'assets/images/icons/info.svg'),
+                          ),
+                        ),
+                    ],
+                  ),
                 )
               ],
               const SizedBox(height: 5),

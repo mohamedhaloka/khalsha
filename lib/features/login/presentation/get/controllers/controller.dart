@@ -5,7 +5,9 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:khalsha/core/presentation/themes/colors_manager.dart';
 import 'package:khalsha/core/utils.dart';
+import 'package:khalsha/features/login/data/models/social_type_enum.dart';
 import 'package:khalsha/features/login/domain/use_cases/login_use_case.dart';
+import 'package:khalsha/features/login/domain/use_cases/social_login_use_case.dart';
 
 import '../../../../../core/data/models/item_model.dart';
 import '../../../../../core/data/models/user_data_model.dart';
@@ -15,11 +17,12 @@ import '../../../../../core/presentation/routes/app_routes.dart';
 
 class LoginController extends GetxController {
   final LoginUseCase _loginUseCase;
-  LoginController(this._loginUseCase);
+  final SocialLoginUseCase _socialLoginUseCase;
+  LoginController(this._loginUseCase, this._socialLoginUseCase);
 
   List<ItemModel> socials = const <ItemModel>[
     ItemModel(text: 'Google', image: 'google'),
-    ItemModel(text: 'Facebook', image: 'facebook'),
+    // ItemModel(text: 'Facebook', image: 'facebook'),
   ];
 
   RxBool loading = false.obs, passSecure = true.obs;
@@ -70,8 +73,23 @@ class LoginController extends GetxController {
       log(googleSignInAuthentication!.accessToken.toString(),
           name: 'ACCESS TOKEN');
       log(googleSignInAuthentication.idToken.toString(), name: 'ID TOKEN');
+
+      final params = SocialLoginParams(
+        loading: loading,
+        type: SocialType.google,
+        accessToken: googleSignInAuthentication.accessToken.toString(),
+      );
+      final result = await _socialLoginUseCase.execute(params);
+      result.fold(
+        (Failure failure) => showAlertMessage(failure.statusMessage),
+        (UserData userData) {
+          UserDataLocal.instance.save(userData.toJson());
+          Get.offAllNamed(Routes.root);
+        },
+      );
     } catch (error) {
       log(error.toString(), name: 'GOOGLE SIGN IN ERROR');
+      showAlertMessage(error.toString());
     }
   }
 }
