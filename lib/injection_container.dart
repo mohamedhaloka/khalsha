@@ -22,6 +22,12 @@ import 'package:khalsha/features/air_freight_service/data/repository_impl/air_fr
 import 'package:khalsha/features/air_freight_service/domain/repository/air_freight_repository.dart';
 import 'package:khalsha/features/air_freight_service/domain/use_cases/add_air_freight_use_case.dart';
 import 'package:khalsha/features/air_freight_service/domain/use_cases/update_air_freight_use_case.dart';
+import 'package:khalsha/features/blog/data/data_source/blog_remote_data_source.dart';
+import 'package:khalsha/features/blog/data/repo_impl/blog_repository_impl.dart';
+import 'package:khalsha/features/blog/domain/repo/blog_repository.dart';
+import 'package:khalsha/features/blog/domain/use_cases/blog_search_use_case.dart';
+import 'package:khalsha/features/blog/domain/use_cases/get_categories_use_case.dart';
+import 'package:khalsha/features/blog/domain/use_cases/get_post_by_cat_id_use_case.dart';
 import 'package:khalsha/features/customs_clearance_service/data/data_source/custom_clearance_remote_data_source.dart';
 import 'package:khalsha/features/customs_clearance_service/data/repository_impl/customs_clearance_repository_impl.dart';
 import 'package:khalsha/features/customs_clearance_service/domain/repository/customs_clearance_repository.dart';
@@ -92,6 +98,9 @@ import 'package:khalsha/features/root/domain/repository/root_repository.dart';
 import 'package:khalsha/features/root/domain/use_cases/log_out_use_case.dart';
 import 'package:khalsha/features/root/domain/use_cases/refresh_token_use_case.dart';
 import 'package:khalsha/features/root/domain/use_cases/update_fcm_token_use_case.dart';
+import 'package:khalsha/features/rule/data/data_source/rule_remote_data_source.dart';
+import 'package:khalsha/features/rule/data/repo/rule_repository_impl.dart';
+import 'package:khalsha/features/rule/domain/use_cases/get_rule_data_use_case.dart';
 import 'package:khalsha/features/settlement/data/data_source/settlement_remote_data_source.dart';
 import 'package:khalsha/features/settlement/data/repo_impl/settlement_repository_impl.dart';
 import 'package:khalsha/features/settlement/domain/repo/settlement_repository.dart';
@@ -119,6 +128,7 @@ import 'features/map/domain/use_case/get_place_details_use_case.dart';
 import 'features/map/domain/use_case/get_places_from_search_use_case.dart';
 import 'features/new_orders/domain/use_case/get_new_orders_use_case.dart';
 import 'features/register/domain/repository/register_repository.dart';
+import 'features/rule/domain/repo_impl/rule_repository.dart';
 
 class InjectionContainer {
   static GetIt sl = GetIt.I;
@@ -336,5 +346,22 @@ class InjectionContainer {
         () => UpdateAccountUseCase(sl()));
     sl.registerLazySingleton<UploadProfilePhotoUseCase>(
         () => UploadProfilePhotoUseCase(sl()));
+
+    //Blog
+    sl.registerLazySingleton<BlogRemoteDataSource>(
+        () => BlogRemoteDataSourceImpl(dioService));
+    sl.registerLazySingleton<BlogRepository>(() => BlogRepositoryImpl(sl()));
+    sl.registerLazySingleton<BlogSearchUseCase>(() => BlogSearchUseCase(sl()));
+    sl.registerLazySingleton<GetCategoriesUseCase>(
+        () => GetCategoriesUseCase(sl()));
+    sl.registerLazySingleton<GetPostsByCatIdUseCase>(
+        () => GetPostsByCatIdUseCase(sl()));
+
+    //Rule
+    sl.registerLazySingleton<RuleRemoteDataSource>(
+        () => RuleRemoteDataSourceImpl(dioService));
+    sl.registerLazySingleton<RuleRepository>(() => RuleRepositoryImpl(sl()));
+    sl.registerLazySingleton<GetRuleDataUseCase>(
+        () => GetRuleDataUseCase(sl()));
   }
 }

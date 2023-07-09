@@ -34,6 +34,7 @@ abstract class Routes {
   static const resetPassword = _Paths.resetPassword;
   static const map = _Paths.map;
   static const chooseShippingService = _Paths.chooseShippingService;
+  static const rule = _Paths.rule;
 }
 
 abstract class _Paths {
@@ -69,4 +70,5 @@ abstract class _Paths {
   static const resetPassword = '/reset_password';
   static const map = '/map';
   static const chooseShippingService = '/choose_shipping_service';
+  static const rule = '/rule';
 }

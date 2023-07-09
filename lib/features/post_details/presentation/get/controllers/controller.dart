@@ -1,3 +1,7 @@
 import 'package:get/get.dart';
 
-class PostDetailsController extends GetxController {}
+import '../../../../blog/data/models/post_model.dart';
+
+class PostDetailsController extends GetxController {
+  PostModel post = Get.arguments;
+}

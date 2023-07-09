@@ -285,19 +285,51 @@ class MarineShipmentOrder extends OrderModel {
           OrderSectionItemModel(
             title: 'البضائع المجمعة',
             data: [
-              for (var container in goods) ...[
-                OrderDetailsItemModel(
-                  title: 'الحجم الكلي',
-                  description: container.overallSize,
-                ),
-                OrderDetailsItemModel(
-                  title: 'الوزن الكلي',
-                  description: container.totalWeight,
-                ),
-                OrderDetailsItemModel(
-                  title: 'الكمية',
-                  description: container.quantity,
-                ),
+              for (var item in goods) ...[
+                if (item.unitType == 'pallet') ...[
+                  OrderDetailsItemModel(
+                    title: 'الطول',
+                    description: item.length,
+                  ),
+                  OrderDetailsItemModel(
+                    title: 'العرض',
+                    description: item.width,
+                  ),
+                  OrderDetailsItemModel(
+                    title: 'الارتفاع',
+                    description: item.height,
+                  ),
+                  OrderDetailsItemModel(
+                    title: 'سم',
+                    description: item.cm,
+                  ),
+                  OrderDetailsItemModel(
+                    title: 'الوزن لكل وحده',
+                    description: item.weightPerUnit,
+                  ),
+                  OrderDetailsItemModel(
+                    title: 'الكمية',
+                    description: item.quantity,
+                  ),
+                  OrderDetailsItemModel(
+                    title: 'صورة الشحنة',
+                    description: item.image,
+                    type: OrderDetailsTypes.file,
+                  ),
+                ] else ...[
+                  OrderDetailsItemModel(
+                    title: 'الحجم الكلي',
+                    description: item.overallSize,
+                  ),
+                  OrderDetailsItemModel(
+                    title: 'الوزن الكلي',
+                    description: item.totalWeight,
+                  ),
+                  OrderDetailsItemModel(
+                    title: 'الكمية',
+                    description: item.quantity,
+                  ),
+                ]
               ]
             ],
           ),

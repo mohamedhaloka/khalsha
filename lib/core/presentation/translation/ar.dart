@@ -113,4 +113,11 @@ Map<String, String> ar = {
   'loft': 'منزل الدور العلوي',
   'warehouse': 'مستودع',
   'market': 'محل تجاري',
+
+  //Rule Pages
+  'how-to-use': 'طريقة الإستخدام',
+  'privacy-policy': 'سياسة الخصوصية',
+  'terms-conditions': 'الشروط و الاحكام',
+  'about-us': 'عنا',
+  'faq': 'الأسئلة الشائعة',
 };

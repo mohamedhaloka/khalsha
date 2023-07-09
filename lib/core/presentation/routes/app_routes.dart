@@ -31,6 +31,7 @@ import 'package:khalsha/features/register/presentation/get/bindings/binding.dart
 import 'package:khalsha/features/register/presentation/view.dart';
 import 'package:khalsha/features/root/presentation/get/binding/binding.dart';
 import 'package:khalsha/features/root/presentation/view.dart';
+import 'package:khalsha/features/rule/presentation/view.dart';
 import 'package:khalsha/features/service_intro/presentation/get/binding/binding.dart';
 import 'package:khalsha/features/service_intro/presentation/view.dart';
 import 'package:khalsha/features/settlement_details/presentation/get/binding/binding.dart';
@@ -55,6 +56,7 @@ import '../../../features/order_details/presentation/get/binding/binding.dart';
 import '../../../features/orders/presentation/get/binding/binding.dart';
 import '../../../features/reset_password/presentation/get/binding/binding.dart';
 import '../../../features/reset_password/presentation/view.dart';
+import '../../../features/rule/presentation/get/bindings/binding.dart';
 import '../../../features/sources/presentation/view.dart';
 import '../../../features/stores/presentation/get/bindings/binding.dart';
 import '../../../features/stores/stores.dart';
@@ -221,6 +223,11 @@ class AppPages {
       name: _Paths.chooseShippingService,
       page: () => const ChooseShippingServiceView(),
       binding: ChooseShippingServiceBinding(),
+    ),
+    GetPage(
+      name: _Paths.rule,
+      page: () => const RuleView(),
+      binding: RuleBinding(),
     ),
   ];
 }

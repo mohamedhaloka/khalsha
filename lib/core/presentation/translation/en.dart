@@ -9,4 +9,11 @@ Map<String, String> en = {
   'release-load-more': 'Release load more',
   'no-more-data': 'No more data',
   'error-occurred': 'error occurred, please try again later',
+
+  //Rule Pages
+  'how-to-use': 'How to use',
+  'privacy-policy': 'Privacy policy',
+  'terms-conditions': 'Terms and conditions',
+  'about-us': 'About us',
+  'faq': 'FAQ',
 };

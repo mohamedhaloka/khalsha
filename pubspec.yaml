@@ -61,7 +61,7 @@ dependencies:
   google_sign_in: ^6.0.2
 #  flutter_login_facebook: ^1.7.0
   #this package for show web view
-  flutter_inappwebview: ^5.7.2+3
+  flutter_widget_from_html: ^0.9.1
   # for map and get location
   google_maps_flutter: ^2.2.1
   location: ^4.2.3

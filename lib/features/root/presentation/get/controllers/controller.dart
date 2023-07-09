@@ -13,6 +13,7 @@ import 'package:khalsha/features/profile/presentation/view.dart';
 import 'package:khalsha/features/root/domain/use_cases/log_out_use_case.dart';
 import 'package:khalsha/features/root/domain/use_cases/refresh_token_use_case.dart';
 import 'package:khalsha/features/root/domain/use_cases/update_fcm_token_use_case.dart';
+import 'package:khalsha/features/rule/data/models/rule_type_enum.dart';
 
 import '../../../../../core/data/models/item_model.dart';
 import '../../../../../core/presentation/routes/app_routes.dart';
@@ -113,7 +114,8 @@ class RootController extends GetxController {
       const ItemModel(
         image: 'common_questions',
         text: 'الأسئلة الشائعة',
-        route: Routes.commonQuestions,
+        route: Routes.rule,
+        arguments: RuleType.faq,
       ),
       const ItemModel(
         image: 'technical-support',
@@ -128,7 +130,20 @@ class RootController extends GetxController {
       const ItemModel(
         image: 'how-to-use',
         text: 'طريقة الإستخدام',
-        route: Routes.howToUse,
+        route: Routes.rule,
+        arguments: RuleType.howToUse,
+      ),
+      const ItemModel(
+        image: 'how-to-use',
+        text: 'الشروط و الاحكام',
+        route: Routes.rule,
+        arguments: RuleType.termsAndConditions,
+      ),
+      const ItemModel(
+        image: 'how-to-use',
+        text: 'سياسة الخصوصية',
+        route: Routes.rule,
+        arguments: RuleType.privacyPolicy,
       ),
       const ItemModel(
         image: 'setting',
