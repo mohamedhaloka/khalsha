@@ -59,7 +59,7 @@ dependencies:
   # for firebase services
   firebase_core: ^2.9.0
   google_sign_in: ^6.0.2
-#  flutter_login_facebook: ^1.7.0
+  flutter_facebook_auth: ^5.0.11
   #this package for show web view
   flutter_widget_from_html: ^0.9.1
   # for map and get location

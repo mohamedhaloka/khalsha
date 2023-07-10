@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:khalsha/core/presentation/themes/colors_manager.dart';
@@ -22,7 +23,7 @@ class LoginController extends GetxController {
 
   List<ItemModel> socials = const <ItemModel>[
     ItemModel(text: 'Google', image: 'google'),
-    // ItemModel(text: 'Facebook', image: 'facebook'),
+    ItemModel(text: 'Facebook', image: 'facebook'),
   ];
 
   RxBool loading = false.obs, passSecure = true.obs;
@@ -74,22 +75,48 @@ class LoginController extends GetxController {
           name: 'ACCESS TOKEN');
       log(googleSignInAuthentication.idToken.toString(), name: 'ID TOKEN');
 
-      final params = SocialLoginParams(
-        loading: loading,
-        type: SocialType.google,
+      await _socialSignIn(
+        socialType: SocialType.google,
         accessToken: googleSignInAuthentication.accessToken.toString(),
-      );
-      final result = await _socialLoginUseCase.execute(params);
-      result.fold(
-        (Failure failure) => showAlertMessage(failure.statusMessage),
-        (UserData userData) {
-          UserDataLocal.instance.save(userData.toJson());
-          Get.offAllNamed(Routes.root);
-        },
       );
     } catch (error) {
       log(error.toString(), name: 'GOOGLE SIGN IN ERROR');
-      showAlertMessage(error.toString());
+      showAlertMessage('GOOGLE SIGN IN ERROR ${error.toString()}');
     }
+  }
+
+  Future<void> facebookSignIn() async {
+    try {
+      final LoginResult loginResult = await FacebookAuth.i.login(
+        permissions: ['public_profile'],
+      );
+
+      final userData = await FacebookAuth.i.getUserData();
+      print('userData $userData');
+      await _socialSignIn(
+        socialType: SocialType.facebook,
+        accessToken: loginResult.accessToken!.token.toString(),
+      );
+    } catch (error) {
+      log(error.toString(), name: 'FACEBOOK SIGN IN ERROR');
+      showAlertMessage('FACEBOOK SIGN IN ERROR ${error.toString()}');
+    }
+  }
+
+  Future<void> _socialSignIn(
+      {required SocialType socialType, required String accessToken}) async {
+    final params = SocialLoginParams(
+      loading: loading,
+      type: SocialType.google,
+      accessToken: accessToken,
+    );
+    final result = await _socialLoginUseCase.execute(params);
+    result.fold(
+      (Failure failure) => showAlertMessage(failure.statusMessage),
+      (UserData userData) {
+        UserDataLocal.instance.save(userData.toJson());
+        Get.offAllNamed(Routes.root);
+      },
+    );
   }
 }
