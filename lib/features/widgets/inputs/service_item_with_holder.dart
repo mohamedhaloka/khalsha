@@ -66,6 +66,7 @@ class ServiceItemWithHolder extends StatelessWidget {
                 height: btnHeight ?? inputHeight,
                 width: btnWidth ?? inputHeight + 30,
                 onTap: () async {
+                  FocusScope.of(context).requestFocus(FocusNode());
                   if (onTap != null) {
                     onTap!();
                     return;

@@ -22,12 +22,6 @@ class RegisterController extends GetxController {
     ItemModel(text: 'مقدم خدمات لوجيستية', id: 1),
   ];
 
-  List<ItemModel> socials = const <ItemModel>[
-    // ItemModel(text: 'Apple', image: 'apple'),
-    // ItemModel(text: 'Google', image: 'google'),
-    // ItemModel(text: 'Facebook', image: 'facebook'),
-  ];
-
   RxInt currentTab = 0.obs;
   RxBool loading = false.obs,
       passSecure = true.obs,

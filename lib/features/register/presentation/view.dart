@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:khalsha/features/widgets/choose_file.dart';
 import 'package:khalsha/features/widgets/custom_rich_text.dart';
 import 'package:khalsha/features/widgets/custom_text_field.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/data/models/item_model.dart';
 import '../../../core/presentation/routes/app_routes.dart';
@@ -73,33 +74,6 @@ class RegisterView extends GetView<RegisterController> {
               text: 'تسجيل',
             ),
           ),
-          // Row(
-          //   children: const [
-          //     Expanded(child: Divider(color: ColorManager.greyColor)),
-          //     Padding(
-          //       padding: EdgeInsets.symmetric(horizontal: 4),
-          //       child: Text('الدخول بواسطة'),
-          //     ),
-          //     Expanded(child: Divider(color: ColorManager.greyColor)),
-          //   ],
-          // ),
-          // Padding(
-          //   padding: const EdgeInsets.fromLTRB(0, 20, 0, 35),
-          //   child: Row(
-          //     children: controller.socials
-          //         .map((e) => Expanded(
-          //               child: Padding(
-          //                 padding: const EdgeInsets.symmetric(horizontal: 6),
-          //                 child: CustomButton(
-          //                   height: 50,
-          //                   onTap: () {},
-          //                   imgName: e.image,
-          //                 ),
-          //               ),
-          //             ))
-          //         .toList(),
-          //   ),
-          // ),
           CustomRichText(
             text: 'لديك حساب الفعل؟ ',
             subText: 'الدخول',
@@ -143,7 +117,14 @@ class _RegisterTabs extends StatelessWidget {
                       util.showDialog(
                         'يمكنك تحميل تطبيق مقدم الخدمة والإستفاده بكافة مميزاته',
                         doneText: 'تحميل',
-                        onDoneTapped: () {},
+                        onDoneTapped: () {
+                          final storeUrl = Uri.parse(
+                              'https://play.google.com/store/apps/details?id=com.app.khalsha.provider');
+                          launchUrl(
+                            storeUrl,
+                            mode: LaunchMode.externalApplication,
+                          );
+                        },
                         backColor: ColorManager.secondaryColor,
                       );
                       return;

@@ -55,6 +55,7 @@ class ChooseItemWithHolder extends StatelessWidget {
           Expanded(
             child: InkWell(
               onTap: () async {
+                FocusScope.of(context).requestFocus(FocusNode());
                 final result = await Get.bottomSheet(
                   HeadLineBottomSheet(
                     height: height,

@@ -20,7 +20,7 @@ class ResetPasswordView extends GetView<ResetPasswordController> {
         padding: const EdgeInsets.all(20),
         children: [
           Text(
-            'من فضلك\nقم بكتابة رقم الهاتف أو البريد الإلكتروني',
+            'تم ارسال كود إعادة تعيين كلمة السر ${controller.isUserTypeEmail ? 'لبريدك الالكتروني' : 'رقم هاتفك'}',
             style: Get.textTheme.titleLarge!.copyWith(
               color: ColorManager.primaryColor,
               fontWeight: FontWeight.bold,

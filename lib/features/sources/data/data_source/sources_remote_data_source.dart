@@ -18,9 +18,9 @@ class SourcesRemoteDataSourceImpl extends SourcesRemoteDataSource {
   Future<List<PostModel>> getList() async {
     final response = await _httpService.get('resource');
     if (response.statusCode == 200 && response.data['status']) {
-      final List<CategoryModel> categories = <CategoryModel>[];
+      final List<CategoryModel> resources = <CategoryModel>[];
 
-      for (var category in response.data['result']['data']) {}
+      for (var resource in response.data['result']['data']) {}
       return [];
     } else {
       throw ServerException(errorMessage: response.data.toString());

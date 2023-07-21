@@ -89,6 +89,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.1"
+  charset:
+    dependency: transitive
+    description:
+      name: charset
+      sha256: c72ecf262d7afa6ca9418534aba820ada0e405bba67c21f06905d1c4b0bea525
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.4"
   checked_yaml:
     dependency: transitive
     description:
@@ -177,6 +185,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0"
+  custom_qr_generator:
+    dependency: "direct main"
+    description:
+      name: custom_qr_generator
+      sha256: "4e04df6e54e1db6cfffa1a56d89331b50889b19cae4564b1a49be335db5e4126"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.2"
   dartz:
     dependency: "direct main"
     description:
@@ -1229,6 +1245,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0"
+  share_plus:
+    dependency: "direct main"
+    description:
+      name: share_plus
+      sha256: ed3fcea4f789ed95913328e629c0c53e69e80e08b6c24542f1b3576046c614e8
+      url: "https://pub.dev"
+    source: hosted
+    version: "7.0.2"
+  share_plus_platform_interface:
+    dependency: transitive
+    description:
+      name: share_plus_platform_interface
+      sha256: "0c6e61471bd71b04a138b8b588fa388e66d8b005e6f2deda63371c5c505a0981"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.2.1"
   shimmer:
     dependency: "direct main"
     description:
@@ -1546,6 +1578,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.2"
+  zxing_lib:
+    dependency: transitive
+    description:
+      name: zxing_lib
+      sha256: f48841552941ea3889d4b4b8fd5386680b7b20c451bef46d35bb1b602523d159
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.6.0"
 sdks:
   dart: ">2.19.0 <3.0.0"
   flutter: ">=3.7.0"

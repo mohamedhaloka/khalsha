@@ -62,7 +62,10 @@ class AttachFileWithHolder extends StatelessWidget {
               ],
               const SizedBox(height: 5),
               InkWell(
-                onTap: chooseFile,
+                onTap: () {
+                  FocusScope.of(context).requestFocus(FocusNode());
+                  chooseFile();
+                },
                 child: Center(
                   child: Obx(() {
                     final isSelected = file.value.path != '';

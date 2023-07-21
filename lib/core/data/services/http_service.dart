@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dio/dio.dart' as dio;
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
+import 'package:khalsha/core/domain/error/failures.dart';
 import 'package:khalsha/core/presentation/routes/app_routes.dart';
 import 'package:khalsha/features/otp/domain/entites/enums/verify_type.dart';
 import 'package:khalsha/features/otp/presentation/get/controllers/controller.dart';
@@ -36,15 +37,11 @@ class HttpService extends GetxService {
       data: data,
       options: Options(headers: header),
     );
-    if (response.data['type'] == 'need_verify_email') {
-      final userData = UserDataLocal.instance.data.value.toJson();
-      Get.offAllNamed(
-        Routes.otp,
-        arguments: {
-          kUserData: userData,
-          kVerifyType: VerifyType.email,
-        },
-      );
+    for (var check in [_checkVerifyingEmail(response)]) {
+      if (check) continue;
+      throw const Failure(
+          statusCode: 500,
+          statusMessage: 'Something in middleware goes failure');
     }
     return response;
   }
@@ -62,6 +59,16 @@ class HttpService extends GetxService {
         headers: header,
       ),
     );
+    for (var check in [_checkVerifyingEmail(response)]) {
+      if (check) continue;
+      throw const Failure(
+          statusCode: 500,
+          statusMessage: 'Something in middleware goes failure');
+    }
+    return response;
+  }
+
+  bool _checkVerifyingEmail(dio.Response response) {
     if (response.data['type'] == 'need_verify_email') {
       final userData = UserDataLocal.instance.data.value.toJson();
       Get.offAllNamed(
@@ -71,8 +78,9 @@ class HttpService extends GetxService {
           kVerifyType: VerifyType.email,
         },
       );
+      return false;
     }
-    return response;
+    return true;
   }
 
   Future<File> download(String url) async {

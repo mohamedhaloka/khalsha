@@ -43,10 +43,11 @@ class YesOrNoWithHolder extends StatelessWidget {
                   padding: const EdgeInsets.fromLTRB(20, 0, 12, 0),
                   child: InkWell(
                     onTap: () {
+                      FocusScope.of(context).requestFocus(FocusNode());
                       Get.bottomSheet(
                         HeadLineBottomSheet(
                           bottomSheetTitle: 'البضائع الخطرة',
-                          body: DangerousGoodsSheet(),
+                          body: const DangerousGoodsSheet(),
                           height: Get.height * .8,
                         ),
                         isScrollControlled: true,
@@ -63,7 +64,10 @@ class YesOrNoWithHolder extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     CustomButton(
-                      onTap: () => active(!active.value),
+                      onTap: () {
+                        FocusScope.of(context).requestFocus(FocusNode());
+                        active(true);
+                      },
                       width: inputHeight,
                       height: inputHeight,
                       radius: radius,
@@ -73,7 +77,10 @@ class YesOrNoWithHolder extends StatelessWidget {
                       imgName: 'true',
                     ),
                     CustomButton(
-                      onTap: () => active(false),
+                      onTap: () {
+                        FocusScope.of(context).requestFocus(FocusNode());
+                        active(false);
+                      },
                       width: inputHeight,
                       height: inputHeight,
                       radius: radius,

@@ -22,8 +22,8 @@ class LoginController extends GetxController {
   LoginController(this._loginUseCase, this._socialLoginUseCase);
 
   List<ItemModel> socials = const <ItemModel>[
-    ItemModel(text: 'Google', image: 'google'),
-    ItemModel(text: 'Facebook', image: 'facebook'),
+    ItemModel(id: 0, text: 'Google', image: 'google'),
+    ItemModel(id: 1, text: 'Facebook', image: 'facebook'),
   ];
 
   RxBool loading = false.obs, passSecure = true.obs;
@@ -92,7 +92,7 @@ class LoginController extends GetxController {
       );
 
       final userData = await FacebookAuth.i.getUserData();
-      print('userData $userData');
+
       await _socialSignIn(
         socialType: SocialType.facebook,
         accessToken: loginResult.accessToken!.token.toString(),

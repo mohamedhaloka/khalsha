@@ -34,6 +34,7 @@ class ChooseNumberWithHolder extends StatelessWidget {
               children: [
                 CustomButton(
                   onTap: () {
+                    FocusScope.of(context).requestFocus(FocusNode());
                     currentNumber.value++;
                   },
                   text: '+',
@@ -64,6 +65,7 @@ class ChooseNumberWithHolder extends StatelessWidget {
                 ),
                 CustomButton(
                   onTap: () {
+                    FocusScope.of(context).requestFocus(FocusNode());
                     if (currentNumber.value == 0) return;
                     currentNumber.value--;
                   },

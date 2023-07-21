@@ -43,6 +43,7 @@ class CheckerWithHolder extends StatelessWidget {
           Center(
             child: Obx(() => CustomButton(
                   onTap: () async {
+                    FocusScope.of(context).requestFocus(FocusNode());
                     if (body == null) {
                       active(!active.value);
                       return;

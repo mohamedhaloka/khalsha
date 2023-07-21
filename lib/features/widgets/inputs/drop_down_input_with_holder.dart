@@ -60,7 +60,12 @@ class DropDownInputWithHolder extends StatelessWidget {
               hint: hint ?? 'إختر',
               dropVal: dropValue,
               itemHeight: itemHeight,
-              onTap: onTap,
+              onTap: onTap == null
+                  ? null
+                  : (item) {
+                      FocusScope.of(context).requestFocus(FocusNode());
+                      onTap!(item);
+                    },
               isExpanded: true,
               source: source,
               hintColor: ColorManager.greyColor,

@@ -19,7 +19,6 @@ class _OrderDataTab extends GetView<OrderDetailsController> {
                   text: controller.orderModel.data[index].title,
                   details: controller.orderModel.data[index].data,
                   onTap: (action) async {
-                    print(action.name);
                     switch (action) {
                       case OrderDetailsAction.uploadFile:
                         final pickedImage = await ImagePicker()

@@ -73,6 +73,9 @@ class TextFieldInputWithDropDownWithHolder extends StatelessWidget {
               height: inputHeight,
               radius: radius,
               fontSize: 10,
+              onTap: (_) {
+                FocusScope.of(context).requestFocus(FocusNode());
+              },
               icon: const SizedBox(),
               dropVal: selectedDropDownValue,
               source: source,

@@ -87,6 +87,7 @@ class _Item extends StatelessWidget {
     return Expanded(
       child: InkWell(
         onTap: () {
+          FocusScope.of(context).requestFocus(FocusNode());
           selectedItem(item.id);
           if (onChooseItem != null) onChooseItem!(item);
         },

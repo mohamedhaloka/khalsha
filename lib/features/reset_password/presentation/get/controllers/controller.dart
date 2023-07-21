@@ -10,13 +10,17 @@ class ResetPasswordController extends GetxController {
   final ResetPasswordUseCase _resetPasswordUseCase;
   ResetPasswordController(this._resetPasswordUseCase);
 
-  final account = Get.arguments;
+  final String account = Get.arguments;
 
   TextEditingController code = TextEditingController(),
       password = TextEditingController(),
       confirmationPassword = TextEditingController();
 
   RxBool loading = false.obs;
+
+  bool get isUserTypeEmail => RegExp(
+          r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+      .hasMatch(account);
 
   Future<void> resetPassword() async {
     if (_anyInputsIsEmpty) {
