@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/features/widgets/choose_file.dart';
 import 'package:khalsha/features/widgets/custom_rich_text.dart';
 import 'package:khalsha/features/widgets/custom_text_field.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -59,11 +58,6 @@ class RegisterView extends GetView<RegisterController> {
             title: 'رقم الهاتف',
             inputType: Input.phone,
             controller: controller.phone,
-          ),
-          ChooseFile(
-            title: 'السجل التجاري',
-            hint: 'في حال كنت شركة أو مؤسسة',
-            file: controller.commercialRegisterFile,
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 35, 0, 35),

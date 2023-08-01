@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:khalsha/core/presentation/themes/text_manager.dart';
 
 import 'colors_manager.dart';
@@ -12,6 +13,7 @@ class ThemeManager {
         appBarTheme: const AppBarTheme(
           backgroundColor: ColorManager.primaryColor,
           elevation: 0.0,
+          systemOverlayStyle: SystemUiOverlayStyle.dark,
         ),
         iconTheme: const IconThemeData(
           size: 30,

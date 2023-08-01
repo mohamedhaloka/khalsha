@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:khalsha/features/otp/domain/entites/enums/verify_type.dart';
@@ -26,8 +24,6 @@ class RegisterController extends GetxController {
   RxBool loading = false.obs,
       passSecure = true.obs,
       passConfirmationSecure = true.obs;
-
-  Rx<File> commercialRegisterFile = File('').obs;
 
   TextEditingController name = TextEditingController(),
       email = TextEditingController(),
@@ -61,7 +57,7 @@ class RegisterController extends GetxController {
       password: password.text,
       userType: userType,
       phone: phone.text,
-      commercialCertificate: commercialRegisterFile.value.path,
+      commercialCertificate: '',
     );
 
     final result = await _registerUseCase.execute(params);
@@ -90,6 +86,5 @@ class RegisterController extends GetxController {
   bool get _passwordsIsNotEqual => password.text != passwordConfirmation.text;
 
   bool get _notChooseCommercialCertificateInImporterExporter =>
-      userType == UserType.importerExporter.value &&
-      commercialRegisterFile.value.path.isEmpty;
+      userType == UserType.importerExporter.value;
 }

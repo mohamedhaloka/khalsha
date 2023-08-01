@@ -1,58 +1,23 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:video_player/video_player.dart';
 
-import '../../../../core/presentation/themes/colors_manager.dart';
+import '../get/controllers/controller.dart';
 
-class AdsSlider extends StatefulWidget {
-  const AdsSlider(this.photos, {Key? key}) : super(key: key);
-  final List<String> photos;
-
-  @override
-  State<AdsSlider> createState() => _AdsSliderState();
-}
-
-class _AdsSliderState extends State<AdsSlider> {
-  int _pos = 0;
-  Timer? _timer;
-
-  @override
-  void initState() {
-    _timer = Timer.periodic(const Duration(seconds: 3), (t) {
-      if (widget.photos.isNotEmpty) {
-        int imgLength = widget.photos.length;
-        _pos = (_pos + 1) % imgLength;
-
-        setState(() {});
-      }
-    });
-    super.initState();
-  }
+class KhalshaVideo extends GetView<HomeController> {
+  const KhalshaVideo({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: Get.width,
-      height: 150,
-      decoration: const BoxDecoration(
-        color: ColorManager.primaryColor,
-        image: DecorationImage(
-          image: ExactAssetImage('assets/images/banner.jpg'),
-          fit: BoxFit.cover,
-        ),
-      ),
+      height: 200,
+      child: controller.showVideo.value
+          ? AspectRatio(
+              aspectRatio: controller.videoController.value.aspectRatio,
+              child: VideoPlayer(controller.videoController),
+            )
+          : const SizedBox(),
     );
-  }
-
-  @override
-  void dispose() {
-    try {
-      _timer!.cancel();
-    } catch (_) {}
-    try {
-      _timer = null;
-    } catch (_) {}
-    super.dispose();
   }
 }

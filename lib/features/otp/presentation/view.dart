@@ -13,10 +13,11 @@ class OTPView extends GetView<OTPController> {
   const OTPView({Key? key}) : super(key: key);
 
   String get _account {
+    print(controller.userData);
     if (controller.verifyType == VerifyType.email) {
       return controller.userData['user']['email'];
     }
-    return controller.userData['user']['mobile'];
+    return controller.userData['user']['mobile'] ?? '';
   }
 
   String get _accountStr {

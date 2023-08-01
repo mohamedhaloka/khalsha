@@ -105,6 +105,11 @@ import 'package:khalsha/features/settlement/data/data_source/settlement_remote_d
 import 'package:khalsha/features/settlement/data/repo_impl/settlement_repository_impl.dart';
 import 'package:khalsha/features/settlement/domain/repo/settlement_repository.dart';
 import 'package:khalsha/features/settlement/domain/use_cases/get_settlements_use_case.dart';
+import 'package:khalsha/features/sources/data/data_source/resources_remote_data_source.dart';
+import 'package:khalsha/features/sources/data/repo_impl/resources_repository_impl.dart';
+import 'package:khalsha/features/sources/domain/repo/resources_repository.dart';
+import 'package:khalsha/features/sources/domain/use_cases/get_resource_details_use_case.dart';
+import 'package:khalsha/features/sources/domain/use_cases/get_resources_use_case.dart';
 import 'package:khalsha/features/stores/data/data_source/ware_house_remote_data_source.dart';
 import 'package:khalsha/features/stores/data/repository_impl/ware_house_repository_impl.dart';
 import 'package:khalsha/features/stores/domain/repository/ware_house_repository.dart';
@@ -356,6 +361,16 @@ class InjectionContainer {
         () => GetCategoriesUseCase(sl()));
     sl.registerLazySingleton<GetPostsByCatIdUseCase>(
         () => GetPostsByCatIdUseCase(sl()));
+
+    //Resource
+    sl.registerLazySingleton<ResourcesRemoteDataSource>(
+        () => ResourcesRemoteDataSourceImpl(dioService));
+    sl.registerLazySingleton<ResourcesRepository>(
+        () => ResourcesRepositoryImpl(sl()));
+    sl.registerLazySingleton<GetResourcesUseCase>(
+        () => GetResourcesUseCase(sl()));
+    sl.registerLazySingleton<GetResourceDetailsUseCase>(
+        () => GetResourceDetailsUseCase(sl()));
 
     //Rule
     sl.registerLazySingleton<RuleRemoteDataSource>(

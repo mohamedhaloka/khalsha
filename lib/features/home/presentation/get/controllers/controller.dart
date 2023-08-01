@@ -3,6 +3,7 @@ import 'package:khalsha/core/domain/use_cases/use_case.dart';
 import 'package:khalsha/features/home/data/models/statistics_model.dart';
 import 'package:khalsha/features/home/domain/use_cases/get_statistics_use_case.dart';
 import 'package:khalsha/features/service_intro/presentation/get/controllers/controller.dart';
+import 'package:video_player/video_player.dart';
 
 import '../../../../../core/data/models/item_model.dart';
 import '../../../../../core/utils.dart';
@@ -14,8 +15,19 @@ class HomeController extends GetxController {
   List<ItemModel> services = <ItemModel>[];
 
   Rx<StatisticsModel> statisticsModel = StatisticsModel().obs;
+
+  late VideoPlayerController videoController;
+
+  RxBool showVideo = false.obs;
+
   @override
   void onInit() {
+    videoController =
+        VideoPlayerController.asset('assets/videos/khalsha-motion-video.mp4')
+          ..initialize().then((_) {
+            showVideo(true);
+            videoController.play();
+          });
     services = const [
       ItemModel(
         id: 1,
@@ -67,5 +79,11 @@ class HomeController extends GetxController {
       (failure) => showAlertMessage(failure.statusMessage),
       (data) => statisticsModel(data),
     );
+  }
+
+  @override
+  void onClose() {
+    videoController.dispose();
+    super.onClose();
   }
 }

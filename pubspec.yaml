@@ -3,7 +3,7 @@ description: Khalsha app for Logistic Transportations.
 
 publish_to: 'none'
 
-version: 1.0.0+2
+version: 1.0.0+4
 
 environment:
   sdk: '>=2.19.0 <3.0.0'
@@ -88,6 +88,8 @@ dependencies:
   share_plus: ^7.0.2
   # generate qr code
   custom_qr_generator: ^0.1.2
+  # for play videos
+  video_player: ^2.7.0
 
 
 dev_dependencies:
@@ -125,6 +127,7 @@ flutter:
     - assets/images/order_details/status/
     - assets/images/intro_services/
     - assets/images/flammable/
+    - assets/videos/
 
   fonts:
     - family: bahji

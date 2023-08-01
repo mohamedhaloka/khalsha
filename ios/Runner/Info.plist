@@ -16,8 +16,17 @@
 		<string>khalsha</string>
 		<key>CFBundlePackageType</key>
 		<string>APPL</string>
+		<key>NSAppTransportSecurity</key>
+        <dict>
+          <key>NSAllowsArbitraryLoads</key>
+          <true/>
+        </dict>
 		<key>CFBundleShortVersionString</key>
 		<string>$(FLUTTER_BUILD_NAME)</string>
+		<key>NSLocationWhenInUseUsageDescription</key>
+        <string>khalsha needs access to location when open.</string>
+        <key>NSLocationAlwaysUsageDescription</key>
+        <string>khalsha needs access to location when in the background.</string>
 		<key>CFBundleSignature</key>
 		<string>????</string>
 		<key>CFBundleVersion</key>

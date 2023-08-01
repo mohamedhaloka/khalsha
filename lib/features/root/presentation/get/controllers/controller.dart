@@ -152,39 +152,39 @@ class RootController extends GetxController {
       ),
     ];
 
-    if (!UserDataLocal.instance.isImporterExporter) {
-      menu.insertAll(
-        1,
-        const [
-          ItemModel(
-            image: 'blog',
-            text: 'الإحصائيات',
-            route: Routes.statistics,
-          ),
-          ItemModel(
-            image: 'resources',
-            text: 'الطلبات الجديدة',
-            route: Routes.newOrders,
-          ),
-        ],
-      );
-    } else {
-      menu.insertAll(
-        1,
-        const [
-          ItemModel(
-            image: 'blog',
-            text: 'المدونة',
-            route: Routes.blog,
-          ),
-          ItemModel(
-            image: 'resources',
-            text: 'المصادر',
-            route: Routes.sources,
-          ),
-        ],
-      );
-    }
+    // if (!UserDataLocal.instance.isImporterExporter) {
+    //   menu.insertAll(
+    //     1,
+    //     const [
+    //       ItemModel(
+    //         image: 'blog',
+    //         text: 'الإحصائيات',
+    //         route: Routes.statistics,
+    //       ),
+    //       ItemModel(
+    //         image: 'resources',
+    //         text: 'الطلبات الجديدة',
+    //         route: Routes.newOrders,
+    //       ),
+    //     ],
+    //   );
+    // } else {
+    menu.insertAll(
+      1,
+      const [
+        ItemModel(
+          image: 'blog',
+          text: 'المدونة',
+          route: Routes.blog,
+        ),
+        ItemModel(
+          image: 'resources',
+          text: 'المصادر',
+          route: Routes.sources,
+        ),
+      ],
+    );
+    // }
     _refreshToken();
     super.onInit();
   }

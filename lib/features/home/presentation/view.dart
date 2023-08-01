@@ -26,9 +26,9 @@ class HomeView extends GetView<HomeController> {
         ListView(
           padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
           children: const [
-            AdsSlider(['banner']),
+            KhalshaVideo(),
             HomeHeader(),
-            GridServices()
+            GridServices(),
           ],
         ),
       ],
