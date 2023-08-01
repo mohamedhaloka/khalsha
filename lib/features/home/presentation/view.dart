@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/features/home/presentation/widgets/ads_slider.dart';
 import 'package:khalsha/features/home/presentation/widgets/grid_services.dart';
 import 'package:khalsha/features/home/presentation/widgets/home_header.dart';
+import 'package:khalsha/features/home/presentation/widgets/khalsha_video.dart';
 
 import 'get/controllers/controller.dart';
 

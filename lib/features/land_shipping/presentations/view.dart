@@ -264,6 +264,7 @@ class _PickLocations extends GetView<AddEditLandShippingServiceController> {
         onConfirm: onConfirm,
         currentTime: dateTime,
         locale: Lang.instance.isEn ? LocaleType.en : LocaleType.ar,
+        pickerModel: CustomDateTimePickerModel(),
       );
 }
 

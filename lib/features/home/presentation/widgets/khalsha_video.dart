@@ -12,12 +12,12 @@ class KhalshaVideo extends GetView<HomeController> {
     return SizedBox(
       width: Get.width,
       height: 200,
-      child: controller.showVideo.value
+      child: Obx(() => controller.showVideo.value
           ? AspectRatio(
               aspectRatio: controller.videoController.value.aspectRatio,
               child: VideoPlayer(controller.videoController),
             )
-          : const SizedBox(),
+          : const SizedBox()),
     );
   }
 }
