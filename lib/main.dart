@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
 
   Locale get _locale => const Locale('ar');
   String get _initialRoute =>
-      UserDataLocal.instance.isLoggedIn ? Routes.root : Routes.root;
+      UserDataLocal.instance.isLoggedIn ? Routes.root : Routes.onBoarding;
 }
 
 Future<void> _initData() async {
