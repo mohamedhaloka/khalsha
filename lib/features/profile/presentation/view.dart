@@ -54,6 +54,7 @@ class ProfileView extends GetView<ProfileController> {
                         contentPadding: _contentPadding,
                         borderSide: _borderColor,
                         enabled: false,
+                        controller: controller.commercialCertificate,
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 60),

@@ -78,6 +78,9 @@ class LoginView extends GetView<LoginController> {
                                 case 1:
                                   controller.facebookSignIn();
                                   break;
+                                case 2:
+                                  controller.appleSignIn();
+                                  break;
                               }
                             },
                             text: e.text,

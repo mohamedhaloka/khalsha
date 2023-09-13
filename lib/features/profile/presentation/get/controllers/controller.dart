@@ -13,6 +13,7 @@ class ProfileController extends GetxController {
 
   TextEditingController name = TextEditingController(),
       email = TextEditingController(),
+      commercialCertificate = TextEditingController(),
       phone = TextEditingController();
 
   RxBool loading = true.obs;
@@ -32,6 +33,7 @@ class ProfileController extends GetxController {
         name.text = profileData.name ?? '';
         email.text = profileData.email ?? '';
         phone.text = profileData.mobile ?? '';
+        commercialCertificate.text = profileData.commercialCert ?? '';
       },
     );
   }

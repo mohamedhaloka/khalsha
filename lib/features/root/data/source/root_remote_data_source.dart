@@ -21,7 +21,7 @@ class RootRemoteDataSourceImpl extends RootRemoteDataSource {
     if (response.statusCode == 200) {
       return UserData.fromJson(response.data);
     } else {
-      throw ServerException(errorMessage: response.data.toString());
+      throw ServerException(errorMessage: response.data['message'].toString());
     }
   }
 
@@ -32,7 +32,7 @@ class RootRemoteDataSourceImpl extends RootRemoteDataSource {
     if (response.statusCode == 200 && response.data['status']) {
       return response.data['message'];
     } else {
-      throw ServerException(errorMessage: response.data.toString());
+      throw ServerException(errorMessage: response.data['message'].toString());
     }
   }
 
@@ -45,7 +45,7 @@ class RootRemoteDataSourceImpl extends RootRemoteDataSource {
     if (response.statusCode == 200 && response.data['status']) {
       return response.data['token'];
     } else {
-      throw ServerException(errorMessage: response.data.toString());
+      throw ServerException(errorMessage: response.data['message'].toString());
     }
   }
 }

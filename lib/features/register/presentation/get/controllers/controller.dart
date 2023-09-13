@@ -45,10 +45,6 @@ class RegisterController extends GetxController {
       showAlertMessage('يجب ان يتساوا كلمتا المرور');
       return;
     }
-    if (_notChooseCommercialCertificateInImporterExporter) {
-      showAlertMessage('يجب إضافة ملف السجل التجاري');
-      return;
-    }
     final params = RegisterParams(
       loading: loading,
       name: name.text,
@@ -84,7 +80,4 @@ class RegisterController extends GetxController {
       phone.text.isEmpty;
 
   bool get _passwordsIsNotEqual => password.text != passwordConfirmation.text;
-
-  bool get _notChooseCommercialCertificateInImporterExporter =>
-      userType == UserType.importerExporter.value;
 }

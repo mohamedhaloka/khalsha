@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Khalsha</string>
-    <string name="facebook_app_id">635693761814872</string>
-    <string name="facebook_client_token">79a04985254cbedb1eda885c4978a4e2</string>
-    <string name="fb_login_protocol_scheme">fb635693761814872</string>
+    <string name="facebook_app_id">1804424499802663</string>
+    <string name="facebook_client_token">e3c330c86ba66bd3a5912d31e7a8cb36</string>
+    <string name="fb_login_protocol_scheme">fb1804424499802663</string>
 </resources>

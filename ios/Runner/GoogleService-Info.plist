@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>440607721662-imkbrst638is9msabl88sbpsega9irik.apps.googleusercontent.com</string>
+	<string>440607721662-mrpjc6l92m6ca4nv8i79j1eu2uiadqga.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.440607721662-imkbrst638is9msabl88sbpsega9irik</string>
+	<string>com.googleusercontent.apps.440607721662-mrpjc6l92m6ca4nv8i79j1eu2uiadqga</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>440607721662-jv0cgo22dhi1v6eluu5d7ot1jb6a2bn3.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.app.khalsha</string>
+	<string>com.khlasha.app</string>
 	<key>PROJECT_ID</key>
 	<string>khalasha-53a85</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:440607721662:ios:5c19e8640cfe264192f6ef</string>
+	<string>1:440607721662:ios:01ccf20d7877c10b92f6ef</string>
 </dict>
 </plist>

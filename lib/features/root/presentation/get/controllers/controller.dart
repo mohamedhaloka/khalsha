@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:khalsha/core/data/services/notification_service.dart';
 import 'package:khalsha/core/data/source/local/user_local.dart';
@@ -112,6 +113,16 @@ class RootController extends GetxController {
         arguments: IntroType.aboutApp,
       ),
       const ItemModel(
+        image: 'blog',
+        text: 'المدونة',
+        route: Routes.blog,
+      ),
+      const ItemModel(
+        image: 'resources',
+        text: 'المصادر',
+        route: Routes.sources,
+      ),
+      const ItemModel(
         image: 'common_questions',
         text: 'الأسئلة الشائعة',
         route: Routes.rule,
@@ -152,39 +163,6 @@ class RootController extends GetxController {
       ),
     ];
 
-    // if (!UserDataLocal.instance.isImporterExporter) {
-    //   menu.insertAll(
-    //     1,
-    //     const [
-    //       ItemModel(
-    //         image: 'blog',
-    //         text: 'الإحصائيات',
-    //         route: Routes.statistics,
-    //       ),
-    //       ItemModel(
-    //         image: 'resources',
-    //         text: 'الطلبات الجديدة',
-    //         route: Routes.newOrders,
-    //       ),
-    //     ],
-    //   );
-    // } else {
-    menu.insertAll(
-      1,
-      const [
-        ItemModel(
-          image: 'blog',
-          text: 'المدونة',
-          route: Routes.blog,
-        ),
-        ItemModel(
-          image: 'resources',
-          text: 'المصادر',
-          route: Routes.sources,
-        ),
-      ],
-    );
-    // }
     _refreshToken();
     super.onInit();
   }
@@ -205,6 +183,7 @@ class RootController extends GetxController {
       (failure) {
         final type = json.decode(failure.statusMessage ?? '')['type'];
         errorType(type);
+        FlutterNativeSplash.remove();
       },
       (userData) {
         UserDataLocal.instance.save(userData.toJson());

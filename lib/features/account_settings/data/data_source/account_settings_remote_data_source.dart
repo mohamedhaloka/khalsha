@@ -41,7 +41,7 @@ class AccountSettingsRemoteDataSourceImpl
     if (response.statusCode == 200 && response.data['status']) {
       return response.data['message'];
     } else {
-      throw ServerException(errorMessage: response.data.toString());
+      throw ServerException(errorMessage: response.data['message'].toString());
     }
   }
 
@@ -60,16 +60,18 @@ class AccountSettingsRemoteDataSourceImpl
       'bio': bio,
     });
 
-    formData.files.add(MapEntry(
-      'commercial_cert',
-      await MultipartFile.fromFile(commercialCert),
-    ));
+    if (commercialCert.isNotEmpty) {
+      formData.files.add(MapEntry(
+        'commercial_cert',
+        await MultipartFile.fromFile(commercialCert),
+      ));
+    }
 
     final response = await _httpService.post('auth/update/profile', formData);
     if (response.statusCode == 200) {
       return response.data['message'];
     } else {
-      throw ServerException(errorMessage: response.data.toString());
+      throw ServerException(errorMessage: response.data['message'].toString());
     }
   }
 
@@ -86,7 +88,7 @@ class AccountSettingsRemoteDataSourceImpl
     if (response.statusCode == 200) {
       return response.data['message'];
     } else {
-      throw ServerException(errorMessage: response.data.toString());
+      throw ServerException(errorMessage: response.data['message'].toString());
     }
   }
 }

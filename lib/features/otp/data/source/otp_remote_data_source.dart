@@ -25,7 +25,7 @@ class OTPRemoteDataSourceImpl extends OTPRemoteDataSource {
     if (response.statusCode == 200) {
       return response.data['message'];
     } else {
-      throw ServerException(errorMessage: response.data.toString());
+      throw ServerException(errorMessage: response.data['message'].toString());
     }
   }
 
@@ -49,7 +49,7 @@ class OTPRemoteDataSourceImpl extends OTPRemoteDataSource {
         );
       }
     } else {
-      throw ServerException(errorMessage: response.data.toString());
+      throw ServerException(errorMessage: response.data['message'].toString());
     }
   }
 }

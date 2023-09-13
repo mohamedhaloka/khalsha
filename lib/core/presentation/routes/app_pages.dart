@@ -35,6 +35,7 @@ abstract class Routes {
   static const map = _Paths.map;
   static const chooseShippingService = _Paths.chooseShippingService;
   static const rule = _Paths.rule;
+  static const addPhoneNumber = _Paths.addPhoneNumber;
 }
 
 abstract class _Paths {
@@ -71,4 +72,5 @@ abstract class _Paths {
   static const map = '/map';
   static const chooseShippingService = '/choose_shipping_service';
   static const rule = '/rule';
+  static const addPhoneNumber = '/add_phone_number';
 }

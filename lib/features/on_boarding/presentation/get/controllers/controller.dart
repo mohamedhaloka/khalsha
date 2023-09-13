@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 
 import '../../../../../core/presentation/routes/app_routes.dart';
@@ -34,6 +35,7 @@ class OnBoardingController extends GetxController {
 
   @override
   void onInit() {
+    FlutterNativeSplash.remove();
     slides = const <OnBoardingItemModel>[
       OnBoardingItemModel(
           image: '1',

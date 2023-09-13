@@ -9,6 +9,7 @@ import 'package:khalsha/core/utils.dart';
 import 'package:khalsha/features/login/data/models/social_type_enum.dart';
 import 'package:khalsha/features/login/domain/use_cases/login_use_case.dart';
 import 'package:khalsha/features/login/domain/use_cases/social_login_use_case.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 import '../../../../../core/data/models/item_model.dart';
 import '../../../../../core/data/models/user_data_model.dart';
@@ -21,9 +22,12 @@ class LoginController extends GetxController {
   final SocialLoginUseCase _socialLoginUseCase;
   LoginController(this._loginUseCase, this._socialLoginUseCase);
 
-  List<ItemModel> socials = const <ItemModel>[
-    ItemModel(id: 0, text: 'Google', image: 'google'),
-    ItemModel(id: 1, text: 'Facebook', image: 'facebook'),
+  List<ItemModel> socials = <ItemModel>[
+    const ItemModel(id: 0, text: 'Google', image: 'google'),
+    const ItemModel(id: 1, text: 'Facebook', image: 'facebook'),
+    if (GetPlatform.isIOS) ...[
+      const ItemModel(id: 2, text: 'IOS', image: 'ios'),
+    ]
   ];
 
   RxBool loading = false.obs, passSecure = true.obs;
@@ -74,6 +78,8 @@ class LoginController extends GetxController {
       log(googleSignInAuthentication!.accessToken.toString(),
           name: 'ACCESS TOKEN');
       log(googleSignInAuthentication.idToken.toString(), name: 'ID TOKEN');
+      showAlertMessage(
+          'GOOGLE SIGN IN TOKEN ${googleSignInAuthentication.accessToken.toString()}');
 
       await _socialSignIn(
         socialType: SocialType.google,
@@ -90,9 +96,6 @@ class LoginController extends GetxController {
       final LoginResult loginResult = await FacebookAuth.i.login(
         permissions: ['public_profile'],
       );
-
-      final userData = await FacebookAuth.i.getUserData();
-
       await _socialSignIn(
         socialType: SocialType.facebook,
         accessToken: loginResult.accessToken!.token.toString(),
@@ -103,8 +106,29 @@ class LoginController extends GetxController {
     }
   }
 
-  Future<void> _socialSignIn(
-      {required SocialType socialType, required String accessToken}) async {
+  Future<void> appleSignIn() async {
+    try {
+      final credential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+      );
+
+      await _socialSignIn(
+        socialType: SocialType.apple,
+        accessToken: credential.authorizationCode,
+      );
+    } catch (error) {
+      log(error.toString(), name: 'APPLE SIGN IN ERROR');
+      showAlertMessage('APPLE SIGN IN ERROR ${error.toString()}');
+    }
+  }
+
+  Future<void> _socialSignIn({
+    required SocialType socialType,
+    required String accessToken,
+  }) async {
     final params = SocialLoginParams(
       loading: loading,
       type: SocialType.google,
@@ -113,10 +137,10 @@ class LoginController extends GetxController {
     final result = await _socialLoginUseCase.execute(params);
     result.fold(
       (Failure failure) => showAlertMessage(failure.statusMessage),
-      (UserData userData) {
-        UserDataLocal.instance.save(userData.toJson());
-        Get.offAllNamed(Routes.root);
-      },
+      (UserData userData) => Get.toNamed(
+        Routes.addPhoneNumber,
+        arguments: userData.toJson(),
+      ),
     );
   }
 }

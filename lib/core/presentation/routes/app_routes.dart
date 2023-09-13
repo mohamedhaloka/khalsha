@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:khalsha/features/account_settings/presentation/view.dart';
+import 'package:khalsha/features/add_phone_number/presentation/view.dart';
 import 'package:khalsha/features/bill_details/presentation/get/binding/binding.dart';
 import 'package:khalsha/features/bill_details/presentation/view.dart';
 import 'package:khalsha/features/blog/presentation/get/binding/binding.dart';
@@ -30,6 +31,7 @@ import 'package:khalsha/features/post_details/presentation/view.dart';
 import 'package:khalsha/features/register/presentation/get/bindings/binding.dart';
 import 'package:khalsha/features/register/presentation/view.dart';
 import 'package:khalsha/features/root/presentation/get/binding/binding.dart';
+import 'package:khalsha/features/root/presentation/get/controllers/controller.dart';
 import 'package:khalsha/features/root/presentation/view.dart';
 import 'package:khalsha/features/rule/presentation/view.dart';
 import 'package:khalsha/features/service_intro/presentation/get/binding/binding.dart';
@@ -43,6 +45,7 @@ import 'package:khalsha/features/statistics/presentation/get/binding/binding.dar
 import 'package:khalsha/features/statistics/presentation/view.dart';
 
 import '../../../features/account_settings/presentation/get/binding/binding.dart';
+import '../../../features/add_phone_number/presentation/get/bindings/binding.dart';
 import '../../../features/air_freight_service/air_freight_service.dart';
 import '../../../features/choose_shipping_service/presentation/get/bindings/binding.dart';
 import '../../../features/customs_clearance_service/customs_clearance.dart';
@@ -103,56 +106,67 @@ class AppPages {
       name: _Paths.serviceIntro,
       page: () => const ServiceIntroView(),
       binding: ServiceIntroBinding(),
+      middlewares: [VerifyAccountMiddleware()],
     ),
     GetPage(
       name: _Paths.commonQuestions,
       page: () => const CommonQuestionsView(),
       binding: CommonQuestionsBinding(),
+      middlewares: [VerifyAccountMiddleware()],
     ),
     GetPage(
       name: _Paths.shareApp,
       page: () => const ShareAppView(),
       binding: ShareAppBinding(),
+      middlewares: [VerifyAccountMiddleware()],
     ),
     GetPage(
       name: _Paths.sources,
       page: () => const SourcesView(),
       binding: SourcesBinding(),
+      middlewares: [VerifyAccountMiddleware()],
     ),
     GetPage(
       name: _Paths.contactUS,
       page: () => const ContactUsView(),
       binding: ContactUsBinding(),
+      middlewares: [VerifyAccountMiddleware()],
     ),
     GetPage(
       name: _Paths.blog,
       page: () => const BlogView(),
       binding: BlogBinding(),
+      middlewares: [VerifyAccountMiddleware()],
     ),
     GetPage(
       name: _Paths.postDetails,
       page: () => const PostDetailsView(),
       binding: PostDetailsBinding(),
+      middlewares: [VerifyAccountMiddleware()],
     ),
     GetPage(
       name: _Paths.orderDetails,
       page: () => const OrderDetailsView(),
       binding: OrderDetailsBinding(),
+      middlewares: [VerifyAccountMiddleware()],
     ),
     GetPage(
       name: _Paths.settlementDetails,
       page: () => const SettlementDetailsView(),
       binding: SettlementDetailsBinding(),
+      middlewares: [VerifyAccountMiddleware()],
     ),
     GetPage(
       name: _Paths.billDetails,
       page: () => const BillDetailsView(),
       binding: BillDetailsBinding(),
+      middlewares: [VerifyAccountMiddleware()],
     ),
     GetPage(
       name: _Paths.accountSettings,
       page: () => const AccountSettingsView(),
       binding: AccountSettingsBinding(),
+      middlewares: [VerifyAccountMiddleware()],
     ),
     GetPage(
       name: _Paths.howToUse,
@@ -168,41 +182,49 @@ class AppPages {
       name: _Paths.newOrders,
       page: () => const NewOrdersView(),
       binding: NewOrdersBinding(),
+      middlewares: [VerifyAccountMiddleware()],
     ),
     GetPage(
       name: _Paths.statistics,
       page: () => const StatisticsView(),
       binding: StatisticsBinding(),
+      middlewares: [VerifyAccountMiddleware()],
     ),
     GetPage(
       name: _Paths.customsClearanceService,
       page: () => const AddEditCustomsClearanceServiceView(),
       binding: AddEditCustomsClearanceServiceBinding(),
+      middlewares: [VerifyAccountMiddleware()],
     ),
     GetPage(
       name: _Paths.laboratoryAndStandardsService,
       page: () => const AddEditLaboratoryAndStandardsServiceView(),
       binding: AddEditLaboratoryAndStandardsServiceBinding(),
+      middlewares: [VerifyAccountMiddleware()],
     ),
     GetPage(
       name: _Paths.airFreight,
       page: () => const AddEditAirFreightServiceView(),
       binding: AddEditAirFreightServiceBinding(),
+      middlewares: [VerifyAccountMiddleware()],
     ),
     GetPage(
       name: _Paths.marineShipping,
       page: () => const AddEditMarineShippingServiceView(),
       binding: AddEditMarineShippingServiceBinding(),
+      middlewares: [VerifyAccountMiddleware()],
     ),
     GetPage(
       name: _Paths.landShipping,
       page: () => const AdEditLandShippingServiceView(),
       binding: AddEditLandShippingServiceBinding(),
+      middlewares: [VerifyAccountMiddleware()],
     ),
     GetPage(
       name: _Paths.stores,
       page: () => const AddEditStoresServiceView(),
       binding: AddEditStoresServiceBinding(),
+      middlewares: [VerifyAccountMiddleware()],
     ),
     GetPage(
       name: _Paths.forgetPassword,
@@ -229,5 +251,21 @@ class AppPages {
       page: () => const RuleView(),
       binding: RuleBinding(),
     ),
+    GetPage(
+      name: _Paths.addPhoneNumber,
+      page: () => const AddPhoneNumberView(),
+      binding: AddPhoneNumberBinding(),
+    ),
   ];
+}
+
+class VerifyAccountMiddleware extends GetMiddleware {
+  @override
+  GetPage? onPageCalled(GetPage? page) {
+    final rootController = Get.find<RootController>();
+    if (rootController.errorType.isNotEmpty) {
+      return null;
+    }
+    return page;
+  }
 }

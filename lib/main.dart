@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:http/http.dart' as http;
 import 'package:khalsha/firebase_options.dart';
 import 'package:khalsha/injection_container.dart';
 
@@ -16,7 +16,8 @@ import 'core/presentation/themes/theme_manager.dart';
 import 'core/presentation/translation/app_translation.dart';
 
 void main() async {
-  http.get(Uri.parse(''));
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   ErrorWidget.builder = (FlutterErrorDetails details) => ErrorView(details);
   await _initData();
   runApp(const MyApp());
@@ -60,7 +61,6 @@ Future<void> _initData() async {
   await UserDataLocal.instance.init();
 
   Get.lazyPut<HttpService>(() => HttpService(Dio()));
-  Get.lazyPut<NotificationsService>(() => NotificationsService());
-
+  Get.putAsync<NotificationsService>(() => NotificationsService().init());
   await InjectionContainer.init();
 }

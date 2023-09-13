@@ -90,12 +90,15 @@ dependencies:
   custom_qr_generator: ^0.1.2
   # for play videos
   video_player: ^2.7.0
+  # for showing native splash until getting data
+  flutter_native_splash: 2.2.9
+  # for sign in with apple
+  sign_in_with_apple: ^4.3.0
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_native_splash: 2.2.9
   flutter_launcher_icons: ^0.10.0
 
   flutter_lints: ^2.0.0
@@ -109,6 +112,7 @@ flutter_icons:
   ios: true
   image_path: "assets/images/app-icon.png"
   adaptive_icon_background: "#4F7284"
+  remove_alpha_ios: true
 
 flutter:
   uses-material-design: true
