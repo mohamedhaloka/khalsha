@@ -36,40 +36,43 @@ class _StatusDataState extends State<_StatusData> {
   @override
   Widget build(BuildContext context) {
     final orderData = controller.orderModel as CustomsClearanceOrder;
-    return ListView(
-      padding: const EdgeInsets.only(top: 30),
-      children: [
-        const OrderTabHeader(
-          title: 'حالة طلبك الأن',
-          hint: 'هنا تظهر حالة الطلب من قبلك',
-        ),
-        if (orderData.steps.isNotEmpty) ...[
-          SizedBox(
-            height: 200,
-            child: PageView.builder(
-              controller: statusSliderController,
-              onPageChanged: (int index) => currentStatus(index),
-              itemCount: orderData.steps.length,
-              itemBuilder: (_, int index) =>
-                  _StatusItem(orderData.steps[index]),
+    return RefreshIndicator(
+      onRefresh: controller.getOrderDetails,
+      child: ListView(
+        padding: const EdgeInsets.only(top: 30),
+        children: [
+          const OrderTabHeader(
+            title: 'حالة طلبك الأن',
+            hint: 'هنا تظهر حالة الطلب من قبلك',
+          ),
+          if (orderData.steps.isNotEmpty) ...[
+            SizedBox(
+              height: 200,
+              child: PageView.builder(
+                controller: statusSliderController,
+                onPageChanged: (int index) => currentStatus(index),
+                itemCount: orderData.steps.length,
+                itemBuilder: (_, int index) =>
+                    _StatusItem(orderData.steps[index]),
+              ),
             ),
-          ),
-          Obx(
-            () => Column(
-              children: [
-                Text(status(orderData.steps)),
-                TextUnderline(
-                  statusTxt(orderData.steps).tr,
-                  contentColor: _statusColor(orderData.steps),
-                ),
-              ],
+            Obx(
+              () => Column(
+                children: [
+                  Text(status(orderData.steps)),
+                  TextUnderline(
+                    statusTxt(orderData.steps).tr,
+                    contentColor: _statusColor(orderData.steps),
+                  ),
+                ],
+              ),
             ),
-          ),
-          OrderStatusSteps(
-            steps: orderData.steps,
-          ),
-        ]
-      ],
+            OrderStatusSteps(
+              steps: orderData.steps,
+            ),
+          ]
+        ],
+      ),
     );
   }
 

@@ -49,7 +49,7 @@ class _ChangeOrderStatusSheetState extends State<ChangeOrderStatusSheet> {
                   source: [kDone, kPending]
                       .map((e) => DropdownMenuItem(
                             value: e,
-                            child: Text(e),
+                            child: Text(e.tr),
                           ))
                       .toList(),
                 ),

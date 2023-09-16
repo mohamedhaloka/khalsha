@@ -14,6 +14,10 @@ Map<String, String> ar = {
   'all-fields-required': 'جميع الحقول مطلوبة',
   'file': 'ملف',
   'back': 'رجوع',
+  'take-image-from': 'إلتقاط صورة من',
+  'gallery': 'معرض الصور',
+  'camera': 'الكاميرا',
+  'photo-must-be-smaller-than-4mb': 'يجب ان يكون حجم الصورة أقل من ٤ ميجا',
 
   //Home
   'all': 'الكل',

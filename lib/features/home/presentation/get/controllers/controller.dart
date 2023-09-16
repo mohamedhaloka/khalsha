@@ -26,7 +26,6 @@ class HomeController extends GetxController {
         VideoPlayerController.asset('assets/videos/khalsha-motion-video.mp4')
           ..initialize().then((_) {
             showVideo(true);
-            videoController.play();
           });
     services = const [
       ItemModel(

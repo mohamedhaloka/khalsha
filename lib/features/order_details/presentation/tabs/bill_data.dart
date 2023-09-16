@@ -49,10 +49,10 @@ class _BillDataTab extends GetView<OrderDetailsController> {
                       '${HttpService.baseURL}${HttpService.userType}/${controller.serviceType.value}/download/invoice/${orderData.id}';
                   log(url, name: 'INVOICE URL');
 
-                  controller.downloadInvoiceAndOpen(url);
+                  controller.showInvoice(url);
                 },
-                loading: controller.downloadInvoiceLoading,
-                text: 'تحميل الفاتورة',
+                loading: controller.showInvoiceLoading,
+                text: 'مشاهدة الفاتورة',
               ),
             ),
         ],

@@ -18,6 +18,7 @@ import 'package:khalsha/features/rule/data/models/rule_type_enum.dart';
 
 import '../../../../../core/data/models/item_model.dart';
 import '../../../../../core/presentation/routes/app_routes.dart';
+import '../../../../home/presentation/get/controllers/controller.dart';
 import '../../../../notifications/presentation/view.dart';
 
 class RootController extends GetxController {
@@ -53,6 +54,7 @@ class RootController extends GetxController {
   }
 
   final _notificationService = Get.find<NotificationsService>();
+  final _homeController = Get.find<HomeController>();
 
   @override
   void onInit() {
@@ -174,6 +176,7 @@ class RootController extends GetxController {
       },
     );
     FlutterNativeSplash.remove();
+    _homeController.videoController.play();
   }
 
   Future<void> logOut() async {

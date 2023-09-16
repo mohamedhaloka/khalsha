@@ -26,7 +26,7 @@ class OrderDetailsController extends GetxController {
   RxBool loading = true.obs,
       offerActionLoading = false.obs,
       rateOrderLoading = false.obs,
-      downloadInvoiceLoading = false.obs;
+      showInvoiceLoading = false.obs;
 
   late OrderModel orderModel;
 
@@ -228,23 +228,18 @@ class OrderDetailsController extends GetxController {
     });
   }
 
-  Future<void> downloadInvoiceAndOpen(String url) async {
-    downloadInvoiceLoading(true);
+  Future<void> showInvoice(String url) async {
+    showInvoiceLoading(true);
     var tempDir = await getTemporaryDirectory();
     String fullPath = '${tempDir.path}/invoice_${url.split('/').last}.pdf';
 
-    if (await File(fullPath).exists()) {
-      await OpenFile.open(fullPath);
-      downloadInvoiceLoading(false);
-      return;
-    }
     final response = await http.get(
       Uri.parse(url),
       headers: HttpService.header,
     );
-    final file = await File(fullPath).writeAsBytes(response.bodyBytes);
-    await Permission.manageExternalStorage.request();
-    await OpenFile.open(file.path);
-    downloadInvoiceLoading(false);
+
+    File pdfFile = await File(fullPath).writeAsBytes(response.bodyBytes);
+    Get.to(InvoiceDetailsView(path: pdfFile.path));
+    showInvoiceLoading(false);
   }
 }

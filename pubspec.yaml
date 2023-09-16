@@ -82,7 +82,6 @@ dependencies:
   firebase_messaging: ^14.6.7
   flutter_local_notifications: ^11.0.1
   #get the permission of open external files and open it
-  open_file: ^3.3.1
   permission_handler: ^10.2.0
   # open share model
   share_plus: ^7.0.2
@@ -94,7 +93,8 @@ dependencies:
   flutter_native_splash: 2.2.9
   # for sign in with apple
   sign_in_with_apple: ^4.3.0
-
+  # for convert response to pdf view
+  flutter_pdfview: ^1.3.1
 
 dev_dependencies:
   flutter_test:

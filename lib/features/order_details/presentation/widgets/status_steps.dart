@@ -43,12 +43,12 @@ class _OrderStep extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: stepModel.status == kDone
+      onTap: stepModel.status == kDone || stepModel.step != 'statement'
           ? null
           : () {
               Get.bottomSheet(
                 HeadLineBottomSheet(
-                  bottomSheetTitle: stepModel.step!,
+                  bottomSheetTitle: (stepModel.step ?? '').tr,
                   height: Get.height / 1.5,
                   body: ChangeOrderStatusSheet(stepModel),
                 ),
@@ -87,7 +87,13 @@ class _OrderStep extends StatelessWidget {
                 ),
               ],
             ),
-            Text(stepModel.user!.name!),
+            Text(
+              stepModel.user!.name!,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            if (stepModel.note != null) ...[
+              Text(stepModel.note!),
+            ],
             if (stepModel.files!.isNotEmpty) ...[
               const Divider(),
               GridView.builder(

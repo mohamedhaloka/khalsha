@@ -2,6 +2,8 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -9,6 +11,7 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:khalsha/core/data/models/item_model.dart';
 import 'package:khalsha/core/data/services/http_service.dart';
+import 'package:khalsha/core/data/source/local/user_local.dart';
 import 'package:khalsha/core/domain/use_cases/upload_image_use_case.dart';
 import 'package:khalsha/features/order_details/data/models/order_details_item_model.dart';
 import 'package:khalsha/features/order_details/domain/use_cases/accept_reject_offer_use_case.dart';
@@ -17,15 +20,14 @@ import 'package:khalsha/features/order_details/domain/use_cases/rate_order_use_c
 import 'package:khalsha/features/order_details/domain/use_cases/update_order_status_use_case.dart';
 import 'package:khalsha/features/order_details/presentation/bottom_sheets/pricing_offer_details_sheet.dart';
 import 'package:khalsha/features/order_details/presentation/bottom_sheets/rate_order_sheet.dart';
+import 'package:khalsha/features/order_details/presentation/widgets/invoice_details_view.dart';
 import 'package:khalsha/features/order_details/presentation/widgets/order_tab_header.dart';
 import 'package:khalsha/features/order_details/presentation/widgets/status_steps.dart';
 import 'package:khalsha/features/service_intro/presentation/get/controllers/controller.dart';
 import 'package:khalsha/features/widgets/custom_button.dart';
 import 'package:khalsha/features/widgets/custom_rich_text.dart';
 import 'package:khalsha/features/widgets/headline_bottom_sheet.dart';
-import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../core/domain/use_cases/delete_file_use_case.dart';
