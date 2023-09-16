@@ -24,7 +24,7 @@ class NewOrdersRemoteDataSourceImpl extends NewOrdersRemoteDataSource {
       }
       return orders;
     } else {
-      throw ServerException(errorMessage: response.data.toString());
+      throw ServerException(errorMessage: response.data['message'].toString());
     }
   }
 }

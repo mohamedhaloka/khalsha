@@ -4,7 +4,6 @@ import 'package:khalsha/features/my_bills/presentation/get/controllers/controlle
 import 'package:khalsha/features/notifications/presentation/get/controllers/controller.dart';
 import 'package:khalsha/features/orders/presentation/get/controllers/controller.dart';
 import 'package:khalsha/features/profile/presentation/get/controllers/controller.dart';
-import 'package:khalsha/features/settlement/presentation/get/controllers/controller.dart';
 import 'package:khalsha/injection_container.dart';
 
 import '../controllers/controller.dart';
@@ -17,8 +16,6 @@ class RootBinding extends Bindings {
           InjectionContainer.sl(),
           InjectionContainer.sl(),
         ));
-    Get.lazyPut<SettlementController>(
-        () => SettlementController(InjectionContainer.sl()));
     Get.lazyPut<HomeController>(() => HomeController(InjectionContainer.sl()));
     Get.lazyPut<ProfileController>(
         () => ProfileController(InjectionContainer.sl()));

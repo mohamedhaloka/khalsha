@@ -33,7 +33,9 @@ class ProfileController extends GetxController {
         name.text = profileData.name ?? '';
         email.text = profileData.email ?? '';
         phone.text = profileData.mobile ?? '';
-        commercialCertificate.text = profileData.commercialCert ?? '';
+        commercialCertificate.text = (profileData.commercialCert ?? '').isEmpty
+            ? 'لم يتم رفع الملف حتى الان'
+            : 'تم رفع الملف';
       },
     );
   }

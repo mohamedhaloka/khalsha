@@ -1,8 +1,6 @@
 import 'package:get/get.dart';
 import 'package:khalsha/features/account_settings/presentation/view.dart';
 import 'package:khalsha/features/add_phone_number/presentation/view.dart';
-import 'package:khalsha/features/bill_details/presentation/get/binding/binding.dart';
-import 'package:khalsha/features/bill_details/presentation/view.dart';
 import 'package:khalsha/features/blog/presentation/get/binding/binding.dart';
 import 'package:khalsha/features/blog/presentation/view.dart';
 import 'package:khalsha/features/choose_shipping_service/presentation/view.dart';
@@ -36,8 +34,6 @@ import 'package:khalsha/features/root/presentation/view.dart';
 import 'package:khalsha/features/rule/presentation/view.dart';
 import 'package:khalsha/features/service_intro/presentation/get/binding/binding.dart';
 import 'package:khalsha/features/service_intro/presentation/view.dart';
-import 'package:khalsha/features/settlement_details/presentation/get/binding/binding.dart';
-import 'package:khalsha/features/settlement_details/presentation/view.dart';
 import 'package:khalsha/features/share_app/presentation/get/binding/binding.dart';
 import 'package:khalsha/features/share_app/presentation/view.dart';
 import 'package:khalsha/features/sources/presentation/get/binding/binding.dart';
@@ -148,18 +144,6 @@ class AppPages {
       name: _Paths.orderDetails,
       page: () => const OrderDetailsView(),
       binding: OrderDetailsBinding(),
-      middlewares: [VerifyAccountMiddleware()],
-    ),
-    GetPage(
-      name: _Paths.settlementDetails,
-      page: () => const SettlementDetailsView(),
-      binding: SettlementDetailsBinding(),
-      middlewares: [VerifyAccountMiddleware()],
-    ),
-    GetPage(
-      name: _Paths.billDetails,
-      page: () => const BillDetailsView(),
-      binding: BillDetailsBinding(),
       middlewares: [VerifyAccountMiddleware()],
     ),
     GetPage(

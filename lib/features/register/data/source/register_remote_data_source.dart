@@ -53,7 +53,7 @@ class RegisterRemoteDataSourceImpl extends RegisterRemoteDataSource {
     if (response.statusCode == 201) {
       return UserData.fromJson(response.data['data']['original']);
     } else {
-      throw ServerException(errorMessage: response.data.toString());
+      throw ServerException(errorMessage: response.data['message'].toString());
     }
   }
 }

@@ -211,7 +211,7 @@ class CustomsClearanceOrder extends OrderModel {
             ),
             OrderDetailsItemModel(
               title: 'الإجمالي',
-              description: total,
+              description: '$total ${currency.name}',
             ),
             OrderDetailsItemModel(
               title: 'نوع الشحن',

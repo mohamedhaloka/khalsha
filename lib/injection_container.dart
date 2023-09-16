@@ -101,10 +101,6 @@ import 'package:khalsha/features/root/domain/use_cases/update_fcm_token_use_case
 import 'package:khalsha/features/rule/data/data_source/rule_remote_data_source.dart';
 import 'package:khalsha/features/rule/data/repo/rule_repository_impl.dart';
 import 'package:khalsha/features/rule/domain/use_cases/get_rule_data_use_case.dart';
-import 'package:khalsha/features/settlement/data/data_source/settlement_remote_data_source.dart';
-import 'package:khalsha/features/settlement/data/repo_impl/settlement_repository_impl.dart';
-import 'package:khalsha/features/settlement/domain/repo/settlement_repository.dart';
-import 'package:khalsha/features/settlement/domain/use_cases/get_settlements_use_case.dart';
 import 'package:khalsha/features/sources/data/data_source/resources_remote_data_source.dart';
 import 'package:khalsha/features/sources/data/repo_impl/resources_repository_impl.dart';
 import 'package:khalsha/features/sources/domain/repo/resources_repository.dart';
@@ -212,14 +208,6 @@ class InjectionContainer {
     sl.registerLazySingleton<HomeRepository>(() => HomeRepositoryImpl(sl()));
     sl.registerLazySingleton<GetStatisticsUseCase>(
         () => GetStatisticsUseCase(sl()));
-
-    //Settlements
-    sl.registerLazySingleton<SettlementRemoteDataSource>(
-        () => SettlementRemoteDataSourceImpl(dioService));
-    sl.registerLazySingleton<SettlementRepository>(
-        () => SettlementRepositoryImpl(sl()));
-    sl.registerLazySingleton<GetSettlementsUseCase>(
-        () => GetSettlementsUseCase(sl()));
 
     //Orders
     sl.registerLazySingleton<OrdersRemoteDataSource>(

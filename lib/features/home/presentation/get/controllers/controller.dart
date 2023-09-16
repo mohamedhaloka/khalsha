@@ -66,7 +66,7 @@ class HomeController extends GetxController {
         arguments: ServiceTypes.airFreight,
       ),
     ];
-    _getStatistics();
+    // _getStatistics();
     super.onInit();
   }
 

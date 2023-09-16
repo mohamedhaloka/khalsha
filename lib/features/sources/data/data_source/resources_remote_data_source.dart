@@ -23,7 +23,7 @@ class ResourcesRemoteDataSourceImpl extends ResourcesRemoteDataSource {
       }
       return resources;
     } else {
-      throw ServerException(errorMessage: response.data.toString());
+      throw ServerException(errorMessage: response.data['message'].toString());
     }
   }
 
@@ -39,7 +39,7 @@ class ResourcesRemoteDataSourceImpl extends ResourcesRemoteDataSource {
       }
       return resources;
     } else {
-      throw ServerException(errorMessage: response.data.toString());
+      throw ServerException(errorMessage: response.data['message'].toString());
     }
   }
 }

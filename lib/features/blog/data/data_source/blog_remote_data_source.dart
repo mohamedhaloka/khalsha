@@ -25,7 +25,7 @@ class BlogRemoteDataSourceImpl extends BlogRemoteDataSource {
       }
       return categories;
     } else {
-      throw ServerException(errorMessage: response.data.toString());
+      throw ServerException(errorMessage: response.data['message'].toString());
     }
   }
 
@@ -40,7 +40,7 @@ class BlogRemoteDataSourceImpl extends BlogRemoteDataSource {
       }
       return posts;
     } else {
-      throw ServerException(errorMessage: response.data.toString());
+      throw ServerException(errorMessage: response.data['message'].toString());
     }
   }
 
@@ -56,7 +56,7 @@ class BlogRemoteDataSourceImpl extends BlogRemoteDataSource {
       }
       return posts;
     } else {
-      throw ServerException(errorMessage: response.data.toString());
+      throw ServerException(errorMessage: response.data['message'].toString());
     }
   }
 }

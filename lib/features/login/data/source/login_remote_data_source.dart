@@ -27,7 +27,7 @@ class LoginRemoteDataSourceImpl extends LoginRemoteDataSource {
     if (response.statusCode == 200) {
       return UserData.fromJson(response.data);
     } else {
-      throw ServerException(errorMessage: response.data.toString());
+      throw ServerException(errorMessage: response.data['message'].toString());
     }
   }
 
@@ -35,7 +35,7 @@ class LoginRemoteDataSourceImpl extends LoginRemoteDataSource {
   Future<UserData> socialSignIn(SocialType type, String accessToken) async {
     final formData = FormData.fromMap({
       'access_token': accessToken,
-      'user_type': HttpService.userType,
+      'user_type': 'importer_exporter',
     });
 
     final response =
@@ -44,7 +44,7 @@ class LoginRemoteDataSourceImpl extends LoginRemoteDataSource {
     if (response.statusCode == 200) {
       return UserData.fromJson(response.data);
     } else {
-      throw ServerException(errorMessage: response.data.toString());
+      throw ServerException(errorMessage: response.data['message'].toString());
     }
   }
 }

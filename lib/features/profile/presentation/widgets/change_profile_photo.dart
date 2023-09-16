@@ -28,8 +28,13 @@ class ChangeProfilePhoto extends StatelessWidget {
                     shape: BoxShape.circle,
                     color: Colors.white,
                   ),
-                  child: const CircleAvatar(
-                    radius: 65,
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(50)),
+                    child: CircleAvatar(
+                      radius: 65,
+                      backgroundColor: Colors.white,
+                      child: Image.asset('assets/images/app-icon.png'),
+                    ),
                   ),
                 ),
                 const Text('تغيير الصورة الشخصية')

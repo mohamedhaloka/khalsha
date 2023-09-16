@@ -26,7 +26,7 @@ class LoginController extends GetxController {
     const ItemModel(id: 0, text: 'Google', image: 'google'),
     const ItemModel(id: 1, text: 'Facebook', image: 'facebook'),
     if (GetPlatform.isIOS) ...[
-      const ItemModel(id: 2, text: 'IOS', image: 'ios'),
+      const ItemModel(id: 2, text: 'IOS', image: 'apple'),
     ]
   ];
 
@@ -77,9 +77,8 @@ class LoginController extends GetxController {
           await googleSignInAccount?.authentication;
       log(googleSignInAuthentication!.accessToken.toString(),
           name: 'ACCESS TOKEN');
-      log(googleSignInAuthentication.idToken.toString(), name: 'ID TOKEN');
-      showAlertMessage(
-          'GOOGLE SIGN IN TOKEN ${googleSignInAuthentication.accessToken.toString()}');
+      log(googleSignInAuthentication.idToken.toString(),
+          name: 'GOOGLE ID TOKEN');
 
       await _socialSignIn(
         socialType: SocialType.google,
@@ -96,6 +95,9 @@ class LoginController extends GetxController {
       final LoginResult loginResult = await FacebookAuth.i.login(
         permissions: ['public_profile'],
       );
+
+      log(loginResult.accessToken!.token, name: 'FACEBOOK ID TOKEN');
+
       await _socialSignIn(
         socialType: SocialType.facebook,
         accessToken: loginResult.accessToken!.token.toString(),
@@ -117,7 +119,7 @@ class LoginController extends GetxController {
 
       await _socialSignIn(
         socialType: SocialType.apple,
-        accessToken: credential.authorizationCode,
+        accessToken: credential.identityToken.toString(),
       );
     } catch (error) {
       log(error.toString(), name: 'APPLE SIGN IN ERROR');
@@ -131,16 +133,24 @@ class LoginController extends GetxController {
   }) async {
     final params = SocialLoginParams(
       loading: loading,
-      type: SocialType.google,
+      type: socialType,
       accessToken: accessToken,
     );
     final result = await _socialLoginUseCase.execute(params);
     result.fold(
       (Failure failure) => showAlertMessage(failure.statusMessage),
-      (UserData userData) => Get.toNamed(
-        Routes.addPhoneNumber,
-        arguments: userData.toJson(),
-      ),
+      (UserData userData) {
+        print(userData.toJson());
+        if ((userData.dataOrNull.mobile ?? '').isEmpty) {
+          Get.toNamed(
+            Routes.addPhoneNumber,
+            arguments: userData.toJson(),
+          );
+          return;
+        }
+        UserDataLocal.instance.save(userData.toJson());
+        Get.offAllNamed(Routes.root);
+      },
     );
   }
 }

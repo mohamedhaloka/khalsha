@@ -58,6 +58,7 @@ class TextFieldInputWithDropDownWithHolder extends StatelessWidget {
               padding: EdgeInsets.zero,
               height: inputHeight,
               radius: radius,
+              keyboardType: TextInputType.number,
               contentPadding: contentPadding,
               borderSide: inputBorderSide,
               contentColor: contentColor,

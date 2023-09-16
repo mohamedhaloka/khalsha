@@ -76,10 +76,12 @@ class AccountSettingsController extends GetxController {
         email.text = profileData.email ?? '';
         phone.text = profileData.mobile ?? '';
         bio.text = profileData.bio ?? '';
-        await _downloadImage(
-          profileData.commercialCert!,
-          onSuccess: (imagePath) => commercialCertificate(File(imagePath)),
-        );
+        if (profileData.commercialCert != null) {
+          await _downloadImage(
+            profileData.commercialCert!,
+            onSuccess: (imagePath) => commercialCertificate(File(imagePath)),
+          );
+        }
         if (profileData.photoProfile == null) return;
         await _downloadImage(
           profileData.photoProfile!,
@@ -136,5 +138,10 @@ class AccountSettingsController extends GetxController {
       (failure) => showAlertMessage(failure.statusMessage),
       (successMsg) => showAlertMessage(successMsg),
     );
+  }
+
+  void deleteAccount() {
+    UserDataLocal.instance.remove();
+    Get.offAllNamed(Routes.onBoarding);
   }
 }

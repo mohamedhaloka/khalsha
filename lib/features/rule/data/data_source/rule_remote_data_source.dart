@@ -19,7 +19,7 @@ class RuleRemoteDataSourceImpl extends RuleRemoteDataSource {
     if (response.statusCode == 200 && response.data['status']) {
       return RuleModel.fromJson(response.data['result']);
     } else {
-      throw ServerException(errorMessage: response.data.toString());
+      throw ServerException(errorMessage: response.data['message'].toString());
     }
   }
 }

@@ -372,7 +372,7 @@ class AddEditCustomsClearanceController extends GetxController {
 
       final result = await _uploadImageUseCase.execute(params);
       result.fold(
-        (_) => _,
+        (f) => print(f.statusMessage),
         (successMsg) => showAlertMessage(successMsg),
       );
     }

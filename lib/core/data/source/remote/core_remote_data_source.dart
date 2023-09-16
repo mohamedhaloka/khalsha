@@ -44,7 +44,7 @@ class CoreRemoteDataSourceImpl extends CoreRemoteDataSource {
     if (response.statusCode == 200) {
       return ProfileDataModel.fromJson(response.data['data']);
     } else {
-      throw ServerException(errorMessage: response.data.toString());
+      throw ServerException(errorMessage: response.data['message'].toString());
     }
   }
 
@@ -71,7 +71,7 @@ class CoreRemoteDataSourceImpl extends CoreRemoteDataSource {
     if (response.statusCode == 200) {
       return response.data['message'];
     } else {
-      throw ServerException(errorMessage: response.data.toString());
+      throw ServerException(errorMessage: response.data['message'].toString());
     }
   }
 
@@ -90,7 +90,7 @@ class CoreRemoteDataSourceImpl extends CoreRemoteDataSource {
     if (response.statusCode == 200) {
       return response.data['message'];
     } else {
-      throw ServerException(errorMessage: response.data.toString());
+      throw ServerException(errorMessage: response.data['message'].toString());
     }
   }
 
@@ -107,7 +107,7 @@ class CoreRemoteDataSourceImpl extends CoreRemoteDataSource {
 
       return dataList;
     } else {
-      throw ServerException(errorMessage: response.data.toString());
+      throw ServerException(errorMessage: response.data['message'].toString());
     }
   }
 
@@ -141,7 +141,7 @@ class CoreRemoteDataSourceImpl extends CoreRemoteDataSource {
     if (response.statusCode == 200) {
       return 'تم رفع الملف بنجاح';
     } else {
-      throw ServerException(errorMessage: response.data.toString());
+      throw ServerException(errorMessage: response.data['message'].toString());
     }
   }
 
@@ -153,7 +153,7 @@ class CoreRemoteDataSourceImpl extends CoreRemoteDataSource {
     if (response.statusCode == 200) {
       return response.data['message'];
     } else {
-      throw ServerException(errorMessage: response.data.toString());
+      throw ServerException(errorMessage: response.data['message'].toString());
     }
   }
 

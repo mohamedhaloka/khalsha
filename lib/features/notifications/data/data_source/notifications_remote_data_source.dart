@@ -28,7 +28,7 @@ class NotificationsRemoteDataSourceImpl extends NotificationsRemoteDataSource {
       }
       return notifications;
     } else {
-      throw ServerException(errorMessage: response.data.toString());
+      throw ServerException(errorMessage: response.data['message'].toString());
     }
   }
 }

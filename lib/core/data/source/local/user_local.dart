@@ -16,6 +16,7 @@ class UserDataLocal
   bool get isLoggedIn => data.value.accessToken != null;
   UserData get guestUser => data.value = UserData();
 
+  String get clientPhoto => data.value.dataOrNull.photoProfile ?? '';
   String get clientName => data.value.dataOrNull.name ?? '';
   String get token => data.value.accessToken ?? '';
 

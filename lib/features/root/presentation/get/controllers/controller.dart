@@ -18,9 +18,7 @@ import 'package:khalsha/features/rule/data/models/rule_type_enum.dart';
 
 import '../../../../../core/data/models/item_model.dart';
 import '../../../../../core/presentation/routes/app_routes.dart';
-import '../../../../../core/utils.dart';
 import '../../../../notifications/presentation/view.dart';
-import '../../../../settlement/presentation/view.dart';
 
 class RootController extends GetxController {
   final RefreshTokenUseCase _refreshTokenUseCase;
@@ -83,27 +81,13 @@ class RootController extends GetxController {
         text: 'الإشعارات',
         child: NotificationsView(),
       ),
+      const ItemModel(
+        id: 4,
+        image: 'my-bills',
+        text: 'فواتير',
+        child: MyBillsView(),
+      ),
     ];
-
-    if (!UserDataLocal.instance.isImporterExporter) {
-      pages.add(
-        const ItemModel(
-          id: 4,
-          image: 'settlement',
-          text: 'التسوية',
-          child: SettlementView(),
-        ),
-      );
-    } else {
-      pages.add(
-        const ItemModel(
-          id: 4,
-          image: 'my-bills',
-          text: 'فواتير',
-          child: MyBillsView(),
-        ),
-      );
-    }
 
     menu = [
       const ItemModel(
@@ -183,26 +167,20 @@ class RootController extends GetxController {
       (failure) {
         final type = json.decode(failure.statusMessage ?? '')['type'];
         errorType(type);
-        FlutterNativeSplash.remove();
       },
       (userData) {
         UserDataLocal.instance.save(userData.toJson());
         _updateFCMToken();
       },
     );
+    FlutterNativeSplash.remove();
   }
 
   Future<void> logOut() async {
     final params = Params(loading: false.obs);
-    final result = await _logOutUseCase.execute(params);
-    result.fold(
-      (failure) => showAlertMessage(failure.statusMessage),
-      (successMsg) {
-        showAlertMessage(successMsg);
-        UserDataLocal.instance.remove();
-        Get.offAllNamed(Routes.onBoarding);
-      },
-    );
+    _logOutUseCase.execute(params);
+    UserDataLocal.instance.remove();
+    Get.offAllNamed(Routes.onBoarding);
   }
 
   Future<void> _updateFCMToken() async {

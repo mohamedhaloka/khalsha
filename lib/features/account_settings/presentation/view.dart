@@ -109,6 +109,13 @@ class AccountSettingsView extends GetView<AccountSettingsController> {
                     loading: controller.loading,
                     width: Get.width,
                   ),
+                  const Divider(),
+                  CustomButton(
+                    text: 'حذف الحساب',
+                    onTap: controller.deleteAccount,
+                    loading: controller.loading,
+                    width: Get.width,
+                  ),
                 ],
               ),
               if (controller.loading.value)

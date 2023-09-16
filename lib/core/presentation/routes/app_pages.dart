@@ -23,8 +23,6 @@ abstract class Routes {
   static const marineShipping = _Paths.marineShipping;
   static const stores = _Paths.stores;
   static const orderDetails = _Paths.orderDetails;
-  static const settlementDetails = _Paths.settlementDetails;
-  static const billDetails = _Paths.billDetails;
   static const accountSettings = _Paths.accountSettings;
   static const howToUse = _Paths.howToUse;
   static const orders = _Paths.orders;
@@ -60,8 +58,6 @@ abstract class _Paths {
   static const marineShipping = '/marine_shipping';
   static const stores = '/stores';
   static const orderDetails = '/order_details';
-  static const settlementDetails = '/settlement_details';
-  static const billDetails = '/bill_details';
   static const accountSettings = '/account_settings';
   static const howToUse = '/how_to_use';
   static const orders = '/orders';
