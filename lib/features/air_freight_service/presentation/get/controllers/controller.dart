@@ -236,7 +236,7 @@ class AddEditAirFreightServiceController extends GetxController {
         certificates: certificates.any((element) => element.selected.value)
             ? 'yes'
             : 'no',
-        through: selectedThrough.value == 0 ? 'pallet' : 'cartoon',
+        through: selectedThrough.value == 0 ? 'pallet' : 'carton',
         certificate: certificates
             .where((e) => e.selected.value)
             .map((element) => element.id.toString())

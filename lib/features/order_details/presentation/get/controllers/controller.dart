@@ -239,7 +239,7 @@ class OrderDetailsController extends GetxController {
     );
 
     File pdfFile = await File(fullPath).writeAsBytes(response.bodyBytes);
-    Get.to(InvoiceDetailsView(path: pdfFile.path));
+    Get.to(() => InvoiceDetailsView(path: pdfFile.path));
     showInvoiceLoading(false);
   }
 }

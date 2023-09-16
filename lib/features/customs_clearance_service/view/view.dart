@@ -29,7 +29,7 @@ class _FillData extends GetView<AddEditCustomsClearanceController> {
   @override
   Widget build(BuildContext context) {
     return FillDataStepView(
-      serviceName: ServiceTypes.laboratoryAndStandards.value,
+      serviceName: ServiceTypes.customsClearance.value,
       image: 'customs',
       body: Column(
         children: [

@@ -129,6 +129,7 @@ class _PostItem extends StatelessWidget {
                 ),
                 Text(
                   post.content ?? '',
+                  maxLines: 3,
                   style: Get.textTheme.titleMedium!.copyWith(
                     color: ColorManager.primaryColor,
                     fontWeight: FontWeight.bold,

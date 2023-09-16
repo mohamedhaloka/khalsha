@@ -291,16 +291,37 @@ class AirFreightOrder extends OrderModel {
             data: [
               for (var container in goods) ...[
                 OrderDetailsItemModel(
+                  title: 'اسم الصنف',
+                  description: container.name,
+                ),
+                OrderDetailsItemModel(
+                  title: 'الطول',
+                  description: container.length,
+                ),
+                OrderDetailsItemModel(
+                  title: 'العرض',
+                  description: container.width,
+                ),
+                OrderDetailsItemModel(
+                  title: 'الارتفاع',
+                  description: container.height,
+                ),
+                OrderDetailsItemModel(
                   title: 'الحجم الكلي',
-                  description: container.overallSize,
+                  description: container.cm,
                 ),
                 OrderDetailsItemModel(
                   title: 'الوزن الكلي',
-                  description: container.totalWeight,
+                  description: container.weightPerUnit,
                 ),
                 OrderDetailsItemModel(
                   title: 'الكمية',
                   description: container.quantity,
+                ),
+                OrderDetailsItemModel(
+                  title: 'صورة الشحنة',
+                  description: container.image,
+                  type: OrderDetailsTypes.file,
                 ),
               ]
             ],

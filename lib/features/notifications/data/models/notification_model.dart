@@ -3,7 +3,7 @@ class NotificationModel {
   int moduleId;
   String moduleKey;
   String text;
-  FromModel from;
+  NotificationFromDataModel from;
 
   NotificationModel({
     required this.id,
@@ -19,7 +19,7 @@ class NotificationModel {
         moduleId: json["module_id"],
         moduleKey: json["module_key"],
         text: json["text"],
-        from: FromModel.fromJson(json["from"]),
+        from: NotificationFromDataModel.fromJson(json["from"] ?? {}),
       );
 
   Map<String, dynamic> toJson() => {
@@ -31,21 +31,22 @@ class NotificationModel {
       };
 }
 
-class FromModel {
+class NotificationFromDataModel {
   int id;
   String name;
   String photoProfile;
 
-  FromModel({
+  NotificationFromDataModel({
     required this.id,
     required this.name,
     required this.photoProfile,
   });
 
-  factory FromModel.fromJson(Map<String, dynamic> json) => FromModel(
+  factory NotificationFromDataModel.fromJson(Map<String, dynamic> json) =>
+      NotificationFromDataModel(
         id: json["id"],
         name: json["name"],
-        photoProfile: json["photo_profile"],
+        photoProfile: json["photo_profile"] ?? '',
       );
 
   Map<String, dynamic> toJson() => {

@@ -32,7 +32,7 @@ class _FillData extends GetView<AddEditAirFreightServiceController> {
   @override
   Widget build(BuildContext context) {
     return FillDataStepView(
-      serviceName: ServiceTypes.marineShipping.value,
+      serviceName: ServiceTypes.airFreight.value,
       image: 'air',
       body: Column(
         children: [
