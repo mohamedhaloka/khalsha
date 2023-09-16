@@ -109,6 +109,10 @@ class AddEditAirFreightServiceController extends GetxController {
       lat: double.tryParse(order.fromCityLat) ?? 0.0,
       long: double.tryParse(order.fromCityLng) ?? 0.0,
     );
+    didFieldChanged(
+      AirFreightInputsKeys.shipmentFrom.name,
+      value: '_',
+    );
     toShipmentLocation(order.toShipmentLocation);
     toShipmentOther.text = order.toShipmentOtherLocation.toString();
     toCountryId(order.toCountryId.toString());
@@ -117,6 +121,10 @@ class AddEditAirFreightServiceController extends GetxController {
       name: order.toCity,
       lat: double.tryParse(order.toCityLat) ?? 0.0,
       long: double.tryParse(order.toCityLng) ?? 0.0,
+    );
+    didFieldChanged(
+      AirFreightInputsKeys.shipmentTo.name,
+      value: '_',
     );
     price.text = order.total;
     selectedCurrencyId(order.currencyId.toString());
@@ -134,10 +142,13 @@ class AddEditAirFreightServiceController extends GetxController {
       items.clear();
       for (var goodItem in order.goods) {
         File image = File('');
-        await _downloadFile(
-          goodItem.image!,
-          onSuccess: (String filePath) => image = File(filePath),
-        );
+        if(goodItem.image != null){
+          await _downloadFile(
+            goodItem.image!,
+            onSuccess: (String filePath) => image = File(filePath),
+          );
+        }
+
         items.add(AirFreightItemModel(
           length: TextEditingController(text: goodItem.length),
           width: TextEditingController(text: goodItem.width),

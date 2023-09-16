@@ -79,10 +79,4 @@ class HomeController extends GetxController {
       (data) => statisticsModel(data),
     );
   }
-
-  @override
-  void onClose() {
-    videoController.dispose();
-    super.onClose();
-  }
 }

@@ -112,14 +112,27 @@ class _AdditionalServices
     return AdditionalServiceStepView(
       body: Column(
         children: [
-          CheckerWithHolder(
-            title: 'خدمة إستخراج الشهادات المطلوبة',
-            active: controller.certificates
-                .any((element) => element.selected.value)
-                .obs,
-            bottomSheetTitle: 'الشهادات',
-            body: ChooseCertificates(controller.certificates),
-            height: Get.height / 1.6,
+          FormBuilderField(
+            builder: (FormFieldState<dynamic> field) => CheckerWithHolder(
+              title: 'خدمة إستخراج الشهادات اللازمة',
+              active: controller.certificates
+                  .any((element) => element.selected.value)
+                  .obs,
+              bottomSheetTitle: 'الشهادات',
+              body: ChooseCertificates(controller.certificates),
+              height: Get.height / 1.6,
+              errotText: field.errorText,
+            ),
+            onSaved: (_) {
+              bool hasSelectedCertificates = controller.certificates
+                  .any((element) => element.selected.value);
+              controller.didFieldChanged(
+                LaboratoryInputsKeys.certificates.name,
+                value: hasSelectedCertificates ? 'xx' : '',
+              );
+            },
+            validator: FormBuilderValidators.required(),
+            name: LaboratoryInputsKeys.certificates.name,
           ),
         ],
       ),
@@ -130,4 +143,5 @@ class _AdditionalServices
 enum LaboratoryInputsKeys {
   title,
   orderItems,
+  certificates,
 }

@@ -17,7 +17,7 @@ class LandShippingRemoteDataSourceImpl extends LandShippingRemoteDataSource {
 
   @override
   Future<Map<String, dynamic>> createOrder(LandShippingData data) async {
-    final formData = _prepareFormData(data);
+    final formData = await _prepareFormData(data);
     final response = await _httpService.post(
       '${HttpService.userType}/landshippings',
       formData,
@@ -35,7 +35,7 @@ class LandShippingRemoteDataSourceImpl extends LandShippingRemoteDataSource {
 
   @override
   Future<Map<String, dynamic>> updateOrder(LandShippingData data) async {
-    final formData = _prepareFormData(data);
+    final formData = await _prepareFormData(data);
 
     final response = await _httpService.post(
       '${HttpService.userType}/landshippings/${data.orderId}',
@@ -52,7 +52,7 @@ class LandShippingRemoteDataSourceImpl extends LandShippingRemoteDataSource {
     }
   }
 
-  FormData _prepareFormData(LandShippingData data) {
+  Future<FormData> _prepareFormData(LandShippingData data) async {
     final formData = FormData.fromMap(data.toJson());
 
     _fillDataOfList(
@@ -107,7 +107,7 @@ class LandShippingRemoteDataSourceImpl extends LandShippingRemoteDataSource {
         dataList: data.bundleTotalWeight,
         key: 'bundel_total_weight',
       );
-      _fillDataOfList(
+      await _fillDataOfList(
         formData,
         dataList: data.bundleImage,
         key: 'bundel_image',
@@ -154,7 +154,7 @@ class LandShippingRemoteDataSourceImpl extends LandShippingRemoteDataSource {
     return formData;
   }
 
-  void _fillDataOfList(FormData formData,
+  Future<void> _fillDataOfList(FormData formData,
       {required List<String> dataList,
       required String key,
       String type = kField}) async {

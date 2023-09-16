@@ -22,7 +22,8 @@ class ContactUsView extends GetView<ContactUsController> {
           horizontal: 20,
         ),
         child: CustomButton(
-          onTap: () {},
+          onTap: controller.sendMessage,
+          loading: controller.loading,
           text: 'ارسال',
           radius: _radius,
         ),
@@ -41,17 +42,30 @@ class ContactUsView extends GetView<ContactUsController> {
             ),
           ),
           CustomTextField(
+            title: 'عنوان الرساله',
+            radius: _radius,
+            controller: controller.title,
+          ),
+          CustomTextField(
             title: 'الإسم',
             radius: _radius,
+            controller: controller.name,
           ),
           CustomTextField(
             title: 'بريدك الإلكتروني',
             radius: _radius,
+            controller: controller.email,
           ),
           CustomTextField(
-            title: 'رسالتنا',
+            title: 'رقم الهاتف',
+            radius: _radius,
+            controller: controller.mobile,
+          ),
+          CustomTextField(
+            title: 'الرسالة',
             maxLines: 6,
             radius: _radius,
+            controller: controller.message,
           ),
         ],
       ),

@@ -22,7 +22,7 @@ class AirFreightRemoteDataSourceImpl extends AirFreightRemoteDataSource {
   @override
   Future<Map<String, dynamic>> createOrder(
       AirFreightData airFreightData) async {
-    final formData = _prepareFormData(airFreightData);
+    final formData = await _prepareFormData(airFreightData);
     final response = await _httpService.post(
       '${HttpService.userType}/airshippings',
       formData,
@@ -41,7 +41,7 @@ class AirFreightRemoteDataSourceImpl extends AirFreightRemoteDataSource {
   @override
   Future<Map<String, dynamic>> updateOrder(
       AirFreightData airFreightData) async {
-    final formData = _prepareFormData(airFreightData);
+    final formData = await _prepareFormData(airFreightData);
     final response = await _httpService.post(
       '${HttpService.userType}/airshippings/${airFreightData.id}',
       formData,
@@ -57,7 +57,7 @@ class AirFreightRemoteDataSourceImpl extends AirFreightRemoteDataSource {
     }
   }
 
-  FormData _prepareFormData(AirFreightData airFreightData) {
+  Future<FormData> _prepareFormData(AirFreightData airFreightData) async {
     final formData = FormData.fromMap(airFreightData.toJson());
 
     _fillDataOfList(
@@ -66,7 +66,7 @@ class AirFreightRemoteDataSourceImpl extends AirFreightRemoteDataSource {
       key: 'certificate',
     );
 
-    _fillDataOfList(
+    await _fillDataOfList(
       formData,
       dataList: airFreightData.image,
       key: 'image',
@@ -114,7 +114,7 @@ class AirFreightRemoteDataSourceImpl extends AirFreightRemoteDataSource {
     return formData;
   }
 
-  void _fillDataOfList(FormData formData,
+  Future<void> _fillDataOfList(FormData formData,
       {required List<String> dataList,
       required String key,
       String type = kField}) async {

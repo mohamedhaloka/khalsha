@@ -280,15 +280,27 @@ class _AdditionalServices extends GetView<AddEditAirFreightServiceController> {
             title: 'خدمة التخليص الجمركي',
             active: controller.enableCustomsClearance,
           ),
-          CheckerWithHolder(
-            title: 'خدمة إستخراج الشهادات اللازمة',
-            active: controller.certificates
-                .any((element) => element.selected.value)
-                .obs,
-            bottomSheetTitle: 'الشهادات',
-            body: ChooseCertificates(controller.certificates),
-            height: Get.height / 1.6,
-            // errotText: field.errorText,
+          FormBuilderField(
+            builder: (FormFieldState<dynamic> field) => CheckerWithHolder(
+              title: 'خدمة إستخراج الشهادات اللازمة',
+              active: controller.certificates
+                  .any((element) => element.selected.value)
+                  .obs,
+              bottomSheetTitle: 'الشهادات',
+              body: ChooseCertificates(controller.certificates),
+              height: Get.height / 1.6,
+              errotText: field.errorText,
+            ),
+            onSaved: (_) {
+              bool hasSelectedCertificates = controller.certificates
+                  .any((element) => element.selected.value);
+              controller.didFieldChanged(
+                AirFreightInputsKeys.certificates.name,
+                value: hasSelectedCertificates ? 'xx' : '',
+              );
+            },
+            validator: FormBuilderValidators.required(),
+            name: AirFreightInputsKeys.certificates.name,
           ),
         ],
       ),
@@ -302,6 +314,7 @@ enum AirFreightInputsKeys {
   shipmentFrom,
   shipmentTo,
   shipmentReady,
+  certificates,
   price,
   calculateThrough;
 }

@@ -255,7 +255,7 @@ class MarineShipmentOrder extends OrderModel {
             ),
           ],
         ),
-        if (containers.isNotEmpty) ...[
+        if (shipmentSizes == 'container') ...[
           OrderSectionItemModel(
             title: 'الحاوية',
             data: [
@@ -281,7 +281,7 @@ class MarineShipmentOrder extends OrderModel {
             ],
           ),
         ],
-        if (goods.isNotEmpty) ...[
+        if (shipmentSizes == 'goods') ...[
           OrderSectionItemModel(
             title: 'البضائع المجمعة',
             data: [

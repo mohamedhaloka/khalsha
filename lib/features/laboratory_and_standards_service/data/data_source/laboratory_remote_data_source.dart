@@ -90,13 +90,13 @@ class LaboratoryRemoteDataSourceImpl extends LaboratoryRemoteDataSource {
       dataList: laboratoryData.nameEn,
       key: 'name_en',
     );
-    _fillDataOfList(
+    await _fillDataOfList(
       formData,
       dataList: laboratoryData.photoCard,
       key: 'photo_card',
       type: kFile,
     );
-    _fillDataOfList(
+    await _fillDataOfList(
       formData,
       dataList: laboratoryData.photoItem,
       key: 'photo_item',
@@ -119,7 +119,7 @@ class LaboratoryRemoteDataSourceImpl extends LaboratoryRemoteDataSource {
     return formData;
   }
 
-  void _fillDataOfList(FormData formData,
+  Future<void> _fillDataOfList(FormData formData,
       {required List<String> dataList,
       required String key,
       String type = kField}) async {

@@ -23,7 +23,7 @@ class MarineShipmentRemoteDataSourceImpl
   @override
   Future<Map<String, dynamic>> createOrder(
       MarineShipmentData marineShipmentData) async {
-    final formData = _prepareFormData(marineShipmentData);
+    final formData = await _prepareFormData(marineShipmentData);
     final response = await _httpService.post(
       '${HttpService.userType}/seashippings',
       formData,
@@ -42,7 +42,7 @@ class MarineShipmentRemoteDataSourceImpl
   @override
   Future<Map<String, dynamic>> updateOrder(
       MarineShipmentData marineShipmentData) async {
-    final formData = _prepareFormData(marineShipmentData);
+    final formData = await _prepareFormData(marineShipmentData);
     final response = await _httpService.post(
       '${HttpService.userType}/seashippings/${marineShipmentData.id}',
       formData,
@@ -58,7 +58,8 @@ class MarineShipmentRemoteDataSourceImpl
     }
   }
 
-  FormData _prepareFormData(MarineShipmentData marineShipmentData) {
+  Future<FormData> _prepareFormData(
+      MarineShipmentData marineShipmentData) async {
     final formData = FormData.fromMap(marineShipmentData.toJson());
 
     _fillDataOfList(
@@ -83,13 +84,12 @@ class MarineShipmentRemoteDataSourceImpl
       dataList: marineShipmentData.containerContent,
       key: 'content_',
     );
-    _fillDataOfList(
+    await _fillDataOfList(
       formData,
       dataList: marineShipmentData.image,
       key: 'image',
       type: kFile,
     );
-
     _fillDataOfList(
       formData,
       dataList: marineShipmentData.goodsTotalWeight,
@@ -139,7 +139,7 @@ class MarineShipmentRemoteDataSourceImpl
     return formData;
   }
 
-  void _fillDataOfList(FormData formData,
+  Future<void> _fillDataOfList(FormData formData,
       {required List<String> dataList,
       required String key,
       String type = kField}) async {

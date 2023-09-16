@@ -201,7 +201,7 @@ class LandShippingOrder extends OrderModel {
               title: 'نوع الشحن',
               description: shippingType,
             ),
-            if (workers != null)
+            if (workers != null && goodsType == 'private_transfer')
               OrderDetailsItemModel(
                 title: 'تريد عمال تحميل وتنزيل',
                 description: workers,
@@ -210,22 +210,22 @@ class LandShippingOrder extends OrderModel {
               title: 'قابل للاشتعال',
               description: flammable,
             ),
-            if (truck != null)
+            if (truck != null && goodsType == 'private_transfer')
               OrderDetailsItemModel(
                 title: 'نوع الشاحنة',
                 description: truck?.name,
               ),
-            if (shipmentType != null)
+            if (shipmentType != null && goodsType == 'private_transfer')
               OrderDetailsItemModel(
                 title: 'نوع الشحنة',
                 description: shipmentType?.name,
               ),
-            if (wantStorage != null)
+            if (wantStorage != null && goodsType == 'private_transfer')
               OrderDetailsItemModel(
                 title: 'هل تريد التخزين',
                 description: wantStorage,
               ),
-            if (wantStorage != null && storageDays! > 0)
+            if (wantStorage != null && storageDays! > 0  && goodsType == 'private_transfer')
               OrderDetailsItemModel(
                 title: 'عدد ايام التخزين',
                 description: storageDays.toString(),
@@ -264,7 +264,7 @@ class LandShippingOrder extends OrderModel {
             ]
           ],
         ),
-        if (bundledGoods.isNotEmpty)
+        if (bundledGoods.isNotEmpty && goodsType != 'private_transfer')
           OrderSectionItemModel(
             title: 'الاصناف',
             data: [

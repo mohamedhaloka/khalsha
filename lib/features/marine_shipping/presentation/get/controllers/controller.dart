@@ -130,6 +130,10 @@ class AddEditMarineShippingServiceController extends GetxController {
       lat: double.tryParse(order.fromCityLat) ?? 0.0,
       long: double.tryParse(order.fromCityLng) ?? 0.0,
     );
+    didFieldChanged(
+      MarineShipmentInputsKeys.shipmentFrom.name,
+      value: '_',
+    );
     toShipmentLocation(order.toShipmentLocation);
     toShipmentOther.text = order.toShipmentOtherLocation.toString();
     toCountryId(order.toCountryId.toString());
@@ -138,6 +142,10 @@ class AddEditMarineShippingServiceController extends GetxController {
       name: order.toCity,
       lat: double.tryParse(order.toCityLat) ?? 0.0,
       long: double.tryParse(order.toCityLng) ?? 0.0,
+    );
+    didFieldChanged(
+      MarineShipmentInputsKeys.shipmentTo.name,
+      value: '_',
     );
     price.text = order.total;
     selectedCurrencyId(order.currencyId.toString());

@@ -28,6 +28,10 @@ import 'package:khalsha/features/blog/domain/repo/blog_repository.dart';
 import 'package:khalsha/features/blog/domain/use_cases/blog_search_use_case.dart';
 import 'package:khalsha/features/blog/domain/use_cases/get_categories_use_case.dart';
 import 'package:khalsha/features/blog/domain/use_cases/get_post_by_cat_id_use_case.dart';
+import 'package:khalsha/features/contact_us/data/data_source/contact_us_remote_data_source.dart';
+import 'package:khalsha/features/contact_us/data/repo_impl/contact_us_repository_impl.dart';
+import 'package:khalsha/features/contact_us/domain/repository/contact_us_repository.dart';
+import 'package:khalsha/features/contact_us/domain/use_cases/send_message_use_case.dart';
 import 'package:khalsha/features/customs_clearance_service/data/data_source/custom_clearance_remote_data_source.dart';
 import 'package:khalsha/features/customs_clearance_service/data/repository_impl/customs_clearance_repository_impl.dart';
 import 'package:khalsha/features/customs_clearance_service/domain/repository/customs_clearance_repository.dart';
@@ -366,5 +370,13 @@ class InjectionContainer {
     sl.registerLazySingleton<RuleRepository>(() => RuleRepositoryImpl(sl()));
     sl.registerLazySingleton<GetRuleDataUseCase>(
         () => GetRuleDataUseCase(sl()));
+
+    //Contact US
+    sl.registerLazySingleton<ContactUsRemoteDataSource>(
+        () => ContactUsRemoteDataSourceImpl(dioService));
+    sl.registerLazySingleton<ContactUsRepository>(
+        () => ContactUsRepositoryImpl(sl()));
+    sl.registerLazySingleton<SendMessageContactUsUseCase>(
+        () => SendMessageContactUsUseCase(sl()));
   }
 }
