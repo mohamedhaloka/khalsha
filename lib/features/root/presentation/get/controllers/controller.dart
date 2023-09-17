@@ -120,6 +120,7 @@ class RootController extends GetxController {
         route: Routes.contactUS,
       ),
       const ItemModel(
+        id: 5,
         image: 'share',
         text: 'شارك خلصها',
         route: Routes.shareApp,

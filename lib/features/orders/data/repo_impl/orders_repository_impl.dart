@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:khalsha/core/domain/error/failures.dart';
 import 'package:khalsha/features/orders/data/data_source/orders_remote_data_source.dart';
+import 'package:khalsha/core/presentation/extentions/response_extension.dart';
 
 import '../../../../core/domain/error/exceptions.dart';
 import '../../domain/entities/order_model.dart';
@@ -20,7 +21,7 @@ class OrdersRepositoryImpl extends OrdersRepository {
     } on ServerException catch (e) {
       return left(ServerFailure(statusMessage: e.errorMessage));
     } on DioError catch (e) {
-      return left(ServerFailure(statusMessage: e.response!.data.toString()));
+      return left(ServerFailure(statusMessage: e.response!.getErrorMessage()));
     }
   }
 }

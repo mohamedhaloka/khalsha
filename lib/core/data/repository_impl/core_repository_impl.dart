@@ -5,6 +5,7 @@ import 'package:khalsha/core/data/models/profile_data_model.dart';
 import 'package:khalsha/core/domain/error/exceptions.dart';
 import 'package:khalsha/core/domain/error/failures.dart';
 import 'package:khalsha/core/domain/repository/core_repository.dart';
+import 'package:khalsha/core/presentation/extentions/response_extension.dart';
 
 import '../source/remote/core_remote_data_source.dart';
 
@@ -20,7 +21,7 @@ class CoreRepositoryImpl extends CoreRepository {
     } on ServerException catch (e) {
       return left(ServerFailure(statusMessage: e.errorMessage));
     } on DioError catch (e) {
-      return left(ServerFailure(statusMessage: e.response!.data.toString()));
+      return left(ServerFailure(statusMessage: e.response!.getErrorMessage()));
     }
   }
 
@@ -39,7 +40,7 @@ class CoreRepositoryImpl extends CoreRepository {
     } on ServerException catch (e) {
       return left(ServerFailure(statusMessage: e.errorMessage));
     } on DioError catch (e) {
-      return left(ServerFailure(statusMessage: e.response!.data.toString()));
+      return left(ServerFailure(statusMessage: e.response!.getErrorMessage()));
     }
   }
 
@@ -53,7 +54,7 @@ class CoreRepositoryImpl extends CoreRepository {
     } on ServerException catch (e) {
       return left(ServerFailure(statusMessage: e.errorMessage));
     } on DioError catch (e) {
-      return left(ServerFailure(statusMessage: e.response!.data.toString()));
+      return left(ServerFailure(statusMessage: e.response!.getErrorMessage()));
     }
   }
 
@@ -66,7 +67,7 @@ class CoreRepositoryImpl extends CoreRepository {
     } on ServerException catch (e) {
       return left(ServerFailure(statusMessage: e.errorMessage));
     } on DioError catch (e) {
-      return left(ServerFailure(statusMessage: e.response!.data.toString()));
+      return left(ServerFailure(statusMessage: e.response!.getErrorMessage()));
     }
   }
 
@@ -90,7 +91,7 @@ class CoreRepositoryImpl extends CoreRepository {
     } on ServerException catch (e) {
       return left(ServerFailure(statusMessage: e.errorMessage));
     } on DioError catch (e) {
-      return left(ServerFailure(statusMessage: e.response!.data.toString()));
+      return left(ServerFailure(statusMessage: e.response!.getErrorMessage()));
     }
   }
 
@@ -103,7 +104,7 @@ class CoreRepositoryImpl extends CoreRepository {
     } on ServerException catch (e) {
       return left(ServerFailure(statusMessage: e.errorMessage));
     } on DioError catch (e) {
-      return left(ServerFailure(statusMessage: e.response!.data.toString()));
+      return left(ServerFailure(statusMessage: e.response!.getErrorMessage()));
     }
   }
 
@@ -115,7 +116,7 @@ class CoreRepositoryImpl extends CoreRepository {
     } on ServerException catch (e) {
       return left(ServerFailure(statusMessage: e.errorMessage));
     } on DioError catch (e) {
-      return left(ServerFailure(statusMessage: e.response!.data.toString()));
+      return left(ServerFailure(statusMessage: e.response!.getErrorMessage()));
     }
   }
 }

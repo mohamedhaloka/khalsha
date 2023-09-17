@@ -4,6 +4,7 @@ import 'package:khalsha/core/domain/error/failures.dart';
 import 'package:khalsha/features/notifications/data/data_source/notifications_remote_data_source.dart';
 import 'package:khalsha/features/notifications/data/models/notification_model.dart';
 import 'package:khalsha/features/notifications/domain/repository/notifications_repository.dart';
+import 'package:khalsha/core/presentation/extentions/response_extension.dart';
 
 import '../../../../core/domain/error/exceptions.dart';
 
@@ -23,7 +24,7 @@ class NotificationsRepositoryImpl extends NotificationsRepository {
     } on ServerException catch (e) {
       return left(ServerFailure(statusMessage: e.errorMessage));
     } on DioError catch (e) {
-      return left(ServerFailure(statusMessage: e.response!.data.toString()));
+      return left(ServerFailure(statusMessage: e.response!.getErrorMessage()));
     }
   }
 }

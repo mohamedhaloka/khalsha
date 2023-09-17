@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:khalsha/core/data/services/http_service.dart';
-import 'package:khalsha/core/presentation/extentions/format_time_extention.dart';
+import 'package:khalsha/core/presentation/extentions/format_time_extension.dart';
 import 'package:khalsha/features/blog/data/models/post_model.dart';
 import 'package:khalsha/features/widgets/custom_text_field.dart';
 

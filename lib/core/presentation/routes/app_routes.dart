@@ -9,7 +9,6 @@ import 'package:khalsha/features/common_questions/presentation/view.dart';
 import 'package:khalsha/features/contact_us/presentation/get/binding/binding.dart';
 import 'package:khalsha/features/contact_us/presentation/view.dart';
 import 'package:khalsha/features/forget_password/presentation/view.dart';
-import 'package:khalsha/features/how_to_use/presentation/view.dart';
 import 'package:khalsha/features/intro/presentation/get/binding/binding.dart';
 import 'package:khalsha/features/intro/presentation/view.dart';
 import 'package:khalsha/features/land_shipping/land_shipping.dart';
@@ -47,7 +46,6 @@ import '../../../features/choose_shipping_service/presentation/get/bindings/bind
 import '../../../features/customs_clearance_service/customs_clearance.dart';
 import '../../../features/customs_clearance_service/view/get/bindings/binding.dart';
 import '../../../features/forget_password/presentation/get/binding/binding.dart';
-import '../../../features/how_to_use/presentation/get/binding/binding.dart';
 import '../../../features/laboratory_and_standards_service/laboratory.dart';
 import '../../../features/marine_shipping/marine_shipping.dart';
 import '../../../features/new_orders/presentation/get/binding/binding.dart';
@@ -151,11 +149,6 @@ class AppPages {
       page: () => const AccountSettingsView(),
       binding: AccountSettingsBinding(),
       middlewares: [VerifyAccountMiddleware()],
-    ),
-    GetPage(
-      name: _Paths.howToUse,
-      page: () => const HowToUseView(),
-      binding: HowToUseBinding(),
     ),
     GetPage(
       name: _Paths.orders,

@@ -37,13 +37,6 @@ class MultiItemsList extends StatelessWidget {
             alignment: Alignment.center,
             child: Row(
               children: [
-                if (items[index].icon.isNotEmpty)
-                  CachedImage(
-                    imgUrl: HttpService.fileBaseURL + items[index].icon,
-                    width: 30,
-                    height: 30,
-                    fit: BoxFit.fill,
-                  ),
                 Expanded(
                   child: Text(
                     items[index].name,
@@ -55,6 +48,24 @@ class MultiItemsList extends StatelessWidget {
                     ),
                   ),
                 ),
+                if (items[index].icon.isNotEmpty)
+                  InkWell(
+                    onTap: () {
+                      Get.dialog(AlertDialog(
+                        content: CachedImage(
+                          width: 200,
+                          height: 200,
+                          imgUrl: HttpService.fileBaseURL + items[index].icon,
+                        ),
+                      ));
+                    },
+                    child: CachedImage(
+                      imgUrl: HttpService.fileBaseURL + items[index].icon,
+                      width: 50,
+                      height: 50,
+                      fit: BoxFit.fill,
+                    ),
+                  ),
               ],
             ),
           ),

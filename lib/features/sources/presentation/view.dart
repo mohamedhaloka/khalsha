@@ -62,6 +62,19 @@ class _SourceItem extends GetView<SourcesController> {
               ? const Center(child: CircularProgressIndicator())
               : ListView.separated(
                   itemBuilder: (context, index) => ListTile(
+                    onTap: () {
+                      if (controller.resources[index].contentImage == null) {
+                        return;
+                      }
+                      Get.dialog(AlertDialog(
+                        content: CachedImage(
+                          width: 200,
+                          height: 200,
+                          imgUrl: HttpService.fileBaseURL +
+                              controller.resources[index].contentImage!,
+                        ),
+                      ));
+                    },
                     title: Text(controller.resources[index].title ?? ''),
                     leading: CachedImage(
                       width: 50,

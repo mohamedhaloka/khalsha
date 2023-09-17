@@ -4,6 +4,7 @@ import 'package:khalsha/core/domain/error/exceptions.dart';
 import 'package:khalsha/core/domain/error/failures.dart';
 import 'package:khalsha/features/otp/data/source/otp_remote_data_source.dart';
 import 'package:khalsha/features/otp/domain/repository/otp_repository.dart';
+import 'package:khalsha/core/presentation/extentions/response_extension.dart';
 
 import '../../domain/entites/enums/verify_type.dart';
 
@@ -19,7 +20,7 @@ class OTPRepositoryImpl extends OTPRepository {
     } on ServerException catch (e) {
       return left(ServerFailure(statusMessage: e.errorMessage));
     } on DioError catch (e) {
-      return left(ServerFailure(statusMessage: e.response!.data.toString()));
+      return left(ServerFailure(statusMessage: e.response!.getErrorMessage()));
     }
   }
 
@@ -35,7 +36,7 @@ class OTPRepositoryImpl extends OTPRepository {
     } on ServerException catch (e) {
       return left(ServerFailure(statusMessage: e.errorMessage));
     } on DioError catch (e) {
-      return left(ServerFailure(statusMessage: e.response!.data.toString()));
+      return left(ServerFailure(statusMessage: e.response!.getErrorMessage()));
     }
   }
 }

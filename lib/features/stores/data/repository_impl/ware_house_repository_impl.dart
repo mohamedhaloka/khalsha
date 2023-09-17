@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:khalsha/core/domain/error/failures.dart';
+import 'package:khalsha/core/presentation/extentions/response_extension.dart';
 import 'package:khalsha/features/stores/data/models/ware_house_data_model.dart';
 import 'package:khalsha/features/stores/domain/repository/ware_house_repository.dart';
 
@@ -21,9 +22,7 @@ class WareHouseRepositoryImpl extends WareHouseRepository {
     } on ServerException catch (e) {
       return left(ServerFailure(statusMessage: e.errorMessage));
     } on DioError catch (e) {
-      return left(
-        ServerFailure(statusMessage: e.response!.data['message'].toString()),
-      );
+      return left(ServerFailure(statusMessage: e.response!.getErrorMessage()));
     }
   }
 
@@ -37,9 +36,7 @@ class WareHouseRepositoryImpl extends WareHouseRepository {
     } on ServerException catch (e) {
       return left(ServerFailure(statusMessage: e.errorMessage));
     } on DioError catch (e) {
-      return left(
-        ServerFailure(statusMessage: e.response!.data['message'].toString()),
-      );
+      return left(ServerFailure(statusMessage: e.response!.getErrorMessage()));
     }
   }
 }

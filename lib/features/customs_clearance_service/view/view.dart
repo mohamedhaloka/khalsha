@@ -87,8 +87,10 @@ class _OrderDetails extends GetView<AddEditCustomsClearanceController> {
             onChooseItem: (ItemModel item) {
               late Widget bottomSheetBody;
               if (item.id == 0) {
+                controller.container.clear();
                 bottomSheetBody = const _ParcelSheetBody();
               } else {
+                controller.parcel.clear();
                 bottomSheetBody = const _ContainerSheetBody();
               }
               Get.bottomSheet(

@@ -225,7 +225,9 @@ class LandShippingOrder extends OrderModel {
                 title: 'هل تريد التخزين',
                 description: wantStorage,
               ),
-            if (wantStorage != null && storageDays! > 0  && goodsType == 'private_transfer')
+            if (wantStorage != null &&
+                storageDays! > 0 &&
+                goodsType == 'private_transfer')
               OrderDetailsItemModel(
                 title: 'عدد ايام التخزين',
                 description: storageDays.toString(),
@@ -307,15 +309,15 @@ class LandShippingOrder extends OrderModel {
                   description: service.name,
                 ),
                 OrderDetailsItemModel(
-                  title: 'pack',
+                  title: 'pack'.tr,
                   description: service.pack,
                 ),
                 OrderDetailsItemModel(
-                  title: 'unpack',
+                  title: 'unpack'.tr,
                   description: service.unpack,
                 ),
                 OrderDetailsItemModel(
-                  title: 'packaging',
+                  title: 'packaging'.tr,
                   description: service.packaging,
                 ),
               ]

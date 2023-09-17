@@ -103,7 +103,7 @@ import 'package:khalsha/features/root/domain/use_cases/log_out_use_case.dart';
 import 'package:khalsha/features/root/domain/use_cases/refresh_token_use_case.dart';
 import 'package:khalsha/features/root/domain/use_cases/update_fcm_token_use_case.dart';
 import 'package:khalsha/features/rule/data/data_source/rule_remote_data_source.dart';
-import 'package:khalsha/features/rule/data/repo/rule_repository_impl.dart';
+import 'package:khalsha/features/rule/data/repo_impl/rule_repository_impl.dart';
 import 'package:khalsha/features/rule/domain/use_cases/get_rule_data_use_case.dart';
 import 'package:khalsha/features/sources/data/data_source/resources_remote_data_source.dart';
 import 'package:khalsha/features/sources/data/repo_impl/resources_repository_impl.dart';
@@ -133,7 +133,7 @@ import 'features/map/domain/use_case/get_place_details_use_case.dart';
 import 'features/map/domain/use_case/get_places_from_search_use_case.dart';
 import 'features/new_orders/domain/use_case/get_new_orders_use_case.dart';
 import 'features/register/domain/repository/register_repository.dart';
-import 'features/rule/domain/repo_impl/rule_repository.dart';
+import 'features/rule/domain/repo/rule_repository.dart';
 
 class InjectionContainer {
   static GetIt sl = GetIt.I;

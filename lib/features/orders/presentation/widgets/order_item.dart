@@ -98,7 +98,15 @@ class OrderItem extends StatelessWidget {
                               ordersController.onRefresh();
                             }
                           },
-                          icon: const Icon(Icons.edit)),
+                          icon: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: const [
+                              Icon(Icons.edit),
+                              SizedBox(width: 4),
+                              Text('تعديل')
+                            ],
+                          )),
                     )
                 ],
               ),

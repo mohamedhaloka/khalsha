@@ -13,7 +13,7 @@ class _BillDataTab extends GetView<OrderDetailsController> {
       children: [
         const OrderTabHeader(
           title: 'الفاتورة',
-          hint: 'هنا بتم تحديد فاتورتك و إرسالها للعميل',
+          hint: 'هنا و بعد الانتهاء سوف تظهر لك الفاتورة الخاصة بالطلب',
         ),
         if (invoice != null) ...[
           if (feedback == null) ...[

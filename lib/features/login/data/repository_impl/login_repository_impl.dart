@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:khalsha/features/login/data/models/social_type_enum.dart';
 import 'package:khalsha/features/login/data/source/login_remote_data_source.dart';
 import 'package:khalsha/features/login/domain/repository/login_repository.dart';
+import 'package:khalsha/core/presentation/extentions/response_extension.dart';
 
 import '../../../../core/data/models/user_data_model.dart';
 import '../../../../core/domain/error/exceptions.dart';
@@ -21,7 +22,7 @@ class LoginRepositoryImpl extends LoginRepository {
     } on ServerException catch (e) {
       return left(ServerFailure(statusMessage: e.errorMessage));
     } on DioError catch (e) {
-      return left(ServerFailure(statusMessage: e.response!.data.toString()));
+      return left(ServerFailure(statusMessage: e.response!.getErrorMessage()));
     }
   }
 
@@ -35,7 +36,7 @@ class LoginRepositoryImpl extends LoginRepository {
     } on ServerException catch (e) {
       return left(ServerFailure(statusMessage: e.errorMessage));
     } on DioError catch (e) {
-      return left(ServerFailure(statusMessage: e.response!.data.toString()));
+      return left(ServerFailure(statusMessage: e.response!.getErrorMessage()));
     }
   }
 }

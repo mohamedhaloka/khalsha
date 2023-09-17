@@ -6,10 +6,11 @@ import '../../../../core/presentation/themes/colors_manager.dart';
 class OrderTabHeader extends StatelessWidget {
   const OrderTabHeader({
     Key? key,
-    required this.hint,
     required this.title,
+    this.hint,
   }) : super(key: key);
-  final String title, hint;
+  final String title;
+  final String? hint;
 
   @override
   Widget build(BuildContext context) {
@@ -23,13 +24,14 @@ class OrderTabHeader extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-        Text(
-          hint,
-          textAlign: TextAlign.center,
-          style: Get.textTheme.titleSmall!.copyWith(
-            color: ColorManager.greyColor,
+        if (hint != null)
+          Text(
+            hint!,
+            textAlign: TextAlign.center,
+            style: Get.textTheme.titleSmall!.copyWith(
+              color: ColorManager.greyColor,
+            ),
           ),
-        ),
       ],
     );
   }

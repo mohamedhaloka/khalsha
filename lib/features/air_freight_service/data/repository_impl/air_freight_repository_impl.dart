@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:khalsha/core/domain/error/failures.dart';
+import 'package:khalsha/core/presentation/extentions/response_extension.dart';
 import 'package:khalsha/features/air_freight_service/data/data_source/air_freight_remote_data_source.dart';
 import 'package:khalsha/features/air_freight_service/data/models/air_freight_data.dart';
 import 'package:khalsha/features/air_freight_service/domain/repository/air_freight_repository.dart';
@@ -21,9 +22,7 @@ class AirFreightRepositoryImpl extends AirFreightRepository {
     } on ServerException catch (e) {
       return left(ServerFailure(statusMessage: e.errorMessage));
     } on DioError catch (e) {
-      return left(
-        ServerFailure(statusMessage: e.response!.data['message'].toString()),
-      );
+      return left(ServerFailure(statusMessage: e.response!.getErrorMessage()));
     }
   }
 
@@ -37,9 +36,7 @@ class AirFreightRepositoryImpl extends AirFreightRepository {
     } on ServerException catch (e) {
       return left(ServerFailure(statusMessage: e.errorMessage));
     } on DioError catch (e) {
-      return left(
-        ServerFailure(statusMessage: e.response!.data['message'].toString()),
-      );
+      return left(ServerFailure(statusMessage: e.response!.getErrorMessage()));
     }
   }
 }

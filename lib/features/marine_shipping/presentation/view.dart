@@ -191,8 +191,11 @@ class _OrderDetails extends GetView<AddEditMarineShippingServiceController> {
               onChooseItem: (ItemModel item) {
                 late Widget bottomSheetBody;
                 if (item.id == 0) {
+                  controller.goodsTotalShipment.clear();
+                  controller.goodsUnitType.clear();
                   bottomSheetBody = const _AddContainerMarineShippingSheet();
                 } else {
+                  controller.containers.clear();
                   bottomSheetBody = const _BundledGoodsMarineShippingSheet();
                 }
                 Get.bottomSheet(

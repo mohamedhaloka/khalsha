@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/core/presentation/extentions/format_time_extention.dart';
+import 'package:khalsha/core/presentation/extentions/format_time_extension.dart';
 import 'package:khalsha/features/service_intro/presentation/get/controllers/controller.dart';
 import 'package:khalsha/features/stores/domain/use_case/add_ware_house_order_use_case.dart';
 import 'package:khalsha/features/stores/domain/use_case/update_ware_house_order_use_case.dart';

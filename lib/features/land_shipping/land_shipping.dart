@@ -5,7 +5,7 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/core/presentation/extentions/format_time_extention.dart';
+import 'package:khalsha/core/presentation/extentions/format_time_extension.dart';
 import 'package:khalsha/core/presentation/themes/colors_manager.dart';
 import 'package:khalsha/features/land_shipping/data/models/land_shipping_data.dart';
 import 'package:khalsha/features/land_shipping/data/models/loading_unloading_locations_model.dart';

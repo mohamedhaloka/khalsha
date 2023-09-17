@@ -10,7 +10,6 @@ class _OrderDataTab extends GetView<OrderDetailsController> {
       children: [
         const OrderTabHeader(
           title: 'تفاصيل الطلب',
-          hint: 'هنا تظهر جميع التفاصيل الخاصة بالعميل',
         ),
         ListView.builder(
             shrinkWrap: true,

@@ -24,7 +24,6 @@ abstract class Routes {
   static const stores = _Paths.stores;
   static const orderDetails = _Paths.orderDetails;
   static const accountSettings = _Paths.accountSettings;
-  static const howToUse = _Paths.howToUse;
   static const orders = _Paths.orders;
   static const newOrders = _Paths.newOrders;
   static const statistics = _Paths.statistics;
@@ -59,7 +58,6 @@ abstract class _Paths {
   static const stores = '/stores';
   static const orderDetails = '/order_details';
   static const accountSettings = '/account_settings';
-  static const howToUse = '/how_to_use';
   static const orders = '/orders';
   static const newOrders = '/new_orders';
   static const statistics = '/statistics';

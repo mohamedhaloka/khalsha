@@ -1,11 +1,10 @@
-import 'dart:convert';
-
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:khalsha/core/data/models/user_data_model.dart';
 import 'package:khalsha/core/domain/error/exceptions.dart';
 import 'package:khalsha/core/domain/error/failures.dart';
 import 'package:khalsha/features/root/data/source/root_remote_data_source.dart';
+import 'package:khalsha/core/presentation/extentions/response_extension.dart';
 
 import '../../domain/repository/root_repository.dart';
 
@@ -21,7 +20,7 @@ class RootRepositoryImpl extends RootRepository {
     } on ServerException catch (e) {
       return left(ServerFailure(statusMessage: e.errorMessage));
     } on DioError catch (e) {
-      return left(ServerFailure(statusMessage: json.encode(e.response!.data)));
+      return left(ServerFailure(statusMessage: e.response!.getErrorMessage()));
     }
   }
 
@@ -33,7 +32,7 @@ class RootRepositoryImpl extends RootRepository {
     } on ServerException catch (e) {
       return left(ServerFailure(statusMessage: e.errorMessage));
     } on DioError catch (e) {
-      return left(ServerFailure(statusMessage: json.encode(e.response!.data)));
+      return left(ServerFailure(statusMessage: e.response!.getErrorMessage()));
     }
   }
 
@@ -45,7 +44,7 @@ class RootRepositoryImpl extends RootRepository {
     } on ServerException catch (e) {
       return left(ServerFailure(statusMessage: e.errorMessage));
     } on DioError catch (e) {
-      return left(ServerFailure(statusMessage: json.encode(e.response!.data)));
+      return left(ServerFailure(statusMessage: e.response!.getErrorMessage()));
     }
   }
 }

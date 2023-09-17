@@ -33,92 +33,108 @@ class _FillData extends GetView<AddEditLandShippingServiceController> {
     return FillDataStepView(
       serviceName: ServiceTypes.landShipping.value,
       image: 'land',
-      body: Obx(() => Column(
-            children: [
+      body: Obx(
+        () => Column(
+          children: [
+            FormBuilderField(
+              builder: (FormFieldState<dynamic> field) =>
+                  TextFieldInputWithHolder(
+                title: 'عنوان الطلب',
+                hint: orderTitle,
+                controller: controller.name,
+                onSaved: (String? value) => field.didChange(value),
+                errorText: field.errorText,
+              ),
+              validator: FormBuilderValidators.required(),
+              name: LandShipmentInputsKeys.title.name,
+            ),
+            ToggleItemWithHolder(
+              title: 'مجال الشحنة',
+              items: shippingFieldOptions,
+              selectedItem: controller.shippingType,
+            ),
+            if (controller.isInternationalShipping.value) ...[
               FormBuilderField(
                 builder: (FormFieldState<dynamic> field) =>
-                    TextFieldInputWithHolder(
-                  title: 'عنوان الطلب',
-                  hint: orderTitle,
-                  controller: controller.name,
-                  onSaved: (String? value) => field.didChange(value),
-                  errorText: field.errorText,
+                    ChooseItemWithHolder(
+                  title: 'من الدولة',
+                  selectedItem: controller.fromCountry,
+                  height: Get.height / 2,
+                  errorMsg: field.errorText,
+                  body: MultiItemsList(
+                    items: controller.countries,
+                    selectedItem: controller.fromCountry,
+                  ),
+                ),
+                onSaved: (_) => controller.didFieldChanged(
+                  LandShipmentInputsKeys.fromCountry.name,
+                  value: controller.fromCountry.value.name,
                 ),
                 validator: FormBuilderValidators.required(),
-                name: LandShipmentInputsKeys.title.name,
+                name: LandShipmentInputsKeys.fromCountry.name,
+              ),
+              FormBuilderField(
+                builder: (FormFieldState<dynamic> field) =>
+                    ChooseItemWithHolder(
+                  title: 'إلي الدولة',
+                  selectedItem: controller.toCountry,
+                  height: Get.height / 2,
+                  errorMsg: field.errorText,
+                  body: MultiItemsList(
+                    items: controller.countries,
+                    selectedItem: controller.toCountry,
+                  ),
+                ),
+                onSaved: (_) => controller.didFieldChanged(
+                  LandShipmentInputsKeys.toCountry.name,
+                  value: controller.toCountry.value.name,
+                ),
+                validator: FormBuilderValidators.required(),
+                name: LandShipmentInputsKeys.toCountry.name,
               ),
               ToggleItemWithHolder(
-                title: 'مجال الشحنة',
-                items: shippingFieldOptions,
-                selectedItem: controller.shippingType,
-              ),
-              if (controller.isInternationalShipping.value) ...[
-                FormBuilderField(
-                  builder: (FormFieldState<dynamic> field) =>
-                      ChooseItemWithHolder(
-                    title: 'من الدولة',
-                    selectedItem: controller.fromCountry,
-                    height: Get.height / 2,
-                    errorMsg: field.errorText,
-                    body: MultiItemsList(
-                      items: controller.countries,
-                      selectedItem: controller.fromCountry,
-                    ),
-                  ),
-                  onSaved: (_) => controller.didFieldChanged(
-                    LandShipmentInputsKeys.fromCountry.name,
-                    value: controller.fromCountry.value.name,
-                  ),
-                  validator: FormBuilderValidators.required(),
-                  name: LandShipmentInputsKeys.fromCountry.name,
-                ),
-                FormBuilderField(
-                  builder: (FormFieldState<dynamic> field) =>
-                      ChooseItemWithHolder(
-                    title: 'إلي الدولة',
-                    selectedItem: controller.toCountry,
-                    height: Get.height / 2,
-                    errorMsg: field.errorText,
-                    body: MultiItemsList(
-                      items: controller.countries,
-                      selectedItem: controller.toCountry,
-                    ),
-                  ),
-                  onSaved: (_) => controller.didFieldChanged(
-                    LandShipmentInputsKeys.toCountry.name,
-                    value: controller.toCountry.value.name,
-                  ),
-                  validator: FormBuilderValidators.required(),
-                  name: LandShipmentInputsKeys.toCountry.name,
-                ),
-                ToggleItemWithHolder(
-                  title: 'نوع البضاعة',
-                  toolTipMsg: '''بضائع مجمعة : استئجار مساحة مخصصة داخل الشاحنة.
+                title: 'نوع البضاعة',
+                toolTipMsg: '''بضائع مجمعة : استئجار مساحة مخصصة داخل الشاحنة.
 نقل خاص : استئجار كامل المساحة داخل الشاحنة.''',
-                  items: internationalItemsType,
-                  selectedItem: controller.goodsType,
-                ),
-              ],
-              if (controller.goodsType.value == 1) ...[
-                const _PrivateTransferInputsView(),
-              ] else ...[
-                const _BundledGoodsInputsView()
-              ],
-              FormBuilderField(
-                builder: (FormFieldState<dynamic> field) =>
-                    TextFieldInputWithHolder(
-                  hint:
-                      'وصف الشحنة مثال: اثاث منزلي يتكون من غرفة نوم و ثلاث مكيفات و مطبخ أمريكي',
-                  controller: controller.content,
-                  maxLines: 4,
-                  onSaved: (String? value) => field.didChange(value),
-                  errorText: field.errorText,
-                ),
-                validator: FormBuilderValidators.required(),
-                name: LandShipmentInputsKeys.content.name,
+                items: internationalItemsType,
+                selectedItem: controller.goodsType,
+                onChooseItem: (selectedItem) {
+                  if (selectedItem.id == 0) {
+                    controller.shipmentType = DataModel.initial().obs;
+                    controller.truck = DataModel.initial().obs;
+                    controller.serviceData.clear();
+                    controller.workersType('');
+                    for (var element in controller.locationsData) {
+                      element.loading('');
+                      element.unloading('');
+                    }
+                  } else {
+                    controller.bundledGoodsItems.clear();
+                  }
+                },
               ),
             ],
-          )),
+            if (controller.goodsType.value == 1) ...[
+              const _PrivateTransferInputsView(),
+            ] else ...[
+              const _BundledGoodsInputsView()
+            ],
+            FormBuilderField(
+              builder: (FormFieldState<dynamic> field) =>
+                  TextFieldInputWithHolder(
+                hint:
+                    'وصف الشحنة مثال: اثاث منزلي يتكون من غرفة نوم و ثلاث مكيفات و مطبخ أمريكي',
+                controller: controller.content,
+                maxLines: 4,
+                onSaved: (String? value) => field.didChange(value),
+                errorText: field.errorText,
+              ),
+              validator: FormBuilderValidators.required(),
+              name: LandShipmentInputsKeys.content.name,
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -221,7 +237,7 @@ class _PickLocations extends GetView<AddEditLandShippingServiceController> {
         StatefulBuilder(
           builder: (_, setState) => ServiceItemWithHolder(
             title: 'تاريخ / وقت التحميل',
-            text: controller.loadingDate.formatTime('dd-mm-yyyy'),
+            text: controller.loadingDate.formatTime('dd-MM-yyyy'),
             btnHeight: inputHeight + 20,
             btnWidth: inputHeight + 50,
             onTap: () => _chooseDateTime(
@@ -254,9 +270,11 @@ class _PickLocations extends GetView<AddEditLandShippingServiceController> {
     );
   }
 
-  void _chooseDateTime(DateTime dateTime,
-          {required DateTime minTime,
-          required void Function(DateTime date) onConfirm}) =>
+  void _chooseDateTime(
+    DateTime dateTime, {
+    required DateTime minTime,
+    required void Function(DateTime date) onConfirm,
+  }) =>
       DatePicker.showDateTimePicker(
         Get.context!,
         showTitleActions: true,

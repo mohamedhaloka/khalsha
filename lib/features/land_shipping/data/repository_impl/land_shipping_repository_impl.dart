@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:khalsha/core/domain/error/failures.dart';
 import 'package:khalsha/features/land_shipping/data/models/land_shipping_data.dart';
+import 'package:khalsha/core/presentation/extentions/response_extension.dart';
 
 import '../../../../core/domain/error/exceptions.dart';
 import '../../domain/repository/land_shipping_repository.dart';
@@ -22,9 +23,7 @@ class LandShippingRepositoryImpl extends LandShippingRepository {
     } on ServerException catch (e) {
       return left(ServerFailure(statusMessage: e.errorMessage));
     } on DioError catch (e) {
-      return left(
-        ServerFailure(statusMessage: e.response!.data['message'].toString()),
-      );
+      return left(ServerFailure(statusMessage: e.response!.getErrorMessage()));
     }
   }
 
@@ -39,9 +38,7 @@ class LandShippingRepositoryImpl extends LandShippingRepository {
     } on ServerException catch (e) {
       return left(ServerFailure(statusMessage: e.errorMessage));
     } on DioError catch (e) {
-      return left(
-        ServerFailure(statusMessage: e.response!.data['message'].toString()),
-      );
+      return left(ServerFailure(statusMessage: e.response!.getErrorMessage()));
     }
   }
 }

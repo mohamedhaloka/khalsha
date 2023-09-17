@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:khalsha/features/root/presentation/get/controllers/controller.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../../../core/data/models/item_model.dart';
 import '../../../../core/presentation/themes/colors_manager.dart';
@@ -29,6 +30,16 @@ class _MenuItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        if (item.id == 5) {
+          final String url = GetPlatform.isIOS
+              ? 'https://apps.apple.com/us/app/facebook/id6456041627'
+              : 'https://play.google.com/store/apps/details?id=com.app.khalsha';
+          final String shareTxt =
+              '''يمكنك تحميل تطبيق خلصها للمستورد/المصدر عن طريق الرابط التالي
+$url''';
+          Share.share(shareTxt);
+          return;
+        }
         if (item.route == null) return;
         Get.toNamed(
           item.route!,

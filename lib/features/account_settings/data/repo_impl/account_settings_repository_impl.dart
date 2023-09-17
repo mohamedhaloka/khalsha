@@ -1,8 +1,7 @@
-import 'dart:convert';
-
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:khalsha/core/domain/error/failures.dart';
+import 'package:khalsha/core/presentation/extentions/response_extension.dart';
 import 'package:khalsha/features/account_settings/domain/repository/account_settings_repository.dart';
 
 import '../../../../core/domain/error/exceptions.dart';
@@ -28,7 +27,7 @@ class AccountSettingsRepositoryImpl extends AccountSettingsRepository {
     } on ServerException catch (e) {
       return left(ServerFailure(statusMessage: e.errorMessage));
     } on DioError catch (e) {
-      return left(ServerFailure(statusMessage: json.encode(e.response!.data)));
+      return left(ServerFailure(statusMessage: e.response!.getErrorMessage()));
     }
   }
 
@@ -52,7 +51,7 @@ class AccountSettingsRepositoryImpl extends AccountSettingsRepository {
     } on ServerException catch (e) {
       return left(ServerFailure(statusMessage: e.errorMessage));
     } on DioError catch (e) {
-      return left(ServerFailure(statusMessage: json.encode(e.response!.data)));
+      return left(ServerFailure(statusMessage: e.response!.getErrorMessage()));
     }
   }
 
@@ -67,7 +66,7 @@ class AccountSettingsRepositoryImpl extends AccountSettingsRepository {
     } on ServerException catch (e) {
       return left(ServerFailure(statusMessage: e.errorMessage));
     } on DioError catch (e) {
-      return left(ServerFailure(statusMessage: json.encode(e.response!.data)));
+      return left(ServerFailure(statusMessage: e.response!.getErrorMessage()));
     }
   }
 }

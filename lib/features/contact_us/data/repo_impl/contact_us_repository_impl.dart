@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:khalsha/core/presentation/extentions/response_extension.dart';
 import 'package:khalsha/features/contact_us/data/data_source/contact_us_remote_data_source.dart';
 import 'package:khalsha/features/contact_us/domain/repository/contact_us_repository.dart';
 
@@ -30,7 +31,7 @@ class ContactUsRepositoryImpl extends ContactUsRepository {
     } on ServerException catch (e) {
       return left(ServerFailure(statusMessage: e.errorMessage));
     } on DioError catch (e) {
-      return left(ServerFailure(statusMessage: e.response!.data.toString()));
+      return left(ServerFailure(statusMessage: e.response!.getErrorMessage()));
     }
   }
 }

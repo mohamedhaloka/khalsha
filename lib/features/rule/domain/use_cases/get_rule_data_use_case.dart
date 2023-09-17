@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:khalsha/core/domain/error/failures.dart';
 import 'package:khalsha/core/domain/use_cases/use_case.dart';
-import 'package:khalsha/features/rule/domain/repo_impl/rule_repository.dart';
+import 'package:khalsha/features/rule/domain/repo/rule_repository.dart';
 
 import '../../data/models/rule_model.dart';
 import '../../data/models/rule_type_enum.dart';
