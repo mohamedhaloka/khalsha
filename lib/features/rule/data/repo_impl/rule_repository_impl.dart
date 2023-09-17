@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:khalsha/core/domain/error/failures.dart';
+import 'package:khalsha/core/presentation/extentions/response_extension.dart';
 import 'package:khalsha/features/rule/data/data_source/rule_remote_data_source.dart';
 import 'package:khalsha/features/rule/data/models/rule_type_enum.dart';
-import 'package:khalsha/core/presentation/extentions/response_extension.dart';
 
 import '../../../../core/domain/error/exceptions.dart';
 import '../../domain/repo/rule_repository.dart';

@@ -3,8 +3,8 @@ import 'package:dio/dio.dart';
 import 'package:khalsha/core/data/models/user_data_model.dart';
 import 'package:khalsha/core/domain/error/exceptions.dart';
 import 'package:khalsha/core/domain/error/failures.dart';
-import 'package:khalsha/features/root/data/source/root_remote_data_source.dart';
 import 'package:khalsha/core/presentation/extentions/response_extension.dart';
+import 'package:khalsha/features/root/data/source/root_remote_data_source.dart';
 
 import '../../domain/repository/root_repository.dart';
 

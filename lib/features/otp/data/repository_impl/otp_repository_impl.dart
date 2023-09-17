@@ -2,9 +2,9 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:khalsha/core/domain/error/exceptions.dart';
 import 'package:khalsha/core/domain/error/failures.dart';
+import 'package:khalsha/core/presentation/extentions/response_extension.dart';
 import 'package:khalsha/features/otp/data/source/otp_remote_data_source.dart';
 import 'package:khalsha/features/otp/domain/repository/otp_repository.dart';
-import 'package:khalsha/core/presentation/extentions/response_extension.dart';
 
 import '../../domain/entites/enums/verify_type.dart';
 
