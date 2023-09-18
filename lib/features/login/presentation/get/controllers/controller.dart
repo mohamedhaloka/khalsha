@@ -140,7 +140,6 @@ class LoginController extends GetxController {
     result.fold(
       (Failure failure) => showAlertMessage(failure.statusMessage),
       (UserData userData) {
-        print(userData.toJson());
         if ((userData.dataOrNull.mobile ?? '').isEmpty) {
           Get.toNamed(
             Routes.addPhoneNumber,

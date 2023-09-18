@@ -43,7 +43,7 @@ class _LoadingUnLoadingLocationsInputs
                   validator: FormBuilderValidators.required(),
                   name: '${LandShipmentInputsKeys.loadingLocation.name}_$index',
                 ),
-                if (controller.goodsType.value == 1)
+                if (controller.isPrivateTransfer)
                   FormBuilderField(
                     builder: (FormFieldState<dynamic> field) =>
                         DropDownInputWithHolder(
@@ -96,7 +96,7 @@ class _LoadingUnLoadingLocationsInputs
                   name:
                       '${LandShipmentInputsKeys.unloadingLocation.name}_$index',
                 ),
-                if (controller.goodsType.value == 1)
+                if (controller.isPrivateTransfer)
                   FormBuilderField(
                     builder: (FormFieldState<dynamic> field) =>
                         DropDownInputWithHolder(

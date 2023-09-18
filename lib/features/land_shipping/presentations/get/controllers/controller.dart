@@ -55,6 +55,8 @@ class AddEditLandShippingServiceController extends GetxController {
     return '';
   }
 
+  bool get isPrivateTransfer => goodsType.value == 1;
+
   TextEditingController name = TextEditingController(),
       content = TextEditingController();
 
@@ -118,25 +120,51 @@ class AddEditLandShippingServiceController extends GetxController {
     truck(order.truck);
     shipmentType(order.shipmentType);
 
-    if (order.bundledGoods.isNotEmpty) {
+    if (isInternationalShipping.value) {
+      storageDays(order.storageDays);
+    }
+
+    if (isPrivateTransfer) {
+      workersType(order.workers);
       bundledGoodsItems.clear();
+      if (order.extraServices.isNotEmpty) {
+        serviceData.clear();
+      }
+      for (var service in order.extraServices) {
+        serviceData.add(
+          LandShippingServiceModel(
+            item: TextEditingController(text: service.name),
+            quantity: TextEditingController(text: service.quantity.toString()),
+            packaging: (service.packaging == 'yes' ? true : false).obs,
+            pack: (service.pack == 'yes' ? true : false).obs,
+            unpack: (service.unpack == 'yes' ? true : false).obs,
+          ),
+        );
+      }
+    } else {
+      serviceData.clear();
+      if (order.bundledGoods.isNotEmpty) {
+        bundledGoodsItems.clear();
+      }
+      for (var item in order.bundledGoods) {
+        File imageFile = File('');
+        await _downloadFile(
+          item.image,
+          onSuccess: (String filePath) => imageFile = File(filePath),
+        );
+        bundledGoodsItems.add(
+          BundledGoodsModel(
+            image: imageFile.obs,
+            name: TextEditingController(text: item.name),
+            totalWeight: TextEditingController(text: item.totalWeight),
+            unit: item.unit.obs,
+            quantity: TextEditingController(text: item.quantity.toString()),
+          ),
+        );
+      }
     }
-    for (var item in order.bundledGoods) {
-      File imageFile = File('');
-      await _downloadFile(
-        item.image,
-        onSuccess: (String filePath) => imageFile = File(filePath),
-      );
-      bundledGoodsItems.add(
-        BundledGoodsModel(
-          image: imageFile.obs,
-          name: TextEditingController(text: item.name),
-          totalWeight: TextEditingController(text: item.totalWeight),
-          unit: item.unit.obs,
-          quantity: TextEditingController(text: item.quantity.toString()),
-        ),
-      );
-    }
+
+    hasFlammable(order.flammable == 'yes' ? true : false);
 
     if (order.locations.isNotEmpty) {
       locationsData.clear();
@@ -162,20 +190,6 @@ class AddEditLandShippingServiceController extends GetxController {
       );
     }
 
-    if (order.extraServices.isNotEmpty) {
-      serviceData.clear();
-    }
-    for (var service in order.extraServices) {
-      serviceData.add(
-        LandShippingServiceModel(
-          item: TextEditingController(text: service.name),
-          quantity: TextEditingController(text: service.quantity.toString()),
-          packaging: (service.packaging == 'yes' ? true : false).obs,
-          pack: (service.pack == 'yes' ? true : false).obs,
-          unpack: (service.unpack == 'yes' ? true : false).obs,
-        ),
-      );
-    }
     loadingDate = order.loadingDate;
     deliveryDate = order.deliveryDate;
     recipientName.text = order.recipientName;
@@ -251,13 +265,17 @@ class AddEditLandShippingServiceController extends GetxController {
         recipientMobile: recipientMobile.text,
         recipientName: recipientName.text,
         goodsType: goodsType.value == 0 ? 'bundled_goods' : 'private_transfer',
-        wantStorage: storageDays.value > 0 ? 'yes' : 'no',
+        wantStorage: isInternationalShipping.value
+            ? storageDays.value > 0
+                ? 'yes'
+                : 'no'
+            : 'no',
         content: content.text,
         title: name.text,
         shipmentTypeId: shipmentType.value.id.toString(),
         fromCountryId: fromCountry.value.id.toString(),
         toCountryId: toCountry.value.id.toString(),
-        storageDays: storageDays.string,
+        storageDays: isInternationalShipping.value ? storageDays.string : '0',
         flammable: hasFlammable.value ? 'yes' : 'no',
         internationalShipping: isInternationalShipping.value ? 'yes' : 'no',
         shippingType: shippingType.value == 0 ? 'personal' : 'commercial',

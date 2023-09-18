@@ -166,6 +166,8 @@ class RootController extends GetxController {
   Future<void> _refreshToken() async {
     final params = Params(loading: false.obs);
     final result = await _refreshTokenUseCase.execute(params);
+    FlutterNativeSplash.remove();
+    _homeController.videoController.play();
     result.fold(
       (failure) {
         final type = json.decode(failure.statusMessage ?? '')['type'];
@@ -176,8 +178,6 @@ class RootController extends GetxController {
         _updateFCMToken();
       },
     );
-    FlutterNativeSplash.remove();
-    _homeController.videoController.play();
   }
 
   Future<void> logOut() async {

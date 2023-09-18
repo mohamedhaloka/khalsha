@@ -33,8 +33,6 @@ import 'package:khalsha/features/root/presentation/view.dart';
 import 'package:khalsha/features/rule/presentation/view.dart';
 import 'package:khalsha/features/service_intro/presentation/get/binding/binding.dart';
 import 'package:khalsha/features/service_intro/presentation/view.dart';
-import 'package:khalsha/features/share_app/presentation/get/binding/binding.dart';
-import 'package:khalsha/features/share_app/presentation/view.dart';
 import 'package:khalsha/features/sources/presentation/get/binding/binding.dart';
 import 'package:khalsha/features/statistics/presentation/get/binding/binding.dart';
 import 'package:khalsha/features/statistics/presentation/view.dart';
@@ -106,12 +104,6 @@ class AppPages {
       name: _Paths.commonQuestions,
       page: () => const CommonQuestionsView(),
       binding: CommonQuestionsBinding(),
-      middlewares: [VerifyAccountMiddleware()],
-    ),
-    GetPage(
-      name: _Paths.shareApp,
-      page: () => const ShareAppView(),
-      binding: ShareAppBinding(),
       middlewares: [VerifyAccountMiddleware()],
     ),
     GetPage(

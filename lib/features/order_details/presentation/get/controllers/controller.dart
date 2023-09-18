@@ -237,6 +237,7 @@ class OrderDetailsController extends GetxController {
       Uri.parse(url),
       headers: HttpService.header,
     );
+    if (response.statusCode != 200) return;
 
     File pdfFile = await File(fullPath).writeAsBytes(response.bodyBytes);
     Get.to(() => InvoiceDetailsView(path: pdfFile.path));

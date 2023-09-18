@@ -114,7 +114,7 @@ class _FillData extends GetView<AddEditLandShippingServiceController> {
                 },
               ),
             ],
-            if (controller.goodsType.value == 1) ...[
+            if (controller.isPrivateTransfer) ...[
               const _PrivateTransferInputsView(),
             ] else ...[
               const _BundledGoodsInputsView()
@@ -153,7 +153,7 @@ class _AdditionalServices
     return AdditionalServiceStepView(
       body: Column(
         children: [
-          if (controller.goodsType.value == 1)
+          if (controller.isPrivateTransfer)
             // FormBuilderField(
             // builder: (FormFieldState<dynamic> field) =>
             ServiceItemWithHolder(
@@ -188,7 +188,7 @@ class _AdditionalServices
               ),
             )
           ],
-          if (controller.goodsType.value == 1)
+          if (controller.isPrivateTransfer)
             FormBuilderField(
               builder: (FormFieldState<dynamic> field) =>
                   DropDownInputWithHolder(
