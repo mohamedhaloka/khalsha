@@ -169,15 +169,15 @@ class AddEditCustomsClearanceController extends GetxController {
   Future<void> _downloadFile(OrderFile orderFile) async {
     final params = DownloadFileUseCaseParams(
       loading: false.obs,
-      url: orderFile.fullPath!,
+      url: orderFile.url!,
     );
     final result = await _downloadFileUseCase.execute(params);
     result.fold(
       (_) => _,
-      (r) => files.add(
+      (filePath) => files.add(
         FileModel(
           id: orderFile.id,
-          file: File(r),
+          file: File(filePath),
           type: orderFile.mimtype!,
         ),
       ),
@@ -273,6 +273,7 @@ class AddEditCustomsClearanceController extends GetxController {
             total.text.isEmpty ||
             selectedCurrency.value.isEmpty;
       case 3:
+        if (!isAdd) return false;
         if (files.isEmpty) {
           showAlertMessage('add-at-least-one-file');
         }
@@ -372,7 +373,7 @@ class AddEditCustomsClearanceController extends GetxController {
 
       final result = await _uploadImageUseCase.execute(params);
       result.fold(
-        (f) => print(f.statusMessage),
+        (f) => log(f.statusMessage.toString()),
         (successMsg) => showAlertMessage(successMsg),
       );
     }

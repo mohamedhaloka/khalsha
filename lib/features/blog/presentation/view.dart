@@ -123,6 +123,8 @@ class _PostItem extends StatelessWidget {
               children: [
                 Text(
                   post.title ?? '',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: Get.textTheme.titleMedium!.copyWith(
                     color: ColorManager.primaryColor,
                   ),
@@ -130,6 +132,7 @@ class _PostItem extends StatelessWidget {
                 Text(
                   post.content ?? '',
                   maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
                   style: Get.textTheme.titleMedium!.copyWith(
                     color: ColorManager.primaryColor,
                     fontWeight: FontWeight.bold,

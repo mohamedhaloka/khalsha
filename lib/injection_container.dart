@@ -66,9 +66,6 @@ import 'package:khalsha/features/my_bills/data/data_source/my_bills_remote_data_
 import 'package:khalsha/features/my_bills/data/repo_impl/my_bills_repository_impl.dart';
 import 'package:khalsha/features/my_bills/domain/repository/my_bills_repository.dart';
 import 'package:khalsha/features/my_bills/domain/use_cases/get_my_bills_use_case.dart';
-import 'package:khalsha/features/new_orders/data/data_source/new_orders_remote_data_source.dart';
-import 'package:khalsha/features/new_orders/data/repo_impl/new_orders_repository_impl.dart';
-import 'package:khalsha/features/new_orders/domain/repository/new_orders_repository.dart';
 import 'package:khalsha/features/notifications/data/data_source/notifications_remote_data_source.dart';
 import 'package:khalsha/features/notifications/data/repo_impl/notifications_repository_impl.dart';
 import 'package:khalsha/features/notifications/domain/repository/notifications_repository.dart';
@@ -131,7 +128,6 @@ import 'features/map/domain/use_case/get_device_location_use_case.dart';
 import 'features/map/domain/use_case/get_location_name_use_case.dart';
 import 'features/map/domain/use_case/get_place_details_use_case.dart';
 import 'features/map/domain/use_case/get_places_from_search_use_case.dart';
-import 'features/new_orders/domain/use_case/get_new_orders_use_case.dart';
 import 'features/register/domain/repository/register_repository.dart';
 import 'features/rule/domain/repo/rule_repository.dart';
 
@@ -279,14 +275,6 @@ class InjectionContainer {
         () => AddLandShippingUseCase(sl()));
     sl.registerLazySingleton<UpdateLandShippingUseCase>(
         () => UpdateLandShippingUseCase(sl()));
-
-    //New Orders
-    sl.registerLazySingleton<NewOrdersRemoteDataSource>(
-        () => NewOrdersRemoteDataSourceImpl(dioService));
-    sl.registerLazySingleton<NewOrdersRepository>(
-        () => NewOrdersRepositoryImpl(sl()));
-    sl.registerLazySingleton<GetNewOrdersUseCase>(
-        () => GetNewOrdersUseCase(sl()));
 
     //Order Details
     sl.registerLazySingleton<OrderDetailsRemoteDataSource>(

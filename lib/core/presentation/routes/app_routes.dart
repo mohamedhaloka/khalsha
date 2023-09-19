@@ -16,7 +16,6 @@ import 'package:khalsha/features/login/presentation/get/bindings/binding.dart';
 import 'package:khalsha/features/login/presentation/view.dart';
 import 'package:khalsha/features/map/presentation/getx/bindings/binding.dart';
 import 'package:khalsha/features/map/presentation/view.dart';
-import 'package:khalsha/features/new_orders/presentation/view.dart';
 import 'package:khalsha/features/on_boarding/presentation/get/bindings/binding.dart';
 import 'package:khalsha/features/on_boarding/presentation/view.dart';
 import 'package:khalsha/features/order_details/presentation/view.dart';
@@ -46,7 +45,6 @@ import '../../../features/customs_clearance_service/view/get/bindings/binding.da
 import '../../../features/forget_password/presentation/get/binding/binding.dart';
 import '../../../features/laboratory_and_standards_service/laboratory.dart';
 import '../../../features/marine_shipping/marine_shipping.dart';
-import '../../../features/new_orders/presentation/get/binding/binding.dart';
 import '../../../features/order_details/presentation/get/binding/binding.dart';
 import '../../../features/orders/presentation/get/binding/binding.dart';
 import '../../../features/reset_password/presentation/get/binding/binding.dart';
@@ -146,12 +144,6 @@ class AppPages {
       name: _Paths.orders,
       page: () => const OrdersView(),
       binding: OrdersBinding(),
-    ),
-    GetPage(
-      name: _Paths.newOrders,
-      page: () => const NewOrdersView(),
-      binding: NewOrdersBinding(),
-      middlewares: [VerifyAccountMiddleware()],
     ),
     GetPage(
       name: _Paths.statistics,

@@ -210,6 +210,7 @@ class OrderFile {
     this.fileType,
     this.fileId,
     this.path,
+    this.url,
     this.ext,
     this.name,
     this.size,
@@ -230,6 +231,7 @@ class OrderFile {
   String? ext;
   String? name;
   String? size;
+  String? url;
   int? sizeBytes;
   String? mimtype;
   dynamic deletedAt;
@@ -246,6 +248,7 @@ class OrderFile {
         path: json["path"],
         ext: json["ext"],
         name: json["name"],
+        url: json["url"],
         size: json["size"],
         sizeBytes: json["size_bytes"],
         mimtype: json["mimtype"],
@@ -259,6 +262,7 @@ class OrderFile {
         "user_id": userId,
         "file": file,
         "full_path": fullPath,
+        "url": url,
         "file_type": fileType,
         "file_id": fileId,
         "path": path,

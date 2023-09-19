@@ -268,6 +268,12 @@ class CustomsClearanceOrder extends OrderModel {
                   title: 'نوع الطرد',
                   description: item.parcelType,
                 ),
+                if(item.otherParcel != null)...[
+                  OrderDetailsItemModel(
+                    title: 'اسم الطرد',
+                    description: item.otherParcel.toString(),
+                  ),
+                ],
                 OrderDetailsItemModel(
                   title: 'إجمالي الحجم (متر مكعب)',
                   description: item.totalSize,

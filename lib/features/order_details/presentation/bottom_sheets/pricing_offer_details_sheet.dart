@@ -1,13 +1,16 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:khalsha/core/data/services/http_service.dart';
+import 'package:khalsha/core/presentation/routes/app_routes.dart';
 import 'package:khalsha/core/presentation/themes/colors_manager.dart';
 import 'package:khalsha/features/order_details/presentation/bottom_sheets/feedback_sheet.dart';
 import 'package:khalsha/features/order_details/presentation/bottom_sheets/shipment_details_sheet.dart';
 import 'package:khalsha/features/order_details/presentation/view.dart';
 import 'package:khalsha/features/orders/domain/entities/order_model.dart';
+import 'package:khalsha/features/rule/data/models/rule_type_enum.dart';
 import 'package:khalsha/features/widgets/cached_image.dart';
 import 'package:khalsha/features/widgets/custom_button.dart';
 import 'package:khalsha/features/widgets/headline_bottom_sheet.dart';
@@ -157,10 +160,27 @@ class _PricingOfferDetailsSheetState extends State<PricingOfferDetailsSheet> {
                     color: Colors.white,
                   ),
                 ),
-                const Expanded(
-                  child: Text(
-                    'أقر انا علي قراءتي للشروط والأحكام والموافقة عليها.',
-                    style: TextStyle(
+                Expanded(
+                  child: Text.rich(
+                    TextSpan(
+                      text: 'أقر انا علي قراءتي',
+                      children: [
+                        TextSpan(
+                          text: ' للشروط والأحكام ',
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () => Get.toNamed(
+                                  Routes.rule,
+                                  arguments: RuleType.termsAndConditions,
+                                ),
+                          style: const TextStyle(
+                            color: ColorManager.secondaryColor,
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
+                        const TextSpan(text: 'والموافقة عليها.')
+                      ],
+                    ),
+                    style: const TextStyle(
                       color: ColorManager.primaryColor,
                       fontWeight: FontWeight.bold,
                     ),

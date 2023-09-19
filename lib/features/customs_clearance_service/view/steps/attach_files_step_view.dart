@@ -31,7 +31,7 @@ class AttachFilesStepView extends GetView<AddEditCustomsClearanceController> {
               'assets/images/fill_service_steps/attach-files.svg',
             ),
             const SizedBox(height: 20),
-            TextUnderline(
+            const TextUnderline(
               'الرجاء إرفاق الملفات التاليه',
             ),
             Padding(
@@ -53,8 +53,7 @@ class AttachFilesStepView extends GetView<AddEditCustomsClearanceController> {
               ),
             ),
             Text(
-              '*ملاحظة هذه الملفات مطلوبة من قبل الهيئة العامة للجمارك و الذكاة والضريبة*',
-              // textAlign: TextAlign.center,
+              '*ملاحظة هذه الملفات مطلوبة من قبل الهيئة العامة للجمارك و الزكاة والضريبة*',
               style: Get.textTheme.bodySmall!.copyWith(
                 color: ColorManager.secondaryColor,
                 fontWeight: FontWeight.bold,

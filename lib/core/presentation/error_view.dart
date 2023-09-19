@@ -7,7 +7,14 @@ class ErrorView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SvgPicture.asset('assets/images/error_view.svg'),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SvgPicture.asset('assets/images/error_view.svg'),
+          Text(details.exception.toString())
+        ],
+      ),
     );
   }
 }

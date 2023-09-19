@@ -391,7 +391,7 @@
 				FLUTTER_BUILD_NAME = 1.0.0;
 				FLUTTER_BUILD_NUMBER = 10;
 				INFOPLIST_FILE = Runner/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Khalsha;
+				INFOPLIST_KEY_CFBundleDisplayName = "خلصها";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -537,7 +537,7 @@
 				FLUTTER_BUILD_NAME = 1.0.0;
 				FLUTTER_BUILD_NUMBER = 10;
 				INFOPLIST_FILE = Runner/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Khalsha;
+				INFOPLIST_KEY_CFBundleDisplayName = "خلصها";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -573,7 +573,7 @@
 				FLUTTER_BUILD_NAME = 1.0.0;
 				FLUTTER_BUILD_NUMBER = 10;
 				INFOPLIST_FILE = Runner/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Khalsha;
+				INFOPLIST_KEY_CFBundleDisplayName = "خلصها";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
