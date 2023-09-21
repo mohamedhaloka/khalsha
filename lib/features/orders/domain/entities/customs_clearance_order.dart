@@ -117,7 +117,7 @@ class CustomsClearanceOrder extends OrderModel {
       containerData.add(
         ContainerDataModel(
           containerSize: (containerItem.containerSize ?? '').obs,
-          goodsType: containerItem.goodTypeId.toString().obs,
+          goodsType: containerItem.goodType!.name.obs,
           containerCount: TextEditingController(
             text: (int.tryParse(containerItem.containerCount ?? '0') ?? 0)
                 .toString(),
@@ -215,7 +215,7 @@ class CustomsClearanceOrder extends OrderModel {
             ),
             OrderDetailsItemModel(
               title: 'نوع الشحن',
-              description: shippingMethod,
+              description: shippingMethod.tr,
             ),
             OrderDetailsItemModel(
               title: 'توصيل إلي',
@@ -262,13 +262,13 @@ class CustomsClearanceOrder extends OrderModel {
               for (var item in shippingMethods) ...[
                 OrderDetailsItemModel(
                   title: 'نوع البضاعة',
-                  description: item.goodTypeId.toString(),
+                  description: item.goodType!.name.toString(),
                 ),
                 OrderDetailsItemModel(
                   title: 'نوع الطرد',
                   description: item.parcelType,
                 ),
-                if(item.otherParcel != null)...[
+                if ((item.otherParcel ?? '').isNotEmpty) ...[
                   OrderDetailsItemModel(
                     title: 'اسم الطرد',
                     description: item.otherParcel.toString(),
@@ -296,7 +296,7 @@ class CustomsClearanceOrder extends OrderModel {
               for (var item in shippingMethods) ...[
                 OrderDetailsItemModel(
                   title: 'نوع البضاعة',
-                  description: item.goodTypeId.toString(),
+                  description: item.goodType!.name.toString(),
                 ),
                 OrderDetailsItemModel(
                   title: 'نوع الحاوية',
@@ -739,12 +739,14 @@ class ShippingMethod {
     this.containerCount,
     this.deletedAt,
     this.createdAt,
+    this.goodType,
     this.updatedAt,
   });
 
   int? id;
   int? customClearanceId;
   int? goodTypeId;
+  DataModel? goodType;
   String? shippingMethod;
   String? parcelType;
   String? otherParcel;
@@ -772,6 +774,7 @@ class ShippingMethod {
         containerSize: json["container_size"] ?? '',
         containerCount: json["container_count"] ?? '',
         deletedAt: json["deleted_at"],
+        goodType: DataModel.fromJson(json["goodtype"] ?? {}),
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
       );
@@ -790,6 +793,7 @@ class ShippingMethod {
         "container_size": containerSize,
         "container_count": containerCount,
         "deleted_at": deletedAt,
+        "goodtype": goodType?.toJson(),
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
       };

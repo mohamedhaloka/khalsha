@@ -8,82 +8,88 @@ class _ContainerSheetBody extends GetView<AddEditCustomsClearanceController> {
     return ListView(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       children: [
-        Obx(() => ListView.separated(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (_, int index) => Column(
-                children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: CustomButton(
-                      width: 40,
-                      height: 40,
-                      onTap: () => controller.container
-                          .remove(controller.container[index]),
-                      imgName: 'delete',
-                      backgroundColor: ColorManager.errorColor,
+        DisableForEdit(
+          isDisabled: !controller.isAdd,
+          child: Obx(() => ListView.separated(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (_, int index) => Column(
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: CustomButton(
+                        width: 40,
+                        height: 40,
+                        onTap: () => controller.container
+                            .remove(controller.container[index]),
+                        imgName: 'delete',
+                        backgroundColor: ColorManager.errorColor,
+                      ),
                     ),
-                  ),
-                  CustomDropDown(
-                    title: 'نوع البضاعة',
-                    hint: 'أختر',
-                    radius: radius,
-                    dropVal: controller.container[index].goodsType,
-                    isExpanded: true,
-                    source: controller.goodsTypes
-                        .map((e) => DropdownMenuItem(
-                              value: e.id.toString(),
-                              child: Text(e.name),
-                            ))
-                        .toList(),
-                  ),
-                  CustomDropDown(
-                    title: 'نوع الحاوية',
-                    hint: 'أختر',
-                    radius: radius,
-                    dropVal: controller.container[index].containerType,
-                    isExpanded: true,
-                    source: ContainerType.values
-                        .map((e) => DropdownMenuItem(
-                              value: e.value,
-                              child: Text(e.value.tr),
-                            ))
-                        .toList(),
-                  ),
-                  CustomDropDown(
-                    title: 'حجم الحاوية',
-                    hint: 'أختر',
-                    radius: radius,
-                    dropVal: controller.container[index].containerSize,
-                    isExpanded: true,
-                    source: ContainerSize.values
-                        .map((e) => DropdownMenuItem(
-                              value: e.value,
-                              child: Text(e.value.tr),
-                            ))
-                        .toList(),
-                  ),
-                  CustomTextField(
-                    title: 'عدد الحاويات',
-                    radius: radius,
-                    borderSide: inputBorderSide,
-                    controller: controller.container[index].containerCount,
-                    keyboardType: TextInputType.number,
-                  ),
-                ],
-              ),
-              separatorBuilder: (_, __) => const Divider(),
-              itemCount: controller.container.length,
-            )),
+                    CustomDropDown(
+                      title: 'نوع البضاعة',
+                      hint: 'أختر',
+                      radius: radius,
+                      dropVal: controller.container[index].goodsType,
+                      isExpanded: true,
+                      source: controller.goodsTypes
+                          .map((e) => DropdownMenuItem(
+                                value: e.id.toString(),
+                                child: Text(e.name),
+                              ))
+                          .toList(),
+                    ),
+                    CustomDropDown(
+                      title: 'نوع الحاوية',
+                      hint: 'أختر',
+                      radius: radius,
+                      dropVal: controller.container[index].containerType,
+                      isExpanded: true,
+                      source: ContainerType.values
+                          .map((e) => DropdownMenuItem(
+                                value: e.value,
+                                child: Text(e.value.tr),
+                              ))
+                          .toList(),
+                    ),
+                    CustomDropDown(
+                      title: 'حجم الحاوية',
+                      hint: 'أختر',
+                      radius: radius,
+                      dropVal: controller.container[index].containerSize,
+                      isExpanded: true,
+                      source: ContainerSize.values
+                          .map((e) => DropdownMenuItem(
+                                value: e.value,
+                                child: Text(e.value.tr),
+                              ))
+                          .toList(),
+                    ),
+                    CustomTextField(
+                      title: 'عدد الحاويات',
+                      radius: radius,
+                      borderSide: inputBorderSide,
+                      controller: controller.container[index].containerCount,
+                      keyboardType: TextInputType.number,
+                    ),
+                  ],
+                ),
+                separatorBuilder: (_, __) => const Divider(),
+                itemCount: controller.container.length,
+              )),
+        ),
         Row(
           children: [
             const Expanded(child: Divider()),
-            InkWell(
-              onTap: () =>
-                  controller.container.add(ContainerDataModel.newItem()),
-              child: const Chip(
-                label: Text("+", style: TextStyle(color: Colors.white)),
-                backgroundColor: ColorManager.secondaryColor,
+            DisableForEdit(
+              isDisabled: !controller.isAdd,
+              child: InkWell(
+                onTap: () =>
+                    controller.container.add(ContainerDataModel.newItem()),
+                child: const Chip(
+                  label: Text("+", style: TextStyle(color: Colors.white)),
+                  backgroundColor: ColorManager.secondaryColor,
+                ),
               ),
             ),
             const Expanded(child: Divider()),

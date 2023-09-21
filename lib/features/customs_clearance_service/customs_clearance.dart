@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:khalsha/features/customs_clearance_service/view/get/models/container_data_model.dart';
 import 'package:khalsha/features/customs_clearance_service/view/get/models/parcel_data_model.dart';
 import 'package:khalsha/features/customs_clearance_service/view/steps/attach_files_step_view.dart';
+import 'package:khalsha/features/customs_clearance_service/view/widgets/disable_for_edit.dart';
 
 import '../../core/data/models/data_model.dart';
 import '../../core/data/models/file_model.dart';

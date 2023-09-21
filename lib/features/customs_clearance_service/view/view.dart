@@ -84,6 +84,7 @@ class _OrderDetails extends GetView<AddEditCustomsClearanceController> {
             title: 'حجم الشحنة',
             items: shipTypeOptions,
             selectedItem: controller.selectedShippingMethod,
+            enableSelect: controller.isAdd,
             onChooseItem: (ItemModel item) {
               late Widget bottomSheetBody;
               if (item.id == 0) {

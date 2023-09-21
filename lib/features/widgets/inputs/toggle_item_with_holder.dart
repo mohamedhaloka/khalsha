@@ -14,11 +14,13 @@ class ToggleItemWithHolder extends StatelessWidget {
     this.title,
     this.onChooseItem,
     this.toolTipMsg,
+    this.enableSelect = true,
     required this.items,
     required this.selectedItem,
   }) : super(key: key);
   final String? title, errorMsg, toolTipMsg;
   final RxInt selectedItem;
+  final bool enableSelect;
   final List<ItemModel> items;
   final void Function(ItemModel itemModel)? onChooseItem;
 
@@ -52,12 +54,14 @@ class ToggleItemWithHolder extends StatelessWidget {
                   item: items[0],
                   selectedItem: selectedItem,
                   onChooseItem: onChooseItem,
+                  enableSelect: enableSelect,
                 ),
                 const SizedBox(width: 10),
                 _Item(
                   item: items[1],
                   selectedItem: selectedItem,
                   onChooseItem: onChooseItem,
+                  enableSelect: enableSelect,
                 ),
               ],
             ),
@@ -75,10 +79,12 @@ class _Item extends StatelessWidget {
     required this.selectedItem,
     required this.item,
     this.onChooseItem,
+    this.enableSelect = true,
   }) : super(key: key);
   final ItemModel item;
   final RxInt selectedItem;
   final void Function(ItemModel itemModel)? onChooseItem;
+  final bool enableSelect;
 
   bool get isSelected => item.id == selectedItem.value;
 
@@ -88,7 +94,9 @@ class _Item extends StatelessWidget {
       child: InkWell(
         onTap: () {
           FocusScope.of(context).requestFocus(FocusNode());
-          selectedItem(item.id);
+          if (enableSelect) {
+            selectedItem(item.id);
+          }
           if (onChooseItem != null) onChooseItem!(item);
         },
         child: Obx(() => Container(
