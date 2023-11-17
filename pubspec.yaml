@@ -1,0 +1,151 @@
+name: khalsha
+description: Khalsha app for Logistic Transportations.
+
+publish_to: 'none'
+
+version: 1.0.0+15
+
+environment:
+  sdk: '>=2.19.0 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.2
+  #this package for use get-x
+  get: ^4.6.1
+  #this package for local storage
+  get_storage: ^2.0.3
+  #use this slider in on boarding
+  carousel_slider: ^4.0.0
+  #this package for show svg images
+  flutter_svg: ^1.0.3
+  #this package for cached images
+  cached_network_image: ^3.1.0
+  #this package for otp code
+  pin_code_fields: ^7.3.0
+  #this package for count down timer in otp page
+  flutter_countdown_timer: ^4.1.0
+  #this package using for http request
+  dio: 5.2.1+1
+
+  #this package used launch url
+  url_launcher: ^6.0.10
+  #this package for use animation from lottie
+  lottie: ^1.2.2
+  #for di
+  get_it: ^7.2.0
+  # for format time
+  intl: ^0.17.0
+  #this package for choose image from gallery
+  image_picker: 0.8.4+11
+  # for loading
+  shimmer: ^2.0.0
+  # for functional
+  dartz: ^0.10.1
+  # for tab bar
+  cupertino_tabbar: ^2.0.0
+  # for choose files
+  file_picker: ^5.2.5
+  # for statistics chart
+  fl_chart: ^0.61.0
+  # show alerts
+  rflutter_alert: ^2.0.4
+  # for show animated toast messages
+  fluttertoast: ^8.1.2
+  # for firebase services
+  firebase_core: ^2.15.1
+  google_sign_in: ^6.0.2
+  flutter_facebook_auth: ^5.0.11
+  #this package for show web view
+  flutter_html: ^3.0.0-beta.2
+  # for map and get location
+  google_maps_flutter: ^2.2.1
+  location: ^4.2.3
+  flutter_google_places: ^0.3.0
+  geocoding: ^2.0.4
+  # for flutter forms
+  flutter_form_builder: ^7.8.0
+  form_builder_validators: ^8.4.0
+  # for rating
+  flutter_rating_bar: ^4.0.1
+  #this package used for refresh and load more
+  pull_to_refresh: ^2.0.0
+  # get type of files
+  mime: ^1.0.4
+  # for choose date and time together
+  flutter_datetime_picker: ^1.5.1
+  #for notifications
+  firebase_messaging: ^14.6.7
+  flutter_local_notifications: ^11.0.1
+  #get the permission of open external files and open it
+  permission_handler: ^10.2.0
+  # open share model
+  share_plus: ^7.0.2
+  # for play videos
+  cached_video_player: ^2.0.4
+  # for showing native splash until getting data
+  flutter_native_splash: 2.2.9
+  # for sign in with apple
+  sign_in_with_apple: ^4.3.0
+  # for convert response to pdf view
+  flutter_pdfview: ^1.3.1
+  # for show hints
+  flutter_intro: ^2.3.1
+  # for send what ever error happens to firebase
+  firebase_crashlytics: ^3.3.7
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_launcher_icons: ^0.10.0
+  change_app_package_name: ^1.1.0
+
+  flutter_lints: ^2.0.0
+
+flutter_native_splash:
+  color: "#FFFFFF"
+  image: assets/images/splash-icon.png
+
+flutter_icons:
+  android: "ic_launcher"
+  ios: true
+  image_path: "assets/images/app-icon.png"
+  adaptive_icon_background: "#4F7284"
+  remove_alpha_ios: true
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/images/on_boarding/
+    - assets/images/icons/
+    - assets/images/navigation_menu/
+    - assets/images/services/
+    - assets/images/dummy/
+    - assets/images/menu/
+    - assets/images/fill_service_steps/
+    - assets/images/how_to_use/
+    - assets/images/order_details/
+    - assets/images/order_details/status/
+    - assets/images/intro_services/
+    - assets/images/flammable/
+    - assets/lottie/
+
+  fonts:
+    - family: bahji
+      fonts:
+        - asset: assets/fonts/bahij/Regular.ttf
+        - asset: assets/fonts/bahij/Black.ttf
+        - asset: assets/fonts/bahij/Bold.ttf
+        - asset: assets/fonts/bahij/ExtraBold.ttf
+        - asset: assets/fonts/bahij/ExtraLight.ttf
+        - asset: assets/fonts/bahij/Plain.ttf
+        - asset: assets/fonts/bahij/SemiBold.ttf

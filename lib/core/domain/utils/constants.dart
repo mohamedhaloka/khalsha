@@ -1,0 +1,16 @@
+enum ServerErrorCode {
+  serverError,
+  unauthenticated,
+  noInternetConnection,
+  forbidden,
+  invalidData,
+  notFound,
+  wrongInput,
+  deviceOffline,
+  deviceAlreadyUnlocked,
+  unlockCommandFailed,
+  devicesStillAttached,
+  deviceTokenNotActive,
+  untrackedDataChanges,
+  accessTokenExpired,
+}

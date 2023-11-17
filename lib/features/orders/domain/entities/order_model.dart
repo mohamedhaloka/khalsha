@@ -1,0 +1,287 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:khalsha/core/data/models/data_model.dart';
+
+import 'package:khalsha/core/data/models/item_model.dart';
+import 'package:khalsha/core/presentation/extentions/format_time_extension.dart';
+import 'package:khalsha/features/customs_clearance_service/view/get/models/container_data_model.dart';
+import 'package:khalsha/features/customs_clearance_service/view/get/models/parcel_data_model.dart';
+import 'package:khalsha/features/order_details/data/models/order_details_item_model.dart';
+import 'package:khalsha/features/order_details/data/models/order_section_item_model.dart';
+
+part 'air_freight_order.dart';
+part 'customs_clearance_order.dart';
+part 'laboratory_order.dart';
+part 'land_shipping_order.dart';
+part 'marine_shipment_order.dart';
+part 'ware_house_order.dart';
+
+abstract class OrderModel {
+  OrderModel({
+    required this.id,
+    required this.title,
+    required this.userId,
+    required this.user,
+    required this.offersNum,
+    required this.status,
+    required this.offers,
+    required this.offer,
+    required this.invoice,
+    required this.certificates,
+    required this.invoiceUrl,
+    required this.certificate,
+    required this.feedback,
+  });
+
+  int id;
+  String title;
+  String status;
+  int userId;
+  User user;
+  int offersNum;
+  List<OfferModel> offers;
+  List<DataModel> certificates;
+  OfferModel? offer;
+  Invoice? invoice;
+  String? invoiceUrl;
+  String? certificate;
+  FeedbackObj? feedback;
+
+  List<OrderSectionItemModel> get data => <OrderSectionItemModel>[];
+}
+
+class FeedbackObj {
+  FeedbackObj({
+    this.id,
+    this.userId,
+    this.ownerId,
+    this.rate,
+    this.feedback,
+    this.formType,
+    this.formId,
+    this.status,
+    this.deletedAt,
+    this.createdAt,
+    this.updatedAt,
+    this.user,
+  });
+
+  int? id;
+  int? userId;
+  int? ownerId;
+  int? rate;
+  String? feedback;
+  String? formType;
+  int? formId;
+  String? status;
+  dynamic deletedAt;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  User? user;
+
+  factory FeedbackObj.fromJson(Map<String, dynamic> json) => FeedbackObj(
+        id: json['id'],
+        userId: json['user_id'],
+        ownerId: json['owner_id'],
+        rate: json['rate'],
+        feedback: json['feedback'],
+        formType: json['form_type'],
+        formId: json['form_id'],
+        status: json['status'],
+        deletedAt: json['deleted_at'],
+        createdAt: DateTime.parse(json['created_at']),
+        updatedAt: DateTime.parse(json['updated_at']),
+        user: json['user'] == null || json['user'] is String
+            ? null
+            : User.fromJson(json['user']),
+      );
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'user_id': userId,
+        'owner_id': ownerId,
+        'rate': rate,
+        'feedback': feedback,
+        'form_type': formType,
+        'form_id': formId,
+        'status': status,
+        'deleted_at': deletedAt,
+        'created_at': createdAt?.toIso8601String(),
+        'updated_at': updatedAt?.toIso8601String(),
+        'user': user?.toJson(),
+      };
+}
+
+abstract class OfferModel {
+  OfferModel({
+    this.id,
+    this.userId,
+    this.status,
+    this.note,
+    this.acceptedAt,
+    this.rejectedAt,
+    this.createdAt,
+    this.updatedAt,
+    this.user,
+    this.total,
+  });
+
+  int? id;
+  int? userId;
+  String? total;
+  String? status;
+  String? note;
+  DateTime? acceptedAt;
+  DateTime? rejectedAt;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  User? user;
+
+  List<ItemModel> get data => <ItemModel>[];
+}
+
+class User {
+  User({
+    this.id,
+    this.name,
+    this.photoProfile,
+    this.bio,
+    this.feedbacks,
+    this.ratingsOverall,
+    this.email,
+    this.mobile,
+  });
+
+  int? id;
+  String? name;
+  String? mobile;
+  String? email;
+  String? photoProfile;
+  String? bio;
+  String? ratingsOverall;
+  List<FeedbackObj>? feedbacks;
+
+  factory User.fromJson(Map<String, dynamic> json) => User(
+        id: json['id'] ?? 0,
+        name: json['name'] ?? '',
+        photoProfile: json['photo_profile'] ?? '',
+        email: json['email'] ?? '',
+        mobile: json['mobile'] ?? '',
+        bio: json['bio'] ?? '',
+        ratingsOverall: json['ratings_overall'] ?? '',
+        feedbacks: List<FeedbackObj>.from(
+            (json['feedbacks'] ?? []).map((x) => FeedbackObj.fromJson(x))),
+      );
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': name,
+        'mobile': mobile,
+        'email': email,
+        'photo_profile': photoProfile,
+        'ratings_overall': ratingsOverall,
+        'bio': bio,
+      };
+}
+
+abstract class Invoice {
+  Invoice({
+    this.user,
+    this.total,
+    this.id,
+    this.updatedAt,
+    this.createdAt,
+    this.status,
+    this.note,
+    this.deletedAt,
+    this.userId,
+  });
+
+  int? id;
+  int? userId;
+  String? total;
+  String? note;
+  String? status;
+  dynamic deletedAt;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  User? user;
+
+  List<ItemModel> get items => <ItemModel>[];
+}
+
+class OrderFile {
+  OrderFile({
+    this.id,
+    this.userId,
+    this.file,
+    this.fullPath,
+    this.fileType,
+    this.fileId,
+    this.path,
+    this.url,
+    this.ext,
+    this.name,
+    this.size,
+    this.sizeBytes,
+    this.mimtype,
+    this.deletedAt,
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  int? id;
+  int? userId;
+  String? file;
+  String? fullPath;
+  String? fileType;
+  int? fileId;
+  String? path;
+  String? ext;
+  String? name;
+  String? size;
+  String? url;
+  int? sizeBytes;
+  String? mimtype;
+  dynamic deletedAt;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+
+  factory OrderFile.fromJson(Map<String, dynamic> json) => OrderFile(
+        id: json['id'],
+        userId: json['user_id'],
+        file: json['file'],
+        fullPath: json['full_path'],
+        fileType: json['file_type'],
+        fileId: json['file_id'],
+        path: json['path'],
+        ext: json['ext'],
+        name: json['name'],
+        url: json['url'],
+        size: json['size'],
+        sizeBytes: json['size_bytes'],
+        mimtype: json['mimtype'],
+        deletedAt: json['deleted_at'],
+        createdAt: DateTime.parse(json['created_at']),
+        updatedAt: DateTime.parse(json['updated_at']),
+      );
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'user_id': userId,
+        'file': file,
+        'full_path': fullPath,
+        'url': url,
+        'file_type': fileType,
+        'file_id': fileId,
+        'path': path,
+        'ext': ext,
+        'name': name,
+        'size': size,
+        'size_bytes': sizeBytes,
+        'mimtype': mimtype,
+        'deleted_at': deletedAt,
+        'created_at': createdAt?.toIso8601String(),
+        'updated_at': updatedAt?.toIso8601String(),
+      };
+}

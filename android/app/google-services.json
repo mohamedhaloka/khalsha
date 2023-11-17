@@ -1,0 +1,106 @@
+{
+  "project_info": {
+    "project_number": "440607721662",
+    "project_id": "khalasha-53a85",
+    "storage_bucket": "khalasha-53a85.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:440607721662:android:76b1d78e61d6747e92f6ef",
+        "android_client_info": {
+          "package_name": "com.app.khalsha"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "440607721662-jv0cgo22dhi1v6eluu5d7ot1jb6a2bn3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.khalsha",
+            "certificate_hash": "229f55ddf2edca1935760d4967503d7708e6c683"
+          }
+        },
+        {
+          "client_id": "440607721662-pch0vacd2ec4r1l36kvpjutivo399a4b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.khalsha",
+            "certificate_hash": "5ecc491d0a59796dfeeaef0aa3bc24348e6ef6a2"
+          }
+        },
+        {
+          "client_id": "440607721662-vdjqjvkrjqespug93esibofupngp6gip.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.khalsha",
+            "certificate_hash": "0b09ee4130e4009771f91e9d2256be94dba7c45d"
+          }
+        },
+        {
+          "client_id": "440607721662-gee4m34jcuuufl3ltq8u0tipsnoov8ug.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCz94HV6LXsSw3rdMSMnGFKvKJ82ZgiNmk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "440607721662-gee4m34jcuuufl3ltq8u0tipsnoov8ug.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "440607721662-98kmokobm0f9dqnht1opn1d94ejq4ke6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.app.khalsha.provider"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:440607721662:android:5d2930441d9a480592f6ef",
+        "android_client_info": {
+          "package_name": "com.app.khalsha.provider"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "440607721662-gee4m34jcuuufl3ltq8u0tipsnoov8ug.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCz94HV6LXsSw3rdMSMnGFKvKJ82ZgiNmk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "440607721662-gee4m34jcuuufl3ltq8u0tipsnoov8ug.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "440607721662-98kmokobm0f9dqnht1opn1d94ejq4ke6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.app.khalsha.provider"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

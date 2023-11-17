@@ -1,0 +1,167 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:khalsha/core/data/services/http_service.dart';
+import 'package:khalsha/core/data/source/local/user_local.dart';
+import 'package:khalsha/core/presentation/themes/colors_manager.dart';
+import 'package:khalsha/features/order_details/presentation/bottom_sheets/change_order_status_sheet.dart';
+import 'package:khalsha/features/order_details/presentation/view.dart';
+import 'package:khalsha/features/orders/domain/entities/order_model.dart';
+import 'package:khalsha/features/widgets/headline_bottom_sheet.dart';
+import 'package:khalsha/features/widgets/images_viewer.dart';
+
+class OrderStatusSteps extends GetView<OrderDetailsController> {
+  const OrderStatusSteps({
+    Key? key,
+    required this.steps,
+  }) : super(key: key);
+  final List<OrderStepModel> steps;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.separated(
+      shrinkWrap: true,
+      padding: const EdgeInsets.symmetric(vertical: 15),
+      physics: const NeverScrollableScrollPhysics(),
+      itemBuilder: (_, int index) => _OrderStep(
+        steps[index],
+        controller: controller,
+      ),
+      separatorBuilder: (_, __) => const Divider(),
+      itemCount: steps.length,
+    );
+  }
+}
+
+class _OrderStep extends StatelessWidget {
+  const _OrderStep(
+    this.stepModel, {
+    Key? key,
+    required this.controller,
+  }) : super(key: key);
+  final OrderStepModel stepModel;
+  final OrderDetailsController controller;
+
+  int get userId => UserDataLocal.instance.data.value.user!.id!;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: stepModel.status == kDone || stepModel.step != 'statement'
+          ? null
+          : () {
+              Get.bottomSheet(
+                HeadLineBottomSheet(
+                  bottomSheetTitle: (stepModel.step ?? '').tr,
+                  height: Get.height / 1.5,
+                  body: ChangeOrderStatusSheet(stepModel),
+                ),
+                isScrollControlled: true,
+              );
+            },
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(12)),
+            border: Border.all(
+              color: stepModel.status == kDone
+                  ? ColorManager.secondaryColor
+                  : ColorManager.primaryColor,
+            )),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Text(
+                  stepModel.step!.tr,
+                  style: Get.textTheme.titleMedium!.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: stepModel.status == kDone
+                        ? ColorManager.secondaryColor
+                        : ColorManager.primaryColor,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Text(
+                  stepModel.status!.tr,
+                  style: const TextStyle(
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
+              ],
+            ),
+            Text(
+              stepModel.user!.name!,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            if (stepModel.note != null) ...[
+              Text(stepModel.note!),
+            ],
+            if (stepModel.files!.isNotEmpty) ...[
+              const Divider(),
+              GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                padding: const EdgeInsets.symmetric(vertical: 5),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 4,
+                  crossAxisSpacing: 12.0,
+                  mainAxisSpacing: 12.0,
+                ),
+                itemCount: stepModel.files!.length,
+                itemBuilder: (_, int index) => Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Get.to(() => ImagesViewer(images: [
+                              '${HttpService.fileBaseURL}${stepModel.files![index].url}'
+                            ]));
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: ColorManager.lightGreyColor,
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(22)),
+                          image: DecorationImage(
+                            image: NetworkImage(
+                                '${HttpService.fileBaseURL}${stepModel.files![index].url}'),
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                        child: const Center(
+                          child: Icon(CupertinoIcons.photo),
+                        ),
+                      ),
+                    ),
+                    if (userId == stepModel.userId && stepModel.status != kDone)
+                      Positioned(
+                        top: 0,
+                        left: 0,
+                        child: InkWell(
+                          onTap: () async {
+                            // loading(true);
+                            await controller.deleteImage(
+                              stepModel.files![index].id!,
+                            );
+                            Get.back();
+                            // loading(false);
+                          },
+                          child: const CircleAvatar(
+                            radius: 8,
+                            backgroundColor: ColorManager.errorColor,
+                            child: Icon(Icons.clear, size: 10),
+                          ),
+                        ),
+                      )
+                  ],
+                ),
+              )
+            ]
+          ],
+        ),
+      ),
+    );
+  }
+}

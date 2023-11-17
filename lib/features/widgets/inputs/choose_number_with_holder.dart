@@ -1,0 +1,84 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import 'package:khalsha/core/presentation/themes/colors_manager.dart';
+import 'package:khalsha/core/inputs_style.dart';
+import 'package:khalsha/features/widgets/custom_button.dart';
+import 'package:khalsha/features/widgets/inputs/input_holder_box.dart';
+
+class ChooseNumberWithHolder extends StatelessWidget {
+  const ChooseNumberWithHolder({
+    Key? key,
+    required this.title,
+    required this.currentNumber,
+  }) : super(key: key);
+  final RxInt currentNumber;
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return InputHolderBox(
+      Row(
+        children: [
+          Expanded(
+            child: Text(
+              title,
+              style: Get.textTheme.bodyMedium!.copyWith(
+                fontWeight: FontWeight.bold,
+                color: ColorManager.greyColor,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Row(
+              children: [
+                CustomButton(
+                  onTap: () {
+                    FocusScope.of(context).requestFocus(FocusNode());
+                    currentNumber.value++;
+                  },
+                  text: '+',
+                  radius: radius,
+                  width: inputHeight,
+                  height: inputHeight,
+                ),
+                Expanded(
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 10),
+                    height: inputHeight,
+                    decoration: BoxDecoration(
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(radius)),
+                      border: Border.all(
+                        color: ColorManager.greyColor,
+                        width: .5,
+                      ),
+                    ),
+                    alignment: Alignment.center,
+                    child: Obx(() => Text(
+                          currentNumber.value.toString(),
+                          style: Get.textTheme.bodySmall!.copyWith(
+                            color: ColorManager.greyColor,
+                          ),
+                        )),
+                  ),
+                ),
+                CustomButton(
+                  onTap: () {
+                    FocusScope.of(context).requestFocus(FocusNode());
+                    if (currentNumber.value == 0) return;
+                    currentNumber.value--;
+                  },
+                  text: '-',
+                  radius: radius,
+                  width: inputHeight,
+                  height: inputHeight,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
