@@ -185,6 +185,7 @@ class RootController extends GetxController {
         await UserDataLocal.instance.save(userData.toJson());
         _updateFCMToken();
         _getUnSeenNotifications();
+        _notificationService.onGetInitialMessage();
       },
     );
   }

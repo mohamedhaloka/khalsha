@@ -271,7 +271,21 @@ class OrderDetailsController extends GetxController {
     });
   }
 
-  Future<void> showInvoice(String url) async {
+  Future<void> downloadInvoice(String url) async {
+    // showInvoiceLoading(true);
+    // var tempDir = await getTemporaryDirectory();
+    // String fullPath = '${tempDir.path}/invoice_${url.split('/').last}.pdf';
+    //
+    // final response = await http.get(
+    //   Uri.parse(url),
+    //   headers: HttpService.header,
+    // );
+    // if (response.statusCode != 200) return;
+    //
+    // File pdfFile = await File(fullPath).writeAsBytes(response.bodyBytes);
+    // Get.to(() => InvoiceDetailsView(path: pdfFile.path));
+    // showInvoiceLoading(false);
+
     showInvoiceLoading(true);
     var tempDir = await getTemporaryDirectory();
     String fullPath = '${tempDir.path}/invoice_${url.split('/').last}.pdf';
@@ -280,10 +294,12 @@ class OrderDetailsController extends GetxController {
       Uri.parse(url),
       headers: HttpService.header,
     );
+
     if (response.statusCode != 200) return;
 
-    File pdfFile = await File(fullPath).writeAsBytes(response.bodyBytes);
-    Get.to(() => InvoiceDetailsView(path: pdfFile.path));
+    final file = await File(fullPath).writeAsBytes(response.bodyBytes);
+    await Permission.manageExternalStorage.request();
+    await OpenFile.open(file.path);
     showInvoiceLoading(false);
   }
 }

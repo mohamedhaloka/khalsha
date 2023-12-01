@@ -3,7 +3,7 @@ description: Khalsha app for Logistic Transportations.
 
 publish_to: 'none'
 
-version: 1.0.0+15
+version: 1.0.0+10
 
 environment:
   sdk: '>=2.19.0 <3.0.0'
@@ -99,7 +99,8 @@ dependencies:
   flutter_intro: ^2.3.1
   # for send what ever error happens to firebase
   firebase_crashlytics: ^3.3.7
-
+  #get the permission of open external files and open it
+  open_file: ^3.3.1
 
 dev_dependencies:
   flutter_test:

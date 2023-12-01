@@ -1,12 +1,12 @@
 import 'dart:io';
 
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-
-import 'package:khalsha/core/presentation/themes/colors_manager.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:khalsha/core/inputs_style.dart';
+import 'package:khalsha/core/presentation/themes/colors_manager.dart';
+import 'package:khalsha/core/utils.dart';
 import 'package:khalsha/features/widgets/inputs/input_holder_box.dart';
 
 class AttachFileWithHolder extends StatelessWidget {
@@ -119,13 +119,24 @@ class AttachFileWithHolder extends StatelessWidget {
   }
 
   void chooseFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.image,
+    XFile? imageFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 30,
+      maxHeight: 350,
+      maxWidth: 350,
     );
 
-    if (result == null) return;
-    file(File(result.files.single.path!));
+    if (imageFile == null) return;
+
+    final int imageSize = await imageFile.length();
+
+    if (imageSize > 4000000) {
+      showAlertMessage('photo-must-be-smaller-than-4mb');
+      return;
+    }
+
+    file(File(imageFile.path));
     if (onChooseFile == null) return;
-    onChooseFile!(result.files.single.path!);
+    onChooseFile!(imageFile.path);
   }
 }

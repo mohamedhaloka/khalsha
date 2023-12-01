@@ -20,6 +20,7 @@ Map<String, String> ar = {
   'gallery': 'معرض الصور',
   'camera': 'الكاميرا',
   'photo-must-be-smaller-than-4mb': 'يجب ان يكون حجم الصورة أقل من ٤ ميجا',
+  'file-must-be-smaller-than-2mb': 'يجب ان يكون حجم الملف أقل من ٢ ميجا',
   'riyal_saudi': 'ر.س',
 
   //Home

@@ -74,7 +74,9 @@ class ProfilePhoto extends GetView<AccountSettingsController> {
   }
 
   void chooseImage() async {
-    XFile? result = await ImagePicker().pickImage(source: ImageSource.gallery);
+    XFile? result = await ImagePicker().pickImage(source: ImageSource.gallery,
+      imageQuality: 50,
+    );
 
     if (result == null) return;
     controller.profilePhoto(File(result.path));

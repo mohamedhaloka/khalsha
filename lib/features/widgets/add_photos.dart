@@ -9,7 +9,7 @@ import 'package:khalsha/core/presentation/themes/colors_manager.dart';
 import 'package:khalsha/core/utils.dart' as util;
 
 class AddPhotos extends StatefulWidget {
-  const AddPhotos({Key? key, required this.images, this.text})
+  const AddPhotos({Key? key, required this.images, this.text,})
       : super(key: key);
   final RxList<File> images;
   final String? text;
@@ -114,7 +114,7 @@ class _AddPhotosState extends State<AddPhotos> {
 
   void _chooseImage(int index, ImageSource imageSource) async {
     final XFile? pickedImage = await ImagePicker().pickImage(
-        imageQuality: 30, source: imageSource, maxWidth: 350, maxHeight: 350);
+        imageQuality: 30, source: imageSource, maxWidth: 350, maxHeight: 350,);
 
     Get.back();
     if (pickedImage == null) return;

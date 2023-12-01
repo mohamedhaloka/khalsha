@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:khalsha/core/presentation/themes/colors_manager.dart';
+import 'package:khalsha/core/utils.dart';
 import 'package:khalsha/features/widgets/headline_bottom_sheet.dart';
 
 class ChooseFileSourceSheet extends StatelessWidget {
@@ -19,9 +20,22 @@ class ChooseFileSourceSheet extends StatelessWidget {
         children: [
           ListTile(
             onTap: () async {
-              XFile? imageFile =
-                  await ImagePicker().pickImage(source: ImageSource.camera);
+              XFile? imageFile = await ImagePicker().pickImage(
+                source: ImageSource.camera,
+                imageQuality: 30,
+                maxWidth: 350,
+                maxHeight: 350,
+              );
+
               if (imageFile == null) return;
+
+              final int imageSize = await imageFile.length();
+
+              if (imageSize > 4000000) {
+                showAlertMessage('photo-must-be-smaller-than-4mb');
+                return;
+              }
+
               Get.back();
               onChooseFiles([File(imageFile.path)]);
             },
@@ -33,7 +47,7 @@ class ChooseFileSourceSheet extends StatelessWidget {
           ),
           ListTile(
             onTap: () async {
-              final files = await pickFiles();
+              final files = await _pickFiles();
               if (files == null) return;
               Get.back();
               onChooseFiles(files.map((e) => File(e.path!)).toList());
@@ -50,12 +64,23 @@ class ChooseFileSourceSheet extends StatelessWidget {
     );
   }
 
-  Future<List<PlatformFile>?> pickFiles() async {
-    FilePickerResult? result =
-        await FilePicker.platform.pickFiles(allowMultiple: true);
+  Future<List<PlatformFile>?> _pickFiles() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      allowMultiple: true,
+      allowCompression: true,
+    );
 
     if (result != null) {
       List<PlatformFile> files = result.files;
+
+      // for (var element in files) {
+      //   print('file size ${element.size}');
+      // }
+
+      if (files.any((element) => element.size > 2000000)) {
+        showAlertMessage('file-must-be-smaller-than-2mb');
+        return null;
+      }
 
       return files;
     } else {

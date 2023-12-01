@@ -248,10 +248,11 @@ class LandShippingOrder extends OrderModel {
               title: 'وصف الشحنة',
               description: content,
             ),
-            OrderDetailsItemModel(
-              title: 'ملاحظات إضافية',
-              description: note,
-            ),
+            if ((note ?? '').isNotEmpty)
+              OrderDetailsItemModel(
+                title: 'ملاحظات إضافية',
+                description: note,
+              ),
             OrderDetailsItemModel(
               title: 'تاريخ التحميل',
               description: loadingDate.formatTime('dd/MM/yyyy'),
@@ -262,25 +263,24 @@ class LandShippingOrder extends OrderModel {
             ),
           ],
         ),
-        if ((files ?? []).isNotEmpty)
-          OrderSectionItemModel(
-            title: 'الملفات',
-            data: [
-              for (var file in files ?? <OrderFile>[]) ...[
-                OrderDetailsItemModel(
-                  title: 'ملف',
-                  description: file.url,
-                  type: OrderDetailsTypes.file,
-                ),
-              ],
-              if (offers.isEmpty)
-                OrderDetailsItemModel(
-                  title: 'أضف ملف',
-                  enableGesture: true,
-                  action: OrderDetailsAction.uploadFile,
-                ),
+        OrderSectionItemModel(
+          title: 'الملفات',
+          data: [
+            for (var file in files ?? <OrderFile>[]) ...[
+              OrderDetailsItemModel(
+                title: 'ملف',
+                description: file.url,
+                type: OrderDetailsTypes.file,
+              ),
             ],
-          ),
+            if (offers.isEmpty)
+              OrderDetailsItemModel(
+                title: 'أضف ملف',
+                enableGesture: true,
+                action: OrderDetailsAction.uploadFile,
+              ),
+          ],
+        ),
         OrderSectionItemModel(
           title: 'مواقع التحميل و التسليم',
           data: [
@@ -384,14 +384,16 @@ class LandShippingOrder extends OrderModel {
               title: 'صاحب الطلب',
               description: user.name,
             ),
-            OrderDetailsItemModel(
-              title: 'الجوال',
-              description: user.mobile,
-            ),
-            OrderDetailsItemModel(
-              title: 'البريد الإلكتروني',
-              description: user.email,
-            ),
+            if ((user.mobile ?? '').isNotEmpty)
+              OrderDetailsItemModel(
+                title: 'الجوال',
+                description: user.mobile,
+              ),
+            if ((user.email ?? '').isNotEmpty)
+              OrderDetailsItemModel(
+                title: 'البريد الإلكتروني',
+                description: user.email,
+              ),
           ],
         ),
       ];

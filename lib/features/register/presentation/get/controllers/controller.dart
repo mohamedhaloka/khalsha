@@ -15,7 +15,7 @@ class RegisterController extends GetxController {
   RegisterController(this._registerUseCase);
 
   List<ItemModel> tabs = const <ItemModel>[
-    ItemModel(text: 'مستورد/مصدر', id: 0),
+    ItemModel(text: 'أفراد/شركات', id: 0),
     ItemModel(text: 'مقدم خدمات لوجيستية', id: 1),
   ];
 

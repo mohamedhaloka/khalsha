@@ -25,7 +25,7 @@ class LoginController extends GetxController {
 
   List<ItemModel> socials = <ItemModel>[
     const ItemModel(id: 0, text: 'Google', image: 'google'),
-    const ItemModel(id: 1, text: 'Facebook', image: 'facebook'),
+    // const ItemModel(id: 1, text: 'Facebook', image: 'facebook'),
     if (GetPlatform.isIOS) ...[
       const ItemModel(id: 2, text: 'IOS', image: 'apple'),
     ]
@@ -79,12 +79,12 @@ class LoginController extends GetxController {
           showAlertMessage(failure.statusMessage);
         }
       },
-      (UserData userData) async{
+      (UserData userData) async {
         if (userData.user?.userType != UserType.importerExporter.value) {
           downloadProviderApp();
           return;
         }
-      await  UserDataLocal.instance.save(userData.toJson());
+        await UserDataLocal.instance.save(userData.toJson());
         Get.offAllNamed(Routes.root);
       },
     );
@@ -161,7 +161,7 @@ class LoginController extends GetxController {
     final result = await _socialLoginUseCase.execute(params);
     result.fold(
       (Failure failure) => showAlertMessage(failure.statusMessage),
-      (UserData userData) async{
+      (UserData userData) async {
         if (userData.user?.userType != UserType.importerExporter.value) {
           downloadProviderApp();
           return;
@@ -173,7 +173,7 @@ class LoginController extends GetxController {
           );
           return;
         }
-      await  UserDataLocal.instance.save(userData.toJson());
+        await UserDataLocal.instance.save(userData.toJson());
         Get.offAllNamed(Routes.root);
       },
     );

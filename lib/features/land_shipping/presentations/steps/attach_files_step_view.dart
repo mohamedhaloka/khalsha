@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -111,25 +110,5 @@ class LandShippingAttachFilesStepView
                 ))
           ],
         ));
-  }
-
-  Future<List<PlatformFile>?> pickFiles() async {
-    FilePickerResult? result =
-        await FilePicker.platform.pickFiles(allowMultiple: true);
-
-    if (result != null) {
-      List<PlatformFile> files = result.files;
-
-      return files;
-    } else {
-      return null;
-    }
-  }
-}
-
-extension FileName on File {
-  String? get fileName {
-    if (path != '') return 'تم';
-    return null;
   }
 }

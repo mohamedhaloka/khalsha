@@ -50,13 +50,13 @@ class AccountSettingsView extends GetView<AccountSettingsController> {
                   helper:
                       'في حال تغيير البريد الإلكتروني يجب عليك إعادة تسجيل الدخول',
                 ),
-                CustomTextField(
-                  title: 'نبذه',
-                  hint: 'اكتب نبذة عنك',
-                  controller: controller.bio,
-                  titleStyle: _titleStyle,
-                  maxLines: 3,
-                ),
+                // CustomTextField(
+                //   title: 'نبذه',
+                //   hint: 'اكتب نبذة عنك',
+                //   controller: controller.bio,
+                //   titleStyle: _titleStyle,
+                //   maxLines: 3,
+                // ),
                 const _SectionTitle('هل أنت شركة ؟'),
                 ChooseFile(
                   title: 'إرفاق السجل التجاري',
@@ -64,7 +64,7 @@ class AccountSettingsView extends GetView<AccountSettingsController> {
                   file: controller.commercialCertificate,
                   titleStyle: _titleStyle,
                   helper:
-                      'إذا قمت برفع ملف السجل التجاري سيتم وضع حسابك تحت مراجعة الإدارة',
+                      'إذا قمت برفع السجل التجاري سيتم وضع حسابك تحت مراجعة الإدارة',
                 ),
                 const SizedBox(height: 20),
                 CustomButton(

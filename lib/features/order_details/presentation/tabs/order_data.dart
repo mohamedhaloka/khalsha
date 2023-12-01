@@ -20,9 +20,21 @@ class _OrderDataTab extends GetView<OrderDetailsController> {
                   onTap: (action) async {
                     switch (action) {
                       case OrderDetailsAction.uploadFile:
-                        final pickedImage = await ImagePicker()
-                            .pickImage(source: ImageSource.gallery);
+                        final pickedImage = await ImagePicker().pickImage(
+                          source: ImageSource.gallery,
+                          imageQuality: 30,
+                          maxWidth: 350,
+                          maxHeight: 350,
+                        );
                         if (pickedImage == null) return;
+
+                        final int imageSize = await pickedImage.length();
+                        // print('imageSize : $imageSize');
+                        if (imageSize > 4000000) {
+                          showAlertMessage('file-must-be-smaller-than-4mb');
+                          return;
+                        }
+
                         controller.showFileChooseDialog(pickedImage.path);
                         break;
 

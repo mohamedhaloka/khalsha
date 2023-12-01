@@ -5,6 +5,7 @@ class Failure extends Equatable {
   final int? statusCode;
   final String? statusMessage;
   const Failure({this.statusCode, this.statusMessage});
+
   @override
   List<Object?> get props => [statusCode, statusMessage];
 }

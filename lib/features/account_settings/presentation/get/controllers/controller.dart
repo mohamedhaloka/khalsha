@@ -34,7 +34,7 @@ class AccountSettingsController extends GetxController {
   TextEditingController name = TextEditingController(),
       email = TextEditingController(),
       phone = TextEditingController(),
-      bio = TextEditingController(),
+      // bio = TextEditingController(),
       oldPassword = TextEditingController(),
       newPassword = TextEditingController(),
       confirmNewPassword = TextEditingController();
@@ -75,7 +75,7 @@ class AccountSettingsController extends GetxController {
         name.text = profileData.name ?? '';
         email.text = profileData.email ?? '';
         phone.text = profileData.mobile ?? '';
-        bio.text = profileData.bio ?? '';
+        // bio.text = profileData.bio ?? '';
         if (profileData.commercialCert != null) {
           await _downloadImage(
             profileData.commercialCert!,
@@ -120,7 +120,7 @@ class AccountSettingsController extends GetxController {
       name: name.text,
       email: email.text,
       mobile: phone.text,
-      bio: bio.text,
+      bio: '', //bio.text
       commercialCert: commercialCertificate.value.path,
     );
 

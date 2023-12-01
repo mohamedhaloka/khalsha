@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/features/on_boarding/presentation/get/controllers/controller.dart';
-import 'package:khalsha/features/widgets/custom_button.dart';
-
-import 'package:khalsha/features/widgets/custom_app_bar.dart';
-import 'package:khalsha/features/widgets/stylish_text.dart';
 import 'package:khalsha/features/on_boarding/data/models/on_boarding_item_model.dart';
+import 'package:khalsha/features/on_boarding/presentation/get/controllers/controller.dart';
+import 'package:khalsha/features/widgets/custom_app_bar.dart';
+import 'package:khalsha/features/widgets/custom_button.dart';
+import 'package:khalsha/features/widgets/stylish_text.dart';
 
 class OnBoardingView extends GetView<OnBoardingController> {
   const OnBoardingView({Key? key}) : super(key: key);

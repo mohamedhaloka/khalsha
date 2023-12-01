@@ -1,9 +1,8 @@
 import 'package:cached_video_player/cached_video_player.dart';
 import 'package:get/get.dart';
+import 'package:khalsha/core/data/models/item_model.dart';
 import 'package:khalsha/features/home/data/models/statistics_model.dart';
 import 'package:khalsha/features/service_intro/presentation/get/controllers/controller.dart';
-
-import 'package:khalsha/core/data/models/item_model.dart';
 
 class HomeController extends GetxController {
   List<ItemModel> services = <ItemModel>[];
@@ -18,6 +17,7 @@ class HomeController extends GetxController {
   void onInit() {
     videoController = CachedVideoPlayerController.network(
         'https://drive.google.com/uc?export=download&id=1SvcpuZW_-clbKU7ZFg_RRNy3QTZ31-tb')
+      ..setVolume(0.0)
       ..initialize().then((_) {
         showVideo(true);
       });

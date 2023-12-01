@@ -22,12 +22,14 @@ class MapView extends GetView<MapController> {
               onTap: () async {
                 Get.back(result: controller.locationDetails);
               },
-              child: const Text(
-                'حفظ',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
+              child: const Center(
+                child: Text(
+                  'حفظ',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),

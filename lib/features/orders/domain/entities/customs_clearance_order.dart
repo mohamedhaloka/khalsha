@@ -5,6 +5,8 @@ class CustomsClearanceOrder extends OrderModel {
   String chargeField;
   int shippingPortId;
   String deliveryTo;
+  String deliveryToLat;
+  String deliveryToLng;
   String customsItem;
   String wantStorage;
   String storageDays;
@@ -40,6 +42,8 @@ class CustomsClearanceOrder extends OrderModel {
     required this.chargeField,
     required this.shippingPortId,
     required this.deliveryTo,
+    required this.deliveryToLat,
+    required this.deliveryToLng,
     required this.customsItem,
     required this.wantStorage,
     required this.storageDays,
@@ -147,6 +151,8 @@ class CustomsClearanceOrder extends OrderModel {
         chargeField: json['charge_field'] ?? '',
         shippingPortId: json['shipping_port_id'] ?? 0,
         deliveryTo: json['delivery_to'] ?? '',
+        deliveryToLat: json['delivery_to_lat'] ?? '',
+        deliveryToLng: json['delivery_to_lng'] ?? '',
         customsItem: json['customs_item'] ?? 'no',
         wantStorage: json['want_storage'] ?? 'no',
         storageDays: json['storage_days'] ?? '0',
@@ -220,6 +226,8 @@ class CustomsClearanceOrder extends OrderModel {
             OrderDetailsItemModel(
               title: 'توصيل إلي',
               description: deliveryTo,
+              value: '$deliveryToLat,$deliveryToLng',
+              type: OrderDetailsTypes.mapDirection,
             ),
             OrderDetailsItemModel(
               title: 'مجال الشحنة',
@@ -237,25 +245,24 @@ class CustomsClearanceOrder extends OrderModel {
             ]
           ],
         ),
-        if (files.isNotEmpty)
-          OrderSectionItemModel(
-            title: 'الملفات',
-            data: [
-              for (var file in files) ...[
-                OrderDetailsItemModel(
-                  title: 'ملف',
-                  description: file.url,
-                  type: OrderDetailsTypes.file,
-                ),
-              ],
-              if (offers.isEmpty)
-                OrderDetailsItemModel(
-                  title: 'أضف ملف',
-                  enableGesture: true,
-                  action: OrderDetailsAction.uploadFile,
-                ),
+        OrderSectionItemModel(
+          title: 'الملفات',
+          data: [
+            for (var file in files) ...[
+              OrderDetailsItemModel(
+                title: 'ملف',
+                description: file.url,
+                type: OrderDetailsTypes.file,
+              ),
             ],
-          ),
+            if (offers.isEmpty)
+              OrderDetailsItemModel(
+                title: 'أضف ملف',
+                enableGesture: true,
+                action: OrderDetailsAction.uploadFile,
+              ),
+          ],
+        ),
         if (shippingMethod == 'parcel') ...[
           OrderSectionItemModel(
             title: 'طرد',
@@ -341,14 +348,16 @@ class CustomsClearanceOrder extends OrderModel {
               title: 'صاحب الطلب',
               description: user.name,
             ),
-            OrderDetailsItemModel(
-              title: 'الجوال',
-              description: user.mobile,
-            ),
-            OrderDetailsItemModel(
-              title: 'البريد الإلكتروني',
-              description: user.email,
-            ),
+            if ((user.mobile ?? '').isNotEmpty)
+              OrderDetailsItemModel(
+                title: 'الجوال',
+                description: user.mobile,
+              ),
+            if ((user.email ?? '').isNotEmpty)
+              OrderDetailsItemModel(
+                title: 'البريد الإلكتروني',
+                description: user.email,
+              ),
           ],
         ),
       ];
