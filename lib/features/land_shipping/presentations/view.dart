@@ -242,7 +242,7 @@ class _PickLocations extends GetView<AddEditLandShippingServiceController> {
         StatefulBuilder(
           builder: (_, setState) => ServiceItemWithHolder(
             title: 'تاريخ / وقت التحميل',
-            text: controller.loadingDate.formatTime('dd-MM-yyyy'),
+            text: controller.loadingDate.formatDateTime('dd-MM-yyyy'),
             btnHeight: inputHeight + 20,
             btnWidth: inputHeight + 50,
             onTap: () => _chooseDateTime(
@@ -258,7 +258,7 @@ class _PickLocations extends GetView<AddEditLandShippingServiceController> {
         StatefulBuilder(
           builder: (_, setState) => ServiceItemWithHolder(
             title: 'تاريخ / وقت التسليم',
-            text: controller.deliveryDate.formatTime('dd-MM-yyyy'),
+            text: controller.deliveryDate.formatDateTime('dd-MM-yyyy'),
             btnHeight: inputHeight + 20,
             btnWidth: inputHeight + 50,
             onTap: () => _chooseDateTime(

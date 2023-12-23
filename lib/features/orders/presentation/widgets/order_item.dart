@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:khalsha/core/presentation/routes/app_routes.dart';
 import 'package:khalsha/core/presentation/themes/colors_manager.dart';
+import 'package:khalsha/core/presentation/utils/enums/service_types_enum.dart';
 import 'package:khalsha/features/orders/domain/entities/order_model.dart';
 import 'package:khalsha/features/orders/presentation/get/controllers/controller.dart';
-import 'package:khalsha/features/service_intro/presentation/get/controllers/controller.dart';
 
 const _kAccepted = 'accepted';
 const _kRejected = 'rejected';

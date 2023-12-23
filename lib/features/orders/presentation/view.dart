@@ -3,18 +3,17 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_intro/flutter_intro.dart';
 import 'package:get/get.dart';
+import 'package:khalsha/core/data/source/local/intro_hint_count_locale.dart';
 import 'package:khalsha/core/presentation/themes/colors_manager.dart';
+import 'package:khalsha/core/presentation/utils/enums/service_types_enum.dart';
+import 'package:khalsha/features/orders/presentation/get/controllers/controller.dart';
 import 'package:khalsha/features/orders/presentation/widgets/filter.dart';
 import 'package:khalsha/features/orders/presentation/widgets/order_item.dart';
-import 'package:khalsha/features/service_intro/presentation/get/controllers/controller.dart';
 import 'package:khalsha/features/widgets/custom_app_bar.dart';
-import 'package:khalsha/features/widgets/smart_refresh.dart';
-
-import 'package:khalsha/core/data/source/local/intro_hint_count_locale.dart';
-import 'package:khalsha/injection_container.dart';
 import 'package:khalsha/features/widgets/headline_bottom_sheet.dart';
 import 'package:khalsha/features/widgets/services_filtration_sheet.dart';
-import 'package:khalsha/features/orders/presentation/get/controllers/controller.dart';
+import 'package:khalsha/features/widgets/smart_refresh.dart';
+import 'package:khalsha/injection_container.dart';
 
 class OrdersView extends StatelessWidget {
   const OrdersView({Key? key}) : super(key: key);

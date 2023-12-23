@@ -255,11 +255,11 @@ class LandShippingOrder extends OrderModel {
               ),
             OrderDetailsItemModel(
               title: 'تاريخ التحميل',
-              description: loadingDate.formatTime('dd/MM/yyyy'),
+              description: loadingDate.formatDateTime('dd/MM/yyyy'),
             ),
             OrderDetailsItemModel(
               title: 'تاريخ التسليم',
-              description: loadingDate.formatTime('dd/MM/yyyy'),
+              description: loadingDate.formatDateTime('dd/MM/yyyy'),
             ),
           ],
         ),

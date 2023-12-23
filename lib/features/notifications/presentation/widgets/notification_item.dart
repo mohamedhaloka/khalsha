@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:khalsha/core/presentation/routes/app_routes.dart';
 import 'package:khalsha/core/presentation/themes/colors_manager.dart';
+import 'package:khalsha/core/presentation/utils/enums/service_types_enum.dart';
 import 'package:khalsha/features/notifications/data/models/notification_model.dart';
-import 'package:khalsha/features/service_intro/presentation/get/controllers/controller.dart';
 
 class NotificationItem extends StatelessWidget {
   const NotificationItem(this.index, this.notification, {Key? key})

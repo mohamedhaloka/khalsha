@@ -8,13 +8,13 @@ import 'package:google_maps_webservice/places.dart' as place;
 import 'package:khalsha/core/data/source/local/lang_locale.dart';
 import 'package:khalsha/core/domain/error/failures.dart';
 import 'package:khalsha/core/domain/use_cases/use_case.dart';
+import 'package:khalsha/core/presentation/utils/enums/service_types_enum.dart';
 import 'package:khalsha/core/utils.dart';
 import 'package:khalsha/features/map/data/model/location_details.dart';
 import 'package:khalsha/features/map/domain/use_case/get_device_location_use_case.dart';
 import 'package:khalsha/features/map/domain/use_case/get_location_name_use_case.dart';
 import 'package:khalsha/features/map/domain/use_case/get_place_details_use_case.dart';
 import 'package:khalsha/features/map/domain/use_case/get_places_from_search_use_case.dart';
-import 'package:khalsha/features/service_intro/presentation/get/controllers/controller.dart';
 import 'package:location/location.dart';
 
 class MapController extends GetxController {

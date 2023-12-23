@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/features/home/data/models/statistics_model.dart';
-import 'package:khalsha/features/service_intro/presentation/get/controllers/controller.dart';
-
 import 'package:khalsha/core/data/models/item_model.dart';
-import 'package:khalsha/core/presentation/routes/app_routes.dart';
 import 'package:khalsha/core/presentation/themes/colors_manager.dart';
+import 'package:khalsha/core/presentation/utils/enums/service_types_enum.dart';
+import 'package:khalsha/features/home/data/models/statistics_model.dart';
 
 class ServiceItem extends StatelessWidget {
   const ServiceItem(
@@ -20,8 +18,9 @@ class ServiceItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        if (service.route == null) return;
         Get.toNamed(
-          Routes.serviceIntro,
+          service.route!,
           arguments: service.arguments,
         );
       },

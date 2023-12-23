@@ -3,7 +3,7 @@ description: Khalsha app for Logistic Transportations.
 
 publish_to: 'none'
 
-version: 1.0.0+10
+version: 1.0.0+18
 
 environment:
   sdk: '>=2.19.0 <3.0.0'
@@ -21,8 +21,6 @@ dependencies:
   get: ^4.6.1
   #this package for local storage
   get_storage: ^2.0.3
-  #use this slider in on boarding
-  carousel_slider: ^4.0.0
   #this package for show svg images
   flutter_svg: ^1.0.3
   #this package for cached images
@@ -33,7 +31,6 @@ dependencies:
   flutter_countdown_timer: ^4.1.0
   #this package using for http request
   dio: 5.2.1+1
-
   #this package used launch url
   url_launcher: ^6.0.10
   #this package for use animation from lottie
@@ -44,16 +41,12 @@ dependencies:
   intl: ^0.17.0
   #this package for choose image from gallery
   image_picker: 0.8.4+11
-  # for loading
-  shimmer: ^2.0.0
   # for functional
   dartz: ^0.10.1
-  # for tab bar
-  cupertino_tabbar: ^2.0.0
   # for choose files
   file_picker: ^5.2.5
-  # for statistics chart
-  fl_chart: ^0.61.0
+  # for equal operator
+  equatable: ^2.0.5
   # show alerts
   rflutter_alert: ^2.0.4
   # for show animated toast messages

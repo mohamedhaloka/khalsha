@@ -46,8 +46,6 @@ import 'package:khalsha/features/root/presentation/get/controllers/controller.da
 import 'package:khalsha/features/root/presentation/view.dart';
 import 'package:khalsha/features/rule/presentation/get/bindings/binding.dart';
 import 'package:khalsha/features/rule/presentation/view.dart';
-import 'package:khalsha/features/service_intro/presentation/get/binding/binding.dart';
-import 'package:khalsha/features/service_intro/presentation/view.dart';
 import 'package:khalsha/features/sources/presentation/get/binding/binding.dart';
 import 'package:khalsha/features/sources/presentation/view.dart';
 import 'package:khalsha/features/stores/presentation/get/bindings/binding.dart';
@@ -95,12 +93,6 @@ class AppPages {
       name: _Paths.notifications,
       page: () => const NotificationsView(),
       binding: NotificationsBinding(),
-    ),
-    GetPage(
-      name: _Paths.serviceIntro,
-      page: () => const ServiceIntroView(),
-      binding: ServiceIntroBinding(),
-      middlewares: [_VerifyAccountMiddleware()],
     ),
     GetPage(
       name: _Paths.commonQuestions,

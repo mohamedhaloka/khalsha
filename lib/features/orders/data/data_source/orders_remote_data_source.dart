@@ -1,9 +1,8 @@
 import 'package:get/get.dart';
 import 'package:khalsha/core/data/services/http_service.dart';
-import 'package:khalsha/features/order_details/data/data_source/order_details_remote_data_source.dart';
-import 'package:khalsha/features/service_intro/presentation/get/controllers/controller.dart';
-
 import 'package:khalsha/core/domain/error/exceptions.dart';
+import 'package:khalsha/core/presentation/utils/enums/service_types_enum.dart';
+import 'package:khalsha/features/order_details/data/data_source/order_details_remote_data_source.dart';
 import 'package:khalsha/features/orders/domain/entities/order_model.dart';
 
 abstract class OrdersRemoteDataSource {

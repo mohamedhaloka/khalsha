@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:khalsha/features/service_intro/presentation/get/controllers/controller.dart';
-
 import 'package:khalsha/core/data/models/item_model.dart';
 import 'package:khalsha/core/presentation/themes/colors_manager.dart';
+import 'package:khalsha/core/presentation/utils/enums/service_types_enum.dart';
 
 class ServicesFiltrationSheet extends StatefulWidget {
   const ServicesFiltrationSheet({

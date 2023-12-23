@@ -12,9 +12,7 @@ class InvoiceDetailsView extends StatelessWidget {
       body: PDFView(
         filePath: path,
         enableSwipe: true,
-        swipeHorizontal: true,
         autoSpacing: false,
-        pageFling: false,
       ),
     );
   }

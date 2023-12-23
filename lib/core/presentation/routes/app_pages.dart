@@ -9,7 +9,6 @@ abstract class Routes {
   static const otp = _Paths.otp;
   static const root = _Paths.root;
   static const notifications = _Paths.notifications;
-  static const serviceIntro = _Paths.serviceIntro;
   static const commonQuestions = _Paths.commonQuestions;
   static const sources = _Paths.sources;
   static const contactUS = _Paths.contactUS;
@@ -42,7 +41,6 @@ abstract class _Paths {
   static const otp = '/otp';
   static const root = '/root';
   static const notifications = '/notifications';
-  static const serviceIntro = '/service_intro';
   static const commonQuestions = '/common_questions';
   static const sources = '/sources';
   static const contactUS = '/contact_us';

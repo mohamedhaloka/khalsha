@@ -31,7 +31,7 @@ class _OrderDataTab extends GetView<OrderDetailsController> {
                         final int imageSize = await pickedImage.length();
                         // print('imageSize : $imageSize');
                         if (imageSize > 4000000) {
-                          showAlertMessage('file-must-be-smaller-than-4mb');
+                          showAlertMessage('photo-must-be-smaller-than-4mb');
                           return;
                         }
 

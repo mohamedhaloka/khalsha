@@ -217,7 +217,7 @@ class AddEditStoresServiceController extends GetxController {
         addressLat: locationDetails.lat.toString(),
         addressLng: locationDetails.long.toString(),
         contractCount: contractDays.string,
-        contractStartAt: contractDate.formatTime(wareHouseDateFormat),
+        contractStartAt: contractDate.formatDateTime(wareHouseDateFormat),
         contractType: selectedContactType.value,
         customWarehouseSpace:
             palletIsSelected || !wareHouseSpaceCustomIsSelected

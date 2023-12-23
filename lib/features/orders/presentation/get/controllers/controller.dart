@@ -1,11 +1,10 @@
 import 'package:get/get.dart';
-import 'package:khalsha/features/orders/domain/use_cases/get_orders_use_case.dart';
-import 'package:khalsha/features/service_intro/presentation/get/controllers/controller.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
-
 import 'package:khalsha/core/presentation/routes/app_routes.dart';
+import 'package:khalsha/core/presentation/utils/enums/service_types_enum.dart';
 import 'package:khalsha/core/utils.dart';
 import 'package:khalsha/features/orders/domain/entities/order_model.dart';
+import 'package:khalsha/features/orders/domain/use_cases/get_orders_use_case.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class OrdersController extends GetxController {
   final GetOrdersUseCase _getOrdersUseCase;

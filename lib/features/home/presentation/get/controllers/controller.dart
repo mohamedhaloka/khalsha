@@ -1,8 +1,8 @@
 import 'package:cached_video_player/cached_video_player.dart';
 import 'package:get/get.dart';
 import 'package:khalsha/core/data/models/item_model.dart';
+import 'package:khalsha/core/presentation/routes/app_routes.dart';
 import 'package:khalsha/features/home/data/models/statistics_model.dart';
-import 'package:khalsha/features/service_intro/presentation/get/controllers/controller.dart';
 
 class HomeController extends GetxController {
   List<ItemModel> services = <ItemModel>[];
@@ -26,37 +26,43 @@ class HomeController extends GetxController {
         id: 1,
         image: 'landshippings',
         text: 'الشحن البري',
-        arguments: ServiceTypes.landShipping,
+        route: Routes.chooseShippingService,
+        // arguments: ServiceTypes.landShipping,
       ),
       ItemModel(
         id: 0,
         image: 'customsclearance',
         text: 'التخليص الجمركي',
-        arguments: ServiceTypes.customsClearance,
+        route: Routes.customsClearanceService,
+        // arguments: ServiceTypes.customsClearance,
       ),
       ItemModel(
         id: 3,
         image: 'seashippings',
         text: 'الشحن البحري',
-        arguments: ServiceTypes.marineShipping,
+        route: Routes.marineShipping,
+        // arguments: ServiceTypes.marineShipping,
       ),
       ItemModel(
         id: 2,
         image: 'warehouses',
         text: 'المخازن',
-        arguments: ServiceTypes.stores,
+        route: Routes.stores,
+        // arguments: ServiceTypes.stores,
       ),
       ItemModel(
         id: 5,
         image: 'laboratories',
         text: 'المختبرات و المقاييس',
-        arguments: ServiceTypes.laboratoryAndStandards,
+        route: Routes.laboratoryAndStandardsService,
+        // arguments: ServiceTypes.laboratoryAndStandards,
       ),
       ItemModel(
         id: 4,
         image: 'airshippings',
         text: 'الشحن الجوي',
-        arguments: ServiceTypes.airFreight,
+        route: Routes.airFreight,
+        // arguments: ServiceTypes.airFreight,
       ),
     ];
     super.onInit();

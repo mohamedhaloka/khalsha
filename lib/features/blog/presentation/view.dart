@@ -3,13 +3,12 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:khalsha/core/data/services/http_service.dart';
 import 'package:khalsha/core/presentation/extentions/format_time_extension.dart';
-import 'package:khalsha/features/blog/data/models/post_model.dart';
-import 'package:khalsha/features/widgets/custom_text_field.dart';
-
 import 'package:khalsha/core/presentation/routes/app_routes.dart';
 import 'package:khalsha/core/presentation/themes/colors_manager.dart';
-import 'package:khalsha/features/widgets/custom_app_bar.dart';
+import 'package:khalsha/features/blog/data/models/post_model.dart';
 import 'package:khalsha/features/blog/presentation/get/controllers/controller.dart';
+import 'package:khalsha/features/widgets/custom_app_bar.dart';
+import 'package:khalsha/features/widgets/custom_text_field.dart';
 
 class BlogView extends GetView<BlogController> {
   const BlogView({Key? key}) : super(key: key);
@@ -144,7 +143,7 @@ class _PostItem extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'تم النشر ${post.createdAt!.formatTime('dd/MM/yyyy')}',
+                  'تم النشر ${post.createdAt!.formatDateTime('dd/MM/yyyy')}',
                   style: Get.textTheme.bodySmall!.copyWith(
                     color: ColorManager.greyColor,
                   ),

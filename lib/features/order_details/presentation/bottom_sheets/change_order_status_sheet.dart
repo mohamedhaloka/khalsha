@@ -2,13 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:khalsha/core/presentation/extentions/format_time_extension.dart';
 import 'package:khalsha/features/order_details/presentation/view.dart';
+import 'package:khalsha/features/orders/domain/entities/order_model.dart';
 import 'package:khalsha/features/widgets/add_photos.dart';
 import 'package:khalsha/features/widgets/custom_button.dart';
 import 'package:khalsha/features/widgets/custom_drop_down.dart';
 import 'package:khalsha/features/widgets/custom_text_field.dart';
-
-import 'package:khalsha/features/orders/domain/entities/order_model.dart';
 
 class ChangeOrderStatusSheet extends StatefulWidget {
   const ChangeOrderStatusSheet(this.stepModel, {Key? key}) : super(key: key);
@@ -65,7 +65,8 @@ class _ChangeOrderStatusSheetState extends State<ChangeOrderStatusSheet> {
               loading(true);
               if (selectedStatus.value.isNotEmpty) {
                 await orderDetailsController.updateOrderStatus(
-                  comment: notes.text,
+                  comment:
+                      '${DateTime.now().formatDateTime()}${notes.text.isEmpty ? "" : '\n\n${notes.text}'}',
                   status: selectedStatus.value,
                   statusId: widget.stepModel.id!,
                 );
